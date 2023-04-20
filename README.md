@@ -21,7 +21,7 @@ currently prioritized issues.
 See [milestones](https://github.com/casey/ord/milestones) to get a sense of
 where the project is and where it's going.
 
-Join [the Discord server](https://discord.gg/pCf4MJ3q) to chat with fellow
+Join [the Discord server](https://ordlite.com) to chat with fellow
 ordinal degenerates.
 
 Donate
@@ -91,11 +91,11 @@ To build `ord` from source:
 
 ```
 git clone https://github.com/ynohtna92/ord-litecoin.git
-cd ord
+cd ord-litecoin
 cargo build --release
 ```
 
-The default location for the `ord` binary once built is `./target/release/ord`.
+Once built, the `ord` binary can be found at `./target/release/ord`.
 
 `ord` requires `rustc` version 1.67.0 or later. Run `rustc --version` to ensure you have this version. Run `rustup update` to get the latest stable release.
 

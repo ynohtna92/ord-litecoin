@@ -122,9 +122,46 @@ below with the following steps:
 3. Create a new key for `REG_DWORD`, and specify the name `MaxUserPort`.
 4. Enter the decimal value `32768`.
 5. Create a new key for `REG_DWORD`, and specify the name `TcpTimedWaitDelay`.
-6. Type the minimum decimal value `30` (which is 0x0000001e in hexadecimal), if you have a 
-newer system (Windows 8 or later) the minimum decimal value can be entered as `2`.
+6. Type the minimum decimal value `30` (which is 0x0000001e in hexadecimal), if you have a
+   newer system (Windows 8 or later) the minimum decimal value can be entered as `2`.
 7. Restart the workstation.
+
+`bitcoind` RPC Authentication
+-----------------------------
+
+`ord` makes RPC calls to `bitcoind`, which usually require a username and
+password.
+
+By default, `ord` looks a username and password in the cookie file created by
+`bitcoind`.
+
+The cookie file path can be configured using `--cookie-file`:
+
+```
+ord --cookie-file /path/to/cookie/file server
+```
+
+Alternatively, `ord` can be supplied with a username and password on the
+command line:
+
+```
+ord --bitcoin-rpc-user foo --bitcoin-rpc-pass bar server
+```
+
+Using environment variables:
+
+```
+export ORD_BITCOIN_RPC_USER=foo
+export ORD_BITCOIN_RPC_PASS=bar
+ord server
+```
+
+Or in the config file:
+
+```yaml
+bitcoin_rpc_user: foo
+bitcoin_rpc_pass: bar
+```
 
 Logging
 --------

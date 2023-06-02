@@ -96,6 +96,7 @@ mod tests {
         chain: Chain::Mainnet,
         genesis_fee: 1,
         genesis_height: 0,
+        genesis_output: tx_out(1, address()),
         inscription: inscription("text/plain;charset=utf-8", "HELLOWORLD"),
         inscription_id: inscription_id(1),
         next: None,

@@ -32,7 +32,7 @@ use {
     AcmeConfig,
   },
   std::collections::BTreeSet,
-  std::{cmp::Ordering, cmp::min, str},
+  std::{cmp::min, cmp::Ordering, str},
   tokio_stream::StreamExt,
   tower_http::{
     compression::CompressionLayer,
@@ -1272,6 +1272,9 @@ impl Server {
         "genesis_address": page_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
         "address": output.is_some().then(|| {
           page_config.chain.address_from_script(&output.clone().unwrap().script_pubkey).unwrap()
+        }),
+        "script_pubkey": output.is_some().then(|| {
+          output.clone().unwrap().script_pubkey
         }),
         "number": entry.number,
         "content_length": inscription.content_length(),

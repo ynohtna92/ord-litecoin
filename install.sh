@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-
 if [ ! -z ${GITHUB_ACTIONS-} ]; then
   set -x
 fi

@@ -18,7 +18,7 @@ transfer algorithm.
 See [the project board](https://github.com/users/casey/projects/3/) for
 currently prioritized issues.
 
-See [milestones](https://github.com/casey/ord/milestones) to get a sense of
+See [milestones](https://github.com/ordinals/ord/milestones) to get a sense of
 where the project is and where it's going.
 
 Join [the Discord server](https://ordlite.com) to chat with fellow
@@ -26,9 +26,24 @@ ordinal degenerates.
 
 Donate
 ------
-BTC - `bc1qqt2hz97ys62gg3gaq2cuxgqx5hw4rnyxnvpqkv`
 
-LTC - `ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk`
+Ordinals is open-source and community funded. The current lead maintainer of
+`ord` is [raphjaph](https://github.com/raphjaph/). Raph's work on `ord` is
+entirely funded by donations. If you can, please consider donating!
+
+The donation address is
+[bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt](https://mempool.space/address/bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt).
+
+This address is 2 of 4 multisig wallet with keys held by
+[raphjaph](https://twitter.com/raphjaph),
+[erin](https://twitter.com/realizingerin),
+[rodarmor](https://twitter.com/rodarmor), and
+[ordinally](https://twitter.com/veryordinally).
+
+Bitcoin received will go towards funding maintainance and development of `ord`,
+as well as hosting costs for [ordinals.com](https://ordinals.com).
+
+Thank you for donating!
 
 Wallet
 ------

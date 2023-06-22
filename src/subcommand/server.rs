@@ -505,15 +505,34 @@ impl Server {
 
     let inscriptions = index.get_inscriptions_on_output(outpoint)?;
 
+    let mut inscriptions_vec = vec![];
+
+    for inscription_id in inscriptions.iter() {
+      let entry = index
+        .get_inscription_entry(*inscription_id)?
+        .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+
+      let satpoint = index
+        .get_inscription_satpoint_by_id(*inscription_id)?
+        .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+
+      inscriptions_vec.push((inscription_id, entry, satpoint));
+    }
+
     Ok(if accept_json.0 {
       axum::Json(serde_json::json!({
         "value": output.value,
         "script_pubkey": output.script_pubkey.asm(),
         "address": page_config.chain.address_from_script(&output.script_pubkey).unwrap(),
         "transaction": outpoint.txid,
-        "inscriptions": inscriptions.iter().map(|inscription| {
+        "inscriptions": inscriptions_vec.iter().map(|(id, entry, satpoint)| {
           serde_json::json!({
-            "href": format!("/inscription/{}", inscription),
+            "_links": {
+              "href": format!("/inscription/{}", id),
+            },
+            "inscription_id": id,
+            "number": entry.number,
+            "offset": satpoint.offset,
           })
         }).collect::<Vec<_>>(),
         "_links": {

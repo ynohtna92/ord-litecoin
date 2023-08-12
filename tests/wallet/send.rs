@@ -15,7 +15,7 @@ fn inscriptions_can_be_sent() {
   ))
   .rpc_server(&rpc_server)
   .stdout_regex(r".*")
-  .output::<Output>();
+  .run_and_extract_stdout();
 
   let txid = rpc_server.mempool()[0].txid();
   assert_eq!(format!("{txid}"), output.transaction.to_string());
@@ -56,7 +56,7 @@ fn send_unknown_inscription() {
   .rpc_server(&rpc_server)
   .expected_stderr(format!("error: Inscription {txid}i0 not found\n"))
   .expected_exit_code(1)
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -73,8 +73,8 @@ fn send_inscribed_sat() {
     "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {inscription}",
   ))
   .rpc_server(&rpc_server)
-  .stdout_regex(".*[[:xdigit:]]{64}.*")
-  .output::<Output>();
+  .stdout_regex("[[:xdigit:]]{64}\n")
+  .run_and_extract_stdout();
 
   rpc_server.mine_blocks(1);
 
@@ -96,14 +96,14 @@ fn send_on_mainnnet_works_with_wallet_named_foo() {
 
   CommandBuilder::new("--wallet foo wallet create")
     .rpc_server(&rpc_server)
-    .output::<Create>();
+    .run_and_check_output::<Create>();
 
   CommandBuilder::new(format!(
     "--wallet foo wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}:0:0"
   ))
   .rpc_server(&rpc_server)
-  .stdout_regex(r".*[[:xdigit:]]{64}.*")
-  .run();
+  .stdout_regex(r"[[:xdigit:]]{64}\n")
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -120,7 +120,7 @@ fn send_addresses_must_be_valid_for_network() {
     "error: Address `tltc1qfk58sxvnsy27ww6408qr3h7294anh7kqn8rn2r` is not valid for mainnet\n",
   )
   .expected_exit_code(1)
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -134,7 +134,7 @@ fn send_on_mainnnet_works_with_wallet_named_ord() {
   ))
   .rpc_server(&rpc_server)
   .stdout_regex(r".*")
-  .output::<Output>();
+  .run_and_extract_stdout();
 
   let txid = rpc_server.mempool()[0].txid();
   assert_eq!(format!("{txid}"), output.transaction.to_string());
@@ -151,7 +151,7 @@ fn send_does_not_use_inscribed_sats_as_cardinal_utxos() {
   ))
   .write("degenerate.png", [1; 100])
   .rpc_server(&rpc_server)
-  .output::<Inscribe>();
+  .run_and_check_output::<Inscribe>();
 
   let txid = rpc_server.mine_blocks_with_subsidy(1, 100)[0].txdata[0].txid();
   CommandBuilder::new(format!(
@@ -160,7 +160,7 @@ fn send_does_not_use_inscribed_sats_as_cardinal_utxos() {
   .rpc_server(&rpc_server)
   .expected_exit_code(1)
   .expected_stderr("error: wallet does not contain enough cardinal UTXOs, please add additional funds to wallet.\n")
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -189,7 +189,7 @@ fn do_not_accidentally_send_an_inscription() {
   .expected_stderr(format!(
     "error: cannot send {output}:55 without also sending inscription {inscription} at {output}:0\n"
   ))
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -207,7 +207,7 @@ fn inscriptions_cannot_be_sent_by_satpoint() {
   .rpc_server(&rpc_server)
   .expected_stderr("error: inscriptions must be sent by inscription ID\n")
   .expected_exit_code(1)
-  .run();
+  .run_and_extract_stdout();
 }
 
 #[test]
@@ -220,7 +220,7 @@ fn send_btc() {
   let output =
     CommandBuilder::new("wallet send --fee-rate 1 bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4 1btc")
       .rpc_server(&rpc_server)
-      .output::<Output>();
+      .run_and_check_output::<Output>();
 
   assert_eq!(
     output.transaction,
@@ -253,7 +253,7 @@ fn send_btc_locks_inscriptions() {
   let output =
     CommandBuilder::new("wallet send --fee-rate 1 bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4 1btc")
       .rpc_server(&rpc_server)
-      .output::<Output>();
+      .run_and_check_output::<Output>();
 
   assert_eq!(
     output.transaction,
@@ -290,7 +290,7 @@ fn send_btc_fails_if_lock_unspent_fails() {
     .rpc_server(&rpc_server)
     .expected_stderr("error: failed to lock ordinal UTXOs\n")
     .expected_exit_code(1)
-    .run();
+    .run_and_extract_stdout();
 }
 
 #[test]
@@ -305,8 +305,8 @@ fn wallet_send_with_fee_rate() {
     "wallet send bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4 {inscription} --fee-rate 2.0"
   ))
   .rpc_server(&rpc_server)
-  .stdout_regex(r".*[[:xdigit:]]{64}.*")
-  .run();
+  .stdout_regex("[[:xdigit:]]{64}\n")
+  .run_and_extract_stdout();
 
   let tx = &rpc_server.mempool()[0];
   let mut fee = 0;
@@ -342,5 +342,5 @@ fn user_must_provide_fee_rate_to_send() {
     ".*error: The following required arguments were not provided:
 .*--fee-rate <FEE_RATE>.*",
   )
-  .run();
+  .run_and_extract_stdout();
 }

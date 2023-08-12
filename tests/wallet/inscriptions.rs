@@ -24,7 +24,7 @@ fn inscriptions() {
   assert_eq!(output[0].location, format!("{reveal}:0:0").parse().unwrap());
   assert_eq!(
     output[0].explorer,
-    format!("https://ordinals.com/inscription/{inscription}")
+    format!("https://ordinalslite.com/inscription/{inscription}")
   );
 
   let address = CommandBuilder::new("wallet receive")

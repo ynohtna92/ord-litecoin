@@ -22,15 +22,16 @@ impl Entry for BlockHash {
   }
 }
 
+#[derive(Debug)]
 pub(crate) struct InscriptionEntry {
   pub(crate) fee: u64,
   pub(crate) height: u64,
-  pub(crate) number: u64,
+  pub(crate) number: i64,
   pub(crate) sat: Option<Sat>,
   pub(crate) timestamp: u32,
 }
 
-pub(crate) type InscriptionEntryValue = (u64, u64, u64, u64, u32);
+pub(crate) type InscriptionEntryValue = (u64, u64, i64, u64, u32);
 
 impl Entry for InscriptionEntry {
   type Value = InscriptionEntryValue;
@@ -149,6 +150,18 @@ impl Entry for u64 {
 
   fn load([b0, b1, b2, b3, b4, b5, b6, b7]: Self::Value) -> Self {
     u64::from_le_bytes([b0, b1, b2, b3, b4, b5, b6, b7])
+  }
+
+  fn store(self) -> Self::Value {
+    self.to_le_bytes()
+  }
+}
+
+impl Entry for i64 {
+  type Value = [u8; 8];
+
+  fn load([b0, b1, b2, b3, b4, b5, b6, b7]: Self::Value) -> Self {
+    i64::from_le_bytes([b0, b1, b2, b3, b4, b5, b6, b7])
   }
 
   fn store(self) -> Self::Value {

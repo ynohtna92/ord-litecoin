@@ -9,7 +9,7 @@ use {
   super::*,
   crate::wallet::Wallet,
   bitcoin::BlockHeader,
-  bitcoincore_rpc::{json::GetBlockHeaderResult, Client},
+  bitcoincore_rpc::{json::GetBlockHeaderResult, json::GetRawTransactionResult, Client},
   chrono::SubsecRound,
   indicatif::{ProgressBar, ProgressStyle},
   log::log_enabled,
@@ -46,6 +46,7 @@ define_table! { HEIGHT_TO_BLOCK_HASH, u64, &BlockHashValue }
 define_table! { INSCRIPTION_ID_TO_INSCRIPTION_ENTRY, &InscriptionIdValue, InscriptionEntryValue }
 define_table! { INSCRIPTION_ID_TO_SATPOINT, &InscriptionIdValue, &SatPointValue }
 define_table! { INSCRIPTION_NUMBER_TO_INSCRIPTION_ID, i64, &InscriptionIdValue }
+define_table! { ADDRESS_TO_INSCRIPTION_NUMBERS, &str, &[u8] }
 define_table! { OUTPOINT_TO_SAT_RANGES, &OutPointValue, &[u8] }
 define_table! { OUTPOINT_TO_VALUE, &OutPointValue, u64}
 define_table! { REINSCRIPTION_ID_TO_SEQUENCE_NUMBER, &InscriptionIdValue, u64 }
@@ -59,6 +60,7 @@ pub(crate) struct Index {
   client: Client,
   database: Database,
   path: PathBuf,
+  chain: Chain,
   first_inscription_height: u64,
   genesis_block_coinbase_transaction: Transaction,
   genesis_block_coinbase_txid: Txid,
@@ -216,6 +218,7 @@ impl Index {
         tx.open_table(INSCRIPTION_ID_TO_INSCRIPTION_ENTRY)?;
         tx.open_table(INSCRIPTION_ID_TO_SATPOINT)?;
         tx.open_table(INSCRIPTION_NUMBER_TO_INSCRIPTION_ID)?;
+        tx.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
         tx.open_table(OUTPOINT_TO_VALUE)?;
         tx.open_table(REINSCRIPTION_ID_TO_SEQUENCE_NUMBER)?;
         tx.open_multimap_table(SATPOINT_TO_INSCRIPTION_ID)?;
@@ -245,6 +248,7 @@ impl Index {
       client,
       database,
       path,
+      chain: options.chain(),
       first_inscription_height: options.first_inscription_height(),
       genesis_block_coinbase_transaction,
       height_limit: options.height_limit,
@@ -644,6 +648,7 @@ impl Index {
     }
   }
 
+  #[allow(dead_code)]
   pub(crate) fn get_transaction_blockhash(&self, txid: Txid) -> Result<Option<BlockHash>> {
     Ok(
       self
@@ -671,6 +676,13 @@ impl Index {
     )
   }
 
+  pub(crate) fn get_raw_transaction(&self, txid: Txid) -> Result<Option<GetRawTransactionResult>> {
+    self
+      .client
+      .get_raw_transaction_info(&txid, None)
+      .into_option()
+  }
+
   pub(crate) fn find(&self, sat: u64) -> Result<Option<SatPoint>> {
     self.require_sat_index("find")?;
 
@@ -695,6 +707,32 @@ impl Index {
         }
         offset += end - start;
       }
+    }
+
+    Ok(None)
+  }
+
+  pub(crate) fn get_inscriptions_by_address(
+    &self,
+    address: &Address,
+  ) -> Result<Option<Vec<InscriptionId>>> {
+    let rtx = self.begin_read()?;
+
+    let address_to_inscription_numbers = rtx.0.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
+
+    let mut inscription_ids: Vec<InscriptionId> = Vec::new();
+
+    if let Some(value) = address_to_inscription_numbers.get(address.to_string().as_str())? {
+      for chunk in value.value().chunks_exact(8) {
+        let number = i64::load(chunk.try_into().unwrap());
+        inscription_ids.push(
+          self
+            .get_inscription_id_by_inscription_number(number)?
+            .unwrap(),
+        );
+      }
+
+      return Ok(Some(inscription_ids));
     }
 
     Ok(None)

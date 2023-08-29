@@ -51,6 +51,10 @@
   <dd>{{ self.genesis_fee }}</dd>
   <dt>genesis transaction</dt>
   <dd><a class=monospace href=/tx/{{ self.inscription_id.txid }}>{{ self.inscription_id.txid }}</a></dd>
+%% if let Ok(address) = self.chain.address_from_script(&self.genesis_output.script_pubkey ) {
+  <dt>genesis address</dt>
+  <dd class=monospace>{{ address }}</dd>
+%% }
   <dt>location</dt>
 %% if self.satpoint.outpoint == unbound_outpoint() {
   <dd class=monospace>{{ self.satpoint }} (unbound)</dd>

@@ -10,7 +10,7 @@ fn inscriptions_can_be_sent() {
 
   rpc_server.mine_blocks(1);
 
-  let stdout = CommandBuilder::new(format!(
+  let output = CommandBuilder::new(format!(
     "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {inscription}",
   ))
   .rpc_server(&rpc_server)
@@ -18,11 +18,11 @@ fn inscriptions_can_be_sent() {
   .run_and_extract_stdout();
 
   let txid = rpc_server.mempool()[0].txid();
-  assert_eq!(format!("{txid}\n"), stdout);
+  assert_eq!(format!("{txid}"), output.transaction.to_string());
 
   rpc_server.mine_blocks(1);
 
-  let send_txid = stdout.trim();
+  let send_txid = output.transaction;
 
   let ord_server = TestServer::spawn_with_args(&rpc_server, &[]);
   ord_server.assert_response_regex(
@@ -69,7 +69,7 @@ fn send_inscribed_sat() {
 
   rpc_server.mine_blocks(1);
 
-  let stdout = CommandBuilder::new(format!(
+  let output = CommandBuilder::new(format!(
     "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {inscription}",
   ))
   .rpc_server(&rpc_server)
@@ -78,7 +78,7 @@ fn send_inscribed_sat() {
 
   rpc_server.mine_blocks(1);
 
-  let send_txid = stdout.trim();
+  let send_txid = output.transaction;
 
   let ord_server = TestServer::spawn_with_args(&rpc_server, &[]);
   ord_server.assert_response_regex(
@@ -129,7 +129,7 @@ fn send_on_mainnnet_works_with_wallet_named_ord() {
   let txid = rpc_server.mine_blocks_with_subsidy(1, 1_000_000)[0].txdata[0].txid();
   create_wallet(&rpc_server);
 
-  let stdout = CommandBuilder::new(format!(
+  let output = CommandBuilder::new(format!(
     "wallet send --fee-rate 1 ltc1qfmvk898k6jgfgp98dhsc5gvr9hpxl2ggd25ygk {txid}:0:0"
   ))
   .rpc_server(&rpc_server)
@@ -137,7 +137,7 @@ fn send_on_mainnnet_works_with_wallet_named_ord() {
   .run_and_extract_stdout();
 
   let txid = rpc_server.mempool()[0].txid();
-  assert_eq!(format!("{txid}\n"), stdout);
+  assert_eq!(format!("{txid}"), output.transaction.to_string());
 }
 
 #[test]

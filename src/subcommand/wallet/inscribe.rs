@@ -18,15 +18,15 @@ use {
   std::collections::BTreeSet,
 };
 
-#[derive(Serialize)]
-struct Output {
-  commit: Txid,
-  inscription: InscriptionId,
-  reveal: Txid,
-  fees: u64,
+#[derive(Debug, Serialize)]
+pub struct Output {
+  pub(crate) commit: Txid,
+  pub(crate) inscription: InscriptionId,
+  pub(crate) reveal: Txid,
+  pub(crate) fees: u64,
 }
 
-#[derive(Debug, Parser)]
+#[derive(Debug, Parser, Serialize, Deserialize)]
 pub(crate) struct Inscribe {
   #[clap(long, help = "Inscribe <SATPOINT>")]
   pub(crate) satpoint: Option<SatPoint>,
@@ -61,11 +61,26 @@ impl Inscribe {
 
     let client = options.bitcoin_rpc_client_for_wallet_command(false)?;
 
-    let mut utxos = index.get_unspent_outputs(Wallet::load(&options)?)?;
+    let utxos = index.get_unspent_outputs(Wallet::load(&options)?)?;
 
     let inscriptions = index.get_inscriptions(None)?;
 
-    let commit_tx_change = [get_change_address(&client)?, get_change_address(&client)?];
+    let output = self.inscribe(&options, inscription, utxos, inscriptions, &client)?;
+
+    print_json(output)?;
+
+    Ok(())
+  }
+
+  pub fn inscribe(
+    self,
+    options: &Options,
+    inscription: Inscription,
+    mut utxos: BTreeMap<OutPoint, Amount>,
+    inscriptions: BTreeMap<SatPoint, InscriptionId>,
+    client: &Client,
+  ) -> Result<Output> {
+    let commit_tx_change = [get_change_address(client)?, get_change_address(client)?];
 
     let reveal_tx_destination = match self.destination {
       Some(address) => {
@@ -102,12 +117,12 @@ impl Inscribe {
       Self::calculate_fee(&unsigned_commit_tx, &utxos) + Self::calculate_fee(&reveal_tx, &utxos);
 
     if self.dry_run {
-      print_json(Output {
+      Ok(Output {
         commit: unsigned_commit_tx.txid(),
         reveal: reveal_tx.txid(),
         inscription: reveal_tx.txid().into(),
         fees,
-      })?;
+      })
     } else {
       // Litecoin does not support this functionality
       // if !self.no_backup {
@@ -126,15 +141,13 @@ impl Inscribe {
         .send_raw_transaction(&reveal_tx)
         .context("Failed to send reveal transaction")?;
 
-      print_json(Output {
+      Ok(Output {
         commit,
         reveal,
         inscription: reveal.into(),
         fees,
-      })?;
-    };
-
-    Ok(())
+      })
+    }
   }
 
   fn calculate_fee(tx: &Transaction, utxos: &BTreeMap<OutPoint, Amount>) -> u64 {

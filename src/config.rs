@@ -3,6 +3,8 @@ use super::*;
 #[derive(Deserialize, Default, PartialEq, Debug)]
 #[serde(deny_unknown_fields)]
 pub(crate) struct Config {
+  pub(crate) api_key: Option<String>,
+  pub(crate) api_wallet_enable: Option<bool>,
   pub(crate) hidden: HashSet<InscriptionId>,
   pub(crate) bitcoin_rpc_pass: Option<String>,
   pub(crate) bitcoin_rpc_user: Option<String>,
@@ -29,6 +31,7 @@ mod tests {
       .unwrap();
 
     let config = Config {
+      api_key: None,
       hidden: iter::once(a).collect(),
       ..Default::default()
     };

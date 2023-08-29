@@ -1,6 +1,6 @@
 use {
   super::*,
-  ord::subcommand::wallet::{inscriptions::Output, receive},
+  ord::subcommand::wallet::{inscriptions::Output, receive, send::Output as send},
 };
 
 #[test]
@@ -32,7 +32,7 @@ fn inscriptions() {
     .run_and_check_output::<receive::Output>()
     .address;
 
-  let stdout = CommandBuilder::new(format!("wallet send --fee-rate 1 {address} {inscription}"))
+  let output = CommandBuilder::new(format!("wallet send --fee-rate 1 {address} {inscription}"))
     .rpc_server(&rpc_server)
     .expected_exit_code(0)
     .stdout_regex(".*")
@@ -40,7 +40,7 @@ fn inscriptions() {
 
   rpc_server.mine_blocks(1);
 
-  let txid = Txid::from_str(stdout.trim()).unwrap();
+  let txid = output.transaction;
 
   let output = CommandBuilder::new("wallet inscriptions")
     .rpc_server(&rpc_server)

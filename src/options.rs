@@ -382,9 +382,14 @@ mod tests {
 
   #[test]
   fn cookie_file_defaults_to_bitcoin_data_dir() {
-    let arguments =
-      Arguments::try_parse_from(["ord", "--litecoin-data-dir=foo", "--chain=signet", "index", "run"])
-        .unwrap();
+    let arguments = Arguments::try_parse_from([
+      "ord",
+      "--litecoin-data-dir=foo",
+      "--chain=signet",
+      "index",
+      "run",
+    ])
+    .unwrap();
 
     let cookie_file = arguments
       .options
@@ -632,6 +637,7 @@ mod tests {
         .load_config()
         .unwrap(),
       Config {
+        api_key: None,
         hidden: iter::once(id).collect(),
         ..Default::default()
       }
@@ -689,6 +695,7 @@ mod tests {
       .load_config()
       .unwrap(),
       Config {
+        api_key: None,
         hidden: iter::once(id).collect(),
         ..Default::default()
       }

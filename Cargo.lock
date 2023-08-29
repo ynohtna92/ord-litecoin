@@ -2244,6 +2244,7 @@ name = "ord-litecoin"
 version = "0.8.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "axum",
  "axum-server",
  "base64 0.21.0",

@@ -1,11 +1,11 @@
 use {super::*, crate::wallet::Wallet};
 
-#[derive(Debug, Parser)]
+#[derive(Debug, Parser, Deserialize)]
 pub(crate) struct Send {
-  address: Address,
-  outgoing: Outgoing,
+  pub(crate) address: Address,
+  pub(crate) outgoing: Outgoing,
   #[clap(long, help = "Use fee rate of <FEE_RATE> sats/vB")]
-  fee_rate: FeeRate,
+  pub(crate) fee_rate: FeeRate,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -24,7 +24,20 @@ impl Send {
 
     let client = options.bitcoin_rpc_client_for_wallet_command(false)?;
 
-    let unspent_outputs = index.get_unspent_outputs(Wallet::load(&options)?)?;
+    let txid = self.send_inscription(&options, &index, &client)?;
+
+    print_json(Output { transaction: txid })?;
+
+    Ok(())
+  }
+
+  pub(crate) fn send_inscription(
+    self,
+    options: &Options,
+    index: &Index,
+    client: &Client,
+  ) -> Result<Txid> {
+    let unspent_outputs = index.get_unspent_outputs(Wallet::load(options)?)?;
 
     let inscriptions = index.get_inscriptions(None)?;
 
@@ -59,13 +72,11 @@ impl Send {
         let txid =
           client.send_to_address(&self.address, amount, None, None, None, None, None, None)?;
 
-        print_json(Output { transaction: txid })?;
-
-        return Ok(());
+        return Ok(txid);
       }
     };
 
-    let change = [get_change_address(&client)?, get_change_address(&client)?];
+    let change = [get_change_address(client)?, get_change_address(client)?];
 
     let unsigned_transaction = TransactionBuilder::build_transaction_with_postage(
       satpoint,
@@ -82,8 +93,6 @@ impl Send {
 
     let txid = client.send_raw_transaction(&signed_tx)?;
 
-    println!("{txid}");
-
-    Ok(())
+    Ok(txid)
   }
 }

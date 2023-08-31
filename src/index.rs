@@ -263,7 +263,7 @@ impl Index {
         .into_iter()
         .filter(|utxo| {
           if let Some(address) = &utxo.address {
-            address.address_type() != Some(bitcoin::AddressType::Mweb)
+            address.clone().assume_checked().address_type() != Some(bitcoin::AddressType::Mweb)
           } else {
             true
           }

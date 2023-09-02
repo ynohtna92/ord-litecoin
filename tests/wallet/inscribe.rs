@@ -404,7 +404,7 @@ fn inscribe_to_address_on_different_network() {
   .write("degenerate.png", [1; 520])
   .rpc_server(&rpc_server)
   .expected_exit_code(1)
-  .stderr_regex("error: address tltc1qsgx55dp6gn53tsmyjjv4c2ye403hgxynlcdnrj belongs to network testnet which is different from required litecoin\n")
+  .stderr_regex("error: address tltc1qsgx55dp6gn53tsmyjjv4c2ye403hgxynlcdnrj belongs to network testnet which is different from required bitcoin\n")
   .run_and_extract_stdout();
 }
 

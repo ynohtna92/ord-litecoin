@@ -117,7 +117,7 @@ fn send_addresses_must_be_valid_for_network() {
   ))
   .rpc_server(&rpc_server)
   .expected_stderr(
-    "error: address tltc1qfk58sxvnsy27ww6408qr3h7294anh7kqn8rn2r belongs to network testnet which is different from required litecoin\n",
+    "error: address tltc1qfk58sxvnsy27ww6408qr3h7294anh7kqn8rn2r belongs to network testnet which is different from required bitcoin\n",
   )
   .expected_exit_code(1)
   .run_and_extract_stdout();

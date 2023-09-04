@@ -8,11 +8,12 @@ pub(crate) use {
   input::InputHtml,
   inscription::{InscriptionHtml, InscriptionJson},
   inscriptions::{InscriptionsHtml, InscriptionsJson},
+  inscriptions_block::InscriptionsBlockHtml,
   output::{OutputHtml, OutputJson},
   page_config::PageConfig,
   preview::{
-    PreviewAudioHtml, PreviewImageHtml, PreviewPdfHtml, PreviewTextHtml, PreviewUnknownHtml,
-    PreviewVideoHtml,
+    PreviewAudioHtml, PreviewImageHtml, PreviewModelHtml, PreviewPdfHtml, PreviewTextHtml,
+    PreviewUnknownHtml, PreviewVideoHtml,
   },
   range::RangeHtml,
   rare::RareTxt,
@@ -27,6 +28,7 @@ mod iframe;
 mod input;
 pub mod inscription;
 pub mod inscriptions;
+mod inscriptions_block;
 pub mod output;
 mod preview;
 mod range;
@@ -137,7 +139,7 @@ mod tests {
       <a href=/rare.txt>rare.txt</a>
       <form action=/search method=get>
         <input type=text .*>
-        <input type=submit value='&#9906'>
+        <input type=submit value=Search>
       </form>
     </nav>
   </header>

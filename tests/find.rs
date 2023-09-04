@@ -6,7 +6,7 @@ fn find_command_returns_satpoint_for_sat() {
   assert_eq!(
     CommandBuilder::new("--index-sats find 0")
       .rpc_server(&rpc_server)
-      .run_and_check_output::<Output>(),
+      .run_and_deserialize_output::<Output>(),
     Output {
       satpoint: "97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9:0:0"
         .parse()

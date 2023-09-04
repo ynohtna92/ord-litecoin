@@ -1,4 +1,4 @@
-use super::*;
+use {super::*, ord::subcommand::wallet::create::Output};
 
 #[test]
 fn create() {
@@ -8,21 +8,40 @@ fn create() {
 
   CommandBuilder::new("wallet create")
     .rpc_server(&rpc_server)
-    .run_and_check_output::<Create>();
+    .run_and_deserialize_output::<Output>();
 
   assert!(rpc_server.wallets().contains("ord"));
 }
 
 #[test]
 fn seed_phrases_are_twelve_words_long() {
-  let Create { mnemonic } = CommandBuilder::new("wallet create")
+  let Output { mnemonic, .. } = CommandBuilder::new("wallet create")
     .rpc_server(&test_bitcoincore_rpc::spawn())
-    .run_and_check_output::<Create>();
+    .run_and_deserialize_output();
 
   assert_eq!(mnemonic.word_count(), 12);
 }
 
 // #[ignore] // Litcoincore does not have a listdescriptors function
+// #[test]
+// fn wallet_creates_correct_mainnet_taproot_descriptor() {
+//   let rpc_server = test_bitcoincore_rpc::spawn();
+//
+//   CommandBuilder::new("wallet create")
+//     .rpc_server(&rpc_server)
+//     .run_and_deserialize_output::<Output>();
+//
+//   assert_eq!(rpc_server.descriptors().len(), 2);
+//   assert_regex_match!(
+//     &rpc_server.descriptors()[0],
+//     r"tr\(\[[[:xdigit:]]{8}/86'/0'/0'\]xprv[[:alnum:]]*/0/\*\)#[[:alnum:]]{8}"
+//   );
+//   assert_regex_match!(
+//     &rpc_server.descriptors()[1],
+//     r"tr\(\[[[:xdigit:]]{8}/86'/0'/0'\]xprv[[:alnum:]]*/1/\*\)#[[:alnum:]]{8}"
+//   );
+// }
+//
 // #[test]
 // fn wallet_creates_correct_test_network_taproot_descriptor() {
 //   let rpc_server = test_bitcoincore_rpc::builder()
@@ -31,7 +50,7 @@ fn seed_phrases_are_twelve_words_long() {
 //
 //   CommandBuilder::new("--chain signet wallet create")
 //     .rpc_server(&rpc_server)
-//     .run_and_check_output::<Create>();
+//     .run_and_deserialize_output::<Output>();
 //
 //   assert_eq!(rpc_server.descriptors().len(), 2);
 //   assert_regex_match!(
@@ -50,7 +69,7 @@ fn seed_phrases_are_twelve_words_long() {
 //
 //   CommandBuilder::new("wallet create")
 //     .rpc_server(&rpc_server)
-//     .run_and_check_output::<Create>();
+//     .run_and_deserialize_output::<Output>();
 //
 //   rpc_server.import_descriptor("wpkh([aslfjk])#a23ad2l".to_string());
 //
@@ -71,7 +90,7 @@ fn seed_phrases_are_twelve_words_long() {
 //
 //   CommandBuilder::new("--wallet inscription-wallet wallet create")
 //     .rpc_server(&rpc_server)
-//     .run_and_check_output::<Create>();
+//     .run_and_deserialize_output::<Output>();
 //
 //   assert!(rpc_server.wallets().contains("inscription-wallet"));
 // }

@@ -1,4 +1,4 @@
-// use super::*;
+// use {super::*, ord::subcommand::wallet::create, ord::subcommand::Empty};
 
 // #[ignore] // Litecoincore does not support descriptors
 // #[test]
@@ -29,9 +29,9 @@
 //   let (mnemonic, descriptors) = {
 //     let rpc_server = test_bitcoincore_rpc::spawn();
 //
-//     let Create { mnemonic } = CommandBuilder::new("wallet create")
+//     let create::Output { mnemonic, .. } = CommandBuilder::new("wallet create")
 //       .rpc_server(&rpc_server)
-//       .run_and_check_output::<Create>();
+//       .run_and_deserialize_output();
 //
 //     (mnemonic, rpc_server.descriptors())
 //   };
@@ -40,7 +40,7 @@
 //
 //   CommandBuilder::new(["wallet", "restore", &mnemonic.to_string()])
 //     .rpc_server(&rpc_server)
-//     .run_and_extract_stdout();
+//     .run_and_deserialize_output::<Empty>();
 //
 //   assert_eq!(rpc_server.descriptors(), descriptors);
 // }
@@ -51,9 +51,10 @@
 //   let (mnemonic, descriptors) = {
 //     let rpc_server = test_bitcoincore_rpc::spawn();
 //
-//     let Create { mnemonic } = CommandBuilder::new(["wallet", "create", "--passphrase", passphrase])
-//       .rpc_server(&rpc_server)
-//       .run_and_check_output::<Create>();
+//     let create::Output { mnemonic, .. } =
+//       CommandBuilder::new(["wallet", "create", "--passphrase", passphrase])
+//         .rpc_server(&rpc_server)
+//         .run_and_deserialize_output();
 //
 //     (mnemonic, rpc_server.descriptors())
 //   };
@@ -68,7 +69,7 @@
 //     &mnemonic.to_string(),
 //   ])
 //   .rpc_server(&rpc_server)
-//   .run_and_extract_stdout();
+//   .run_and_deserialize_output::<Empty>();
 //
 //   assert_eq!(rpc_server.descriptors(), descriptors);
 // }

@@ -137,12 +137,13 @@ impl<T> BitcoinCoreRpcResultExt<T> for Result<T, bitcoincore_rpc::Error> {
 pub(crate) struct Index {
   client: Client,
   database: Database,
-  path: PathBuf,
+  durability: redb::Durability,
   first_inscription_height: u64,
   genesis_block_coinbase_transaction: Transaction,
   genesis_block_coinbase_txid: Txid,
   height_limit: Option<u64>,
   options: Options,
+  path: PathBuf,
   unrecoverably_reorged: AtomicBool,
 }
 
@@ -188,6 +189,12 @@ impl Index {
 
     log::info!("Setting DB cache size to {} bytes", db_cache_size);
 
+    let durability = if cfg!(test) {
+      redb::Durability::None
+    } else {
+      redb::Durability::Immediate
+    };
+
     let database = match Database::builder()
       .set_cache_size(db_cache_size)
       .open(&path)
@@ -224,7 +231,7 @@ impl Index {
 
         let mut tx = database.begin_write()?;
 
-        tx.set_durability(redb::Durability::Immediate);
+        tx.set_durability(durability);
 
         tx.open_table(HEIGHT_TO_BLOCK_HASH)?;
         tx.open_table(INSCRIPTION_ID_TO_INSCRIPTION_ENTRY)?;
@@ -258,13 +265,19 @@ impl Index {
       genesis_block_coinbase_txid: genesis_block_coinbase_transaction.txid(),
       client,
       database,
-      path,
+      durability,
       first_inscription_height: options.first_inscription_height(),
       genesis_block_coinbase_transaction,
       height_limit: options.height_limit,
       options: options.clone(),
+      path,
       unrecoverably_reorged: AtomicBool::new(false),
     })
+  }
+
+  #[cfg(test)]
+  fn set_durability(&mut self, durability: redb::Durability) {
+    self.durability = durability;
   }
 
   pub(crate) fn get_unspent_outputs(&self, _wallet: Wallet) -> Result<BTreeMap<OutPoint, Amount>> {
@@ -411,7 +424,7 @@ impl Index {
           log::info!("{}", err.to_string());
 
           match err.downcast_ref() {
-            Some(&ReorgError::Recoverable((height, depth))) => {
+            Some(&ReorgError::Recoverable { height, depth }) => {
               Reorg::handle_reorg(self, height, depth)?;
 
               updater = Updater::new(self)?;
@@ -507,7 +520,9 @@ impl Index {
   }
 
   fn begin_write(&self) -> Result<WriteTransaction> {
-    Ok(self.database.begin_write()?)
+    let mut tx = self.database.begin_write()?;
+    tx.set_durability(self.durability);
+    Ok(tx)
   }
 
   fn increment_statistic(wtx: &WriteTransaction, statistic: Statistic, n: u64) -> Result {
@@ -866,20 +881,6 @@ impl Index {
     }
 
     Ok(result)
-  }
-
-  pub(crate) fn get_homepage_inscriptions(&self) -> Result<Vec<InscriptionId>> {
-    Ok(
-      self
-        .database
-        .begin_read()?
-        .open_table(INSCRIPTION_NUMBER_TO_INSCRIPTION_ID)?
-        .iter()?
-        .rev()
-        .take(8)
-        .flat_map(|result| result.map(|(_number, id)| Entry::load(*id.value())))
-        .collect(),
-    )
   }
 
   pub(crate) fn get_latest_inscriptions_with_prev_and_next(
@@ -1290,7 +1291,7 @@ mod tests {
       let context = Context::builder().build();
       context.mine_blocks(1);
       let txid = context.rpc_server.broadcast_tx(template.clone());
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
       context.mine_blocks(1);
 
       assert_eq!(
@@ -1316,7 +1317,7 @@ mod tests {
         .build();
       context.mine_blocks(1);
       let txid = context.rpc_server.broadcast_tx(template);
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
       context.mine_blocks(1);
 
       assert_eq!(
@@ -1631,7 +1632,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1665,7 +1666,7 @@ mod tests {
         ..Default::default()
       });
 
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1694,7 +1695,7 @@ mod tests {
         ..Default::default()
       });
 
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1719,7 +1720,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1764,14 +1765,20 @@ mod tests {
         ..Default::default()
       });
 
-      let first_inscription_id = InscriptionId::from(first_txid);
+      let first_inscription_id = InscriptionId {
+        txid: first_txid,
+        index: 0,
+      };
 
       let second_txid = context.rpc_server.broadcast_tx(TransactionTemplate {
         inputs: &[(2, 0, 0)],
         witness: inscription("text/png", [1; 100]).to_witness(),
         ..Default::default()
       });
-      let second_inscription_id = InscriptionId::from(second_txid);
+      let second_inscription_id = InscriptionId {
+        txid: second_txid,
+        index: 0,
+      };
 
       context.mine_blocks(1);
 
@@ -1818,7 +1825,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1867,7 +1874,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1911,7 +1918,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1947,7 +1954,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -1984,7 +1991,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       let coinbase_tx = context.mine_blocks(1)[0].txdata[0].txid();
 
@@ -2013,7 +2020,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks_with_subsidy(1, 0);
 
@@ -2039,7 +2046,10 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let first_inscription_id = InscriptionId::from(first_txid);
+      let first_inscription_id = InscriptionId {
+        txid: first_txid,
+        index: 0,
+      };
 
       context.mine_blocks_with_subsidy(1, 0);
       context.mine_blocks(1);
@@ -2050,7 +2060,10 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let second_inscription_id = InscriptionId::from(second_txid);
+      let second_inscription_id = InscriptionId {
+        txid: second_txid,
+        index: 0,
+      };
 
       context.mine_blocks_with_subsidy(1, 0);
 
@@ -2164,7 +2177,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
       context.mine_blocks(1);
 
       context.rpc_server.broadcast_tx(TransactionTemplate {
@@ -2197,7 +2210,7 @@ mod tests {
         output_values: &[0, 50 * COIN_VALUE],
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
       context.mine_blocks(1);
 
       context.index.assert_inscription_location(
@@ -2222,7 +2235,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
       context.mine_blocks_with_subsidy(1, 0);
 
       context.index.assert_inscription_location(
@@ -2332,7 +2345,7 @@ mod tests {
         ..Default::default()
       });
 
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       assert_eq!(
         context
@@ -2393,7 +2406,10 @@ mod tests {
 
       context.mine_blocks(1);
 
-      let inscription_id = InscriptionId::from(first);
+      let inscription_id = InscriptionId {
+        txid: first,
+        index: 0,
+      };
 
       assert_eq!(
         context
@@ -2424,7 +2440,10 @@ mod tests {
         ..Default::default()
       });
 
-      let inscription_id = InscriptionId::from(second);
+      let inscription_id = InscriptionId {
+        txid: second,
+        index: 0,
+      };
 
       context.mine_blocks(1);
 
@@ -2442,13 +2461,19 @@ mod tests {
 
       assert!(context
         .index
-        .get_inscription_entry(second.into())
+        .get_inscription_by_id(InscriptionId {
+          txid: second,
+          index: 0
+        })
         .unwrap()
         .is_some());
 
       assert!(context
         .index
-        .get_inscription_by_id(second.into())
+        .get_inscription_by_id(InscriptionId {
+          txid: second,
+          index: 0
+        })
         .unwrap()
         .is_some());
     }
@@ -2464,7 +2489,7 @@ mod tests {
         witness: inscription("text/plain", "hello").to_witness(),
         ..Default::default()
       });
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -2491,7 +2516,7 @@ mod tests {
           witness: inscription("text/plain", "hello").to_witness(),
           ..Default::default()
         });
-        ids.push(InscriptionId::from(txid));
+        ids.push(InscriptionId { txid, index: 0 });
         context.mine_blocks(1);
       }
 
@@ -2564,7 +2589,7 @@ mod tests {
         ..Default::default()
       });
 
-      let inscription_id = InscriptionId::from(txid);
+      let inscription_id = InscriptionId { txid, index: 0 };
 
       context.mine_blocks(1);
 
@@ -3305,7 +3330,9 @@ mod tests {
 
   #[test]
   fn recover_from_reorg() {
-    for context in Context::configurations() {
+    for mut context in Context::configurations() {
+      context.index.set_durability(redb::Durability::Immediate);
+
       context.mine_blocks(1);
 
       let txid = context.rpc_server.broadcast_tx(TransactionTemplate {
@@ -3355,7 +3382,9 @@ mod tests {
 
   #[test]
   fn recover_from_3_block_deep_and_consecutive_reorg() {
-    for context in Context::configurations() {
+    for mut context in Context::configurations() {
+      context.index.set_durability(redb::Durability::Immediate);
+
       context.mine_blocks(1);
 
       let txid = context.rpc_server.broadcast_tx(TransactionTemplate {
@@ -3408,7 +3437,9 @@ mod tests {
 
   #[test]
   fn recover_from_very_unlikely_7_block_deep_reorg() {
-    for context in Context::configurations() {
+    for mut context in Context::configurations() {
+      context.index.set_durability(redb::Durability::Immediate);
+
       context.mine_blocks(1);
 
       let txid = context.rpc_server.broadcast_tx(TransactionTemplate {

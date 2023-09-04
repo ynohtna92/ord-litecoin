@@ -1,10 +1,10 @@
 use super::*;
 
-#[derive(Serialize)]
-struct Output {
-  mnemonic: Mnemonic,
-  passphrase: Option<String>,
-  message: String,
+#[derive(Serialize, Deserialize)]
+pub struct Output {
+  pub mnemonic: Mnemonic,
+  pub passphrase: Option<String>,
+  pub message: String,
 }
 
 #[derive(Debug, Parser)]
@@ -18,7 +18,7 @@ pub(crate) struct Create {
 }
 
 impl Create {
-  pub(crate) fn run(self, options: Options) -> Result {
+  pub(crate) fn run(self, options: Options) -> SubcommandResult {
     let mut entropy = [0; 16];
     rand::thread_rng().fill_bytes(&mut entropy);
 
@@ -34,12 +34,10 @@ impl Create {
       supported in Litecoincore!!!! Please make a backup of the \
       wallet.dat file and store it in a safe place.";
 
-    print_json(Output {
+    Ok(Box::new(Output {
       mnemonic,
-      passphrase: None,
+      passphrase: Some(self.passphrase),
       message: warn,
-    })?;
-
-    Ok(())
+    }))
   }
 }

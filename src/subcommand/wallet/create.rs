@@ -9,7 +9,7 @@ pub struct Output {
 
 #[derive(Debug, Parser)]
 pub(crate) struct Create {
-  #[clap(
+  #[arg(
     long,
     default_value = "",
     help = "Use <PASSPHRASE> to derive wallet seed."

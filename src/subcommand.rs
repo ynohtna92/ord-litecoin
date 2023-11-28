@@ -1,5 +1,6 @@
 use super::*;
 
+pub mod decode;
 pub mod epochs;
 pub mod find;
 mod index;
@@ -15,35 +16,38 @@ pub mod wallet;
 
 #[derive(Debug, Parser)]
 pub(crate) enum Subcommand {
-  #[clap(about = "List the first litoshis of each reward epoch")]
+  #[command(about = "Decode a transaction")]
+  Decode(decode::Decode),
+  #[command(about = "List the first litoshis of each reward epoch")]
   Epochs,
-  #[clap(about = "Run an explorer server populated with inscriptions")]
+  #[command(about = "Run an explorer server populated with inscriptions")]
   Preview(preview::Preview),
-  #[clap(about = "Find a litoshi's current location")]
+  #[command(about = "Find a litoshi's current location")]
   Find(find::Find),
-  #[clap(subcommand, about = "Index commands")]
+  #[command(subcommand, about = "Index commands")]
   Index(index::IndexSubcommand),
-  #[clap(about = "Display index statistics")]
+  #[command(about = "Display index statistics")]
   Info(info::Info),
-  #[clap(about = "List the litoshi in an output")]
+  #[command(about = "List the litoshi in an output")]
   List(list::List),
-  #[clap(about = "Parse a litoshi from ordinal notation")]
+  #[command(about = "Parse a litoshi from ordinal notation")]
   Parse(parse::Parse),
-  #[clap(about = "Display information about a block's subsidy")]
+  #[command(about = "Display information about a block's subsidy")]
   Subsidy(subsidy::Subsidy),
-  #[clap(about = "Run the explorer server")]
+  #[command(about = "Run the explorer server")]
   Server(server::Server),
-  #[clap(about = "Display Litecoin supply information")]
+  #[command(about = "Display Litecoin supply information")]
   Supply,
-  #[clap(about = "Display litoshi traits")]
+  #[command(about = "Display litoshi traits")]
   Traits(traits::Traits),
-  #[clap(subcommand, about = "Wallet commands")]
+  #[command(subcommand, about = "Wallet commands")]
   Wallet(wallet::Wallet),
 }
 
 impl Subcommand {
   pub(crate) fn run(self, options: Options) -> SubcommandResult {
     match self {
+      Self::Decode(decode) => decode.run(),
       Self::Epochs => epochs::run(),
       Self::Preview(preview) => preview.run(),
       Self::Find(find) => find.run(options),

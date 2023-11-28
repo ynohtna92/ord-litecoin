@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>麻雀钱包 - Ordinal Theory Handbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../../favicon.svg">
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../../language-picker.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../../overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="../../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="../../inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../inscriptions/provenance.html"><strong aria-hidden="true">3.1.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="../../inscriptions/recursion.html"><strong aria-hidden="true">3.2.</strong> 递归</a></li></ol></li><li class="chapter-item expanded "><a href="../../faq.html"><strong aria-hidden="true">4.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../../contributing.html"><strong aria-hidden="true">5.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="../../donate.html"><strong aria-hidden="true">6.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="../../guides.html"><strong aria-hidden="true">7.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/explorer.html"><strong aria-hidden="true">7.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="../../guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> 铭文</a></li><li class="chapter-item expanded "><a href="../../guides/sat-hunting.html"><strong aria-hidden="true">7.3.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="../../guides/collecting.html"><strong aria-hidden="true">7.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/collecting/sparrow-wallet.html" class="active"><strong aria-hidden="true">7.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/testing.html"><strong aria-hidden="true">7.5.</strong> 调试</a></li><li class="chapter-item expanded "><a href="../../guides/moderation.html"><strong aria-hidden="true">7.6.</strong> 调节</a></li><li class="chapter-item expanded "><a href="../../guides/reindexing.html"><strong aria-hidden="true">7.7.</strong> 重新索引</a></li></ol></li><li class="chapter-item expanded "><a href="../../bounties.html"><strong aria-hidden="true">8.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../bounty/0.html"><strong aria-hidden="true">8.1.</strong> 任务 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../../bounty/1.html"><strong aria-hidden="true">8.2.</strong> 任务 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../../bounty/2.html"><strong aria-hidden="true">8.3.</strong> 任务 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../../bounty/3.html"><strong aria-hidden="true">8.4.</strong> 任务 3: 400,000 sats</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("zh");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../../../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "guides/collecting/sparrow-wallet.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="使用麻雀sparrow钱包收藏铭文"><a class="header" href="#使用麻雀sparrow钱包收藏铭文">使用麻雀Sparrow钱包收藏铭文</a></h1>
+<p>那些无法活着尚未设置<a href="https://github.com/ordinals/ord">ord</a> 钱包的用户可以使用其他比特币钱包接收铭文和序数，只要他们在使用该钱包时非常小心。</p>
+<p>本指南提供了一些基本步骤，说明如何使用 <a href="https://sparrowwallet.com/">Sparrow Wallet</a> 创建一个与<code>ord</code>兼容的钱包，稍后可以将其导入到<code>ord</code></p>
+<h2 id="-警告-"><a class="header" href="#-警告-">⚠️⚠️ 警告!! ⚠️⚠️</a></h2>
+<p>一般来说，如果你选择这种方法，你应该将这个钱包作为接收款项的钱包，使用Sparrow软件。</p>
+<p>除非你确定知道自己在做什么，否则不要从这个钱包中花费任何比特币。如果你不注意这个警告，你可能会很容易无意间失去对序数和铭文的访问权限。</p>
+<h2 id="钱包设置和接收"><a class="header" href="#钱包设置和接收">钱包设置和接收</a></h2>
+<p>根据你的操作系统从 <a href="https://sparrowwallet.com/download/">发布页面</a> 下载Sparrow钱包。</p>
+<p>选择 <code>File -&gt; New Wallet</code>并创建一个名为<code>ord</code>的新钱包。</p>
+<p><img src="images/wallet_setup_01.png" alt="" /></p>
+<p>将<code>Script Type</code>更改为<code>Taproot (P2TR)</code>，然后选择<code>New or Imported Software Wallet</code>选项。</p>
+<p><img src="images/wallet_setup_02.png" alt="" /></p>
+<p>选择<code>Use 12 Words</code>，然后点击 <code>Generate New</code>。密码短语留空。</p>
+<p><img src="images/wallet_setup_03.png" alt="" /></p>
+<p>将为你生成一个新的12词BIP39种子短语。将此短语写在安全的地方，这是获取钱包访问权限的备份。切勿与他人分享或显示这个种子短语。</p>
+<p>一旦你把种子短语写下来，点击 <code>Confirm Backup</code>.</p>
+<p><img src="images/wallet_setup_04.png" alt="" /></p>
+<p>重新输入你记下的种子短语，然后点击 <code>Create Keystore</code>.</p>
+<p><img src="images/wallet_setup_05.png" alt="" /></p>
+<p>点击 <code>Import Keystore</code>.</p>
+<p><img src="images/wallet_setup_06.png" alt="" /></p>
+<p>点击 <code>Apply</code>。如果你想的话，可以为钱包添加一个密码。</p>
+<p><img src="images/wallet_setup_07.png" alt="" /></p>
+<p>你现在有了一个兼容<code>ord</code>的钱包，可以使用BIP39种子短语导入到 <code>ord</code>。要接收序数或铭文，点击 <code>Receive</code>选项卡并复制一个新地址。</p>
+<p>每次你想接收时，都应该使用一个全新的地址，而不是重复使用现有的地址。</p>
+<p>注意，比特币与一些其他区块链钱包不同，这个钱包可以生成无限数量的新地址。你可以通过点击获取下一个地址按钮生成新地址。你可以在应用程序的<code>Addresses</code>选项卡中看到所有的地址。</p>
+<p>你可以给每个地址添加一个标签，这样你就可以跟踪它的用途。</p>
+<p><img src="images/wallet_setup_08.png" alt="" /></p>
+<h2 id="验证查看收到的铭文"><a class="header" href="#验证查看收到的铭文">验证/查看收到的铭文</a></h2>
+<p>一旦你收到一条铭文，你将在 Sparrow 的 <code>Transactions</code> 选项卡中看到一个新的交易，以及在<code>UTXOs</code>选项卡中看到一个新的 UTXO。</p>
+<p>最初，这笔交易可能有一个&quot;未确认&quot;的状态，你需要等待它被挖矿到一个比特币块中，才算真正收到。</p>
+<p><img src="images/validating_viewing_01.png" alt="" /></p>
+<p>要跟踪你的交易状态，你可以右键点击它，选择<code>Copy Transaction ID</code>，然后将该交易 id 粘贴到 <a href="https://mempool.space">mempool.space</a>。</p>
+<p><img src="images/validating_viewing_02.png" alt="" /></p>
+<p>一旦交易被确认，你可以通过前往<code>UTXOs</code>选项卡，找到你想要检查的 UTXO，右键点击 <code>Output</code> 并选择 <code>Copy Transaction Output</code> 来验证和查看你的铭文。然后，这个交易输出 id 可以粘贴到 <a href="https://ordinals.com">ordinals.com</a> 搜索。</p>
+<h2 id="冻结-utxo"><a class="header" href="#冻结-utxo">冻结 UTXO</a></h2>
+<p>如上所述，你的每一条铭文都存储在一个未花费的交易输出 (UTXO) 中。你需要非常小心不要意外花费你的铭文，而冻结 UTXO 是使这种情况发生的难度增加的一种方式。</p>
+<p>要做到这一点，去 UTXOs 选项卡，找到你想要冻结的 <code>UTXOs</code>，右键点击 <code>Output</code>  并选择<code>Freeze UTXO</code>。</p>
+<p>这个 UTXO (铭文) 现在在 Sparrow 钱包中是不可消费的，直到你解冻它。</p>
+<h2 id="导入-ord-钱包"><a class="header" href="#导入-ord-钱包">导入 <code>ord</code> 钱包</a></h2>
+<p>关于设置比特币核心和 <code>ord</code> 钱包的详细信息，请查看<a href="../inscriptions.html">铭文指南</a></p>
+<p>设置 <code>ord</code> 时，你可以使用 <code>ord wallet restore &quot;BIP39 SEED PHRASE&quot;</code> 命令和你用Sparrow Wallet生成的种子短语，导入你现有的钱包，而不是运行 <code>ord wallet create</code> 来创建一个全新的钱包。</p>
+<p>目前存在一个<a href="https://github.com/ordinals/ord/issues/1589">程序错误</a> 导致导入的钱包无法自动重新扫描区块链。为解决这个问题，你需要手动触发重新扫描，使用比特币核心命令行界面：</p>
+<p>然后，你可以使用<code>ord wallet inscriptions</code>检查你的钱包的铭文.</p>
+<p>注意，如果你之前已经用 <code>ord</code> 创建过一个钱包，那么你已经有一个默认名称的钱包，需要给你导入的钱包取一个不同的名称。你可以在所有的 <code>ord</code>命令中使用 <code>--wallet</code> 参数来引用不同的钱包，例如：</p>
+<p><code>ord --wallet ord_from_sparrow wallet restore &quot;BIP39 SEED PHRASE&quot;</code></p>
+<p><code>ord --wallet ord_from_sparrow wallet inscriptions</code></p>
+<p><code>bitcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430</code></p>
+<h2 id="使用麻雀钱包发送铭文"><a class="header" href="#使用麻雀钱包发送铭文">使用麻雀钱包发送铭文</a></h2>
+<h4 id="-警告--1"><a class="header" href="#-警告--1">⚠️⚠️ 警告 ⚠️⚠️</a></h4>
+<p>虽然强烈建议你设置一个比特币核心节点并运行 <code>ord</code> 软件，但是你可以通过一些安全的方式在 Sparrow 钱包中发送铭文。请注意，这并不推荐，只有在你完全理解你正在做什么的情况下才能这么做。</p>
+<p>使用 <code>ord</code> 软件将大大简化我们在这里描述的复杂性，因为它能以一种简单的方式自动并安全地处理发送铭文。</p>
+<h4 id="-额外警告-"><a class="header" href="#-额外警告-">⚠️⚠️ 额外警告 ⚠️⚠️</a></h4>
+<p>不要用你的sparrow麻雀铭文钱包去发送非铭文比特币。如果你需要进行普通的比特币交易，你可以在麻雀中设置一个单独的钱包，并保持你的铭文钱包独立。</p>
+<h4 id="比特币的utxo模型"><a class="header" href="#比特币的utxo模型">比特币的UTXO模型</a></h4>
+<p>在发送任何交易之前，你必须对比特币的未消费交易输出（UTXO）系统有一个良好的理解。比特币的工作方式与以太坊等许多其他区块链有着根本的不同。在以太坊中，通常你有一个存储ETH的单一地址，你无法区分其中的任何ETH - 它们只是该地址中的总金额的单一值。而比特币的工作方式完全不同，我们为每个接收生成一个新地址，每次你向钱包中的一个地址接收sats时，你都在创建一个新的UTXO。每个UTXO都可以单独查看和管理。你可以选择想要花费的特定UTXO，也可以选择不花费某些UTXO。</p>
+<p>有些比特币钱包并不显示这个级别的详细信息，它们只向你显示钱包中所有比特币的单一总和值。然而，当发送铭文时，使用如麻雀这样允许UTXO控制的钱包非常重要。</p>
+<h4 id="在发送之前检查你的铭文"><a class="header" href="#在发送之前检查你的铭文">在发送之前检查你的铭文</a></h4>
+<p>如我们之前所述，铭文是刻在聪上的，sats存储在UTXO中。UTXO是具有某个特定数量的satoshi（输出值）的satoshi集合。通常（但不总是）铭文会被刻在UTXO中的第一个satoshi上。</p>
+<p>在发送前检查你的铭文时，你主要要检查的是你的铭文刻在UTXO中的哪个satoshi上。</p>
+<p>为此，你可以按照上述 <a href="./sparrow-wallet.html#validating--viewing-received-inscriptions">验证/查看收到的铭文</a>来找到ordinals.com上你的铭文的铭文页面。</p>
+<p>在那里，你会找到一些关于你铭文的元数据，如下所示：</p>
+<p><img src="images/sending_01.png" alt="" /></p>
+<p>以下是需要检查的几个重要事项：</p>
+<ul>
+<li><code>output</code> 标识符与您将要发送的UTXO的标识符匹配</li>
+<li>铭文的<code>offset</code>是 <code>0</code> (这意味着铭文位于UTXO的第一个sat上)</li>
+<li><code>output_value</code> 有足够的sats来支付发送交易的交易费（邮资），您需要的确切金额取决于您为交易选择的费率</li>
+</ul>
+<p>如果以上所有内容对于您的铭文都是正确的，那么您应该可以安全地使用以下方法发送它。</p>
+<p>⚠️⚠️ 发送铭文时要非常小心，特别是如果<code>offset</code> 值不是<code>0</code>。如果是这种情况，不建议使用这种方法，否则您可能会无意中将您的雕文发送给比特币矿工，除非您知道自己在做什么。</p>
+<h4 id="发送您的铭文"><a class="header" href="#发送您的铭文">发送您的铭文</a></h4>
+<p>要发送铭文，请导航到<code>UTXOs</code>选项卡，并找到您之前验证包含您的雕文的UTXO。</p>
+<p>如果您之前冻结了UXTO，您将需要右键单击它并解冻它。</p>
+<p>选择您想要发送的UTXO，并确保这是唯一选中的UTXO。在界面中，您应该看到<code>UTXOs 1/1</code>。确定这个后，您可以点击<code>Send Selected</code>。</p>
+<p><img src="images/sending_02.png" alt="" /></p>
+<p>然后，您将看到交易构建界面。在这里，您需要检查几件事以确保这是一个安全的发送：</p>
+<ul>
+<li>交易应该只有1个输入，这应该是您想要发送的带有标签的UTXO</li>
+<li>交易应该只有1个输出，这是您想要发送铭文的地址/标签</li>
+</ul>
+<p>如果您的交易看起来与此不同，例如您有多个输入或多个输出，那么这可能不是一种安全的铭文传输方式，您应该放弃发送，直到您更了解或可以导入到<code>ord</code>钱包。</p>
+<p>您应该设置合适的交易费用，Sparrow通常会推荐一个合理的费用，但您也可以查看<a href="https://mempool.space">mempool.space</a> 以查看发送交易的推荐费率。</p>
+<p>您应该为收件人地址添加一个标签，如<code>alice address for inscription #123</code>就很理想。</p>
+<p>在使用上述检查确认交易是安全的交易，并且有信心发送它后，您可以点击<code>Create Transaction</code>。</p>
+<p><img src="images/sending_03.png" alt="" /></p>
+<p>在这里，您可以再次确认您的交易是否安全，在确认后，您可以点击<code>Finalize Transaction for Signing</code>。</p>
+<p><img src="images/sending_04.png" alt="" /></p>
+<p>在这里，你可以在点击<code>Sign</code>之前再次确认所有内容。</p>
+<p><img src="images/sending_05.png" alt="" /></p>
+<p>然后实际上在点击<code>Broadcast Transaction</code>之前，你有最后一次检查所有内容的机会。一旦你广播交易，它就会被发送到比特币网络，并开始在mempool中传播。</p>
+<p><img src="images/sending_06.png" alt="" /></p>
+<p>如果你想跟踪你的交易状态，你可以复制<code>Transaction Id (Txid)</code>并粘贴到<a href="https://mempool.space">mempool.space</a></p>
+<p>一旦交易确认，你可以在<a href="https://ordinals.com">ordinals.com</a> 的铭文页面上验证它是否已移动到新的输出位置和地址。</p>
+<h2 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h2>
+<h4 id="sparrow钱包没有显示交易utxo但我在mempoolspace上看到了"><a class="header" href="#sparrow钱包没有显示交易utxo但我在mempoolspace上看到了">Sparrow钱包没有显示交易/UTXO，但我在mempool.space上看到了</a></h4>
+<p>确保你的钱包连接到一个比特币节点。要验证这一点，转到<code>Preferences</code>-&gt; <code>Server</code> 设置，并点击 <code>Edit Existing Connection</code>。</p>
+<p><img src="images/troubleshooting_01.png" alt="" /></p>
+<p>从那里你可以选择一个节点并点击 <code>Test Connection</code> 来验证Sparrow是否能够成功连接。</p>
+<p><img src="images/troubleshooting_02.png" alt="" /></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../guides/collecting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../../guides/testing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../guides/collecting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../../guides/testing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr.min.js"></script>
+        <script src="../../mark.min.js"></script>
+        <script src="../../searcher.js"></script>
+
+        <script src="../../clipboard.min.js"></script>
+        <script src="../../highlight.js"></script>
+        <script src="../../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

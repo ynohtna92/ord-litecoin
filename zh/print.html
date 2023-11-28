@@ -1,0 +1,1352 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js coal">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Ordinal Theory Handbook</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="language-picker.css">
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.1.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.2.</strong> 递归</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> 铭文</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.3.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.5.</strong> 调试</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.6.</strong> 调节</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.7.</strong> 重新索引</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> 任务 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> 任务 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> 任务 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> 任务 3: 400,000 sats</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("zh");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "print.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="介绍"><a class="header" href="#介绍">介绍</a></h1>
+<p>这本手册是序数理论（Ordinals Theory）的指南。 序数理论本身关注聪（Satoshi），赋予它们个体身份，并允许它们被追踪、转移并赋予意义。</p>
+<p>聪（Satoshi），并非比特币，是比特币网络的原生货币和最小单位。一个比特币可以被细分为100,000,000聪，但不能再细分了。</p>
+<p>序数理论不需要比特币区块链之外的侧链或代币，并且可以在不对比特币网络进行任何更改的情况下使用。它即刻可以有效使用。</p>
+<p>序数理论赋予聪以收藏价值，使它们可以作为古玩被收藏和交易。</p>
+<p>单个聪可以刻有任意内容，创建独特的比特币原生的数字文物（Digital Artifact）可以保存在比特币钱包中并使用比特币交易进行传输。铭文（Inscription）与比特币本身一样持久、永恒、安全和去中心化。</p>
+<p>其他非常规的应用也是可能的：链下染色硬币,具有密钥轮换的公钥基础设施DNS 的去中心化替代品等等。 不过就目前而言，这样的应用是推测性的，只存在于非主流的序数理论家的脑海中。</p>
+<p>有关序数理论的更多详细信息，请参阅 <a href="overview.html">概述</a>.</p>
+<p>有关铭文的更多详细信息，请参阅<a href="inscriptions.html">铭文</a>.</p>
+<p>当您准备好亲自动手时，一个好的起点是<a href="guides/inscriptions.html">铭文</a>这是一种由序数理论支持的独特的数字文物。</p>
+<h2 id="链接"><a class="header" href="#链接">链接</a></h2>
+<ul>
+<li><a href="https://github.com/ordinals/ord/">GitHub仓库</a></li>
+<li><a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">BIP</a></li>
+<li><a href="https://discord.gg/ordinals">Discord</a></li>
+<li><a href="https://ordinals.org/">Open Ordinals Institute 网站</a></li>
+<li><a href="https://x.com/ordinalsorg">Open Ordinals Institute X账户</a></li>
+<li><a href="https://ordinals.com">主网区块</a></li>
+<li><a href="https://signet.ordinals.com">Signet区块浏览器</a></li>
+</ul>
+<h2 id="视频"><a class="header" href="#视频">视频</a></h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=rSS0O2KQpsI">解释序数理论: 聪的序列号和比特币上的NFT</a></li>
+<li><a href="https://www.youtube.com/watch?v=MC_haVa6N3I">CaseyRodarmor的序数理论工作坊 </a></li>
+<li><a href="https://www.youtube.com/watch?v=j5V33kV3iqo">序数艺术：在比特币上铸造你自己的NFT w/ @rodarmor</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="序数理论概述"><a class="header" href="#序数理论概述">序数理论概述</a></h1>
+<p>序数是一种比特币的编号方案，允许跟踪和转移单个聪。这些数字被称作<a href="https://ordinals.com">序号</a>。比特币是按照它们被挖掘的顺序编号的，并从交易输入转移到交易输出（遵循先进先出原则）。编号方案和传输方案都依赖于_顺序_，编号方案依赖于比特币被挖掘的_顺序_，而传输方案依赖于交易输入和输出的_顺序_。因此得名，<em>序数（Ordinals</em>。</p>
+<p>技术细节可以在<a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">the BIP</a>获取.</p>
+<p>序数理论不需要一个单独的代币，单独区块链，或者对比特币进行任何更改。它即刻可以有效运转。</p>
+<p>序号有几种不同的表示方式：</p>
+<ul>
+<li>
+<p><em>整数符号</em>:<a href="https://ordinals.com/sat/2099994106992659"><code>2099994106992659</code></a> 这个序号是根据挖掘聪的顺序分配。</p>
+</li>
+<li>
+<p><em>十进制符号</em>: <a href="https://ordinals.com/sat/3891094.16797"><code>3891094.16797</code></a> 第一个数字是挖掘聪的区块高度，第二个数字是区块内聪的偏移量。 </p>
+</li>
+<li>
+<p><em>度数符号</em>: <a href="https://ordinals.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4"><code>3°111094′214″16797‴</code></a> 我们马上就会讲到。 </p>
+</li>
+<li>
+<p><em>百分数</em>: <a href="https://ordinals.com/sat/99.99971949060254%25"><code>99.99971949060254%</code></a> . 以百分比表示聪在比特币供应中的位置 </p>
+</li>
+<li>
+<p><em>名字</em>: <a href="https://ordinals.com/sat/satoshi"><code>satoshi</code></a>. 一种使用字母<code>a</code> 到 <code>z</code>对序号进行编码的方法</p>
+</li>
+</ul>
+<p>任意资产，如NFT、安全令牌、帐户或稳定币， 都可以使用序数作为稳定标识符附加到聪上。</p>
+<p>Ordinals是一个开源项目，部署在<a href="https://github.com/ordinals/ord">on GitHub</a>. 该项目包括一个描述序数方案的BIP、 一个与比特币核心节点通信以跟踪所有聪位置的索引一个允许进行序号感知交易的钱包、 一个用于区块链交互探索的区块资源管理器、用数字文物嵌入聪的功能，以及本手册。 </p>
+<h2 id="稀缺度"><a class="header" href="#稀缺度">稀缺度</a></h2>
+<p>人类是收藏者。由于聪现在可以被追踪和转移，人们自然会想要收藏它们。 序数理论家可以自己决定哪些聪是稀有和合意的， 这里有一些提示…</p>
+<p>比特币有周期性的事件，有些频繁，有些不常见，这些事件自然而然地形成了一个稀有度系统。这些周期性事件是:</p>
+<ul>
+<li>
+<p><em>区块</em>: 从现在到时间结束，大约每10分钟挖掘一个新区块。</p>
+</li>
+<li>
+<p><em>难度调整</em>: 每2016个区块，或大约每两周， 比特币网络通过调整区块必须满足的难度目标来响应哈希率的变化。 </p>
+</li>
+<li>
+<p><em>减半</em>: 每21万个区块，或者大约每四年，每个区块产生的新聪的数量就会减半。 </p>
+</li>
+<li>
+<p><em>周期</em>: 每六次减半就会发生一些神奇的事情：减半和难度调整会同时发生，这就是所谓的相合，相合之间的时间周期是一个周期。 大约每24年就会发生一次相合，第一次相合应该会发生在2032年的某个时候。</p>
+</li>
+</ul>
+<p>这给了我们以下稀缺度等级:</p>
+<ul>
+<li><code>普通</code>: 指所有不是其区块第一个聪的聪</li>
+<li><code>非普通</code>: 每个区块的第一个聪</li>
+<li><code>罕见</code>: 每一个难度调整周期的第一个聪</li>
+<li><code>史诗</code>: 每个减半周期的第一个聪h</li>
+<li><code>传奇</code>: 每一个循环周期的第一个聪</li>
+<li><code>神话</code>: 创世区块的第一个聪</li>
+</ul>
+<p>这给我们带来了度数表示法，它以一种使聪的稀有性一目了然的方式明确地表示一个序数： </p>
+<pre><code>A°B′C″D‴
+│ │ │ ╰─ Index of sat in the block
+│ │ ╰─── Index of block in difficulty adjustment period
+│ ╰───── Index of block in halving epoch
+╰─────── Cycle, numbered starting from 0
+</code></pre>
+<p>序数理论家通常使用 &quot;小时&quot;, &quot;分钟&quot;, &quot;秒&quot;, 以及 &quot;第三&quot; 等专用词汇来对应的表示 <em>A</em>, <em>B</em>, <em>C</em>, 和 <em>D</em>。</p>
+<p>现在我们来举一些例子，这是一颗普通的聪</p>
+<pre><code>1°1′1″1‴
+│ │ │ ╰─ Not first sat in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── Not first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>这是一颗不普通的聪</p>
+<pre><code>1°1′1″0‴
+│ │ │ ╰─ First sat in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── Not first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>这是一颗罕见的聪</p>
+<pre><code>1°1′0″0‴
+│ │ │ ╰─ First sat in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── Not the first block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>这是一个史诗级的聪</p>
+<pre><code>1°0′1″0‴
+│ │ │ ╰─ First sat in block
+│ │ ╰─── Not first block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>这是一颗传奇级的聪</p>
+<pre><code>1°0′0″0‴
+│ │ │ ╰─ First sat in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── Second cycle
+</code></pre>
+<p>这是神话级别的聪:</p>
+<pre><code>0°0′0″0‴
+│ │ │ ╰─ First sat in block
+│ │ ╰─── First block in difficulty adjustment period
+│ ╰───── First block in halving epoch
+╰─────── First cycle
+</code></pre>
+<p>如果区块偏移量为零，则可以省略。这是对比以上的非普通的聪:</p>
+<pre><code>1°1′1″
+│ │ ╰─ Not first block in difficulty adjustment period
+│ ╰─── Not first block in halving epoch
+╰───── Second cycle
+</code></pre>
+<h2 id="稀有聪的总供给量"><a class="header" href="#稀有聪的总供给量">稀有聪的总供给量</a></h2>
+<h3 id="总供给"><a class="header" href="#总供给">总供给</a></h3>
+<ul>
+<li><code>普通</code>: 2千100万亿</li>
+<li><code>非普通</code>: 6,929,999</li>
+<li><code>罕见</code>: 3437</li>
+<li><code>史诗</code>: 32</li>
+<li><code>传奇</code>: 5</li>
+<li><code>神话</code>: 1</li>
+</ul>
+<h3 id="现有的供给量"><a class="header" href="#现有的供给量">现有的供给量</a></h3>
+<ul>
+<li><code>普通</code>: 1千900万亿</li>
+<li><code>非普通</code>: 745,855</li>
+<li><code>稀有</code>: 369</li>
+<li><code>史诗</code>: 3</li>
+<li><code>传奇</code>: 0</li>
+<li><code>神话</code>: 1</li>
+</ul>
+<p>目前即使是非普通的聪也非常罕见。 截至撰写本文时， 已开采出 745,855 个非普通的聪-大约在每 25.6个流通比特币中会有一个。 </p>
+<h2 id="名字"><a class="header" href="#名字">名字</a></h2>
+<p>每个聪都有一个名字，由字母 <em>A</em> 到 _Z_构成 随着聪被开采的时间越长，名字越短。 如果他们从短开始，然后变得更长，那么所有好的、短的名字都会被困在无法使用的创世块中。 </p>
+<p>举个例子, 1905530482684727°'的名字是 &quot;iaiufjszmoba&quot;.最后一个被挖掘的聪的名字会是&quot;a&quot;。10个字母或更少字符的组合都会存在，或者总有一天会存在。</p>
+<h2 id="奇特的"><a class="header" href="#奇特的">奇特的</a></h2>
+<p>除了它们的名字或稀有性之外，聪可能还因为其他原因而受到重视。这可能是由于数字本身的性质，比如具有整数的平方根或立方根。或者它与某件历史事件有关，例如来自区块477,120的聪（SegWit激活的区块）是 2099999997689999°，这是最后一个被挖出来的聪。</p>
+<p>这种比特币被称为“奇特的”。哪些聪是“奇特的”？是什么让他们如此被重视？序数理论家被鼓励根据他们自己设计的标准来寻找“奇特的”聪。</p>
+<h2 id="铭文"><a class="header" href="#铭文">铭文</a></h2>
+<p>聪可以刻有任意内容，从而创建比特币原生的数字文物（数字艺术）。铭刻是通过将要铭刻的内容发送到交易中来完成的，该交易会在链上显示铭文内容。由于铭文内容与聪有着密不可分的联系，从将创造了一个不可改变的数字人工制品。这个数字文物可以被追踪、转移、储存、购买、出售、丢失和重新发现。</p>
+<h2 id="考古"><a class="header" href="#考古">考古</a></h2>
+<p>致力于编目和收集早期 NFT 的活跃考古学家社区如雨后春笋般涌现 <a href="https://mirror.xyz/chainleft.eth/MzPWRsesC9mQflxlLo-N29oF4iwCgX3lacrvaG9Kjko">Chainleft对历史NFT的精彩总结</a></p>
+<p>普遍接受的古老NFT 的截止日期是 2018年3月19日，即 第一个 ERC-721 合约,<a href="https://tenthousandsu.com/">SU SQUARES</a>, 被部署在以太坊上的时间 </p>
+<p>NFT 考古学家是否对序数感兴趣是一个悬而未决的问题！ 从某种意义上说，序数是在 2022 年初创建的，当时序数规范已定稿</p>
+<p>从这个意义上说，它们不具有历史意义。但从另一种意义上说，序数实际上是由中本聪在 2009 年开采比特币创世块时创造的。从这个意义上说，序数，尤其是早期的序数，当然具有历史意义。</p>
+<p>许多序数理论家赞成后一种观点。这不仅仅是因为序数是在至少两个不同的场合独立发现的，远早于现代 NFT 时代开始。</p>
+<p>2012 年 8 月 21 日，Charlie Lee 在 Charlie Lee <a href="https://bitcointalk.org/index.php?topic=102355.0">在Bitcoin Talk论坛上发布一项将比特币权益证明Proof-of-stake添加的提案</a>. 这不是资产方案，但确实使用了序数算法，并且已实施但从未部署过。</p>
+<p>2012 年 10 月 8 日，jl2012 在<a href="https://bitcointalk.org/index.php?topic=117224.0">同一论坛上发布了一个方案</a> 该方案使用十进制表示法并具有序数的所有重要属性。 该计划进行了讨论，但从未实施。</p>
+<p>这些序数的独立发明在某种程度上表明序数是被发现的， 或者是重新发现的，而不是发明的。 序数是比特币数学的必然性， 不是源于它们的现代文档，而是源于它们古老的起源。 它们是许多年前随着第一个区块的开采而启动的一系列事件的高潮。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="数字文物"><a class="header" href="#数字文物">数字文物</a></h1>
+<p>想象有一个实体的人工制品。 比方说，一枚稀有的硬币，在维京人的宝库的黑暗中秘密保存了无数年，现在被你亲手从地下挖了出来。 它…</p>
+<p>…有了一个主人. 那就是您. 只要您妥善保管，就没有人能从您手中夺走它。</p>
+<p>…是完整的。 它没有任何遗漏的部分。</p>
+<p>…只能由您来改变。如果您是一名商人，并且您来到了 18世纪的中国，那么除您之外，无人可以在上面盖章。</p>
+<p>……只能由您处置。 销售、交易或赠送都是您的决定，您想给谁就给谁。 </p>
+<p>什么是数字文物（数字工件、数字人工制品）？ 简而言之，它们是物理人工制品的数字等价物。</p>
+<p>要使数字化事物成为数字人工制品，它必须像您的那枚硬币：</p>
+<ul>
+<li>
+<p>数字文物可以有所有者，因此数字不同于数字文物，因为没有人可以拥有数字。</p>
+</li>
+<li>
+<p>数字文物是完整的，指向 IPFS 或 Arweave 上链下内容的 NFT 是不完整的，因此不是数字文物。</p>
+</li>
+<li>
+<p>数字文物是无需许可的，不支付版税就不能出售的 NFT 不是无需许可的，因此不是数字文物。</p>
+</li>
+<li>
+<p>数字文物是不可审查的， 也许你今天可以更改集中式分类账上的数据库条目，但明天可能不行 因此一个不是数字文物</p>
+</li>
+<li>
+<p>数字文物是不可篡改的，带有升级密钥的NFT不是数字文物。</p>
+</li>
+</ul>
+<p>数字文物的定义旨在从其特定的本质上反映NFT <em>应该</em> 是什么, 有时是什么, 以及铭文_始终_ 是什么 </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="铭文-1"><a class="header" href="#铭文-1">铭文</a></h1>
+<p>铭文里可刻有任意内容，从而创造了比特币原生的数字人工制品，通常被称为 NFT。铭文不需要侧链或单独的代币。 </p>
+<p>这些铭刻的聪，可以使用比特币交易传输发送到比特币地址，保存在比特币 UTXO 中。这些交易、地址 和 UTXO 在所有方面都是正常的比特币交易、地址和 UTXO。除了为了发送单个聪，交易必须根据序数理论控制输入和输出的顺序和值。 </p>
+<p>铭文内容是基于万维网标准的。铭文由内容类型（也称为 MIME 类型）和内容本身（字节串）组成。这允许从 Web 服务器返回铭文内容，并用于创建和使用HTML铭文并重新混合其他铭文内容。</p>
+<p>铭文内容完全在链上，存储在taproot script-path spend脚本中。 Taproot 脚本对其内容的限制很少，并且额外获得见证折扣，使得铭文内容存储相对经济。</p>
+<p>因为taproot script-path spend脚本只能从现有的 taproot 输出中产生，因此使用两阶段commit/reveal过程进行铭刻。首先，在commit中，创建一个提交到包含铭文内容的脚本的taproot 输出。 其次，在reveal交易中，使用commit交易产生的输出，来显示链上的铭文内容。</p>
+<p>铭文内容使用未执行条件中的数据推送进行序列化，称为“信封”。信封由 OP_FALSE OP_IF … OP_ENDIF 组成，包装任意数量的数据推送。因为信封实际上是空操作，所以它们不会改变包含它们的脚本的语义，并且可以与任何其他锁定脚本结合使用。</p>
+<p>包含字符串“Hello, world!”的文本铭文 序列化如下：</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>首先字符串<code>ord</code>被推送，以消除铭文与信封其他用途的歧义。</p>
+<p><code>OP_PUSH 1</code> indicates that the next push contains the content type, and <code>OP_PUSH 0</code>indicates that subsequent data pushes contain the content itself. Multiple data pushes must be used for large inscriptions, as one of taproot's few restrictions is that individual data pushes may not be larger than 520 bytes.</p>
+<p>铭文内容包含在reveal交易的输入中，并且铭文是铭刻在其第一个输出的第一个聪（Satoshi）上。我们可以使用熟悉的序数理论规则来跟踪这个聪 sat，允许它被转移、购买、出售、丢失和恢复。</p>
+<h2 id="内容"><a class="header" href="#内容">内容</a></h2>
+<p>铭文的数据模型是 HTTP 响应的数据模型，允许铭文由网络服务器提供服务并在网络浏览器中查看的内容。</p>
+<h2 id="字段"><a class="header" href="#字段">字段</a></h2>
+<p>铭文可以在可选主体之前包含字段。每个字段都包含两个数据推送，一个标签和一个值。</p>
+<p>目前，唯一定义的字段是‘content-type’，标签为‘1’，其值是正文的 MIME 类型。</p>
+<p>正文的开头和字段的结尾用'空数据'指示推送。</p>
+<p>无法识别的标签的解释不同，取决于它们是否是偶数或奇数，遵循闪电网络&quot;可以是奇数&quot;的规则。</p>
+<p>甚至标签也用于可能影响创建、初始分配的字段，或铭文的转移。因此，即使无法识别的铭文，字段也必须显示为&quot;未绑定&quot;，即没有位置。</p>
+<p>奇数标签用于不影响创建、初始的字段,分配或转移，例如附加元数据，因此是选择忽略是安全的。</p>
+<h2 id="铭文身份id"><a class="header" href="#铭文身份id">铭文身份ID</a></h2>
+<p>铭文包含在揭示交易的输入中。为了唯一地识别他们，他们被分配了一个以下形式的 ID：</p>
+<p><code>521f8eccffa4c41a3a7728dd012ea5a4a02feed81f41159231251ecf1e5c79dai0</code></p>
+<p><code>i</code> 的前面部分是交易ID (<code>txid</code>)，在<code>i</code>之后的数字定义了新的铭文在交易总被铭刻的索引的位置 (从 0 开始)</p>
+<p>铭文可以位于同一输入中的不同输入中,可以是同一个输入或两者的组合。在任何情况下，顺序都是明确的，因为解析器将连续检查输入并查找所有铭文<code>信封</code></p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: center">Input</th><th style="text-align: center">Inscription Count</th><th style="text-align: center">Indices</th></tr></thead><tbody>
+<tr><td style="text-align: center">0</td><td style="text-align: center">2</td><td style="text-align: center">i0, i1</td></tr>
+<tr><td style="text-align: center">1</td><td style="text-align: center">1</td><td style="text-align: center">i2</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: center">3</td><td style="text-align: center">i3, i4, i5</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: center">0</td><td style="text-align: center"></td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: center">1</td><td style="text-align: center">i6</td></tr>
+</tbody></table>
+</div>
+<h2 id="沙盒化"><a class="header" href="#沙盒化">沙盒化</a></h2>
+<p>HTML 和 SVG 铭文被沙箱化，以防止引用链下内容，从而保持铭文的不可变性和独立性。</p>
+<p>这是通过在“iframes”中加载 HTML 和 SVG 铭文来完成的<code>sandbox</code> 属性，以及提供铭文内容Content-Security-Policy”标头。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="溯源"><a class="header" href="#溯源">溯源</a></h1>
+<p>铭文的所有者可以创建子铭文，在链上无需信任地建立这些子铭文的'溯源'，证明它们是由父铭文的所有者创建的。这可以用于集合，父铭文的子铭文会成为同一集合的成员。</p>
+<p>子铭文自己也可以有子铭文，从而形成复杂的层级结构。例如，一位艺术家可能创建一个代表自己的铭文，子铭文代表他们创建的合辑，而那些子铭文的子项就是合辑中的项目。</p>
+<h3 id="规范"><a class="header" href="#规范">规范</a></h3>
+<p>为父系铭文P创建一个子铭文C:</p>
+<ul>
+<li>像通常一样为C创建常用的铭刻交易T。</li>
+<li>在其中的一个T输入中加入父系铭文P</li>
+<li>在C中包含标签<code>3</code>，即<code>OP_PUSH 3</code>，其值为P的序列化二进制铭文ID序列化为32字节的<code>TXID</code>，后跟四字节的小端<code>INDEX</code>，不含末尾的零。</li>
+</ul>
+<p><em>请注意</em>，比特币交易ID的字节在文本中的表现形式是反向的，所以序列化的交易ID会以相反的顺序呈现。</p>
+<h3 id="示例"><a class="header" href="#示例">示例</a></h3>
+<p>子铭文的一个示例 <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi0</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  OP_PUSH &quot;ord&quot;
+  OP_PUSH 1
+  OP_PUSH &quot;text/plain;charset=utf-8&quot;
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100
+  OP_PUSH 0
+  OP_PUSH &quot;Hello, world!&quot;
+OP_ENDIF
+</code></pre>
+<p>请注意，标签<code>3</code>的值是二进制的，而不是十六进制的，主要是为了让子铭文识别出来是个子铭文，<code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi0</code>必须作为铭文交易的输入之一</p>
+<p>铭文ID的编码示例 <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi255</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  …
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a09080706050403020100ff
+  …
+OP_ENDIF
+</code></pre>
+<p>以及铭文 ID <code>000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1fi256</code>:</p>
+<pre><code>OP_FALSE
+OP_IF
+  …
+  OP_PUSH 3
+  OP_PUSH 0x1f1e1d1c1b1a191817161514131211100f0e0d0c0b0a090807060504030201000001
+  …
+OP_ENDIF
+</code></pre>
+<h3 id="注释"><a class="header" href="#注释">注释</a></h3>
+<p>标签 <code>3</code> 被使用是因为它是第一个可用的奇数标签。未识别的奇数标签不会使铭文无法进行绑定，因此，旧版本的ord仍可以识别和追踪子铭文。</p>
+<p>通过销毁集合的父铭文，可以关闭一个集合，这保证了该集合中不能再发行更多的项目。 </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="递归"><a class="header" href="#递归">递归</a></h1>
+<p><a href="inscriptions/../inscriptions.html#sandboxing">沙盒化</a>的一个重要例外是递归：访问“ord”的“/content”允许端点，允许铭文访问其他端点的内容通过请求 <code>/content/&lt;INSCRIPTION_ID&gt;</code> 来获取铭文。</p>
+<p>这有许多有趣的用例：</p>
+<ul>
+<li>
+<p>重新混合现有铭文的内容。</p>
+</li>
+<li>
+<p>将代码、图像、音频或样式表片段发布为公共的共享资源。</p>
+</li>
+<li>
+<p>生成艺术收藏，其中算法使用JavaScript刻写，并从具有独特种子的多个铭文中实例化。</p>
+</li>
+<li>
+<p>生成个人资料图片集，其中包含配件和属性刻录为单独的图像，或刻录在共享纹理图集中，然后组合，拼贴风格，在多个铭文中以独特的组合。</p>
+</li>
+</ul>
+<p>铭文可以访问的其他几个端点如下：</p>
+<ul>
+<li><code>/blockheight</code>：最新区块高度。</li>
+<li><code>/blockhash</code>：最新的块哈希。</li>
+<li><code>/blockhash/&lt;HEIGHT&gt;</code>：给定块高度的块哈希。</li>
+<li><code>/blocktime</code>：最新块的 UNIX 时间戳。</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="序数理论常见问题"><a class="header" href="#序数理论常见问题">序数理论常见问题</a></h1>
+<h2 id="什么是序数理论"><a class="header" href="#什么是序数理论">什么是序数理论</a></h2>
+<p>序数理论是一种为聪（satoshi，以下写作“聪”，比特币的最小单位）分配序列号的协议，并在交易中跟踪这些聪。</p>
+<p>这些序号都是很大的数字，比如，804766073970493. 每一个聪satoshi, 也都是比特币的 ¹⁄₁₀₀₀₀₀₀₀₀ 都有一个序数号号码</p>
+<h2 id="序数理论是否需要一个侧链一个单独的代币或对比特币做出改变"><a class="header" href="#序数理论是否需要一个侧链一个单独的代币或对比特币做出改变">序数理论是否需要一个侧链，一个单独的代币，或对比特币做出改变?</a></h2>
+<p>完全不需要！序数理论现在有效可用，没有侧链，唯一需要的代币是比特币本身。</p>
+<h2 id="序数理论有什么用"><a class="header" href="#序数理论有什么用">序数理论有什么用？</a></h2>
+<p>收集、交易和策划。序数理论将身份分配给单个聪，允许它们作为古玩和钱币价值被单独跟踪和交易。</p>
+<p>序数理论还赋能铭文，这是一种将任意内容附加到单个聪的协议，将它们变成比特币原生的数字文物。</p>
+<h2 id="序数理论是如何运作的"><a class="header" href="#序数理论是如何运作的">序数理论是如何运作的？</a></h2>
+<p>序数是按照挖矿的顺序分配给聪的。第一个区块的首聪序数为0，第二个聪的序数为1，第一个区块的最后一个聪的序数为4,999,999,999。</p>
+<p>聪存在于输出中，但交易会破坏输出并创建新的输出，因此序数理论使用一种算法来确定聪如何从交易的输入跳到其输出</p>
+<p>幸运的是，这个算法非常简单。</p>
+<p>聪按照先进先出的顺序进行转账。 将交易的输入视为聪列表，将输出视为插槽slot列表，等待接收聪。 要将输入聪分配给插槽，按顺序检查输入中的每个聪，并将每个聪分配给输出中的第一个可用插槽。</p>
+<p>让我们想象一个具有三个输入和两个输出的交易。 输入在箭头的左边，输出在右边，都标有它们的值：</p>
+<pre><code>[2] [1] [3] → [4] [2]
+</code></pre>
+<p>现在，我们用每个输入包含的聪序数标记同一笔交易，并为每个输出插槽标记问号。 序数号很大，所以我们用字母来表示它们：</p>
+<pre><code>[a b] [c] [d e f] → [? ? ? ?] [? ?]
+</code></pre>
+<p>要弄清楚哪个聪到哪个输出，请按顺序检查输入聪并将每个聪分配给一个问号：</p>
+<pre><code>[a b] [c] [d e f] → [a b c d] [e f]
+</code></pre>
+<p>你可能会问交易费用呢？ 好问题！ 让我们想象一下同一笔交易，这次是两个聪的费用。收费交易在输入中发送的聪 多于输出接收的聪，因此为了使我们的交易成为支付费用的交易，我们将删除第二个输出：</p>
+<pre><code>[2] [1] [3] → [4]
+</code></pre>
+<p>聪<var>e</var>和 <var>f</var>现在在输出中无处可去```
+[a b] [c] [d e f] → [a b c d]</p>
+<pre><code>
+所以他们作为“费用”去到挖这个区块的矿工那里。[The BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) 有更详细的描述,但简而言之，交易支付的费用被视为对Coinbase交易的额外输入，并按照其对应的交易在区块中的顺序进行排序。该区块的Coinbase交易可能是这样的:
+
+</code></pre>
+<p>[SUBSIDY] [e f] → [SUBSIDY e f]</p>
+<pre><code>
+## 我在哪里可以找到这些详细信息
+
+[The BIP!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)
+
+## 为什么聪的铭文被称为“数字文物”而不是“NFT”？
+
+铭文也是一种NFT，但使用术语“数字文物”代替，因为它简单、有启发性且熟悉。
+
+&quot;数字文物&quot;（数字工件，数字人工制品）这些词具有很强的暗示性，即使对以前从未听说过这个词的人来说也是如此相比之下，NFT是一个首字母缩略词，如果你以前没有听过这个术语，它就无法说明它的意思。
+
+此外，&quot;NFT&quot;感觉像是金融术语，&quot;NFT&quot;中使用的&quot;同质化&quot;一词和&quot;代币&quot;一词的含义在金融语境之外并不常见。
+
+## 聪上的铭文与其他的对比
+
+### 以太坊NFT
+
+_铭文永恒不变_
+
+铭文的创建者或铭文的所有者根本无法在创建铭文后对其进行修改。
+
+以太坊NFTs_可以_是不可更改的，但很多都不是，且是可以由 NFT 合约所有者更改或删除。
+
+为了确保特定的以太坊 NFT 是不可变的，必须审计合约代码，这需要详细了解 EVM 和 Solidity 语义。
+
+对于非技术用户来说，很难确定某以太坊NFT是否可变，以太坊NFT平台也没有努力去区分NFT是否可变，以及合约源代码是否可用并已经过审计。
+
+_铭文内容永久链上_
+
+铭文无法引用链下内容。因为内容不会丢失，这使得铭文更加持久，也使得铭文创作者必须支付与内容大小成比例的费用。
+
+一些以太坊 NFT 内容在链上的，但大部分内容在链下，存储在 IPFS 或 Arweave 等平台上，或传统完全中心化的网络服务器上。IPFS上的内容不保证继续可用，一些存储在IPFS上的NFT内容已经丢失。像Arweave这样的平台依赖于薄弱的经济假设，当这些经济假设不再满足时，它们很可能会发生灾难性的失败。中心化的网络服务器随时可能消失。
+
+对于非技术用户来说，很难确定某以太坊NFT的内容存储在哪里。
+
+_铭文要简单得多_
+
+以太坊 NFT 依赖于以太坊网络和虚拟机，它们高度复杂、不断变化，并通过向后不兼容的硬分叉引入变化。
+
+相反，铭文依赖于比特币区块链，它相对简单和保守，并通过向后兼容的软分叉引入变化。
+
+_铭文更安全_
+
+铭文继承了比特币的交易模型，允许用户在签名之前准确地看到交易中转移了哪些铭文。铭文可以使用部分签名交易进行销售，不需要允许第三方（如交易所或市场）代表用户转让它们。
+
+相比之下，以太坊NFT受到终端用户安全漏洞的困扰。盲签交易、授予第三方应用程序对用户NFT的无限权限，以及与复杂且不可预测的智能合约交互都是司空见惯的事情。这为以太坊 NFT 用户制造了一个危险雷区，而这些对于序号理论家来说，根本毋需操心。
+
+_铭文更加稀缺_
+
+铭文需要比特币来铸造、转移和存储。从表面上看，这似乎是一个阻碍，但数字文物存在的价值目的正是稀缺。
+
+另一方面，以太坊 NFT 可以通过单笔交易以几乎无限的质量进行铸造，使它们本质上不那么稀缺，因此可能没太多价值。
+
+_铭文不会假装支持链上版税_
+
+“链上版税”理论上是个好主意，但在实践中却行不通。 如果没有复杂和侵入性的限制，就不能在链上强制执行版税支付。以太坊 NFT 生态系统正在努力地解决围绕版税的难题，并且也在共同面对一个现实：即向艺术家传达NFT 链上版税这个利器其实是不可行的，与此同时，多个平台则在竞相删除对版税的支持。
+
+铭文完全避免了这种情况，不虚假地承诺支持链上版税，从而避免了和以太坊NFT一样混乱又消极的状况。
+
+_铭文开启了新的市场_
+
+比特币的市值和流动性都大大超越以太坊。以太坊NFT无法获得此类大部分的流动性，因为许多比特币使用者出于简单性、安全性和去中心化的考虑，不愿意与以太坊生态系统进行交互。
+
+与以太坊 NFT 相比，此类比特币拥护者可能对铭文更感兴趣，从而解锁了新的类别的收藏家。
+
+_铭文有更丰富的数据模型_
+
+铭文由内容类型（也称为MIME类型）和内容（任意字节字符串）组成。这相同于 web 使用的数据模型，允许铭文内容随着 web 的发展而发展，并支持 web 浏览器支持的任何类型的内容，而无需更改底层协议。
+
+### RGB 和 Taro 资产？
+
+RGB 和 Taro 都是建立在比特币之上的二层资产协议。 与铭文相比，它们要复杂得多，但也更有特色。
+
+序号理论是为数字人工制品而设计的，而 RGB 和 Taro 的主要用例是可替代代币，因此铭文的用户体验可能比 RGB 和 Taro NFT 的用户体验更简单、更完善 。
+
+RGB 和 Taro 都在链下存储内容，这需要额外的基础设施，而且可能会丢失。相比之下，铭文内容存储在链上，不会丢失。
+
+序数理论、RGB和Taro都是非常早期的，所以这只是推测，但序号理论的重点可能使其在数字艺术品的特性方面具有优势，包括更好的内容模型，以及像全球唯一符号这样的特性。
+
+### Counterparty资产
+
+Counterparty 有自己的代币 XCP，它是某些功能所必需的，这使得大多数比特币持有者将其视为山寨币，而不是比特币的扩展或第二层。
+
+序数理论是为数字文物从头开始设计的，而Counterparty主要是为金融代币发行而设计的。
+
+## 铭文可以为...
+
+### 艺术家
+
+_铭文在比特币上_ 比特币是目前地位最高、长期生存机会最大的数字货币。 如果你想保证你的艺术作品能流传到未来，没有比铭文更好的发布方式了。
+
+\_链上存储更便宜_按每个比特币2万美元和每 vbyte 1聪的最低中继费用计算，发布铭文内容的成本为每100万字节50美元。
+
+_铭文还处于项目早期_ 铭文仍在开发中，尚未在主网上发布（建议更新）。 这使您有机会成为早期采用者，并随着媒体的发展探索它。
+
+_铭文很简单_ 铭文不需要你编写或理解智能合约。
+
+\_铭文解锁新的流动性_对于比特币持有者来说，铭文更容易获得，也更有吸引力，从而带来全新的收藏者。
+
+_铭文是为数字文物设计_ 全新设计的铭文是为了支持 NFT，并具有更好的数据模型，以及全球独特符号和增强来源等功能。
+
+_铭文不鼓励链上版税_ 这可能不是个好消息，但也取决于你如何看待它。链上版税一直是创作者的福音，但也在以太坊 NFT生态系统中造成了巨大的混乱。以太坊现在正努力解决这个问题，也是一场逐底竞赛，以实现一个“可选版税”的未来。铭文不支持链上版税，因为它们在技术上不可行。如果您选择创建铭文，有许多方法可以绕过这个限制：保留一部分铭文供未来售卖，以受益于未来的升值，或者为尊重可选版税的用户提供额外津贴。
+
+### 收藏者
+
+_铭文很简单_，清晰并无意外\* 它们始终是不可变的并且在链上，不需要特殊的尽职调查。
+
+_铭文在比特币上_ 您可以使用您控制的比特币全节点轻松验证铭文的位置和属性。
+
+### 比特币信仰者
+
+让我在开头说明一下：比特币网络所做的最重要的事情是货币去中心化。所有其他用例都是次要的，包括序数理论。序数理论的开发者理解并承认这一点，并相信序数理论至少在很小的程度上有助于比特币的主要任务。
+
+与其他山寨币领域的事物不同，数字文物有其优点。当然，有大量的NFT是丑陋、愚蠢和存在欺骗性的。然而，还是有很多有奇妙的创意，创造和收藏艺术本来就是人类故事的一部分，甚至早于贸易和金钱这些同样古老的技术。
+
+比特币提供了一个精彩的平台，以一种安全、去中心化的方式创造、收集数字文物，也以同样的方式保护了用户和艺术家，更同时提供了一个优秀的平台来发送和接收价值。
+
+序数和铭文增加了对比特币区块空间的需求，这也增加了比特币的安全预算。这对于保障比特币向费用依赖型的安全模式过渡至关重要，因为区块补贴减半已少得微不足道。
+
+铭文内容存储在链上，因此对用于铭文区块空间的需求是无限的。这就为所有比特币区块空间创造了一个最后买家。这将有助于支持一个强大的收费市场，从而确保比特币一直安全。
+
+铭文还反驳了比特币不能扩展或用于新用例的说法。 如果你关注 DLC、Fedimint、Lightning、Taro 和 RGB 等项目，你就会知道这种说法是错误的。铭文提供了一个易于理解的反论点，并且针对一个流行且经过验证的用例：NFT，这使得它非常易理解。
+
+如果像作者所希望的那样，铭文被证明是具有丰富历史的数字文物，并且受到高度追捧，它们将会成为比特币采用的强大吸引力：被乐趣、丰富的艺术吸引而来，也为去中心化的数字货币而愿意留下来。
+
+铭文是区块空间需求的一个极其良性的来源，不像稳定币，可能会让大型发行人对比特币的未来发展产生影响；也不像DeFi，可能通过在比特币上引入MEV、数字艺术和收藏品的机会来集中挖矿。艺术是去中心化的，任何实体都不可能运用权力去破坏得了比特币。
+
+铭文用户和服务提供商被激励运行比特币全节点，以及发布跟踪铭文，从而将他们的经济权重投向诚实的链。
+
+序数理论和铭文不会对比特币的可替代性产生重大影响。比特币用户即使忽略这两者也不会受到影响。
+
+我们希望序数理论能够加强、丰富比特币，并赋予它另一个维度的吸引力和功能，使其能够更有效地服务于其作为人类去中心化价值存储的主要用例。</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="如何为ord做贡献"><a class="header" href="#如何为ord做贡献">如何为<code>ord</code>做贡献</a></h1>
+<h2 id="建议的步骤"><a class="header" href="#建议的步骤">建议的步骤</a></h2>
+<ol>
+<li>找到一个你想解决的问题。</li>
+<li>弄清楚什么是解决这个问题的良好的第一步，这可以是代码，研究和提案的形式，或者是如果它已经过时，或者一开始就不是一个好主意，则建议将其关闭。</li>
+<li>概述您所建议的第一步，对问题进行评论，并征求反馈。当然你也可以立即投入并开始编写代码或者测试。但是如果问题已经过时、未明确制定、因其他原因受阻或者未准备好实施，这一步可以避免潜在的精力浪费。</li>
+<li>如果问题需要更改代码或者修复错误，请打开测试PR草稿，并征求反馈意见。这将保证每一个人会同步知道需要做一些什么，或者解决这个问题的第一步是什么。同样，调试是必须的，所以首先写出测试草案并确认更新是可以被容易的测试的。</li>
+<li>随机敲击键盘直到测试通过，然后重构直到代码准备好提交。</li>
+<li>将 PR 标记为审查就绪。</li>
+<li>根据需要修改 PR 。</li>
+<li>最后一步，合并！</li>
+</ol>
+<h2 id="集腋成裘"><a class="header" href="#集腋成裘">集腋成裘</a></h2>
+<p>小的改变可以让你迅速的产生影响力，即便你采取了错误的策略，你也不会浪费太多的时间。</p>
+<p>一些小问题的思路:</p>
+<ul>
+<li>增加新的测试或者测试案例以增加测试的覆盖率</li>
+<li>增加或者改进文档</li>
+<li>找到一个需要更多研究的问题，进行研究并在评论中进行总结</li>
+<li>找到一个过时的问题，并评论使其关闭</li>
+<li>找到一个本不该做的问题，并提供建设性的反馈，详细说明您认为会出现这种情况的原因</li>
+</ul>
+<h2 id="早合并勤合并"><a class="header" href="#早合并勤合并">早合并，勤合并</a></h2>
+<p>将大大型的任务分成多个较小的步骤，这些步骤可以单独取的进展。如果有程序错误，您也可以打开一个PR，添加一个失败的忽略测试。这可以合并，下一步可以修复错误并忽略测试。将你的研究或者测试结果进行报告。将一个大的功能分解为小的子功能并一次一个的逐步实现它们。</p>
+<p>弄清楚如何将一个较大的PR分解成较小的PR，每个PR都可以合并是一种非常值得练习，这也是编程的一种艺术。 困难的部分是每个PR本身必须是一个改进。</p>
+<p>我自己努力遵循这个建议，而且当我这样做时，我总是可以做的更好。</p>
+<p>小的更改可以快速编写、审查和合并，这比为一个需要永远编写、审查和合并的大型的PR工作要有趣得多。小的更改不会花费太多时间，因此如果您需要停止处理一个小的更改，与代表许多小时工作的较大更改相比，您不会浪费太多时间。 快速获得PR可以立即改进项目，而不必等待很长时间才能进行更大的改进。 小的更改不太可能累积合并冲突。正如雅典人所说：<em>快者尽其所愿，慢者兼并其所必须。</em></p>
+<h2 id="寻求帮助"><a class="header" href="#寻求帮助">寻求帮助</a></h2>
+<p>如果您遇到困难超过 15 分钟，请寻求帮助，例如 Rust Discord、Stack Exchange，或者在项目问题或讨论中寻求帮助。</p>
+<h2 id="实践假说驱动的调试"><a class="header" href="#实践假说驱动的调试">实践'假说驱动'的调试</a></h2>
+<p>就导致问题的原因提出假设。 弄清楚如何检验该假设。 执行该测试。 如果有效，那太好了，您解决了问题，或者现在您知道如何解决问题了。 如果不是，请重复一个新的假设。</p>
+<h2 id="关注错误信息"><a class="header" href="#关注错误信息">关注错误信息</a></h2>
+<p>阅读所有错误消息，不要容忍警告。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="捐赠"><a class="header" href="#捐赠">捐赠</a></h1>
+<p>Ordinals序数是开源的，由社区资助的项目。目前<code>ord</code>的首席维护者是<a href="https://github.com/raphjaph/">raphjaph</a>.Raph在 <code>ord</code> 上的维护工作全部由捐赠的资金完成。你如果可以的话，请考虑捐赠！</p>
+<p>捐赠地址为 <a href="https://mempool.space/address/bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt">bc1q8kt9pyd6r27k2840l8g5d7zshz3cg9v6rfda0m248lva3ve5072q3sxelt</a>. 铭文的捐赠地址为 <a href="https://mempool.space/address/bc1qn3map8m9hmk5jyqdkkwlwvt335g94zvxwd9aql7q3vdkdw9r5eyqvlvec0">bc1qn3map8m9hmk5jyqdkkwlwvt335g94zvxwd9aql7q3vdkdw9r5eyqvlvec0</a>.</p>
+<p>上述两个地址是由以下多签人（2/4）持有管理： <a href="https://twitter.com/raphjaph">raphjaph</a>, <a href="https://twitter.com/realizingerin">erin</a>, <a href="https://twitter.com/rodarmor">rodarmor</a>, and <a href="https://twitter.com/veryordinally">ordinally</a>.</p>
+<p>收到的捐赠款将用于资助 <code>ord</code>的维护和进一步开发，同时将支付<a href="https://ordinals.com">ordinals.com</a>的托管费用。</p>
+<p>感谢您的捐赠！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="序数理论指引"><a class="header" href="#序数理论指引">序数理论指引</a></h1>
+<p>请参阅目录以获取指南列表，包括区块浏览器指南、猎聪指南和铭文指南。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="序数浏览器"><a class="header" href="#序数浏览器">序数浏览器</a></h1>
+<p><code>ord</code> 文件包含一个区块浏览器。我们的主网区块链器部署在 <a href="https://ordinals.com">ordinals.com</a>, signet部署在<a href="https://signet.ordinals.com">signet.ordinals.com</a>.</p>
+<h3 id="运行浏览器"><a class="header" href="#运行浏览器">运行浏览器</a></h3>
+<p>服务器可以使用本地运行：</p>
+<p><code>ord server</code></p>
+<p>指定端口使用<code>--http-port</code>标记</p>
+<p><code>ord server --http-port 8080</code></p>
+<p>测试你的铭文你可以运行：</p>
+<p><code>ord preview &lt;FILE1&gt; &lt;FILE2&gt; ...</code></p>
+<h2 id="搜索"><a class="header" href="#搜索">搜索</a></h2>
+<p>搜索框可以使用各种对象：</p>
+<h3 id="区块"><a class="header" href="#区块">区块</a></h3>
+<p>区块可以通过哈希来查找，例如创世区块：</p>
+<p><a href="https://ordinals.com/search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f">000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</a></p>
+<h3 id="交易"><a class="header" href="#交易">交易</a></h3>
+<p>可以通过哈希查找交易，例如创世区块的coinbase交易：</p>
+<p><a href="https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b">4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b</a></p>
+<h3 id="输出"><a class="header" href="#输出">输出</a></h3>
+<p>可以通过outpoint搜索交易输出，例如创世块coinbase交易的唯一输出：</p>
+<p><a href="https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0">4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0</a></p>
+<h3 id="聪"><a class="header" href="#聪">聪</a></h3>
+<p>聪 可以按整数搜索，它们在整个比特币供应中的位置：</p>
+<p><a href="https://ordinals.com/search/2099994106992659">2099994106992659</a></p>
+<p>按十进制，它们的块和该块内的偏移量：</p>
+<p><a href="https://ordinals.com/search/481824.0">481824.0</a></p>
+<p>按度数，他们的周期，自上次减半以来的区块，自上次难度调整以来的区块，以及区块内的偏移量：</p>
+<p><a href="https://ordinals.com/search/1%C2%B00%E2%80%B20%E2%80%B30%E2%80%B4">1°0′0″0‴</a></p>
+<p>按照名称，它们使用字母&quot;a&quot;到&quot;z&quot;的 26个字母组合表示：</p>
+<p><a href="https://ordinals.com/search/ahistorical">ahistorical</a></p>
+<p>或者按百分位数，在开采时已经或将要发行的比特币供应量的百分比：</p>
+<p><a href="https://ordinals.com/search/100%">100%</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="铭文指引"><a class="header" href="#铭文指引">铭文指引</a></h1>
+<p>单个 聪 可以刻有任意内容，创建可以保存在比特币钱包中并使用比特币交易传输的比特币原生数字人工制品。铭文与比特币本身一样持久、不变、安全和去中心化。</p>
+<p>使用铭文需要一个比特币完整节点，让您了解比特币区块链的当前状态，以及一个可以创建铭文并在构建交易以将铭文发送到另一个钱包时执行 聪 控制的钱包。</p>
+<p>Bitcoin Core 提供比特币全节点和钱包。 但是，Bitcoin Core 钱包不能创建铭文，不执行 聪 控制。</p>
+<p>这需要<a href="https://github.com/ordinals/ord"><code>ord</code></a>，序数实用程序。 <code>ord</code> 没有自己的钱包，因此  <code>ord wallet</code>子命令与 Bitcoin Core 钱包交互。</p>
+<p>本指南涵盖：</p>
+<ol>
+<li>安装 Bitcoin Core</li>
+<li>同步比特币区块链</li>
+<li>创建 Bitcoin Core 钱包</li>
+<li>使用 <code>ord wallet receive</code>收取聪</li>
+<li>使用<code>ord wallet inscribe</code>创建铭文</li>
+<li>使用 <code>ord wallet send</code>发送铭文</li>
+<li>使用<code>ord wallet receive</code>收取铭文</li>
+</ol>
+<h2 id="寻求帮助-1"><a class="header" href="#寻求帮助-1">寻求帮助</a></h2>
+<p>如果你遇到困难，可以在<a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>,或者检查Github上的相关内容<a href="https://github.com/ordinals/ord/issues">问题</a> 和<a href="https://github.com/ordinals/ord/discussions">讨论</a>.</p>
+<h2 id="安装-bitcoin-core"><a class="header" href="#安装-bitcoin-core">安装 Bitcoin Core</a></h2>
+<p>Bitcoin Core 可以在 <a href="https://bitcoincore.org/">bitcoincore.org</a> 上的<a href="https://bitcoincore.org/en/download/">下载页面</a>.</p>
+<p>制作铭文需要Bitcoin Core 24 或者更新版本。</p>
+<p>本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可以在命令行使用 <code>bitcoind -version</code>命令。</p>
+<h2 id="配置-bitcoin-core"><a class="header" href="#配置-bitcoin-core">配置 Bitcoin Core</a></h2>
+<p><code>ord</code> 需要Bitcoin Core 的交易索引</p>
+<p>配置你的Bitcoin Core阶段去维护一个交易索引，需要在<code>bitcoin.conf</code>里面添加:</p>
+<pre><code>txindex=1
+</code></pre>
+<p>或者, 运行 <code>bitcoind</code> 和 <code>-txindex</code>:</p>
+<pre><code>bitcoind -txindex
+</code></pre>
+<h2 id="比特币区块同步"><a class="header" href="#比特币区块同步">比特币区块同步</a></h2>
+<p>区块同步，运行：</p>
+<pre><code>bitcoind -txindex
+</code></pre>
+<p>…直到运行 <code>getblockcount</code>:</p>
+<pre><code>bitcoin-cli getblockcount
+</code></pre>
+<p>像区块链浏览器<a href="https://mempool.space/">the mempool.space block explorer</a>一样对区块进行记述. <code>ord</code>同<code>bitcoind</code>进行交互, 所以你在使用<code>ord</code>时候需要让<code>bitcoind</code> 在后台运行。</p>
+<h2 id="安装-ord"><a class="header" href="#安装-ord">安装 <code>ord</code></a></h2>
+<p><code>ord</code> 程序使用Rust语言写成，可以从<a href="https://github.com/ordinals/ord">源码</a>安装. 预制文件可以从<a href="https://github.com/ordinals/ord/releases">版本发布页</a>下载。</p>
+<p>你也可以在命令行中使用下面命令来安装最新的文件：</p>
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+</code></pre>
+<p>当 <code>ord</code> 成功安装以后,你可以运行 :</p>
+<pre><code>ord --version
+</code></pre>
+<p>这会返回 <code>ord</code>的版本信息.</p>
+<h2 id="创建一个bitcoin-core钱包"><a class="header" href="#创建一个bitcoin-core钱包">创建一个Bitcoin Core钱包</a></h2>
+<p><code>ord</code> 使用Bitcoin Core来管理私钥，签署交易以及向比特币网络广播交易。</p>
+<p>创建一个名为<code>ord</code> 的Bitcoin Core 钱包，运行:</p>
+<pre><code>ord wallet create
+</code></pre>
+<h2 id="接收聪"><a class="header" href="#接收聪">接收聪</a></h2>
+<p>铭文是在单个聪上制作的，使用聪来支付费用的普通比特币交易，因此你的钱包将需要一些 聪（比特币）。</p>
+<p>为你的 <code>ord</code> 钱包创建一个新地址，运行:</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>向上面地址发送一些资金。</p>
+<p>你可以使用以下命令看到交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，你应该可以使用 <code>ord wallet outputs</code>看到交易的输出；</p>
+<h2 id="创建铭文内容"><a class="header" href="#创建铭文内容">创建铭文内容</a></h2>
+<p>聪上可以刻录任何类型的内容，但<code>ord</code>钱包只支持<code>ord</code>区块浏览器可以显示的内容类型。</p>
+<p>另外，铭文是包含在交易中的，所以内容越大，铭文交易需要支付的费用就越高。</p>
+<p>铭文内容包含在交易见证中，获得见证折扣。要计算写入交易将支付的大概费用，请将内容大小除以四，然后乘以费率。</p>
+<p>铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。</p>
+<h2 id="创建铭文"><a class="header" href="#创建铭文">创建铭文</a></h2>
+<p>以<code>FILE</code>的内容创建一个铭文，需要运行:</p>
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+</code></pre>
+<p>Ord会输出两个交易ID，一个是commit交易，一个是reveal交易，还有铭文ID。铭文 ID 的格式为<code>TXIDiN</code>，其中<code>TXID</code> 是揭示交易的交易 ID，<code>N</code> 是揭示交易中铭文的索引。</p>
+<p>Commit交易提交到包含铭文内容的 tapscript，reveal交易则从该 tapscript 中花费，显示链上的内容并将它们铭刻在reveal交易的第一个输出的第一个 sat 上。</p>
+<p>在等待reveal交易被记录的同时，你可以使用<a href="https://mempool.space/">the mempool.space block explorer</a>来检查交易的状态。</p>
+<p>一旦reveal交易完成记账，你可以使用以下命令查询铭文ID：</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<p>你可以在 <a href="https://ordinals.com/">the ordinals explorer</a> 上用一下格式访问铭文<code>ordinals.com/inscription/INSCRIPTION_ID</code>.</p>
+<h2 id="发送铭文"><a class="header" href="#发送铭文">发送铭文</a></h2>
+<p>铭文接收方使用一下命令生成地址</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>使用命令格式发送铭文：</p>
+<pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; &lt;ADDRESS&gt; &lt;INSCRIPTION_ID&gt;
+</code></pre>
+<p>检查未完成交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，接收方可以使用一下命令查看接收到的铭文</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<h2 id="接收铭文"><a class="header" href="#接收铭文">接收铭文</a></h2>
+<p>使用以下命令生成一个新的接收地址</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>发送方使用命令发送铭文到你的地址</p>
+<pre><code>ord wallet send ADDRESS INSCRIPTION_ID
+</code></pre>
+<p>检查未完成交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，你可以使用以下命令确认收到</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="猎聪"><a class="header" href="#猎聪">猎聪</a></h1>
+<p><em>本指南已过时。自编写以来，“ord”安装文件已更改仅当提供“--index-sats”标志时才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱包。请参阅<code>ord wallet --help</code>。</em></p>
+<p>Ordinal hunting is difficult but rewarding. The feeling of owning a wallet full of UTXOs, redolent with the scent of rare and exotic sats, is beyond compare.</p>
+<p>Ordinals are numbers for satoshis. Every satoshi has an ordinal number and every ordinal number has a satoshi.</p>
+<h2 id="preparation"><a class="header" href="#preparation">Preparation</a></h2>
+<p>There are a few things you'll need before you start.</p>
+<ol>
+<li>
+<p>First, you'll need a synced Bitcoin Core node with a transaction index. To turn on transaction indexing, pass <code>-txindex</code> on the command-line:</p>
+<pre><code class="language-sh">bitcoind -txindex
+</code></pre>
+<p>Or put the following in your <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">Bitcoin configuration file</a>:</p>
+<pre><code>txindex=1
+</code></pre>
+<p>Launch it and wait for it to catch up to the chain tip, at which point the following command should print out the current block height:</p>
+<pre><code class="language-sh">bitcoin-cli getblockcount
+</code></pre>
+</li>
+<li>
+<p>Second, you'll need a synced <code>ord</code> index.</p>
+<ul>
+<li>
+<p>Get a copy of <code>ord</code> from <a href="https://github.com/ordinals/ord/">the repo</a>.</p>
+</li>
+<li>
+<p>Run <code>RUST_LOG=info ord index</code>. It should connect to your bitcoin core node and start indexing.</p>
+</li>
+<li>
+<p>Wait for it to finish indexing.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Third, you'll need a wallet with UTXOs that you want to search.</p>
+</li>
+</ol>
+<h2 id="searching-for-rare-ordinals"><a class="header" href="#searching-for-rare-ordinals">Searching for Rare Ordinals</a></h2>
+<h3 id="searching-for-rare-ordinals-in-a-bitcoin-core-wallet"><a class="header" href="#searching-for-rare-ordinals-in-a-bitcoin-core-wallet">Searching for Rare Ordinals in a Bitcoin Core Wallet</a></h3>
+<p>The <code>ord wallet</code> command is just a wrapper around Bitcoin Core's RPC API, so searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your wallet is named <code>foo</code>:</p>
+<ol>
+<li>
+<p>Load your wallet:</p>
+<pre><code class="language-sh">bitcoin-cli loadwallet foo
+</code></pre>
+</li>
+<li>
+<p>Display any rare ordinals wallet <code>foo</code>'s UTXOs:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="searching-for-rare-ordinals-in-a-non-bitcoin-core-wallet"><a class="header" href="#searching-for-rare-ordinals-in-a-non-bitcoin-core-wallet">Searching for Rare Ordinals in a Non-Bitcoin Core Wallet</a></h3>
+<p>The <code>ord wallet</code> command is just a wrapper around Bitcoin Core's RPC API, so to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to import your wallet's descriptors into Bitcoin Core.</p>
+<p><a href="https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md">Descriptors</a> describe the ways that wallets generate private keys and public keys.</p>
+<p>You should only import descriptors into Bitcoin Core for your wallet's public keys, not its private keys.</p>
+<p>If your wallet's public key descriptor is compromised, an attacker will be able to see your wallet's addresses, but your funds will be safe.</p>
+<p>If your wallet's private key descriptor is compromised, an attacker can drain your wallet of funds.</p>
+<ol>
+<li>
+<p>Get the wallet descriptor from the wallet whose UTXOs you want to search for rare ordinals. It will look something like this:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29
+</code></pre>
+</li>
+<li>
+<p>Create a watch-only wallet named <code>foo-watch-only</code>:</p>
+<pre><code class="language-sh">bitcoin-cli createwallet foo-watch-only true true
+</code></pre>
+<p>Feel free to give it a better name than <code>foo-watch-only</code>!</p>
+</li>
+<li>
+<p>Load the <code>foo-watch-only</code> wallet:</p>
+<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+</code></pre>
+</li>
+<li>
+<p>Import your wallet descriptors into <code>foo-watch-only</code>:</p>
+<pre><code class="language-sh">bitcoin-cli importdescriptors \
+  '[{ &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax&quot;, &quot;timestamp&quot;:0 }]'
+</code></pre>
+<p>If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of <code>&quot;timestamp&quot;</code> instead of <code>0</code>. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs.</p>
+</li>
+<li>
+<p>Check that everything worked:</p>
+<pre><code class="language-sh">bitcoin-cli getwalletinfo
+</code></pre>
+</li>
+<li>
+<p>Display your wallet's rare ordinals:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="searching-for-rare-ordinals-in-a-wallet-that-exports-multi-path-descriptors"><a class="header" href="#searching-for-rare-ordinals-in-a-wallet-that-exports-multi-path-descriptors">Searching for Rare Ordinals in a Wallet that Exports Multi-path Descriptors</a></h3>
+<p>Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., <code>&lt;0;1&gt;</code>. Multi-path descriptors are not yet supported by Bitcoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into Bitcoin Core.</p>
+<ol>
+<li>
+<p>First get the multi-path descriptor from your wallet. It will look something like this:</p>
+<pre><code>wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/&lt;0;1&gt;/*)#fw76ulgt
+</code></pre>
+</li>
+<li>
+<p>Create a descriptor for the receive address path:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)
+</code></pre>
+<p>And the change address path:</p>
+<pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)
+</code></pre>
+</li>
+<li>
+<p>Get and note the checksum for the receive address descriptor, in this case <code>tpnxnxax</code>:</p>
+<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
+</code></pre>
+<pre><code class="language-json">{
+  &quot;descriptor&quot;: &quot;wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#csvefu29&quot;,
+  &quot;checksum&quot;: &quot;tpnxnxax&quot;,
+  &quot;isrange&quot;: true,
+  &quot;issolvable&quot;: true,
+  &quot;hasprivatekeys&quot;: false
+}
+</code></pre>
+<p>And for the change address descriptor, in this case <code>64k8wnd7</code>:</p>
+<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
+</code></pre>
+<pre><code class="language-json">{
+  &quot;descriptor&quot;: &quot;wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#fyfc5f6a&quot;,
+  &quot;checksum&quot;: &quot;64k8wnd7&quot;,
+  &quot;isrange&quot;: true,
+  &quot;issolvable&quot;: true,
+  &quot;hasprivatekeys&quot;: false
+}
+</code></pre>
+</li>
+<li>
+<p>Load the wallet you want to import the descriptors into:</p>
+<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+</code></pre>
+</li>
+<li>
+<p>Now import the descriptors, with the correct checksums, into Bitcoin Core.</p>
+<pre><code class="language-sh">bitcoin-cli \
+ importdescriptors \
+ '[
+   {
+     &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax&quot;
+     &quot;timestamp&quot;:0
+   },
+   {
+     &quot;desc&quot;: &quot;wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)#64k8wnd7&quot;,
+     &quot;timestamp&quot;:0
+   }
+ ]'
+</code></pre>
+<p>If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the <code>&quot;timestamp&quot;</code> fields instead of <code>0</code>. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs.</p>
+</li>
+<li>
+<p>Check that everything worked:</p>
+<pre><code class="language-sh">bitcoin-cli getwalletinfo
+</code></pre>
+</li>
+<li>
+<p>Display your wallet's rare ordinals:</p>
+<pre><code class="language-sh">ord wallet sats
+</code></pre>
+</li>
+</ol>
+<h3 id="exporting-descriptors"><a class="header" href="#exporting-descriptors">Exporting Descriptors</a></h3>
+<h4 id="麻雀钱包"><a class="header" href="#麻雀钱包">麻雀钱包</a></h4>
+<p>Navigate to the <code>Settings</code> tab, then to <code>Script Policy</code>, and press the edit button to display the descriptor.</p>
+<h3 id="transferring-ordinals"><a class="header" href="#transferring-ordinals">Transferring Ordinals</a></h3>
+<p>The <code>ord</code> wallet supports transferring specific satoshis. You can also use <code>bitcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, how to do so is complex and outside the scope of this guide.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="收藏"><a class="header" href="#收藏">收藏</a></h1>
+<p>目前，<a href="https://github.com/ordinals/ord/">ord</a> 是唯一支持 sat-control 和 sat-selection 的钱包，这是安全存储和发送稀有 sats 和铭文（以下简称序数）所必需的。</p>
+<p>发送、接收和存储序号的推荐方法是使用 <code>ord</code>，但如果你小心，可以安全地存储，在某些情况下，使用其他钱包发送序号。</p>
+<p>作为一般说明，在不受支持的钱包中接收序号并不危险。 序号可以发送到任何比特币地址，只要包含它们的 UTXO 没有被花费，它就是安全的。 但是，如果该钱包随后用于发送比特币，它可能会选择包含序号的 UTXO 作为输入，并发送铭文或将其用于费用。</p>
+<p>本手册提供了使用<a href="https://sparrowwallet.com/">Sparrow Wallet</a>创建与 <code>ord</code>兼容的钱包的<a href="guides/./collecting/sparrow-wallet.html">指南</a> 。</p>
+<p>请注意，如果您遵循本指南，则不应使用您创建的钱包发送 BTC，除非您执行手动硬币选择以避免发送序号。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用麻雀sparrow钱包收藏铭文"><a class="header" href="#使用麻雀sparrow钱包收藏铭文">使用麻雀Sparrow钱包收藏铭文</a></h1>
+<p>那些无法活着尚未设置<a href="https://github.com/ordinals/ord">ord</a> 钱包的用户可以使用其他比特币钱包接收铭文和序数，只要他们在使用该钱包时非常小心。</p>
+<p>本指南提供了一些基本步骤，说明如何使用 <a href="https://sparrowwallet.com/">Sparrow Wallet</a> 创建一个与<code>ord</code>兼容的钱包，稍后可以将其导入到<code>ord</code></p>
+<h2 id="-警告-"><a class="header" href="#-警告-">⚠️⚠️ 警告!! ⚠️⚠️</a></h2>
+<p>一般来说，如果你选择这种方法，你应该将这个钱包作为接收款项的钱包，使用Sparrow软件。</p>
+<p>除非你确定知道自己在做什么，否则不要从这个钱包中花费任何比特币。如果你不注意这个警告，你可能会很容易无意间失去对序数和铭文的访问权限。</p>
+<h2 id="钱包设置和接收"><a class="header" href="#钱包设置和接收">钱包设置和接收</a></h2>
+<p>根据你的操作系统从 <a href="https://sparrowwallet.com/download/">发布页面</a> 下载Sparrow钱包。</p>
+<p>选择 <code>File -&gt; New Wallet</code>并创建一个名为<code>ord</code>的新钱包。</p>
+<p><img src="guides/collecting/images/wallet_setup_01.png" alt="" /></p>
+<p>将<code>Script Type</code>更改为<code>Taproot (P2TR)</code>，然后选择<code>New or Imported Software Wallet</code>选项。</p>
+<p><img src="guides/collecting/images/wallet_setup_02.png" alt="" /></p>
+<p>选择<code>Use 12 Words</code>，然后点击 <code>Generate New</code>。密码短语留空。</p>
+<p><img src="guides/collecting/images/wallet_setup_03.png" alt="" /></p>
+<p>将为你生成一个新的12词BIP39种子短语。将此短语写在安全的地方，这是获取钱包访问权限的备份。切勿与他人分享或显示这个种子短语。</p>
+<p>一旦你把种子短语写下来，点击 <code>Confirm Backup</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_04.png" alt="" /></p>
+<p>重新输入你记下的种子短语，然后点击 <code>Create Keystore</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_05.png" alt="" /></p>
+<p>点击 <code>Import Keystore</code>.</p>
+<p><img src="guides/collecting/images/wallet_setup_06.png" alt="" /></p>
+<p>点击 <code>Apply</code>。如果你想的话，可以为钱包添加一个密码。</p>
+<p><img src="guides/collecting/images/wallet_setup_07.png" alt="" /></p>
+<p>你现在有了一个兼容<code>ord</code>的钱包，可以使用BIP39种子短语导入到 <code>ord</code>。要接收序数或铭文，点击 <code>Receive</code>选项卡并复制一个新地址。</p>
+<p>每次你想接收时，都应该使用一个全新的地址，而不是重复使用现有的地址。</p>
+<p>注意，比特币与一些其他区块链钱包不同，这个钱包可以生成无限数量的新地址。你可以通过点击获取下一个地址按钮生成新地址。你可以在应用程序的<code>Addresses</code>选项卡中看到所有的地址。</p>
+<p>你可以给每个地址添加一个标签，这样你就可以跟踪它的用途。</p>
+<p><img src="guides/collecting/images/wallet_setup_08.png" alt="" /></p>
+<h2 id="验证查看收到的铭文"><a class="header" href="#验证查看收到的铭文">验证/查看收到的铭文</a></h2>
+<p>一旦你收到一条铭文，你将在 Sparrow 的 <code>Transactions</code> 选项卡中看到一个新的交易，以及在<code>UTXOs</code>选项卡中看到一个新的 UTXO。</p>
+<p>最初，这笔交易可能有一个&quot;未确认&quot;的状态，你需要等待它被挖矿到一个比特币块中，才算真正收到。</p>
+<p><img src="guides/collecting/images/validating_viewing_01.png" alt="" /></p>
+<p>要跟踪你的交易状态，你可以右键点击它，选择<code>Copy Transaction ID</code>，然后将该交易 id 粘贴到 <a href="https://mempool.space">mempool.space</a>。</p>
+<p><img src="guides/collecting/images/validating_viewing_02.png" alt="" /></p>
+<p>一旦交易被确认，你可以通过前往<code>UTXOs</code>选项卡，找到你想要检查的 UTXO，右键点击 <code>Output</code> 并选择 <code>Copy Transaction Output</code> 来验证和查看你的铭文。然后，这个交易输出 id 可以粘贴到 <a href="https://ordinals.com">ordinals.com</a> 搜索。</p>
+<h2 id="冻结-utxo"><a class="header" href="#冻结-utxo">冻结 UTXO</a></h2>
+<p>如上所述，你的每一条铭文都存储在一个未花费的交易输出 (UTXO) 中。你需要非常小心不要意外花费你的铭文，而冻结 UTXO 是使这种情况发生的难度增加的一种方式。</p>
+<p>要做到这一点，去 UTXOs 选项卡，找到你想要冻结的 <code>UTXOs</code>，右键点击 <code>Output</code>  并选择<code>Freeze UTXO</code>。</p>
+<p>这个 UTXO (铭文) 现在在 Sparrow 钱包中是不可消费的，直到你解冻它。</p>
+<h2 id="导入-ord-钱包"><a class="header" href="#导入-ord-钱包">导入 <code>ord</code> 钱包</a></h2>
+<p>关于设置比特币核心和 <code>ord</code> 钱包的详细信息，请查看<a href="guides/collecting/../inscriptions.html">铭文指南</a></p>
+<p>设置 <code>ord</code> 时，你可以使用 <code>ord wallet restore &quot;BIP39 SEED PHRASE&quot;</code> 命令和你用Sparrow Wallet生成的种子短语，导入你现有的钱包，而不是运行 <code>ord wallet create</code> 来创建一个全新的钱包。</p>
+<p>目前存在一个<a href="https://github.com/ordinals/ord/issues/1589">程序错误</a> 导致导入的钱包无法自动重新扫描区块链。为解决这个问题，你需要手动触发重新扫描，使用比特币核心命令行界面：</p>
+<p>然后，你可以使用<code>ord wallet inscriptions</code>检查你的钱包的铭文.</p>
+<p>注意，如果你之前已经用 <code>ord</code> 创建过一个钱包，那么你已经有一个默认名称的钱包，需要给你导入的钱包取一个不同的名称。你可以在所有的 <code>ord</code>命令中使用 <code>--wallet</code> 参数来引用不同的钱包，例如：</p>
+<p><code>ord --wallet ord_from_sparrow wallet restore &quot;BIP39 SEED PHRASE&quot;</code></p>
+<p><code>ord --wallet ord_from_sparrow wallet inscriptions</code></p>
+<p><code>bitcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430</code></p>
+<h2 id="使用麻雀钱包发送铭文"><a class="header" href="#使用麻雀钱包发送铭文">使用麻雀钱包发送铭文</a></h2>
+<h4 id="-警告--1"><a class="header" href="#-警告--1">⚠️⚠️ 警告 ⚠️⚠️</a></h4>
+<p>虽然强烈建议你设置一个比特币核心节点并运行 <code>ord</code> 软件，但是你可以通过一些安全的方式在 Sparrow 钱包中发送铭文。请注意，这并不推荐，只有在你完全理解你正在做什么的情况下才能这么做。</p>
+<p>使用 <code>ord</code> 软件将大大简化我们在这里描述的复杂性，因为它能以一种简单的方式自动并安全地处理发送铭文。</p>
+<h4 id="-额外警告-"><a class="header" href="#-额外警告-">⚠️⚠️ 额外警告 ⚠️⚠️</a></h4>
+<p>不要用你的sparrow麻雀铭文钱包去发送非铭文比特币。如果你需要进行普通的比特币交易，你可以在麻雀中设置一个单独的钱包，并保持你的铭文钱包独立。</p>
+<h4 id="比特币的utxo模型"><a class="header" href="#比特币的utxo模型">比特币的UTXO模型</a></h4>
+<p>在发送任何交易之前，你必须对比特币的未消费交易输出（UTXO）系统有一个良好的理解。比特币的工作方式与以太坊等许多其他区块链有着根本的不同。在以太坊中，通常你有一个存储ETH的单一地址，你无法区分其中的任何ETH - 它们只是该地址中的总金额的单一值。而比特币的工作方式完全不同，我们为每个接收生成一个新地址，每次你向钱包中的一个地址接收sats时，你都在创建一个新的UTXO。每个UTXO都可以单独查看和管理。你可以选择想要花费的特定UTXO，也可以选择不花费某些UTXO。</p>
+<p>有些比特币钱包并不显示这个级别的详细信息，它们只向你显示钱包中所有比特币的单一总和值。然而，当发送铭文时，使用如麻雀这样允许UTXO控制的钱包非常重要。</p>
+<h4 id="在发送之前检查你的铭文"><a class="header" href="#在发送之前检查你的铭文">在发送之前检查你的铭文</a></h4>
+<p>如我们之前所述，铭文是刻在聪上的，sats存储在UTXO中。UTXO是具有某个特定数量的satoshi（输出值）的satoshi集合。通常（但不总是）铭文会被刻在UTXO中的第一个satoshi上。</p>
+<p>在发送前检查你的铭文时，你主要要检查的是你的铭文刻在UTXO中的哪个satoshi上。</p>
+<p>为此，你可以按照上述 <a href="guides/collecting/./sparrow-wallet.html#validating--viewing-received-inscriptions">验证/查看收到的铭文</a>来找到ordinals.com上你的铭文的铭文页面。</p>
+<p>在那里，你会找到一些关于你铭文的元数据，如下所示：</p>
+<p><img src="guides/collecting/images/sending_01.png" alt="" /></p>
+<p>以下是需要检查的几个重要事项：</p>
+<ul>
+<li><code>output</code> 标识符与您将要发送的UTXO的标识符匹配</li>
+<li>铭文的<code>offset</code>是 <code>0</code> (这意味着铭文位于UTXO的第一个sat上)</li>
+<li><code>output_value</code> 有足够的sats来支付发送交易的交易费（邮资），您需要的确切金额取决于您为交易选择的费率</li>
+</ul>
+<p>如果以上所有内容对于您的铭文都是正确的，那么您应该可以安全地使用以下方法发送它。</p>
+<p>⚠️⚠️ 发送铭文时要非常小心，特别是如果<code>offset</code> 值不是<code>0</code>。如果是这种情况，不建议使用这种方法，否则您可能会无意中将您的雕文发送给比特币矿工，除非您知道自己在做什么。</p>
+<h4 id="发送您的铭文"><a class="header" href="#发送您的铭文">发送您的铭文</a></h4>
+<p>要发送铭文，请导航到<code>UTXOs</code>选项卡，并找到您之前验证包含您的雕文的UTXO。</p>
+<p>如果您之前冻结了UXTO，您将需要右键单击它并解冻它。</p>
+<p>选择您想要发送的UTXO，并确保这是唯一选中的UTXO。在界面中，您应该看到<code>UTXOs 1/1</code>。确定这个后，您可以点击<code>Send Selected</code>。</p>
+<p><img src="guides/collecting/images/sending_02.png" alt="" /></p>
+<p>然后，您将看到交易构建界面。在这里，您需要检查几件事以确保这是一个安全的发送：</p>
+<ul>
+<li>交易应该只有1个输入，这应该是您想要发送的带有标签的UTXO</li>
+<li>交易应该只有1个输出，这是您想要发送铭文的地址/标签</li>
+</ul>
+<p>如果您的交易看起来与此不同，例如您有多个输入或多个输出，那么这可能不是一种安全的铭文传输方式，您应该放弃发送，直到您更了解或可以导入到<code>ord</code>钱包。</p>
+<p>您应该设置合适的交易费用，Sparrow通常会推荐一个合理的费用，但您也可以查看<a href="https://mempool.space">mempool.space</a> 以查看发送交易的推荐费率。</p>
+<p>您应该为收件人地址添加一个标签，如<code>alice address for inscription #123</code>就很理想。</p>
+<p>在使用上述检查确认交易是安全的交易，并且有信心发送它后，您可以点击<code>Create Transaction</code>。</p>
+<p><img src="guides/collecting/images/sending_03.png" alt="" /></p>
+<p>在这里，您可以再次确认您的交易是否安全，在确认后，您可以点击<code>Finalize Transaction for Signing</code>。</p>
+<p><img src="guides/collecting/images/sending_04.png" alt="" /></p>
+<p>在这里，你可以在点击<code>Sign</code>之前再次确认所有内容。</p>
+<p><img src="guides/collecting/images/sending_05.png" alt="" /></p>
+<p>然后实际上在点击<code>Broadcast Transaction</code>之前，你有最后一次检查所有内容的机会。一旦你广播交易，它就会被发送到比特币网络，并开始在mempool中传播。</p>
+<p><img src="guides/collecting/images/sending_06.png" alt="" /></p>
+<p>如果你想跟踪你的交易状态，你可以复制<code>Transaction Id (Txid)</code>并粘贴到<a href="https://mempool.space">mempool.space</a></p>
+<p>一旦交易确认，你可以在<a href="https://ordinals.com">ordinals.com</a> 的铭文页面上验证它是否已移动到新的输出位置和地址。</p>
+<h2 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h2>
+<h4 id="sparrow钱包没有显示交易utxo但我在mempoolspace上看到了"><a class="header" href="#sparrow钱包没有显示交易utxo但我在mempoolspace上看到了">Sparrow钱包没有显示交易/UTXO，但我在mempool.space上看到了</a></h4>
+<p>确保你的钱包连接到一个比特币节点。要验证这一点，转到<code>Preferences</code>-&gt; <code>Server</code> 设置，并点击 <code>Edit Existing Connection</code>。</p>
+<p><img src="guides/collecting/images/troubleshooting_01.png" alt="" /></p>
+<p>从那里你可以选择一个节点并点击 <code>Test Connection</code> 来验证Sparrow是否能够成功连接。</p>
+<p><img src="guides/collecting/images/troubleshooting_02.png" alt="" /></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="调试"><a class="header" href="#调试">调试</a></h1>
+<p>使用以下标志来指定测试网络，可以测试 Ord。有关运行比特币核心进行测试的更多信息，请参见[比特币的开发者文档](https://developer.bitcoin.org/examples/testing。</p>
+<p>大多数在<a href="guides/inscriptions.html">铭文</a> 和 <a href="guides/explorer.html">浏览器</a> 中的 <code>ord</code>命令可以使用以下网络标志运行：</p>
+<div class="table-wrapper"><table><thead><tr><th>Network</th><th>Flag</th></tr></thead><tbody>
+<tr><td>Testnet</td><td><code>--testnet</code> or <code>-t</code></td></tr>
+<tr><td>Signet</td><td><code>--signet</code> or <code>-s</code></td></tr>
+<tr><td>Regtest</td><td><code>--regtest</code> or <code>-r</code></td></tr>
+</tbody></table>
+</div>
+<p>Regtest不需要下载区块链或者建立ord索引</p>
+<h2 id="示例-1"><a class="header" href="#示例-1">示例</a></h2>
+<p>在regtest里运行bitcoind，使用：</p>
+<pre><code>bitcoind -regtest -txindex
+</code></pre>
+<p>在regtest里创建钱包</p>
+<pre><code>ord -r wallet create
+</code></pre>
+<p>创建一个regtest接收地址</p>
+<pre><code>ord -r wallet receive
+</code></pre>
+<p>挖取101个区块（解锁coinbase）使用：</p>
+<pre><code>bitcoin-cli generatetoaddress 101 &lt;receive address&gt;
+</code></pre>
+<p>在regtest上铭刻</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 &lt;file&gt;
+</code></pre>
+<p>挖取铭文</p>
+<pre><code>bitcoin-cli generatetoaddress 1 &lt;receive address&gt;
+</code></pre>
+<p>在regtest浏览器里查看铭文</p>
+<pre><code>ord -r server
+</code></pre>
+<h2 id="测试递归"><a class="header" href="#测试递归">测试递归</a></h2>
+<p>测试 <a href="guides/../inscriptions/recursion.html">recursion</a> 时，首先记下依赖项（以 <a href="https://p5js.org">p5.js</a> 为例：</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 p5.js
+</code></pre>
+<p>这应该返回一个<code>inscription_id</code>，然后您可以在递归铭文中引用它。</p>
+<p>请注意，在主网和signet上铭刻的时候这些id有所不同，因此请务必更改每个链的递归铭文中的内容。</p>
+<p>现在你可以使用以下命令来铭刻你的递归铭文：</p>
+<pre><code>ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
+</code></pre>
+<p>最终你可以挖取一些区块来开始服务器：</p>
+<pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;
+ord -r server
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="调节"><a class="header" href="#调节">调节</a></h1>
+<p><code>ord</code> 包含了一个区块浏览器，你可以在本地运行<code>ord server</code>.</p>
+<p>区块浏览器允许查看铭文。铭文是用户生成的内容，因此可能令人反感或非法的。</p>
+<p>运行ord区块浏览器实例的每个人都有责任了解他们对非法内容的责任，并决定适合他们实例的审核政策。</p>
+<p>为了防止特定的铭文显示在<code>ord</code>实例上，它们可以包含在 YAML 配置文件中，该文件使用 <code>--config</code>选项加载。</p>
+<p>要隐藏铭文，首先创建一个配置文件，其中包含要隐藏的铭文 ID：</p>
+<pre><code class="language-yaml">hidden:
+- 0000000000000000000000000000000000000000000000000000000000000000i0
+</code></pre>
+<p><code>ord</code> 配置文件的建议名称是 <code>ord.yaml</code>，但可以使用任何文件名。</p>
+<p>然后将文件在服务启动的使用使用 <code>--config</code> :</p>
+<p><code>ord --config ord.yaml server</code></p>
+<p>请注意， <code>--config</code> 选项的位置在  <code>ord</code> 之后但是在  <code>server</code>子命令前。</p>
+<p><code>ord</code> 必须重启才可以加载在配置文件中的更改。</p>
+<h2 id="ordinalscom"><a class="header" href="#ordinalscom"><code>ordinals.com</code></a></h2>
+<p><code>ordinals.com</code> 实例使用 <code>systemd</code> 运行名为 <code>ord</code>的 <code>ord server</code> 服务，配置文件在 <code>/var/lib/ord/ord.yaml</code>.</p>
+<p>要在 ordinals.com 上隐藏铭文:</p>
+<ol>
+<li>使用SSH登陆服务器</li>
+<li>在 <code>/var/lib/ord/ord.yaml</code>中增加铭文ID</li>
+<li>使用 <code>systemctl restart ord</code> 重启服务</li>
+<li>通过 <code>journalctl -u ord</code> 重启</li>
+</ol>
+<p>目前，ord 重启速度较慢，因此站点不会立即恢复在线。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="重新索引"><a class="header" href="#重新索引">重新索引</a></h1>
+<p>有时必须重新索引‘ord’数据库，这意味着删除数据库并使用 <code>ord index run</code>或<code>ord server</code>来重新索引数据库。重新索引的原因是：</p>
+<ol>
+<li>ord 发布新的主要版本，更改了数据库架构</li>
+<li>数据库可能会损坏</li>
+</ol>
+<p><code>ord</code> 使用的数据库称为 <a href="https://github.com/cberner/redb">redb</a>，所以我们为索引指定默认文件名‘index.redb’。默认情况下我们存储根据您的操作系统，此文件位于不同的位置。</p>
+<div class="table-wrapper"><table><thead><tr><th>平台</th><th>Value</th><th>示例</th></tr></thead><tbody>
+<tr><td>Linux</td><td><code>$XDG_DATA_HOME</code>/ord or <code>$HOME</code>/.local/share/ord</td><td>/home/alice/.local/share/ord</td></tr>
+<tr><td>macOS</td><td><code>$HOME</code>/Library/Application Support/ord</td><td>/Users/Alice/Library/Application Support/ord</td></tr>
+<tr><td>Windows</td><td><code>{FOLDERID_RoamingAppData}</code>\ord</td><td>C:\Users\Alice\AppData\Roaming\ord</td></tr>
+</tbody></table>
+</div>
+<p>因此，要在 MacOS 上删除数据库并重新索引，您必须在终端中执行以下命令：</p>
+<pre><code class="language-bash">rm ~/Library/Application Support/ord/index.redb
+ord index run
+</code></pre>
+<p>您当然也可以自己设置数据目录的位置,<code>ord --data-dir &lt;DIR&gt; index run</code> 或为其指定特定的文件名和路径,使用‘ord --index <FILENAME>索引运行’。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="ordinals赏金计划提示"><a class="header" href="#ordinals赏金计划提示">Ordinals赏金计划提示</a></h1>
+<ul>
+<li>
+<p><code>ord</code> 钱包可以发送和接收特定的聪。此外序数理论非常简单。聪明的黑客应该能够很快的从头开始编写代码，使用序数理论来操作聪；</p>
+</li>
+<li>
+<p>关于序数理论的更多信息，请查阅<a href="./faq.html">FAQ</a> 来获取概述；查阅<a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">BIP</a> 来获取技术细节查阅<a href="https://github.com/ordinals/ord">ord repo</a>来获取<code>ord</code>钱包和浏览器的信息.</p>
+</li>
+<li>
+<p>中本聪是序数理论的原始开发者。然而，他知道其他人可能会认为这是异端邪说并且危险，因此他隐藏了自己的知识，使其在时间的沙漠里失传。现在，这个强大的理论被重新发现。您可以通过研究稀有的聪来帮助我们。</p>
+</li>
+</ul>
+<p>祝您一切顺利，好运！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="赏金任务-0"><a class="header" href="#赏金任务-0">赏金任务 0</a></h1>
+<h2 id="标准"><a class="header" href="#标准">标准</a></h2>
+<p>发送一个序数以“零”结尾的聪到提交地址：</p>
+<p>✅: <a href="https://ordinals.com/ordinal/1857578125803250">1857578125803250</a></p>
+<p>❌: <a href="https://ordinals.com/ordinal/1857578125803251">1857578125803251</a></p>
+<p>聪必须是你发送的“输出”的第一个聪；</p>
+<h2 id="奖励"><a class="header" href="#奖励">奖励</a></h2>
+<p>100,000 sats</p>
+<h2 id="提交地址"><a class="header" href="#提交地址">提交地址</a></h2>
+<p><a href="https://mempool.space/address/1PE7u4wbDP2RqfKN6geD1bG57v9Gj9FXm3"><code>1PE7u4wbDP2RqfKN6geD1bG57v9Gj9FXm3</code></a></p>
+<h2 id="状态"><a class="header" href="#状态">状态</a></h2>
+<p><a href="https://twitter.com/rodarmor/status/1560793241473400833">@count_null</a>! 赢得</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="赏金任务-1"><a class="header" href="#赏金任务-1">赏金任务 1</a></h1>
+<h2 id="标准-1"><a class="header" href="#标准-1">标准</a></h2>
+<p>提交一个包含最古老的聪的UTXO，譬如在所有提交的UTXO中，最小的数字将被判定为获胜者；</p>
+<p>赏金在区块高度 753984 前有效，区块高度753984是第一个难度调整期374后的第一个区块。包含或者晚于区块高度 753984 的，将不会被考虑。</p>
+<h2 id="奖励-1"><a class="header" href="#奖励-1">奖励</a></h2>
+<p>200,000 sats</p>
+<h2 id="提交地址-1"><a class="header" href="#提交地址-1">提交地址</a></h2>
+<p><a href="https://mempool.space/address/145Z7PFHyVrwiMWwEcUmDgFbmUbQSU9aap"><code>145Z7PFHyVrwiMWwEcUmDgFbmUbQSU9aap</code></a></p>
+<h2 id="状态-1"><a class="header" href="#状态-1">状态</a></h2>
+<p>由 <a href="https://twitter.com/rodarmor/status/1569883266508853251">@ordinalsindex</a>赢得！</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="赏金任务-2"><a class="header" href="#赏金任务-2">赏金任务 2</a></h1>
+<h2 id="标准-2"><a class="header" href="#标准-2">标准</a></h2>
+<p>发送一个<span class=uncommon>不普通的</span>聪到下列地址✅: <a href="https://ordinals.com/sat/347100000000000">347100000000000</a></p>
+<p>❌: <a href="https://ordinals.com/sat/6685000001337">6685000001337</a></p>
+<p>在提交之前确认上述地址并未在你之前收到其他的稀有聪，只有第一个成功的提交可以获得奖励；</p>
+<h2 id="奖励-2"><a class="header" href="#奖励-2">奖励</a></h2>
+<p>300,000 sats</p>
+<h2 id="提交地址-2"><a class="header" href="#提交地址-2">提交地址</a></h2>
+<p><a href="https://mempool.space/address/1Hyr94uypwWq5CQffaXHvwUMEyBPp3TUZH"><code>1Hyr94uypwWq5CQffaXHvwUMEyBPp3TUZH</code></a></p>
+<h2 id="状态-2"><a class="header" href="#状态-2">状态</a></h2>
+<p>由<a href="https://twitter.com/rodarmor/status/1582424455615172608">@utxoset</a> 赢得!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="赏金任务-3"><a class="header" href="#赏金任务-3">赏金任务 3</a></h1>
+<h2 id="标准-3"><a class="header" href="#标准-3">标准</a></h2>
+<p>任务3有两个部分，都是基于_序数名字_序数名字是把序数数字用修改后的base-26进行的编码.为了避免将短名字锁定在不可花费的创世区块奖励中，随着序数的_变长_，序数名字将变得_更短_ 比如第一个开采的0号聪的名字是<code>nvtdijuwxlp</code>，而最后一个被开采的2,099,999,997,689,999号聪的名字，则是 <code>a</code>.</p>
+<p>赏金计划开放到区块高度840000-第四次减半后的第一个区块。区块高度840000以及以后的区块将不被考虑。</p>
+<p>两个部分任务都使用 <a href="bounty/frequency.tsv">frequency.tsv</a>, 一个单词的清单以及他们在 <a href="http://storage.googleapis.com/books/ngrams/books/datasetsv2.html">Google Books Ngram dataset</a>中出现的次数。过滤后仅包含在提交期结束时能被挖掘的聪的名字，这些名称在语料库中出现至少5000次。</p>
+<p><code>frequency.tsv</code> 制表符分割值的文件，第一列是单词，第二列是它在语料库里出现的次数。这些条目从出现频率最低到出现频率最高的顺序进行排序。</p>
+<p><code>frequency.tsv</code> 使用了<a href="https://github.com/casey/onegrams">这个程序</a>进行的编译.</p>
+<p>在<code>ord</code>钱包里搜索<code>frequency.tsv</code>中所包含的聪的名字 , 使用下面的<a href="https://github.com/ordinals/ord"><code>ord</code></a>命令: </p>
+<pre><code>ord wallet sats --tsv frequency.tsv
+</code></pre>
+<p>这个命令需要聪的索引，所以 <code>--index-sats</code> 必须在首次创建索引的时候使用。</p>
+<h3 id="第0部分"><a class="header" href="#第0部分">第0部分</a></h3>
+<p><em>稀有聪和稀有名字的最佳搭配</em></p>
+<p>提交的交易UTXO中包含的聪的名字，是<code>frequency.tsv</code>中出现的最低的频率者，即是第0部分的获胜者。</p>
+<h3 id="第1部分"><a class="header" href="#第1部分">第1部分</a></h3>
+<p><em>人气是价值的源泉</em></p>
+<p>提交的交易UTXO中包含的聪的名字，是<code>frequency.tsv</code>中出现的最高的频率者，是第 1 部分的获胜者。</p>
+<h3 id="平局情况"><a class="header" href="#平局情况">平局情况</a></h3>
+<p>在平局情况下，如果两个提交的出现了相同的频率，则以较早者提交为获胜者。</p>
+<h2 id="奖励-3"><a class="header" href="#奖励-3">奖励</a></h2>
+<ul>
+<li>Part 0: 200,000 sats</li>
+<li>Part 1: 200,000 sats</li>
+<li>Total: 400,000 sats</li>
+</ul>
+<h2 id="提交地址-3"><a class="header" href="#提交地址-3">提交地址</a></h2>
+<p><a href="https://mempool.space/address/17m5rvMpi78zG8RUpCRd6NWWMJtWmu65kg"><code>17m5rvMpi78zG8RUpCRd6NWWMJtWmu65kg</code></a></p>
+<h2 id="状态-3"><a class="header" href="#状态-3">状态</a></h2>
+<p>仍然有效！</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

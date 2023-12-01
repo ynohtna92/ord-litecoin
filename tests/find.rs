@@ -1,4 +1,7 @@
-use {super::*, ord::subcommand::find::Output};
+use {
+  super::*,
+  ord::subcommand::find::{FindRangeOutput, Output},
+};
 
 #[test]
 fn find_command_returns_satpoint_for_sat() {
@@ -13,6 +16,50 @@ fn find_command_returns_satpoint_for_sat() {
         .unwrap()
     }
   );
+}
+
+#[test]
+fn find_range_command_returns_satpoints_and_ranges() {
+  let rpc_server = test_bitcoincore_rpc::spawn();
+
+  rpc_server.mine_blocks(1);
+
+  pretty_assert_eq!(
+    CommandBuilder::new(format!("--index-sats find 0 {}", 55 * COIN_VALUE))
+      .rpc_server(&rpc_server)
+      .run_and_deserialize_output::<Vec<FindRangeOutput>>(),
+    vec![
+      FindRangeOutput {
+        start: 50 * COIN_VALUE,
+        size: 5 * COIN_VALUE,
+        satpoint: "30f2f037629c6a21c1f40ed39b9bd6278df39762d68d07f49582b23bcb23386a:0:0"
+          .parse()
+          .unwrap()
+      },
+      FindRangeOutput {
+        start: 0,
+        size: 50 * COIN_VALUE,
+        satpoint: "97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9:0:0"
+          .parse()
+          .unwrap()
+      }
+    ]
+  );
+}
+
+#[test]
+fn find_range_command_fails_for_unmined_sat_ranges() {
+  let rpc_server = test_bitcoincore_rpc::spawn();
+
+  CommandBuilder::new(format!(
+    "--index-sats find {} {}",
+    50 * COIN_VALUE,
+    100 * COIN_VALUE
+  ))
+  .rpc_server(&rpc_server)
+  .expected_exit_code(1)
+  .expected_stderr("error: range has not been mined as of index height\n")
+  .run_and_extract_stdout();
 }
 
 #[test]

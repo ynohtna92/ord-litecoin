@@ -1,18 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko" class="sidebar-visible no-js coal" dir="ltr">
-<script>
-  var lang = "ko"; // Get the language from the configuration
-  if (lang === "ar") {
-    // Set the direction to right-to-left for Arabic
-    document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
-  }
-</script>
-<style>
-    .custom-list {
-        list-style-type: none; /* Remove default list item marker (hyphen) */
-    }
-</style>
-<html lang="ko" class="sidebar-visible no-js coal">
+<html lang="ko" class="coal" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -23,7 +10,7 @@
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="../favicon.svg">
         <link rel="shortcut icon" href="../favicon.png">
@@ -45,7 +32,7 @@
         <link rel="stylesheet" href="../language-picker.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -75,29 +62,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('coal')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">서론</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 개요</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 디지털 아티팩트</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 인스크립션</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> 메타 데이터</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> 기원</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> 리커젼</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">4.</strong> 자주 묻는 질문</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">5.</strong> 기여하는 방법</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">6.</strong> 기부하는 방법</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">7.</strong> 안내서들</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">7.1.</strong> 탐색기</a></li><li class="chapter-item expanded "><a href="../guides/inscriptions.html" class="active"><strong aria-hidden="true">7.2.</strong> 인스크립션</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> SAT 헌팅</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">7.5.</strong> 수집</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.5.1.</strong> 스패로우 월렛</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">7.6.</strong> 테스팅</a></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">7.7.</strong> 중재</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">7.8.</strong> 재인덱싱</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">8.</strong> 현상금</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">8.1.</strong> 현상금 0: 100,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">8.2.</strong> 현상금 1: 200,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">8.3.</strong> 현상금 2: 300,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">8.4.</strong> 현상금 3: 400,000 SAT</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">서론</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 개요</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 디지털 아티팩트</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 인스크립션</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> 메타 데이터</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> 기원</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> 리커젼</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">4.</strong> 자주 묻는 질문</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">5.</strong> 기여하는 방법</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">6.</strong> 기부하는 방법</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">7.</strong> 안내서들</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">7.1.</strong> 탐색기</a></li><li class="chapter-item expanded "><a href="../guides/inscriptions.html" class="active"><strong aria-hidden="true">7.2.</strong> 인스크립션</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> SAT 헌팅</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">7.5.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">7.6.</strong> 수집</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.6.1.</strong> 스패로우 월렛</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">7.7.</strong> 테스팅</a></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">7.8.</strong> 중재</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">7.9.</strong> 재인덱싱</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">8.</strong> 현상금</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">8.1.</strong> 현상금 0: 100,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">8.2.</strong> 현상금 1: 200,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">8.3.</strong> 현상금 2: 300,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">8.4.</strong> 현상금 3: 400,000 SAT</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -130,9 +122,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -169,6 +161,9 @@
                           </button></li>
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
                           </button></li>
                            <li role="none"><button role="menuitem" class="theme">
                               <a id="ru">Русский</a>
@@ -335,7 +330,7 @@
 <p>인스크립션 트랜잭션은 400,000 가중치 단위(weight unit) 미만이어야 하며, 그렇지 않으면 Bitcoin Core에서 릴레이 되지 않는다. 1바이트의 인스크립션 콘텐츠는 1 가중치 단위의 비용이 든다. 인스크립션 트랜잭션에는 인스크립션 콘텐츠만 포함되지 않으므로, 인스크립션 콘텐츠를 400,000 가중치 단위 미만으로 제한하라. 390,000 개의 가중치 단위미만은 안전할 것이다.</p>
 <h2 id="인스크립션-생성하기"><a class="header" href="#인스크립션-생성하기">인스크립션 생성하기</a></h2>
 <p><code>FILE</code>의 내용으로 인스크립션을 만들려면 다음을 실행한다:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ord는 커밋 트랜잭션과 리빌 트랜잭션에 대한 두 개의 트랜잭션 ID와 인스크립션 ID를 출력한다. 인스크립션 ID는 <code>TXIDiN</code> 형식이며, 여기서 <code>TXID</code>는 리빌 트랜잭션의 트랜잭션 ID이고 <code>N</code>은 리빌 트랜잭션안에 있는 인스크립션의 인덱스이다.</p>
 <p>커밋 트랜잭션은 인스크립션 콘텐츠가 포함된 탭스크립트(tapscript)에 커밋하고, 리빌 트랜잭션은 해당 탭스크립트에서 지출하여 체인에서 콘텐츠를 공개하고 해당 탭스크립트가 포함된 입력의 첫 번째 SAT에 인스크립션을 새긴다.</p>
@@ -347,7 +342,7 @@
 <p>부모-자식 인스크립션은 구어체로 컬렉션이라고 하는 것을 가능하게 한다. 자세한 내용은 <a href="../inscriptions/provenance.html">기원</a>을 참조하자.</p>
 <p>인스크립션을 다른 인스크립션의 자식으로 만들려면 부모 인스크립션이 새김되어 있고 지갑에 있어야 한다. 부모를 선택하려면 <code>ord wallet inscriptions</code>을 실행하고 인스크립션 ID(<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>)를 복사한다.</p>
 <p>이제 자식 인스크립션을 새기고 부모를 다음과 같이 지정한다:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; CHILD_FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
 </code></pre>
 <p>이 관계는 소급하여 추가할 수 없으며, 부모는 자녀가 시작될 때 이미 존재해야 한다.</p>
 <h2 id="인스크립션-보내기"><a class="header" href="#인스크립션-보내기">인스크립션 보내기</a></h2>
@@ -385,7 +380,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -399,7 +394,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

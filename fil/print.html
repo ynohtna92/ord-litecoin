@@ -1,30 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="fil" class="sidebar-visible no-js coal" dir="ltr">
-<script>
-  var lang = "fil"; // Get the language from the configuration
-  if (lang === "ar") {
-    // Set the direction to right-to-left for Arabic
-    document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
-  }
-</script>
-<style>
-    .custom-list {
-        list-style-type: none; /* Remove default list item marker (hyphen) */
-    }
-</style>
-<html lang="fil" class="sidebar-visible no-js coal">
+<html lang="fil" class="coal" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Ordinal Theory Handbook</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -46,7 +33,7 @@
         <link rel="stylesheet" href="language-picker.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -76,29 +63,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('coal')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Panimula</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Pangkalahatang-ideya</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digital Artifacts</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Mga Madalas Itanong</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Mag-ambag</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Donate</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Mga gabay</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscriptions</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Sat Hunting</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.5.</strong> Pagkolekta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.5.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.6.</strong> Pagsuri</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.7.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.8.</strong> Reindexing</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400,000 sats</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Panimula</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Pangkalahatang-ideya</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digital Artifacts</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Mga Madalas Itanong</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Mag-ambag</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Donate</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Mga gabay</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscriptions</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Sat Hunting</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">7.5.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.6.</strong> Pagkolekta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.6.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.7.</strong> Pagsuri</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.8.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.9.</strong> Reindexing</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400,000 sats</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -131,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -170,6 +162,9 @@
                           </button></li>
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
                           </button></li>
                            <li role="none"><button role="menuitem" class="theme">
                               <a id="ru">Русский</a>
@@ -801,7 +796,7 @@ OP_ENDIF
 <p>Para mag specify ng port i-add ang <code>--http-port</code> na flag:</p>
 <p><code>ord server --http-port 8080</code></p>
 <p>Para ma-enable ang JSON-API endpoints i-add ang <code>--enable-json-api</code> or <code>-j</code> flag (tingnan <a href="guides/explorer.html#json-api">sa</a> para karagdagang impormasyon):</p>
-<p><code>ord --enable-json-api server</code></p>
+<p><code>ord server --enable-json-api</code></p>
 <p>Maaring i-test ang iyong inscriptions gamit naman ang:</p>
 <p><code>ord preview &lt;FILE1&gt; &lt;FILE2&gt; ...</code></p>
 <h2 id="search"><a class="header" href="#search">Search</a></h2>
@@ -827,7 +822,7 @@ OP_ENDIF
 <p>O ayon sa percentile, ang porsyento ng supply ng bitcoin na ibibigay o ibibigay kapag na-mina:</p>
 <p><a href="https://ordinals.com/search/100%">100%</a></p>
 <h2 id="json-api"><a class="header" href="#json-api">JSON-API</a></h2>
-<p>Maaari mong patakbuhin ang <code>ord</code> gamit ang <code>--enable-json-api</code> flag upang ma-access ang mga endpoint na ibalik ang JSON sa halip na HTML kung na-set mo ang HTTP <code>Accept: application/json</code> header. Ang istraktura ng mga bagay na ito ay malapit na sumusunod sa kung ano ang ipinapakita sa HTML. Ang mga endpoint na ito ay:</p>
+<p>You can run <code>ord server</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
 <ul>
 <li><code>/inscription/&lt;INSCRIPTION_ID&gt;</code></li>
 <li>/inscriptions</li>
@@ -944,7 +939,7 @@ OP_ENDIF
 <p>Ang mga transaksyon sa inscription ay dapat na mas mababa sa 400,00, o hindi sila ipapadala ng Bitcoin Core. Ang isang byte na nilalaman ng inscription ay nagkakahalaga ng isang yunit ng timbang. Dahil ang isang transaksyon sa inscription ay hindi kasama lamang ang nilalaman ng inscription, angkop na limitahan ang nilalaman ng pagpapatala sa mas mababa sa 400,000. Dapat ay sapat na ang 390,000 weight units.</p>
 <h2 id="paglikha-ng-mga-inscription"><a class="header" href="#paglikha-ng-mga-inscription">Paglikha ng mga inscription</a></h2>
 <p>Upang lumikha ng inscription na may mga nilalaman na <code>FILE</code>, patakbuhin ang:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Maglalabas ang Ord ng dalawang transaction ID, isa para sa commit transaction at isa para sa reveal transaction, kasama ang inscription ID. Ang mga Inscription ID ay nasa anyong <code>TXIDiN</code>, kung saan ang <code>TXID</code> ay ang transaction ID ng reveal na transaksyon, at ang <code>N</code> ay ang index ng pag-inscribe sa reveal na transaksyon.</p>
 <p>Ang commit na transaksyon ay commit sa isang tapscript na naglalaman ng content ng inscription, at ang reveal na transaction ay gumagastos mula sa tapscript na iyon, na nire-reveal ang content sa string at nii-inscribe ito sa unang sat ng input na naglalaman ng kaukulang tapscript.</p>
@@ -956,7 +951,7 @@ OP_ENDIF
 <p>Ang Parent-child inscriptions ay nagbibigay-daan sa kung ano ang karaniwang kilala bilang mga koleksyon, tingnan ang <a href="guides/../inscriptions/provenance.html">provenance</a> para sa higit pang impormasyon.</p>
 <p>To make an inscription a child of another, the parent inscription has to be inscribed and present in the wallet. To choose a parent run <code>ord wallet inscriptions</code> and copy the inscription id (<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>).</p>
 <p>Ngayon i-inscribe ang child inscription at tukuyin ang parent tulad nito:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; CHILD_FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
 </code></pre>
 <p>This relationship cannot be added retroactively, the parent has to be present at inception of the child.</p>
 <h2 id="magpadala-ng-mga-inscription"><a class="header" href="#magpadala-ng-mga-inscription">Magpadala ng mga inscription</a></h2>
@@ -1073,7 +1068,7 @@ inscriptions:
 </li>
 <li>
 <p>Ipakita ang anumang mga bihirang ordinals wallet na <code>foo</code>'s UTXOs:</p>
-<pre><code class="language-sh">ord wallet sats
+<pre><code class="language-sh">ord --wallet foo --index-sats wallet sats
 </code></pre>
 </li>
 </ol>
@@ -1198,6 +1193,24 @@ inscriptions:
 <p>Mag-navigate sa tab na <code>Setting</code>, pagkatapos ay sa <code>Script Policy</code>, at pindutin ang i-edit button to display the descriptor.</p>
 <h3 id="pag-transfer-ng-ordinals"><a class="header" href="#pag-transfer-ng-ordinals">Pag-transfer ng Ordinals</a></h3>
 <p>Sinusuportahan ng <code>ord</code> wallet ang pag-transfer ng mga partikular na satoshi. Maaari mo ring gamitin ang <code>bitcoin-cli</code> commands <code>createrawtransaction</code>,<code>signrawtransactionwithwallet</code>, at <code>sendrawtransaction</code>, kung paano gawin ito ay kumplikado at sa labas ng saklaw ng gabay na ito.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="teleburning"><a class="header" href="#teleburning">Teleburning</a></h1>
+<p>Teleburn addresses can be used to burn assets on other blockchains, leaving behind in the smoking rubble a sort of forwarding address pointing to an inscription on Bitcoin.</p>
+<p>Teleburning an asset means something like, &quot;I'm out. Find me on Bitcoin.&quot;</p>
+<p>Teleburn addresses are derived from inscription IDs. They have no corresponding private key, so assets sent to a teleburn address are burned. Currently, only Ethereum teleburn addresses are suppported. Pull requests adding teleburn addresses for other chains are welcome.</p>
+<h2 id="ethereum"><a class="header" href="#ethereum">Ethereum</a></h2>
+<p>Ethereum teleburn addresses are derived by taking the first 20 bytes of the SHA-256 hash of the inscription ID, serialized as 36 bytes, with the first 32 bytes containing the transaction ID, and the last four bytes containing big-endian inscription index, and interpreting it as an Ethereum address.</p>
+<h2 id="halimbawa-2"><a class="header" href="#halimbawa-2">Halimbawa</a></h2>
+<p>The ENS domain name <a href="https://app.ens.domains/rodarmor.eth">rodarmor.eth</a>, was teleburned to <a href="https://ordinals.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0">inscription zero</a>.</p>
+<p>Running the inscription ID of inscription zero is <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code>.</p>
+<p>Passing <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code> to the teleburn command:</p>
+<pre><code class="language-bash">$ ord teleburn 6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0
+</code></pre>
+<p>Returns:</p>
+<pre><code class="language-json">{
+  &quot;ethereum&quot;: &quot;0xe43A06530BdF8A4e067581f48Fae3b535559dA9e&quot;
+}
+</code></pre>
+<p>Indicating that <code>0xe43A06530BdF8A4e067581f48Fae3b535559dA9e</code> is the Ethereum teleburn address for inscription zero, which is, indeed, the current owner, on Ethereum, of <code>rodarmor.eth</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pagkolekta"><a class="header" href="#pagkolekta">Pagkolekta</a></h1>
 <p>Sa kasalukuyan, ang <a href="https://github.com/ordinals/ord/">ord</a> ay ang tanging wallet na sumusuporta sa sat control at selection, na kinakailangan upang ligtas na mag-store at magpadala ng mga rare sats at inscription, pagkatapos ay tinutukoy bilang mga ordinal.</p>
 <p>Inirerekomenda na magpadala, tumanggap at mag-imbak ng mga ordinal na may <code>ord</code>, ngunit kung ikaw ay maingat, posible na mag-store, at sa ilang mga kaso, magpadala ng mga ordinal nang ligtas kasama ng iba pang mga wallet.</p>
@@ -1314,7 +1327,7 @@ inscriptions:
 </tbody></table>
 </div>
 <p>Ang regtest ay hindi nangangailangan ng pag-download ng blockchain o indexing ord.</p>
-<h2 id="halimbawa-2"><a class="header" href="#halimbawa-2">Halimbawa</a></h2>
+<h2 id="halimbawa-3"><a class="header" href="#halimbawa-3">Halimbawa</a></h2>
 <p>I-run ang bitcoind sa regtest gamit ang:</p>
 <pre><code>bitcoind -regtest -txindex
 </code></pre>
@@ -1328,7 +1341,7 @@ inscriptions:
 <pre><code>bitcoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
 </code></pre>
 <p>I-inscribe sa regtest kasama:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 &lt;file&gt;
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file &lt;file&gt;
 </code></pre>
 <p>I-mine and inscription gamit ang:</p>
 <pre><code>bitcoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
@@ -1338,12 +1351,12 @@ inscriptions:
 </code></pre>
 <h2 id="pag-test-ng-recursion"><a class="header" href="#pag-test-ng-recursion">Pag-test ng Recursion</a></h2>
 <p>Kapag sinusubukan ang <a href="guides/../inscriptions/recursion.html">recursion</a>, isulat ang mga dependencies muna (halimbawa sa <a href="https://p5js.org">p5.js</a>):</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 p5.js
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file p5.js
 </code></pre>
 <p>Dapat itong magbalik ng <code>inscription_id</code> na maaari mong ireference sa iyong recursive inscription.</p>
 <p>PANSIN: Magiging iba ang mga id na ito kapag nag-inscribe sa mainnet o signet, kaya siguraduhing baguhin ang mga nasa iyong recursive inscription para sa bawat chain.</p>
 <p>Pagkatapos ay maaari mong isulat ang iyong recursive inscription ng:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file recursive-inscription.html
 </code></pre>
 <p>Sa wakas, kakailanganin mong mag-mine ng ilang mga bloke at simulan ang server:</p>
 <pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;

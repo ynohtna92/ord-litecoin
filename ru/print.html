@@ -1,30 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="ru" class="sidebar-visible no-js coal" dir="ltr">
-<script>
-  var lang = "ru"; // Get the language from the configuration
-  if (lang === "ar") {
-    // Set the direction to right-to-left for Arabic
-    document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
-  }
-</script>
-<style>
-    .custom-list {
-        list-style-type: none; /* Remove default list item marker (hyphen) */
-    }
-</style>
-<html lang="ru" class="sidebar-visible no-js coal">
+<html lang="ru" class="coal" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Ordinal Theory Handbook</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -46,7 +33,7 @@
         <link rel="stylesheet" href="language-picker.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -76,29 +63,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('coal')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Вступление</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Обзор</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Цифровые артефакты</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Надписи</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Провенанс</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Рекурсия</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> ЧАВО</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Вклад</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Пожертвование</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Руководства</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Проводник</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Надписи</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Охота на сатоши</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.5.</strong> Коллекционирование</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.5.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.6.</strong> Тестирование</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.7.</strong> Модерация</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.8.</strong> Переиндексация</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Награды</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Награда 0: 100 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Награда 1: 200 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Награда 2: 300 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Награда 3: 400 000 sats</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Вступление</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Обзор</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Цифровые артефакты</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Надписи</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Провенанс</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Рекурсия</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> ЧАВО</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Вклад</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Пожертвование</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Руководства</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Проводник</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Надписи</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Охота на сатоши</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">7.5.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.6.</strong> Коллекционирование</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.6.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.7.</strong> Тестирование</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.8.</strong> Модерация</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.9.</strong> Переиндексация</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Награды</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Награда 0: 100 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Награда 1: 200 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Награда 2: 300 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Награда 3: 400 000 sats</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -131,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -170,6 +162,9 @@
                           </button></li>
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
                           </button></li>
                            <li role="none"><button role="menuitem" class="theme">
                               <a id="ru">Русский</a>
@@ -801,7 +796,7 @@ OP_ENDIF
 <p>Для указания порта добавьте <code>--http-port</code> flag:</p>
 <p><code>ord server --http-port 8080</code></p>
 <p>To enable the JSON-API endpoints add the <code>--enable-json-api</code> or <code>-j</code> flag (see <a href="guides/explorer.html#json-api">here</a> for more info):</p>
-<p>ord --enable-json-api server</p>
+<p><code>ord server --enable-json-api</code></p>
 <p>Чтобы проверить, как будут выглядеть ваши надписи, вы можете запустить:</p>
 <p><code>ord preview &lt;FILE1&gt; &lt;FILE2&gt; ...</code></p>
 <h2 id="Поиск"><a class="header" href="#Поиск">Поиск</a></h2>
@@ -827,7 +822,7 @@ OP_ENDIF
 <p>Или по процентному соотношению - процент от количества Биткоинов, которые были или будут выпущены при их майнинге:</p>
 <p><a href="https://ordinals.com/search/100%">100%</a></p>
 <h2 id="json-api"><a class="header" href="#json-api">JSON-API</a></h2>
-<p>You can run <code>ord</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
+<p>You can run <code>ord server</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
 <ul>
 <li><code>/inscription/&lt;INSCRIPTION_ID&gt;</code></li>
 <li><code>/inscriptions</code></li>
@@ -944,7 +939,7 @@ OP_ENDIF
 <p>Транзакции с надписями должны быть менее 400 000 весовых единиц, иначе они не будут переданы Bitcoin Core. Один байт содержимого надписи стоит одну весовую единицу. Поскольку транзакция с надписью включает в себя не только содержимое надписи, ограничьте размер транзакции с надписью до менее чем 400 000 весовых единиц. 390 000 весовых единиц должно быть безопасно.</p>
 <h2 id="Создание-надписей"><a class="header" href="#Создание-надписей">Создание надписей</a></h2>
 <p>Чтобы создать надпись с контентом <code>FILE</code>, выполните команду:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ord выдаст два ID транзакций, один для транзакции commit, другой для транзакции reveal, а также ID надписи. ID надписей имеют вид <code>TXIDiN</code>, где <code>TXID</code> - ID транзакции reveal, а N - индекс надписи в транзакции reveal.</p>
 <p>Транзакция commit фиксирует tapscript, содержащий содержимое надписи, а транзакция reveal использует этот tapscript, раскрывая содержимое по цепочке и прописывая его на первом sat ввода, содержащем соответствующий tapscript.</p>
@@ -956,7 +951,7 @@ OP_ENDIF
 <p>Parent-child inscriptions enable what is colloquially known as collections, see <a href="guides/../inscriptions/provenance.html">provenance</a> for more information.</p>
 <p>To make an inscription a child of another, the parent inscription has to be inscribed and present in the wallet. To choose a parent run <code>ord wallet inscriptions</code> and copy the inscription id (<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>).</p>
 <p>Now inscribe the child inscription and specify the parent like so:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; CHILD_FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
 </code></pre>
 <p>This relationship cannot be added retroactively, the parent has to be present at inception of the child.</p>
 <h2 id="Отправка-надписей"><a class="header" href="#Отправка-надписей">Отправка надписей</a></h2>
@@ -1073,7 +1068,7 @@ inscriptions:
 </li>
 <li>
 <p>Отображение любых rare ordinals кошелька <code>foo</code> UTXOs:</p>
-<pre><code class="language-sh">ord wallet sats
+<pre><code class="language-sh">ord --wallet foo --index-sats wallet sats
 </code></pre>
 </li>
 </ol>
@@ -1198,6 +1193,24 @@ inscriptions:
 <p>Перейдите на вкладку <code>Settings</code>, затем на вкладку <code>Script Policy</code> и нажмите кнопку редактирования для отображения дескриптора.</p>
 <h3 id="Отправка-ordinals"><a class="header" href="#Отправка-ordinals">Отправка Ordinals</a></h3>
 <p>Кошелек <code>ord</code> поддерживает перевод определенных сатоши. Вы также можете использовать команды <code>bitcoin-cli</code> <code>createrawtransaction</code>, <code>signrawtransactionwwallet</code> и <code>sendrawtransaction</code>, но их выполнение является сложным и не входит в рамки данного руководства.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="teleburning"><a class="header" href="#teleburning">Teleburning</a></h1>
+<p>Teleburn addresses can be used to burn assets on other blockchains, leaving behind in the smoking rubble a sort of forwarding address pointing to an inscription on Bitcoin.</p>
+<p>Teleburning an asset means something like, &quot;I'm out. Find me on Bitcoin.&quot;</p>
+<p>Teleburn addresses are derived from inscription IDs. They have no corresponding private key, so assets sent to a teleburn address are burned. Currently, only Ethereum teleburn addresses are suppported. Pull requests adding teleburn addresses for other chains are welcome.</p>
+<h2 id="ethereum"><a class="header" href="#ethereum">Ethereum</a></h2>
+<p>Ethereum teleburn addresses are derived by taking the first 20 bytes of the SHA-256 hash of the inscription ID, serialized as 36 bytes, with the first 32 bytes containing the transaction ID, and the last four bytes containing big-endian inscription index, and interpreting it as an Ethereum address.</p>
+<h2 id="Пример-2"><a class="header" href="#Пример-2">Пример</a></h2>
+<p>The ENS domain name <a href="https://app.ens.domains/rodarmor.eth">rodarmor.eth</a>, was teleburned to <a href="https://ordinals.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0">inscription zero</a>.</p>
+<p>Running the inscription ID of inscription zero is <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code>.</p>
+<p>Passing <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code> to the teleburn command:</p>
+<pre><code class="language-bash">$ ord teleburn 6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0
+</code></pre>
+<p>Returns:</p>
+<pre><code class="language-json">{
+  &quot;ethereum&quot;: &quot;0xe43A06530BdF8A4e067581f48Fae3b535559dA9e&quot;
+}
+</code></pre>
+<p>Indicating that <code>0xe43A06530BdF8A4e067581f48Fae3b535559dA9e</code> is the Ethereum teleburn address for inscription zero, which is, indeed, the current owner, on Ethereum, of <code>rodarmor.eth</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="Коллекционирование"><a class="header" href="#Коллекционирование">Коллекционирование</a></h1>
 <p>В настоящее время, <a href="https://github.com/ordinals/ord/">ord</a> является единственным кошельком, поддерживающим функции sat-control и sat-selection, необходимые для безопасного хранения и отправки редких сатов и надписей, далее ordinals.</p>
 <p>Рекомендуемый способ отправки, получения и хранения ordinals - <code>ord</code>, но если быть осторожным, то можно безопасно хранить, а в некоторых случаях и отправлять ordinals с помощью других кошельков.</p>
@@ -1314,7 +1327,7 @@ inscriptions:
 </tbody></table>
 </div>
 <p>Regtest не требует загрузки блокчейна или индексации ord.</p>
-<h2 id="Пример-2"><a class="header" href="#Пример-2">Пример</a></h2>
+<h2 id="Пример-3"><a class="header" href="#Пример-3">Пример</a></h2>
 <p>Запустите bitcoind в regtest с:</p>
 <pre><code>bitcoind -regtest -txindex
 </code></pre>
@@ -1328,7 +1341,7 @@ inscriptions:
 <pre><code>bitcoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
 </code></pre>
 <p>Inscribe в regtest с:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 &lt;file&gt;
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file &lt;file&gt;
 </code></pre>
 <p>Добыть надпись с:</p>
 <pre><code>bitcoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
@@ -1338,12 +1351,12 @@ inscriptions:
 </code></pre>
 <h2 id="Тестирование-рекурсии"><a class="header" href="#Тестирование-рекурсии">Тестирование рекурсии</a></h2>
 <p>When testing out <a href="guides/../inscriptions/recursion.html">recursion</a>, inscribe the dependencies first (example with <a href="https://p5js.org">p5.js</a>):</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 p5.js
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file p5.js
 </code></pre>
 <p>Это должно вернуть значение <code>inscription_id</code>, на которое затем можно ссылаться в рекурсивной надписи.</p>
 <p>ВНИМАНИЕ: Эти ID будут отличаться при вписывании в mainnet и signet, поэтому не забудьте изменить их в рекурсивном вписывании для каждого чейна.</p>
 <p>Затем можно нанести рекурсивную надпись с помощью:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file recursive-inscription.html
 </code></pre>
 <p>Наконец, нужно добыть несколько блоков и запустить сервер:</p>
 <pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;

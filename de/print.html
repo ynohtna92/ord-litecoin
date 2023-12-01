@@ -1,30 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="de" class="sidebar-visible no-js coal" dir="ltr">
-<script>
-  var lang = "de"; // Get the language from the configuration
-  if (lang === "ar") {
-    // Set the direction to right-to-left for Arabic
-    document.getElementsByTagName("html")[0].setAttribute("dir", "rtl");
-  }
-</script>
-<style>
-    .custom-list {
-        list-style-type: none; /* Remove default list item marker (hyphen) */
-    }
-</style>
-<html lang="de" class="sidebar-visible no-js coal">
+<html lang="de" class="coal" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
         <title>Ordinal Theory Handbook</title>
-        <meta name="robots" content="noindex" />
+        <meta name="robots" content="noindex">
 
 
         <!-- Custom HTML head -->
         
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -46,7 +33,7 @@
         <link rel="stylesheet" href="language-picker.css">
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
@@ -76,29 +63,34 @@
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('coal')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var html = document.querySelector('html');
+            var body = document.querySelector('body');
             var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
             } else {
                 sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Einführung</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Übersicht</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale Artefakte</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Rekursion</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Häufig gestellte Fragen</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Beitragen</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Spenden</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Anleitungen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscriptions</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Sat-Suche</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.5.</strong> Sammeln</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.5.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.6.</strong> Testen</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.7.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.8.</strong> Erneutes Indizieren</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400.000 sats</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Einführung</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Übersicht</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale Artefakte</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.1.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.2.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.3.</strong> Rekursion</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.4.</strong> Pointer</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Häufig gestellte Fragen</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">5.</strong> Beitragen</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">6.</strong> Spenden</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">7.</strong> Anleitungen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">7.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/inscriptions.html"><strong aria-hidden="true">7.2.</strong> Inscriptions</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">7.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">7.4.</strong> Sat-Suche</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">7.5.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">7.6.</strong> Sammeln</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">7.6.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">7.7.</strong> Testen</a></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">7.8.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">7.9.</strong> Erneutes Indizieren</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">8.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">8.1.</strong> Bounty 0: 100.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">8.2.</strong> Bounty 1: 200.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">8.3.</strong> Bounty 2: 300.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">8.4.</strong> Bounty 3: 400.000 sats</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -131,9 +123,9 @@
                                 <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
@@ -170,6 +162,9 @@
                           </button></li>
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
                           </button></li>
                            <li role="none"><button role="menuitem" class="theme">
                               <a id="ru">Русский</a>
@@ -801,7 +796,7 @@ OP_ENDIF
 <p>Um einen Port anzugeben, fügen Sie Folgendes <code>--http-port</code> flag:</p>
 <p><code>ord server --http-port 8080</code></p>
 <p>To enable the JSON-API endpoints add the <code>--enable-json-api</code> or <code>-j</code> flag (see <a href="guides/explorer.html#json-api">here</a> for more info):</p>
-<p><code>ord --enable-json-api server</code></p>
+<p><code>ord server --enable-json-api</code></p>
 <p>Um zu testen, wie Ihre inscription aussehen werden, können Sie Folgendes ausführen:</p>
 <p><code>ord preview &lt;FILE1&gt; &lt;FILE2&gt; ...</code></p>
 <h2 id="suchen"><a class="header" href="#suchen">Suchen</a></h2>
@@ -827,7 +822,7 @@ OP_ENDIF
 <p>Oder nach Prozentil, dem Prozentsatz des Bitcoin-Angebots, das bereits emittiert wurde oder emittiert wird, wenn sie abgebaut werden:</p>
 <p><a href="https://ordinals.com/search/100%">100%</a></p>
 <h2 id="json-api"><a class="header" href="#json-api">JSON-API</a></h2>
-<p>You can run <code>ord</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
+<p>You can run <code>ord server</code> with the <code>--enable-json-api</code> flag to access endpoints that return JSON instead of HTML if you set the HTTP <code>Accept: application/json</code> header. The structure of theses objects closely follows what is shown in the HTML. These endpoints are:</p>
 <ul>
 <li><code>/inscription/&lt;INSCRIPTION_ID&gt;</code></li>
 <li><code>/inscriptions</code></li>
@@ -944,7 +939,7 @@ OP_ENDIF
 <p>Inscription transaktion müssen weniger als 400.000 Gewichtseinheiten betragen, da sie ansonsten von Bitcoin Core nicht weitergeleitet werden. Ein Byte inscription inhalt kostet eine Gewichtseinheit. Da eine inscription transaktion nicht nur den inscription inhalt enthält, sollte der inscription inhalt auf weniger als 400.000 Gewichtseinheiten begrenzt werden. 390.000 Gewichtseinheiten sollten sicher sein.</p>
 <h2 id="inscription-erstellen"><a class="header" href="#inscription-erstellen">Inscription erstellen</a></h2>
 <p>Um eine Inschrift mit dem Inhalt von <code>FILE</code> zu erstellen, führen:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ord gibt zwei Transaktions-IDs aus, eine für die Commit-Transaktion und eine für die Reveal-Transaktion, sowie die inscription -ID. inscription -IDs haben das Format <code>TXIDiN</code>, wobei <code>TXID</code> die Transaktions-ID der Reveal-Transaktion ist und <code>N</code> der Index der inscription in der Reveal-Transaktion ist.</p>
 <p>Die Commit-Transaktion verpflichtet sich zu einem Tapscript, das den Inhalt der inscription enthält, und die Reveal-Transaktion gibt von diesem Tapscript aus und enthüllt den Inhalt auf der Blockchain, indem sie ihn auf die erste Satoshis des Inputs schreibt, der das entsprechende Tapscript enthält.</p>
@@ -956,7 +951,7 @@ OP_ENDIF
 <p>Parent-child inscriptions enable what is colloquially known as collections, see <a href="guides/../inscriptions/provenance.html">provenance</a> for more information.</p>
 <p>To make an inscription a child of another, the parent inscription has to be inscribed and present in the wallet. To choose a parent run <code>ord wallet inscriptions</code> and copy the inscription id (<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>).</p>
 <p>Now inscribe the child inscription and specify the parent like so:</p>
-<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; CHILD_FILE
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
 </code></pre>
 <p>This relationship cannot be added retroactively, the parent has to be present at inception of the child.</p>
 <h2 id="inscriptions-senden"><a class="header" href="#inscriptions-senden">Inscriptions Senden</a></h2>
@@ -1073,7 +1068,7 @@ inscriptions:
 </li>
 <li>
 <p>Zeigt alle seltenen ordinal wallet-UTXOs von <code>foo</code>'s an:</p>
-<pre><code class="language-sh">ord wallet sats
+<pre><code class="language-sh">ord --wallet foo --index-sats wallet sats
 </code></pre>
 </li>
 </ol>
@@ -1198,6 +1193,24 @@ inscriptions:
 <p>Navigieren Sie zur Registerkarte <code>Einstellungen</code>, dann zu <code>Skriptrichtlinie</code> und klicken Sie auf die Schaltfläche <code>Bearbeiten</code>, um den Deskriptor anzuzeigen.</p>
 <h3 id="ordinals-übertragen"><a class="header" href="#ordinals-übertragen">Ordinals übertragen</a></h3>
 <p>Die <code>ord</code>-Wallet unterstützt die Übertragung bestimmter Satoshis. Sie können auch <code>bitcoin-cli</code>-Befehle wie <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code> und <code>sendrawtransaction</code> verwenden, wie dies geschieht, ist komplex und fällt nicht in den Rahmen dieses Leitfadens.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="teleburning"><a class="header" href="#teleburning">Teleburning</a></h1>
+<p>Teleburn addresses can be used to burn assets on other blockchains, leaving behind in the smoking rubble a sort of forwarding address pointing to an inscription on Bitcoin.</p>
+<p>Teleburning an asset means something like, &quot;I'm out. Find me on Bitcoin.&quot;</p>
+<p>Teleburn addresses are derived from inscription IDs. They have no corresponding private key, so assets sent to a teleburn address are burned. Currently, only Ethereum teleburn addresses are suppported. Pull requests adding teleburn addresses for other chains are welcome.</p>
+<h2 id="ethereum"><a class="header" href="#ethereum">Ethereum</a></h2>
+<p>Ethereum teleburn addresses are derived by taking the first 20 bytes of the SHA-256 hash of the inscription ID, serialized as 36 bytes, with the first 32 bytes containing the transaction ID, and the last four bytes containing big-endian inscription index, and interpreting it as an Ethereum address.</p>
+<h2 id="beispiel-2"><a class="header" href="#beispiel-2">Beispiel</a></h2>
+<p>The ENS domain name <a href="https://app.ens.domains/rodarmor.eth">rodarmor.eth</a>, was teleburned to <a href="https://ordinals.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0">inscription zero</a>.</p>
+<p>Running the inscription ID of inscription zero is <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code>.</p>
+<p>Passing <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code> to the teleburn command:</p>
+<pre><code class="language-bash">$ ord teleburn 6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0
+</code></pre>
+<p>Returns:</p>
+<pre><code class="language-json">{
+  &quot;ethereum&quot;: &quot;0xe43A06530BdF8A4e067581f48Fae3b535559dA9e&quot;
+}
+</code></pre>
+<p>Indicating that <code>0xe43A06530BdF8A4e067581f48Fae3b535559dA9e</code> is the Ethereum teleburn address for inscription zero, which is, indeed, the current owner, on Ethereum, of <code>rodarmor.eth</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="sammeln"><a class="header" href="#sammeln">Sammeln</a></h1>
 <p>Derzeit ist <a href="https://github.com/ordinals/ord/">ord</a> die einzige Wallet, die Sat-Kontrolle und Sat-Auswahl unterstützt, die erforderlich sind, um seltene Sats und inscriptions, im Folgenden Ordinals genannt, sicher zu speichern und zu senden.</p>
 <p>Die empfohlene Methode, um Ordinals zu senden, zu empfangen und zu speichern, ist die Verwendung von <code>ord</code>. Es ist jedoch möglich, Ordinals sicher mit anderen Wallets zu speichern und in einigen Fällen zu senden, wenn Sie vorsichtig sind.</p>
@@ -1314,7 +1327,7 @@ inscriptions:
 </tbody></table>
 </div>
 <p>Für den Regtest ist kein Herunterladen der Blockchain oder Indexierungs das ord erforderlich.</p>
-<h2 id="beispiel-2"><a class="header" href="#beispiel-2">Beispiel</a></h2>
+<h2 id="beispiel-3"><a class="header" href="#beispiel-3">Beispiel</a></h2>
 <p>Führen Sie Bitcoind im Regtest aus mit:</p>
 <pre><code>bitcoind -regtest -txindex
 </code></pre>
@@ -1328,7 +1341,7 @@ inscriptions:
 <pre><code>bitcoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
 </code></pre>
 <p>Inscribe im Regtest mit:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 &lt;file&gt;
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file &lt;file&gt;
 </code></pre>
 <p>Mine die inscription mit:</p>
 <pre><code>bitcoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
@@ -1338,12 +1351,12 @@ inscriptions:
 </code></pre>
 <h2 id="testen-der-rekursion"><a class="header" href="#testen-der-rekursion">Testen der Rekursion</a></h2>
 <p>When testing out <a href="guides/../inscriptions/recursion.html">recursion</a>, inscribe the dependencies first (example with <a href="https://p5js.org">p5.js</a>):</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 p5.js
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file p5.js
 </code></pre>
 <p>Dies sollte eine <code>inscription_id</code> zurückgeben, auf die Sie dann in Ihrer rekursiven inscription verweisen können.</p>
 <p>ACHTUNG: Diese IDs werden unterschiedlich sein, wenn Sie auf Mainnet oder Signet inskribieren. Stellen Sie sicher, dass Sie sie für jede Kette in Ihrer rekursiven inscription ändern.</p>
 <p>Dann können Sie Ihre rekursive inscribe einschreiben mit:</p>
-<pre><code>ord -r wallet inscribe --fee-rate 1 recursive-inscription.html
+<pre><code>ord -r wallet inscribe --fee-rate 1 --file recursive-inscription.html
 </code></pre>
 <p>Schließlich müssen Sie einige Blöcke minen und den Server starten:</p>
 <pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;

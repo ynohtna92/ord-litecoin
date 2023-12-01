@@ -2,7 +2,7 @@ use {
   self::{
     entry::{
       BlockHashValue, Entry, InscriptionEntry, InscriptionEntryValue, InscriptionIdValue,
-      OutPointValue, RuneEntryValue, RuneIdValue, SatPointValue, SatRange,
+      OutPointValue, RuneEntryValue, RuneIdValue, SatPointValue, SatRange, TxidValue,
     },
     reorg::*,
     runes::{Rune, RuneId},
@@ -20,7 +20,7 @@ use {
     Database, MultimapTable, MultimapTableDefinition, ReadableMultimapTable, ReadableTable, Table,
     TableDefinition, WriteTransaction,
   },
-  std::collections::HashMap,
+  std::collections::{BTreeSet, HashMap},
   std::io::{BufWriter, Read, Write},
 };
 
@@ -35,7 +35,7 @@ mod updater;
 #[cfg(test)]
 pub(crate) mod testing;
 
-const SCHEMA_VERSION: u64 = 9;
+const SCHEMA_VERSION: u64 = 10;
 
 macro_rules! define_table {
   ($name:ident, $key:ty, $value:ty) => {
@@ -56,6 +56,7 @@ define_multimap_table! { SAT_TO_INSCRIPTION_ID, u64, &InscriptionIdValue }
 define_table! { HEIGHT_TO_BLOCK_HASH, u64, &BlockHashValue }
 define_table! { HEIGHT_TO_LAST_SEQUENCE_NUMBER, u64, u64 }
 define_table! { INSCRIPTION_ID_TO_INSCRIPTION_ENTRY, &InscriptionIdValue, InscriptionEntryValue }
+define_table! { INSCRIPTION_ID_TO_RUNE, &InscriptionIdValue, u128 }
 define_table! { INSCRIPTION_ID_TO_SATPOINT, &InscriptionIdValue, &SatPointValue }
 define_table! { INSCRIPTION_NUMBER_TO_INSCRIPTION_ID, i64, &InscriptionIdValue }
 define_table! { OUTPOINT_TO_RUNE_BALANCES, &OutPointValue, &[u8] }
@@ -66,6 +67,7 @@ define_table! { RUNE_TO_RUNE_ID, u128, RuneIdValue }
 define_table! { SAT_TO_SATPOINT, u64, &SatPointValue }
 define_table! { SEQUENCE_NUMBER_TO_INSCRIPTION_ID, u64, &InscriptionIdValue }
 define_table! { STATISTIC_TO_COUNT, u64, u64 }
+define_table! { TRANSACTION_ID_TO_RUNE, &TxidValue, u128 }
 define_table! { WRITE_TRANSACTION_STARTING_BLOCK_COUNT_TO_TIMESTAMP, u64, u128 }
 
 #[derive(Debug, PartialEq)]
@@ -76,6 +78,7 @@ pub enum List {
 
 #[derive(Copy, Clone)]
 pub(crate) enum Statistic {
+  Schema = 0,
   BlessedInscriptions,
   Commits,
   CursedInscriptions,
@@ -83,8 +86,8 @@ pub(crate) enum Statistic {
   IndexSats,
   LostSats,
   OutputsTraversed,
+  Runes,
   SatRanges,
-  Schema,
   UnboundInscriptions,
 }
 
@@ -272,6 +275,7 @@ impl Index {
         tx.open_table(HEIGHT_TO_BLOCK_HASH)?;
         tx.open_table(HEIGHT_TO_LAST_SEQUENCE_NUMBER)?;
         tx.open_table(INSCRIPTION_ID_TO_INSCRIPTION_ENTRY)?;
+        tx.open_table(INSCRIPTION_ID_TO_RUNE)?;
         tx.open_table(INSCRIPTION_ID_TO_SATPOINT)?;
         tx.open_table(INSCRIPTION_NUMBER_TO_INSCRIPTION_ID)?;
         tx.open_table(OUTPOINT_TO_RUNE_BALANCES)?;
@@ -280,6 +284,7 @@ impl Index {
         tx.open_table(RUNE_TO_RUNE_ID)?;
         tx.open_table(SAT_TO_SATPOINT)?;
         tx.open_table(SEQUENCE_NUMBER_TO_INSCRIPTION_ID)?;
+        tx.open_table(TRANSACTION_ID_TO_RUNE)?;
         tx.open_table(WRITE_TRANSACTION_STARTING_BLOCK_COUNT_TO_TIMESTAMP)?;
 
         {
@@ -326,12 +331,28 @@ impl Index {
     })
   }
 
+  pub(crate) fn get_locked_outputs(&self, _wallet: Wallet) -> Result<BTreeSet<OutPoint>> {
+    #[derive(Deserialize)]
+    pub(crate) struct JsonOutPoint {
+      txid: bitcoin::Txid,
+      vout: u32,
+    }
+
+    Ok(
+      self
+        .client
+        .call::<Vec<JsonOutPoint>>("listlockunspent", &[])?
+        .into_iter()
+        .map(|outpoint| OutPoint::new(outpoint.txid, outpoint.vout))
+        .collect(),
+    )
+  }
   #[cfg(test)]
   fn set_durability(&mut self, durability: redb::Durability) {
     self.durability = durability;
   }
 
-  pub(crate) fn get_unspent_outputs(&self, _wallet: Wallet) -> Result<BTreeMap<OutPoint, Amount>> {
+  pub(crate) fn get_unspent_outputs(&self, wallet: Wallet) -> Result<BTreeMap<OutPoint, Amount>> {
     let mut utxos = BTreeMap::new();
     utxos.extend(
       self
@@ -353,19 +374,18 @@ impl Index {
         }),
     );
 
-    #[derive(Deserialize)]
-    pub(crate) struct JsonOutPoint {
-      txid: bitcoin::Txid,
-      vout: u32,
-    }
+    let locked_utxos: BTreeSet<OutPoint> = self.get_locked_outputs(wallet)?;
 
-    for JsonOutPoint { txid, vout } in self
-      .client
-      .call::<Vec<JsonOutPoint>>("listlockunspent", &[])?
-    {
+    for outpoint in locked_utxos {
       utxos.insert(
-        OutPoint { txid, vout },
-        Amount::from_sat(self.client.get_raw_transaction(&txid, None)?.output[vout as usize].value),
+        outpoint,
+        Amount::from_sat(
+          self
+            .client
+            .get_raw_transaction(&outpoint.txid, None)?
+            .output[TryInto::<usize>::try_into(outpoint.vout).unwrap()]
+          .value,
+        ),
       );
     }
     let rtx = self.database.begin_read()?;
@@ -550,10 +570,6 @@ impl Index {
 
   pub(crate) fn is_unrecoverably_reorged(&self) -> bool {
     self.unrecoverably_reorged.load(atomic::Ordering::Relaxed)
-  }
-
-  pub(crate) fn is_json_api_enabled(&self) -> bool {
-    self.options.enable_json_api
   }
 
   fn begin_read(&self) -> Result<rtx::Rtx> {
@@ -784,6 +800,7 @@ impl Index {
     self.client.get_block(&hash).into_option()
   }
 
+  #[cfg(test)]
   pub(crate) fn get_children_by_inscription_id(
     &self,
     inscription_id: InscriptionId,
@@ -799,6 +816,60 @@ impl Index {
           .map_err(|err| err.into())
       })
       .collect()
+  }
+
+  pub(crate) fn get_children_by_inscription_id_paginated(
+    &self,
+    inscription_id: InscriptionId,
+    page_size: usize,
+    page_index: usize,
+  ) -> Result<(Vec<InscriptionId>, bool)> {
+    let mut children = self
+      .database
+      .begin_read()?
+      .open_multimap_table(INSCRIPTION_ID_TO_CHILDREN)?
+      .get(&inscription_id.store())?
+      .skip(page_index * page_size)
+      .take(page_size + 1)
+      .map(|result| {
+        result
+          .map(|inscription_id| InscriptionId::load(*inscription_id.value()))
+          .map_err(|err| err.into())
+      })
+      .collect::<Result<Vec<InscriptionId>>>()?;
+
+    let more = children.len() > page_size;
+
+    if more {
+      children.pop();
+    }
+
+    Ok((children, more))
+  }
+
+  pub(crate) fn get_etching(&self, txid: Txid) -> Result<Option<Rune>> {
+    Ok(
+      self
+        .database
+        .begin_read()?
+        .open_table(TRANSACTION_ID_TO_RUNE)?
+        .get(&txid.store())?
+        .map(|entry| Rune(entry.value())),
+    )
+  }
+
+  pub(crate) fn get_rune_by_inscription_id(
+    &self,
+    inscription_id: InscriptionId,
+  ) -> Result<Option<Rune>> {
+    Ok(
+      self
+        .database
+        .begin_read()?
+        .open_table(INSCRIPTION_ID_TO_RUNE)?
+        .get(&inscription_id.store())?
+        .map(|entry| Rune(entry.value())),
+    )
   }
 
   pub(crate) fn get_inscription_ids_by_sat(&self, sat: Sat) -> Result<Vec<InscriptionId>> {

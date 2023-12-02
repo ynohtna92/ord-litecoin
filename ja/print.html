@@ -1068,8 +1068,9 @@ OP_ENDIF
 <pre><code class="language-yaml"># example batch file
 
 # there are two modes:
-# - `separate-outputs`: place all inscriptions in separate postage-sized outputs
-# - `shared-output`: place inscriptions in a single output separated by postage
+# - `separate-outputs`: inscribe on separate postage-sized outputs
+# - `shared-output`: inscribe on a single output separated by postage
+# - `same-sat`: inscribe on the same sat
 mode: separate-outputs
 
 # parent inscription:
@@ -1077,6 +1078,9 @@ parent: 6ac5cacb768794f4fd7a78bf00f2074891fce68bd65c4ff36e77177237aacacai0
 
 # postage for each inscription:
 postage: 12345
+
+# sat to inscribe on, can only be used with `same-sat`:
+# sat: 5000000000
 
 # inscriptions to inscribe
 #
@@ -1280,7 +1284,7 @@ inscriptions:
 <div style="break-before: page; page-break-before: always;"></div><h1 id="teleburning"><a class="header" href="#teleburning">Teleburning</a></h1>
 <p>Teleburn addresses can be used to burn assets on other blockchains, leaving behind in the smoking rubble a sort of forwarding address pointing to an inscription on Bitcoin.</p>
 <p>Teleburning an asset means something like, &quot;I'm out. Find me on Bitcoin.&quot;</p>
-<p>Teleburn addresses are derived from inscription IDs. They have no corresponding private key, so assets sent to a teleburn address are burned. Currently, only Ethereum teleburn addresses are suppported. Pull requests adding teleburn addresses for other chains are welcome.</p>
+<p>Teleburn addresses are derived from inscription IDs. They have no corresponding private key, so assets sent to a teleburn address are burned. Currently, only Ethereum teleburn addresses are supported. Pull requests adding teleburn addresses for other chains are welcome.</p>
 <h2 id="ethereum"><a class="header" href="#ethereum">Ethereum</a></h2>
 <p>Ethereum teleburn addresses are derived by taking the first 20 bytes of the SHA-256 hash of the inscription ID, serialized as 36 bytes, with the first 32 bytes containing the transaction ID, and the last four bytes containing big-endian inscription index, and interpreting it as an Ethereum address.</p>
 <h2 id="例を挙げます-2"><a class="header" href="#例を挙げます-2">例を挙げます</a></h2>

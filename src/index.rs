@@ -122,6 +122,7 @@ pub(crate) struct Info {
   sat_ranges: u64,
   stored_bytes: u64,
   tables: BTreeMap<String, TableInfo>,
+  total_bytes: u64,
   pub(crate) transactions: Vec<TransactionInfo>,
   tree_height: u32,
   utxos_indexed: u64,
@@ -133,7 +134,9 @@ pub(crate) struct TableInfo {
   fragmented_bytes: u64,
   leaf_pages: u64,
   metadata_bytes: u64,
+  proportion: f64,
   stored_bytes: u64,
+  total_bytes: u64,
   tree_height: u32,
 }
 
@@ -444,18 +447,27 @@ impl Index {
     fn insert_table_info<K: RedbKey + 'static, V: RedbValue + 'static>(
       tables: &mut BTreeMap<String, TableInfo>,
       wtx: &WriteTransaction,
+      database_total_bytes: u64,
       definition: TableDefinition<K, V>,
     ) {
       let stats = wtx.open_table(definition).unwrap().stats().unwrap();
+
+      let fragmented_bytes = stats.fragmented_bytes();
+      let metadata_bytes = stats.metadata_bytes();
+      let stored_bytes = stats.stored_bytes();
+      let total_bytes = stored_bytes + metadata_bytes + fragmented_bytes;
+
       tables.insert(
         definition.name().into(),
         TableInfo {
-          tree_height: stats.tree_height(),
-          leaf_pages: stats.leaf_pages(),
           branch_pages: stats.branch_pages(),
-          stored_bytes: stats.stored_bytes(),
-          metadata_bytes: stats.metadata_bytes(),
-          fragmented_bytes: stats.fragmented_bytes(),
+          fragmented_bytes,
+          leaf_pages: stats.leaf_pages(),
+          metadata_bytes,
+          proportion: total_bytes as f64 / database_total_bytes as f64,
+          stored_bytes,
+          total_bytes,
+          tree_height: stats.tree_height(),
         },
       );
     }
@@ -463,6 +475,7 @@ impl Index {
     fn insert_multimap_table_info<K: RedbKey + 'static, V: RedbValue + RedbKey + 'static>(
       tables: &mut BTreeMap<String, TableInfo>,
       wtx: &WriteTransaction,
+      database_total_bytes: u64,
       definition: MultimapTableDefinition<K, V>,
     ) {
       let stats = wtx
@@ -470,15 +483,23 @@ impl Index {
         .unwrap()
         .stats()
         .unwrap();
+
+      let fragmented_bytes = stats.fragmented_bytes();
+      let metadata_bytes = stats.metadata_bytes();
+      let stored_bytes = stats.stored_bytes();
+      let total_bytes = stored_bytes + metadata_bytes + fragmented_bytes;
+
       tables.insert(
         definition.name().into(),
         TableInfo {
-          tree_height: stats.tree_height(),
-          leaf_pages: stats.leaf_pages(),
           branch_pages: stats.branch_pages(),
-          stored_bytes: stats.stored_bytes(),
-          metadata_bytes: stats.metadata_bytes(),
-          fragmented_bytes: stats.fragmented_bytes(),
+          fragmented_bytes,
+          leaf_pages: stats.leaf_pages(),
+          metadata_bytes,
+          proportion: total_bytes as f64 / database_total_bytes as f64,
+          stored_bytes,
+          total_bytes,
+          tree_height: stats.tree_height(),
         },
       );
     }
@@ -487,31 +508,57 @@ impl Index {
 
     let stats = wtx.stats()?;
 
+    let fragmented_bytes = stats.fragmented_bytes();
+    let metadata_bytes = stats.metadata_bytes();
+    let stored_bytes = stats.stored_bytes();
+    let total_bytes = fragmented_bytes + metadata_bytes + stored_bytes;
+
     let mut tables: BTreeMap<String, TableInfo> = BTreeMap::new();
 
-    insert_multimap_table_info(&mut tables, &wtx, SATPOINT_TO_SEQUENCE_NUMBER);
-    insert_multimap_table_info(&mut tables, &wtx, SAT_TO_SEQUENCE_NUMBER);
-    insert_multimap_table_info(&mut tables, &wtx, SEQUENCE_NUMBER_TO_CHILDREN);
-    insert_table_info(&mut tables, &wtx, HEIGHT_TO_BLOCK_HASH);
-    insert_table_info(&mut tables, &wtx, HEIGHT_TO_BLOCK_HASH);
-    insert_table_info(&mut tables, &wtx, HEIGHT_TO_LAST_SEQUENCE_NUMBER);
-    insert_table_info(&mut tables, &wtx, HOME_INSCRIPTIONS);
-    insert_table_info(&mut tables, &wtx, INSCRIPTION_ID_TO_SEQUENCE_NUMBER);
-    insert_table_info(&mut tables, &wtx, INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER);
-    insert_table_info(&mut tables, &wtx, OUTPOINT_TO_RUNE_BALANCES);
-    insert_table_info(&mut tables, &wtx, OUTPOINT_TO_SAT_RANGES);
-    insert_table_info(&mut tables, &wtx, OUTPOINT_TO_VALUE);
-    insert_table_info(&mut tables, &wtx, RUNE_ID_TO_RUNE_ENTRY);
-    insert_table_info(&mut tables, &wtx, RUNE_TO_RUNE_ID);
-    insert_table_info(&mut tables, &wtx, SAT_TO_SATPOINT);
-    insert_table_info(&mut tables, &wtx, SEQUENCE_NUMBER_TO_INSCRIPTION_ENTRY);
-    insert_table_info(&mut tables, &wtx, SEQUENCE_NUMBER_TO_RUNE);
-    insert_table_info(&mut tables, &wtx, SEQUENCE_NUMBER_TO_SATPOINT);
-    insert_table_info(&mut tables, &wtx, STATISTIC_TO_COUNT);
-    insert_table_info(&mut tables, &wtx, TRANSACTION_ID_TO_RUNE);
+    insert_multimap_table_info(&mut tables, &wtx, total_bytes, SATPOINT_TO_SEQUENCE_NUMBER);
+    insert_multimap_table_info(&mut tables, &wtx, total_bytes, SAT_TO_SEQUENCE_NUMBER);
+    insert_multimap_table_info(&mut tables, &wtx, total_bytes, SEQUENCE_NUMBER_TO_CHILDREN);
+    insert_table_info(&mut tables, &wtx, total_bytes, HEIGHT_TO_BLOCK_HASH);
+    insert_table_info(&mut tables, &wtx, total_bytes, HEIGHT_TO_BLOCK_HASH);
     insert_table_info(
       &mut tables,
       &wtx,
+      total_bytes,
+      HEIGHT_TO_LAST_SEQUENCE_NUMBER,
+    );
+    insert_table_info(&mut tables, &wtx, total_bytes, HOME_INSCRIPTIONS);
+    insert_table_info(
+      &mut tables,
+      &wtx,
+      total_bytes,
+      INSCRIPTION_ID_TO_SEQUENCE_NUMBER,
+    );
+    insert_table_info(
+      &mut tables,
+      &wtx,
+      total_bytes,
+      INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER,
+    );
+    insert_table_info(&mut tables, &wtx, total_bytes, OUTPOINT_TO_RUNE_BALANCES);
+    insert_table_info(&mut tables, &wtx, total_bytes, OUTPOINT_TO_SAT_RANGES);
+    insert_table_info(&mut tables, &wtx, total_bytes, OUTPOINT_TO_VALUE);
+    insert_table_info(&mut tables, &wtx, total_bytes, RUNE_ID_TO_RUNE_ENTRY);
+    insert_table_info(&mut tables, &wtx, total_bytes, RUNE_TO_RUNE_ID);
+    insert_table_info(&mut tables, &wtx, total_bytes, SAT_TO_SATPOINT);
+    insert_table_info(
+      &mut tables,
+      &wtx,
+      total_bytes,
+      SEQUENCE_NUMBER_TO_INSCRIPTION_ENTRY,
+    );
+    insert_table_info(&mut tables, &wtx, total_bytes, SEQUENCE_NUMBER_TO_RUNE);
+    insert_table_info(&mut tables, &wtx, total_bytes, SEQUENCE_NUMBER_TO_SATPOINT);
+    insert_table_info(&mut tables, &wtx, total_bytes, STATISTIC_TO_COUNT);
+    insert_table_info(&mut tables, &wtx, total_bytes, TRANSACTION_ID_TO_RUNE);
+    insert_table_info(
+      &mut tables,
+      &wtx,
+      total_bytes,
       WRITE_TRANSACTION_STARTING_BLOCK_COUNT_TO_TIMESTAMP,
     );
 
@@ -534,7 +581,6 @@ impl Index {
         .map(|x| x.value())
         .unwrap_or(0);
       Info {
-        index_path: self.path.clone(),
         blocks_indexed: wtx
           .open_table(HEIGHT_TO_BLOCK_HASH)?
           .range(0..)?
@@ -543,15 +589,17 @@ impl Index {
           .map(|(height, _hash)| height.value() + 1)
           .unwrap_or(0),
         branch_pages: stats.branch_pages(),
-        fragmented_bytes: stats.fragmented_bytes(),
+        fragmented_bytes,
         index_file_size: fs::metadata(&self.path)?.len(),
+        index_path: self.path.clone(),
         leaf_pages: stats.leaf_pages(),
-        metadata_bytes: stats.metadata_bytes(),
-        sat_ranges,
+        metadata_bytes,
         outputs_traversed,
         page_size: stats.page_size(),
-        stored_bytes: stats.stored_bytes(),
+        sat_ranges,
+        stored_bytes,
         tables,
+        total_bytes,
         transactions: wtx
           .open_table(WRITE_TRANSACTION_STARTING_BLOCK_COUNT_TO_TIMESTAMP)?
           .range(0..)?
@@ -860,37 +908,63 @@ impl Index {
     Ok(runic)
   }
 
-  #[cfg(test)]
-  pub(crate) fn get_rune_balances(&self) -> Vec<(OutPoint, Vec<(RuneId, u128)>)> {
+  pub(crate) fn get_rune_balance_map(&self) -> Result<BTreeMap<Rune, BTreeMap<OutPoint, u128>>> {
+    let outpoint_balances = self.get_rune_balances()?;
+
+    let rtx = self.database.begin_read()?;
+
+    let rune_id_to_rune_entry = rtx.open_table(RUNE_ID_TO_RUNE_ENTRY)?;
+
+    let mut rune_balances: BTreeMap<Rune, BTreeMap<OutPoint, u128>> = BTreeMap::new();
+
+    for (outpoint, balances) in outpoint_balances {
+      for (rune_id, amount) in balances {
+        let rune = RuneEntry::load(
+          rune_id_to_rune_entry
+            .get(&rune_id.store())?
+            .unwrap()
+            .value(),
+        )
+        .rune;
+
+        *rune_balances
+          .entry(rune)
+          .or_default()
+          .entry(outpoint)
+          .or_default() += amount;
+      }
+    }
+
+    Ok(rune_balances)
+  }
+
+  pub(crate) fn get_rune_balances(&self) -> Result<Vec<(OutPoint, Vec<(RuneId, u128)>)>> {
     let mut result = Vec::new();
 
     for entry in self
       .database
-      .begin_read()
-      .unwrap()
-      .open_table(OUTPOINT_TO_RUNE_BALANCES)
-      .unwrap()
-      .iter()
-      .unwrap()
+      .begin_read()?
+      .open_table(OUTPOINT_TO_RUNE_BALANCES)?
+      .iter()?
     {
-      let (outpoint, balances_buffer) = entry.unwrap();
+      let (outpoint, balances_buffer) = entry?;
       let outpoint = OutPoint::load(*outpoint.value());
       let balances_buffer = balances_buffer.value();
 
       let mut balances = Vec::new();
       let mut i = 0;
       while i < balances_buffer.len() {
-        let (id, length) = runes::varint::decode(&balances_buffer[i..]).unwrap();
+        let (id, length) = runes::varint::decode(&balances_buffer[i..])?;
         i += length;
-        let (balance, length) = runes::varint::decode(&balances_buffer[i..]).unwrap();
+        let (balance, length) = runes::varint::decode(&balances_buffer[i..])?;
         i += length;
-        balances.push((RuneId::try_from(id).unwrap(), balance));
+        balances.push((RuneId::try_from(id)?, balance));
       }
 
       result.push((outpoint, balances));
     }
 
-    result
+    Ok(result)
   }
 
   pub(crate) fn block_header(&self, hash: BlockHash) -> Result<Option<Header>> {
@@ -3453,7 +3527,6 @@ mod tests {
 
       let txid = context.rpc_server.broadcast_tx(TransactionTemplate {
         inputs: &[(1, 0, 0, witness)],
-
         ..Default::default()
       });
 

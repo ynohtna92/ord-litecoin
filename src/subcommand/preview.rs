@@ -42,6 +42,8 @@ impl Preview {
 
     fs::create_dir(&litecoin_data_dir)?;
 
+    eprintln!("Spawning bitcoind…");
+
     let _bitcoind = KillOnDrop(
       Command::new("litecoind")
         .arg({
@@ -49,9 +51,10 @@ impl Preview {
           arg.push(&litecoin_data_dir);
           arg
         })
+        .arg("-listen=0")
+        .arg("-printtoconsole=0")
         .arg("-regtest")
         .arg("-txindex")
-        .arg("-listen=0")
         .arg(format!("-rpcport={rpc_port}"))
         .spawn()
         .context("failed to spawn `litecoind`")?,
@@ -75,7 +78,7 @@ impl Preview {
         panic!("Litecoin Core RPC did not respond");
       }
 
-      thread::sleep(Duration::from_millis(50));
+      thread::sleep(Duration::from_millis(100));
     }
 
     super::wallet::Wallet::Create(super::wallet::create::Create {
@@ -88,6 +91,8 @@ impl Preview {
     let address = rpc_client
       .get_new_address(None, Some(bitcoincore_rpc::json::AddressType::Bech32))?
       .require_network(Network::Regtest)?;
+
+    eprintln!("Mining blocks…");
 
     rpc_client.generate_to_address(101, &address)?;
 
@@ -103,7 +108,7 @@ impl Preview {
               compress: false,
               destination: None,
               dry_run: false,
-              fee_rate: FeeRate::try_from(1.0).unwrap(),
+              fee_rate: FeeRate::try_from(2.0).unwrap(),
               file: Some(file),
               json_metadata: None,
               metaprotocol: None,
@@ -135,7 +140,7 @@ impl Preview {
               compress: false,
               destination: None,
               dry_run: false,
-              fee_rate: FeeRate::try_from(1.0).unwrap(),
+              fee_rate: FeeRate::try_from(2.0).unwrap(),
               file: None,
               json_metadata: None,
               metaprotocol: None,

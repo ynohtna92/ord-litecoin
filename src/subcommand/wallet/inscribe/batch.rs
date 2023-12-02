@@ -51,7 +51,7 @@ impl Batch {
       get_change_address(client, chain)?,
     ];
 
-    let (commit_tx, reveal_tx, recovery_key_pair, total_fees) = self
+    let (commit_tx, reveal_tx, _recovery_key_pair, total_fees) = self
       .create_batch_inscription_transactions(
         wallet_inscriptions,
         chain,
@@ -100,7 +100,7 @@ impl Batch {
     };
 
     if !self.no_backup {
-      Self::backup_recovery_key(client, recovery_key_pair, chain.network())?;
+      // Self::backup_recovery_key(client, recovery_key_pair, chain.network())?;
     }
 
     let commit = client.send_raw_transaction(&signed_commit_tx)?;
@@ -282,7 +282,12 @@ impl Batch {
 
     let commit_tx_address = Address::p2tr_tweaked(taproot_spend_info.output_key(), chain.network());
 
-    let total_postage = self.postage * u64::try_from(self.inscriptions.len()).unwrap();
+    let total_postage = match self.mode {
+      Mode::SameSat => self.postage,
+      Mode::SharedOutput | Mode::SeparateOutputs => {
+        self.postage * u64::try_from(self.inscriptions.len()).unwrap()
+      }
+    };
 
     let mut reveal_inputs = vec![OutPoint::null()];
     let mut reveal_outputs = self
@@ -291,8 +296,8 @@ impl Batch {
       .map(|destination| TxOut {
         script_pubkey: destination.script_pubkey(),
         value: match self.mode {
-          Mode::SeparateOutputs | Mode::SameSat => self.postage.to_sat(),
-          Mode::SharedOutput => total_postage.to_sat(),
+          Mode::SeparateOutputs => self.postage.to_sat(),
+          Mode::SharedOutput | Mode::SameSat => total_postage.to_sat(),
         },
       })
       .collect::<Vec<TxOut>>();
@@ -439,6 +444,7 @@ impl Batch {
     Ok((unsigned_commit_tx, reveal_tx, recovery_key_pair, total_fees))
   }
 
+  #[allow(dead_code)]
   fn backup_recovery_key(
     client: &Client,
     recovery_key_pair: TweakedKeyPair,

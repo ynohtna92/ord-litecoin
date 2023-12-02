@@ -184,6 +184,9 @@
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="ar">العربية</a>
                           </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="hi">हिंदी</a>
+                          </button></li>
                         </ul>
 
                         <script>
@@ -463,7 +466,15 @@ OP_ENDIF
 <p>Le modèle de données pour les inscriptions est celui d’une réponse HTTP, permettant au contenu de l’inscription d’être récupéré via un serveur web et affiché dans un navigateur web.</p>
 <h2 id="champs"><a class="header" href="#champs">Champs</a></h2>
 <p>Les entrées peuvent inclure des champs avant un corps optionnel. Chaque champ se compose de deux pushs de données, une étiquette et une valeur.</p>
-<p>Actuellement, le seul champ défini est <code>content-type</code>, avec une étiquette <code>1</code>,, dont la valeur est le type MIME du corps.</p>
+<p>Currently, there are six defined fields:</p>
+<ul>
+<li><code>content_type</code>, with a tag of <code>1</code>, whose value is the MIME type of the body.</li>
+<li><code>pointer</code>, with a tag of <code>2</code>, see <a href="./inscriptions/pointer.html">pointer docs</a>.</li>
+<li><code>parent</code>, with a tag of <code>3</code>, see <a href="./inscriptions/provenance.html">provenance</a>.</li>
+<li><code>metadata</code>, with a tag of <code>5</code>, see <a href="./inscriptions/metadata.html">metadata</a>.</li>
+<li><code>metaprotocol</code>, with a tag of <code>7</code>, whose value is the metaprotocol identifier.</li>
+<li><code>content_encoding</code>, with a tag of <code>9</code>, whose value is the encoding of the body.</li>
+</ul>
 <p>Le début du corps et la fin des champs sont indiqués par un push de données vide.</p>
 <p>Les étiquettes non reconnues sont interprétées différemment en fonction de leur caractère pair ou impair, conformément à la règle « il est acceptable d’être impair » utilisée par le réseau Lightning.</p>
 <p>Les étiquettes paires sont utilisées pour les champs qui peuvent affecter la création, l’assignation initiale ou le transfert d’une inscription. Par conséquent, les inscriptions avec des champs pairs non reconnus doivent être affichées comme « non liées », c’est-à-dire sans emplacement.</p>
@@ -537,7 +548,7 @@ OP_IF
     ...
 OP_ENDIF
 </code></pre>
-<p>Ce qui serait ensuite concaténé en : <code>{&quot;very&quot;:&quot;long&quot;,&quot;metadata&quot;:&quot;is&quot;,&quot;finally&quot;:&quot;done&quot;}</code>.</p>
+<p>Which would then be concatenated into <code>{&quot;very&quot;:&quot;long&quot;,&quot;metadata&quot;:&quot;is&quot;,&quot;finally&quot;:&quot;done&quot;}</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="provenance"><a class="header" href="#provenance">Provenance</a></h1>
 <p>Le propriétaire d’une inscription peut créer des inscriptions enfants, en établissant d’une manière trustless (sans confiance) la provenance de ces enfants sur la blockchain comme ayant été créés par le propriétaire de l’inscription parent. Cela peut être utilisé pour les collections, de façon à ce que les enfants d’une inscription parent soient membres de la même collection.</p>
 <p>Les enfants peuvent avoir des enfants, ce qui permet de créer des hiérarchies complexes. Par exemple, un artiste peut créer une inscription le représentant, avec des sous-inscriptions représentant les collections qu’il a créées, les enfants de ces sous-inscriptions étant des éléments de ces collections.</p>
@@ -601,18 +612,86 @@ OP_ENDIF
 <p>Collections d’images de profil génératives où les accessoires et les attributs sont inscrits en tant qu’images individuelles ou dans un atlas de textures partagé, puis combinés, à la manière d’un collage, dans des combinaisons uniques dans plusieurs inscriptions.</p>
 </li>
 </ul>
-<p>Voici quelques-uns des autres points de terminaison auxquels les inscriptions peuvent accéder :</p>
+<p>The recursive endpoints are:</p>
+<ul>
+<li><code>/r/blockhash/&lt;HEIGHT&gt;</code>: block hash at given block height.</li>
+<li><code>/r/blockhash</code>: latest block hash.</li>
+<li><code>/r/blockheight</code>: latest block height.</li>
+<li><code>/r/blocktime</code>: UNIX time stamp of latest block.</li>
+<li><code>/r/children/&lt;INSCRIPTION_ID&gt;</code>: the first 100 child inscription ids.</li>
+<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</code>: the set of 100 child inscription ids on <code>&lt;PAGE&gt;</code>.</li>
+<li><code>/r/metadata/&lt;INSCRIPTION_ID&gt;</code>: JSON string containing the hex-encoded CBOR metadata.</li>
+<li><code>/r/sat/&lt;SAT_NUMBER&gt;</code>: the first 100 inscription ids on a sat.</li>
+<li><code>/r/sat/&lt;SAT_NUMBER&gt;/&lt;PAGE&gt;</code>: the set of 100 inscription ids on <code>&lt;PAGE&gt;</code>.</li>
+<li><code>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;</code>: the inscription id at <code>&lt;INDEX&gt;</code> of all inscriptions on a sat. <code>&lt;INDEX&gt;</code> may be a negative number to index from the back. <code>0</code> being the first and <code>-1</code> being the most recent for example.</li>
+</ul>
+<p>Note: <code>&lt;SAT_NUMBER&gt;</code> only allows the actual number of a sat no other sat notations like degree, percentile or decimal. We may expand to allow those in the future.</p>
+<p>Responses from the above recursive endpoints are JSON. For backwards compatibility additional endpoints are supported, some of which return plain-text responses.</p>
 <ul>
 <li><code>/blockheight</code>: hauteur du bloc le plus récent.</li>
 <li><code>/blockhash</code>: hachage du bloc le plus récent.</li>
 <li><code>/blockhash/&lt;HEIGHT&gt;</code>: hachage du bloc à la hauteur donnée du bloc.</li>
 <li><code>/blocktime</code>: horodatage UNIX du bloc le plus récent.</li>
 </ul>
+<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<ul>
+<li><code>/r/blockheight</code>:</li>
+</ul>
+<pre><code class="language-json">777000
+</code></pre>
+<ul>
+<li><code>/r/blockhash/0</code>:</li>
+</ul>
+<pre><code class="language-json">&quot;000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f&quot;
+</code></pre>
+<ul>
+<li><code>/r/blocktime</code>:</li>
+</ul>
+<pre><code class="language-json">1700770905
+</code></pre>
+<ul>
+<li><code>/r/metadata/35b66389b44535861c44b2b18ed602997ee11db9a30d384ae89630c9fc6f011fi3</code>:</li>
+</ul>
+<pre><code class="language-json">&quot;a2657469746c65664d656d6f727966617574686f726e79656c6c6f775f6f72645f626f74&quot;
+</code></pre>
+<ul>
+<li><code>/r/sat/1023795949035695</code>:</li>
+</ul>
+<pre><code class="language-json">{
+   &quot;ids&quot;:[
+      &quot;17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0&quot;
+   ],
+   &quot;more&quot;:false,
+   &quot;page&quot;:0
+}
+</code></pre>
+<ul>
+<li><code>/r/sat/1023795949035695/at/-1</code>:</li>
+</ul>
+<pre><code class="language-json">{
+   &quot;id&quot;:&quot;17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0&quot;
+}
+</code></pre>
+<ul>
+<li><code>/r/children/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fai0/49</code>:</li>
+</ul>
+<pre><code class="language-json">{
+   &quot;ids&quot;:[
+      &quot;7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4900&quot;,
+      &quot;7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4901&quot;,
+      ...
+      &quot;7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4935&quot;,
+      &quot;7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4936&quot;
+   ],
+   &quot;more&quot;:false,
+   &quot;page&quot;:49
+}
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="pointer"><a class="header" href="#pointer">Pointer</a></h1>
 <p>In order to make an inscription on a sat other than the first of its input, a zero-based integer, called the &quot;pointer&quot;, can be provided with tag <code>2</code>, causing the inscription to be made on the sat at the given position in the outputs. If the pointer is equal to or greater than the number of total sats in the outputs of the inscribe transaction, it is ignored, and the inscription is made as usual. The value of the pointer field is a little endian integer, with trailing zeroes ignored.</p>
 <p>An even tag is used, so that old versions of <code>ord</code> consider the inscription to be unbound, instead of assigning it, incorrectly, to the first sat.</p>
 <p>This can be used to create multiple inscriptions in a single transaction on different sats, when otherwise they would be made on the same sat.</p>
-<h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
 <p>An inscription with pointer 255:</p>
 <pre><code>OP_FALSE
 OP_IF
@@ -996,6 +1075,9 @@ mode: separate-outputs
 # parent inscription:
 parent: 6ac5cacb768794f4fd7a78bf00f2074891fce68bd65c4ff36e77177237aacacai0
 
+# postage for each inscription:
+postage: 12345
+
 # inscriptions to inscribe
 #
 # each inscription has the following fields:
@@ -1013,6 +1095,7 @@ inscriptions:
         metus est et odio. Nullam venenatis, urna et molestie vestibulum, orci
         mi efficitur risus, eu malesuada diam lorem sed velit. Nam fermentum
         dolor et luctus euismod.
+    destination: bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4
 
   - file: token.json
     metaprotocol: brc-20
@@ -1020,6 +1103,7 @@ inscriptions:
   - file: tulip.png
     metadata:
       author: Satoshi Nakamoto
+    destination: bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="chasse-aux-sats"><a class="header" href="#chasse-aux-sats">Chasse aux sats</a></h1>
 <p><em>Ce guide n’est plus à jour. Depuis qu’il a été écrit, le binaire <code>ord</code> a été modifié de façon à ne construire l’index complet des satoshis que lorsque le drapeau <code>--index-sats</code> est fourni. De plus, <code>ord</code> a désormais un portefeuille intégré qui enveloppe un portefeuille Bitcoin Core. Consultez <code>ord wallet --help</code>.</em></p>

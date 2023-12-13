@@ -143,6 +143,9 @@ fn get_inscription() {
     serde_json::from_str(&response.text().unwrap()).unwrap();
   assert_regex_match!(inscription_json.address.unwrap(), r"ltc1p.*");
   inscription_json.address = None;
+  assert_regex_match!(inscription_json.genesis_address.unwrap(), r"ltc1p.*");
+  inscription_json.genesis_address = None;
+  inscription_json.script_pubkey = None;
 
   pretty_assert_eq!(
     inscription_json,
@@ -153,8 +156,10 @@ fn get_inscription() {
       inscription_number: 0,
       genesis_height: 2,
       genesis_fee: 138,
+      genesis_address: None,
       output_value: Some(10000),
       address: None,
+      script_pubkey: None,
       sat: Some(ord::Sat(50 * COIN_VALUE)),
       satpoint: SatPoint::from_str(&format!("{}:{}:{}", reveal, 0, 0)).unwrap(),
       content_type: Some("text/plain;charset=utf-8".to_string()),

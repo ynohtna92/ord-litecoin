@@ -1213,6 +1213,14 @@ impl Server {
       )
     };
 
+    let genesis_output = index
+        .get_transaction(inscription_id.txid)?
+        .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
+        .output
+        .into_iter()
+        .next()
+        .ok_or_not_found(|| format!("inscription {inscription_id} genesis transaction output"))?;
+
     let previous = if let Some(n) = entry.sequence_number.checked_sub(1) {
       index.get_inscription_id_by_sequence_number(n)?
     } else {
@@ -1245,11 +1253,14 @@ impl Server {
         genesis_height: entry.height,
         parent,
         genesis_fee: entry.fee,
+        genesis_address: page_config.chain.address_from_script(&genesis_output.script_pubkey).ok()
+          .map(|address| address.to_string()),
         output_value: output.as_ref().map(|o| o.value),
         address: output
           .as_ref()
           .and_then(|o| page_config.chain.address_from_script(&o.script_pubkey).ok())
           .map(|address| address.to_string()),
+        script_pubkey: output.as_ref().map(|o| o.clone().script_pubkey),
         sat: entry.sat,
         satpoint,
         content_type: inscription.content_type().map(|s| s.to_string()),

@@ -81,16 +81,16 @@ fn seed_phrases_are_twelve_words_long() {
 //     .expected_exit_code(1)
 //     .run_and_extract_stdout();
 // }
-//
-// #[test]
-// fn create_with_different_name() {
-//   let rpc_server = test_bitcoincore_rpc::spawn();
-//
-//   assert!(!rpc_server.wallets().contains("inscription-wallet"));
-//
-//   CommandBuilder::new("--wallet inscription-wallet wallet create")
-//     .rpc_server(&rpc_server)
-//     .run_and_deserialize_output::<Output>();
-//
-//   assert!(rpc_server.wallets().contains("inscription-wallet"));
-// }
+
+#[test]
+fn create_with_different_name() {
+  let rpc_server = test_bitcoincore_rpc::spawn();
+
+  assert!(!rpc_server.wallets().contains("inscription-wallet"));
+
+  CommandBuilder::new("wallet --name inscription-wallet create")
+    .rpc_server(&rpc_server)
+    .run_and_deserialize_output::<Output>();
+
+  assert!(rpc_server.wallets().contains("inscription-wallet"));
+}

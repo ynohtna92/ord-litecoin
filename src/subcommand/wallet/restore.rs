@@ -13,7 +13,7 @@ pub(crate) struct Restore {
 }
 
 impl Restore {
-  pub(crate) fn run(self, _options: Options) -> SubcommandResult {
+  pub(crate) fn run(self, _wallet_name: String, _options: Options) -> SubcommandResult {
     bail!(
       "Descriptor wallets are not supported in Litecoincore 21.2.1, copy your wallet.dat into \
       your Litecoincore data directory."

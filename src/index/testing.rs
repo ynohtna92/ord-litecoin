@@ -65,6 +65,7 @@ impl ContextBuilder {
 }
 
 pub(crate) struct Context {
+  #[allow(unused)]
   pub(crate) options: Options,
   pub(crate) rpc_server: test_bitcoincore_rpc::Handle,
   #[allow(unused)]

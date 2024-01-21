@@ -517,7 +517,7 @@ impl<'index> Updater<'_> {
           .unwrap_or_default();
 
         for (start, end) in coinbase_inputs {
-          if !Sat(start).is_common() {
+          if !Sat(start).common() {
             sat_to_satpoint.insert(
               &start,
               &SatPoint {
@@ -570,7 +570,7 @@ impl<'index> Updater<'_> {
       &inscription_updater.unbound_inscriptions,
     )?;
 
-    if index.index_runes {
+    if index.index_runes && self.height >= self.index.options.first_rune_height() {
       let mut outpoint_to_rune_balances = wtx.open_table(OUTPOINT_TO_RUNE_BALANCES)?;
       let mut rune_id_to_rune_entry = wtx.open_table(RUNE_ID_TO_RUNE_ENTRY)?;
       let mut rune_to_rune_id = wtx.open_table(RUNE_TO_RUNE_ID)?;
@@ -586,7 +586,7 @@ impl<'index> Updater<'_> {
         height: self.height,
         id_to_entry: &mut rune_id_to_rune_entry,
         inscription_id_to_sequence_number: &mut inscription_id_to_sequence_number,
-        minimum: Rune::minimum_at_height(Height(self.height)),
+        minimum: Rune::minimum_at_height(self.index.options.chain(), Height(self.height)),
         outpoint_to_balances: &mut outpoint_to_rune_balances,
         rune_to_id: &mut rune_to_rune_id,
         runes,
@@ -642,7 +642,7 @@ impl<'index> Updater<'_> {
           .pop_front()
           .ok_or_else(|| anyhow!("insufficient inputs for transaction outputs"))?;
 
-        if !Sat(range.0).is_common() {
+        if !Sat(range.0).common() {
           sat_to_satpoint.insert(
             &range.0,
             &SatPoint {

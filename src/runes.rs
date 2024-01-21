@@ -1,20 +1,21 @@
-use {self::error::Error, super::*};
+use super::*;
 
-pub use {rune::Rune, rune_id::RuneId};
+pub use {edict::Edict, rune::Rune, rune_id::RuneId, runestone::Runestone};
 
-pub(crate) use {edict::Edict, etching::Etching, pile::Pile, runestone::Runestone};
+pub(crate) use {etching::Etching, pile::Pile, spaced_rune::SpacedRune};
 
 pub const MAX_DIVISIBILITY: u8 = 38;
 pub(crate) const CLAIM_BIT: u128 = 1 << 48;
 pub(crate) const MAX_LIMIT: u128 = 1 << 64;
+const RESERVED: u128 = 6402364363415443603228541259936211926;
 
 mod edict;
-mod error;
 mod etching;
 mod pile;
 mod rune;
 mod rune_id;
 mod runestone;
+mod spaced_rune;
 pub mod varint;
 
 type Result<T, E = Error> = std::result::Result<T, E>;
@@ -27,9 +28,7 @@ mod tests {
 
   #[test]
   fn index_starts_with_no_runes() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
     context.assert_runes([], []);
   }
 
@@ -49,7 +48,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -66,9 +65,7 @@ mod tests {
 
   #[test]
   fn empty_runestone_does_not_create_rune() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -85,9 +82,7 @@ mod tests {
 
   #[test]
   fn etching_with_no_edicts_creates_rune() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -96,7 +91,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -129,9 +124,7 @@ mod tests {
 
   #[test]
   fn etching_with_edict_creates_rune() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -145,7 +138,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -179,9 +172,12 @@ mod tests {
 
   #[test]
   fn runes_must_be_greater_than_or_equal_to_minimum_for_height() {
+    let block_two_minimum: u128 = Rune::minimum_at_height(Chain::Regtest, Height(2)).0;
+
     {
       let context = Context::builder()
-        .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
+        .chain(Chain::Regtest)
+        .arg("--index-runes")
         .build();
 
       context.mine_blocks(1);
@@ -196,7 +192,7 @@ mod tests {
               output: 0,
             }],
             etching: Some(Etching {
-              rune: Rune(RUNE - 1),
+              rune: Some(Rune(block_two_minimum - 1)),
               ..Default::default()
             }),
             ..Default::default()
@@ -212,9 +208,7 @@ mod tests {
     }
 
     {
-      let context = Context::builder()
-        .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-        .build();
+      let context = Context::builder().arg("--index-runes").build();
 
       context.mine_blocks(1);
 
@@ -228,7 +222,7 @@ mod tests {
               output: 0,
             }],
             etching: Some(Etching {
-              rune: Rune(RUNE),
+              rune: Some(Rune(block_two_minimum)),
               ..Default::default()
             }),
             ..Default::default()
@@ -250,7 +244,7 @@ mod tests {
           id,
           RuneEntry {
             etching: txid,
-            rune: Rune(RUNE),
+            rune: Rune(block_two_minimum),
             supply: u128::max_value(),
             timestamp: 2,
             ..Default::default()
@@ -262,10 +256,214 @@ mod tests {
   }
 
   #[test]
+  fn etching_cannot_specify_reserved_rune() {
+    {
+      let context = Context::builder().arg("--index-runes").build();
+
+      context.mine_blocks(1);
+
+      context.rpc_server.broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0, Witness::new())],
+        op_return: Some(
+          Runestone {
+            edicts: vec![Edict {
+              id: 0,
+              amount: u128::max_value(),
+              output: 0,
+            }],
+            etching: Some(Etching {
+              rune: Some(Rune(RESERVED)),
+              ..Default::default()
+            }),
+            ..Default::default()
+          }
+          .encipher(),
+        ),
+        ..Default::default()
+      });
+
+      context.mine_blocks(1);
+
+      context.assert_runes([], []);
+    }
+
+    {
+      let context = Context::builder().arg("--index-runes").build();
+
+      context.mine_blocks(1);
+
+      let txid = context.rpc_server.broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0, Witness::new())],
+        op_return: Some(
+          Runestone {
+            edicts: vec![Edict {
+              id: 0,
+              amount: u128::max_value(),
+              output: 0,
+            }],
+            etching: Some(Etching {
+              rune: Some(Rune(RESERVED - 1)),
+              ..Default::default()
+            }),
+            ..Default::default()
+          }
+          .encipher(),
+        ),
+        ..Default::default()
+      });
+
+      context.mine_blocks(1);
+
+      let id = RuneId {
+        height: 2,
+        index: 1,
+      };
+
+      context.assert_runes(
+        [(
+          id,
+          RuneEntry {
+            etching: txid,
+            rune: Rune(RESERVED - 1),
+            supply: u128::max_value(),
+            timestamp: 2,
+            ..Default::default()
+          },
+        )],
+        [(OutPoint { txid, vout: 0 }, vec![(id, u128::max_value())])],
+      );
+    }
+  }
+
+  #[test]
+  fn reserved_runes_may_be_etched() {
+    let context = Context::builder().arg("--index-runes").build();
+
+    context.mine_blocks(1);
+
+    let txid0 = context.rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Witness::new())],
+      outputs: 2,
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            rune: None,
+            ..Default::default()
+          }),
+          ..Default::default()
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    let id0 = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    context.mine_blocks(1);
+
+    context.assert_runes(
+      [(
+        id0,
+        RuneEntry {
+          etching: txid0,
+          rune: Rune(RESERVED),
+          supply: u128::max_value(),
+          timestamp: 2,
+          ..Default::default()
+        },
+      )],
+      [(
+        OutPoint {
+          txid: txid0,
+          vout: 0,
+        },
+        vec![(id0, u128::max_value())],
+      )],
+    );
+
+    context.mine_blocks(1);
+
+    let txid1 = context.rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Witness::new())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            rune: None,
+            ..Default::default()
+          }),
+          ..Default::default()
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    context.mine_blocks(1);
+
+    let id1 = RuneId {
+      height: 4,
+      index: 1,
+    };
+
+    context.assert_runes(
+      [
+        (
+          id0,
+          RuneEntry {
+            etching: txid0,
+            rune: Rune(RESERVED),
+            supply: u128::max_value(),
+            timestamp: 2,
+            ..Default::default()
+          },
+        ),
+        (
+          id1,
+          RuneEntry {
+            etching: txid1,
+            rune: Rune(RESERVED + 1),
+            supply: u128::max_value(),
+            timestamp: 4,
+            number: 1,
+            ..Default::default()
+          },
+        ),
+      ],
+      [
+        (
+          OutPoint {
+            txid: txid0,
+            vout: 0,
+          },
+          vec![(id0, u128::max_value())],
+        ),
+        (
+          OutPoint {
+            txid: txid1,
+            vout: 0,
+          },
+          vec![(id1, u128::max_value())],
+        ),
+      ],
+    );
+  }
+
+  #[test]
   fn etching_with_non_zero_divisibility_and_rune() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -280,7 +478,7 @@ mod tests {
           }],
           etching: Some(Etching {
             divisibility: 1,
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -315,9 +513,7 @@ mod tests {
 
   #[test]
   fn allocations_over_max_supply_are_ignored() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -338,7 +534,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -372,9 +568,7 @@ mod tests {
 
   #[test]
   fn allocations_partially_over_max_supply_are_honored() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -395,7 +589,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -430,9 +624,7 @@ mod tests {
 
   #[test]
   fn etching_may_allocate_less_than_max_supply() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -446,7 +638,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -480,9 +672,7 @@ mod tests {
 
   #[test]
   fn etching_may_allocate_to_multiple_outputs() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -503,7 +693,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -538,9 +728,7 @@ mod tests {
 
   #[test]
   fn allocations_to_invalid_outputs_are_ignored() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -561,7 +749,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -595,9 +783,7 @@ mod tests {
 
   #[test]
   fn input_runes_may_be_allocated() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -611,7 +797,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -688,10 +874,8 @@ mod tests {
   }
 
   #[test]
-  fn etched_rune_is_burned_if_an_unrecognized_even_tag_is_encountered() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+  fn etched_rune_is_allocated_with_zero_supply_for_burned_runestone() {
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -705,7 +889,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           burn: true,
@@ -737,10 +921,52 @@ mod tests {
   }
 
   #[test]
+  fn etched_reserved_rune_is_allocated_with_zero_supply_for_burned_runestone() {
+    let context = Context::builder().arg("--index-runes").build();
+
+    context.mine_blocks(1);
+
+    let txid0 = context.rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Witness::new())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching::default()),
+          burn: true,
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    context.mine_blocks(1);
+
+    let id = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    context.assert_runes(
+      [(
+        id,
+        RuneEntry {
+          etching: txid0,
+          rune: Rune(RESERVED),
+          timestamp: 2,
+          ..Default::default()
+        },
+      )],
+      [],
+    );
+  }
+
+  #[test]
   fn input_runes_are_burned_if_an_unrecognized_even_tag_is_encountered() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -754,7 +980,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -823,9 +1049,7 @@ mod tests {
 
   #[test]
   fn unallocated_runes_are_assigned_to_first_non_op_return_output() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -839,7 +1063,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -906,11 +1130,8 @@ mod tests {
   }
 
   #[test]
-  fn unallocated_runes_in_transactions_with_no_runestone_are_assigned_to_first_non_op_return_output(
-  ) {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+  fn unallocated_runes_are_burned_if_no_non_op_return_output_is_present() {
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -924,7 +1145,86 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
+            ..Default::default()
+          }),
+          ..Default::default()
+        }
+        .encipher(),
+      ),
+      ..Default::default()
+    });
+
+    context.mine_blocks(1);
+
+    let id = RuneId {
+      height: 2,
+      index: 1,
+    };
+
+    context.assert_runes(
+      [(
+        id,
+        RuneEntry {
+          etching: txid0,
+          rune: Rune(RUNE),
+          supply: u128::max_value(),
+          timestamp: 2,
+          ..Default::default()
+        },
+      )],
+      [(
+        OutPoint {
+          txid: txid0,
+          vout: 0,
+        },
+        vec![(id, u128::max_value())],
+      )],
+    );
+
+    context.rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(2, 1, 0, Witness::new())],
+      op_return: Some(Runestone::default().encipher()),
+      outputs: 0,
+      ..Default::default()
+    });
+
+    context.mine_blocks(1);
+
+    context.assert_runes(
+      [(
+        id,
+        RuneEntry {
+          etching: txid0,
+          rune: Rune(RUNE),
+          supply: u128::max_value(),
+          timestamp: 2,
+          burned: u128::max_value(),
+          ..Default::default()
+        },
+      )],
+      [],
+    );
+  }
+
+  #[test]
+  fn unallocated_runes_in_transactions_with_no_runestone_are_assigned_to_first_non_op_return_output(
+  ) {
+    let context = Context::builder().arg("--index-runes").build();
+
+    context.mine_blocks(1);
+
+    let txid0 = context.rpc_server.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Witness::new())],
+      op_return: Some(
+        Runestone {
+          edicts: vec![Edict {
+            id: 0,
+            amount: u128::max_value(),
+            output: 0,
+          }],
+          etching: Some(Etching {
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -992,9 +1292,7 @@ mod tests {
 
   #[test]
   fn duplicate_runes_are_forbidden() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1008,7 +1306,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1049,7 +1347,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1078,9 +1376,7 @@ mod tests {
 
   #[test]
   fn outpoint_may_hold_multiple_runes() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1094,7 +1390,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1141,7 +1437,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE + 1),
+            rune: Some(Rune(RUNE + 1)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1243,9 +1539,7 @@ mod tests {
 
   #[test]
   fn multiple_input_runes_on_the_same_input_may_be_allocated() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1259,7 +1553,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1306,7 +1600,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE + 1),
+            rune: Some(Rune(RUNE + 1)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1479,9 +1773,7 @@ mod tests {
 
   #[test]
   fn multiple_input_runes_on_different_inputs_may_be_allocated() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1495,7 +1787,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1542,7 +1834,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE + 1),
+            rune: Some(Rune(RUNE + 1)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1663,9 +1955,7 @@ mod tests {
   #[test]
   fn unallocated_runes_are_assigned_to_first_non_op_return_output_when_op_return_is_not_last_output(
   ) {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1679,7 +1969,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1746,9 +2036,7 @@ mod tests {
 
   #[test]
   fn rune_rarity_is_assigned_correctly() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(2);
 
@@ -1762,7 +2050,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1787,7 +2075,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE + 1),
+            rune: Some(Rune(RUNE + 1)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1849,9 +2137,7 @@ mod tests {
 
   #[test]
   fn edicts_with_id_zero_are_skipped() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1865,7 +2151,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -1950,9 +2236,7 @@ mod tests {
 
   #[test]
   fn edicts_which_refer_to_input_rune_with_no_balance_are_skipped() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -1966,7 +2250,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2013,7 +2297,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE + 1),
+            rune: Some(Rune(RUNE + 1)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2142,9 +2426,7 @@ mod tests {
 
   #[test]
   fn edicts_over_max_inputs_are_ignored() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2158,7 +2440,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2236,9 +2518,7 @@ mod tests {
 
   #[test]
   fn edicts_may_transfer_runes_to_op_return_outputs() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2252,7 +2532,7 @@ mod tests {
             output: 1,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2287,9 +2567,7 @@ mod tests {
 
   #[test]
   fn outputs_with_no_runes_have_no_balance() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2304,7 +2582,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2338,9 +2616,7 @@ mod tests {
 
   #[test]
   fn edicts_which_transfer_no_runes_to_output_create_no_balance_entry() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2362,7 +2638,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2396,9 +2672,7 @@ mod tests {
 
   #[test]
   fn split_in_etching() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2413,7 +2687,7 @@ mod tests {
             output: 5,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2464,9 +2738,7 @@ mod tests {
 
   #[test]
   fn split_in_etching_with_preceding_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2488,7 +2760,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2539,9 +2811,7 @@ mod tests {
 
   #[test]
   fn split_in_etching_with_following_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2563,7 +2833,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2614,9 +2884,7 @@ mod tests {
 
   #[test]
   fn split_with_amount_in_etching() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2631,7 +2899,7 @@ mod tests {
             output: 5,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2670,9 +2938,7 @@ mod tests {
 
   #[test]
   fn split_in_etching_with_amount_with_preceding_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2694,7 +2960,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2735,9 +3001,7 @@ mod tests {
 
   #[test]
   fn split_in_etching_with_amount_with_following_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2759,7 +3023,7 @@ mod tests {
             },
           ],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2801,9 +3065,7 @@ mod tests {
 
   #[test]
   fn split() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2817,7 +3079,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -2905,9 +3167,7 @@ mod tests {
 
   #[test]
   fn split_with_preceding_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -2921,7 +3181,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3016,9 +3276,7 @@ mod tests {
 
   #[test]
   fn split_with_following_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3032,7 +3290,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3127,9 +3385,7 @@ mod tests {
 
   #[test]
   fn split_with_amount() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3143,7 +3399,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3231,9 +3487,7 @@ mod tests {
 
   #[test]
   fn split_with_amount_with_preceding_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3247,7 +3501,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3342,9 +3596,7 @@ mod tests {
 
   #[test]
   fn split_with_amount_with_following_edict() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3358,7 +3610,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3467,9 +3719,7 @@ mod tests {
 
   #[test]
   fn etching_may_specify_symbol() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3483,7 +3733,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             symbol: Some('$'),
             ..Default::default()
           }),
@@ -3519,9 +3769,7 @@ mod tests {
 
   #[test]
   fn allocate_all_remaining_runes_in_etching() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3535,7 +3783,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3569,9 +3817,7 @@ mod tests {
 
   #[test]
   fn allocate_all_remaining_runes_in_inputs() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3585,7 +3831,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             ..Default::default()
           }),
           ..Default::default()
@@ -3671,9 +3917,7 @@ mod tests {
 
   #[test]
   fn etching_with_limit_can_be_minted() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3682,7 +3926,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             ..Default::default()
           }),
@@ -3804,9 +4048,7 @@ mod tests {
 
   #[test]
   fn open_etchings_can_be_limited_to_term() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3815,7 +4057,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             term: Some(2),
             ..Default::default()
@@ -3932,9 +4174,7 @@ mod tests {
 
   #[test]
   fn open_etchings_with_term_zero_cannot_be_minted() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -3948,7 +4188,7 @@ mod tests {
             output: 0,
           }],
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             term: Some(0),
             ..Default::default()
@@ -4019,9 +4259,7 @@ mod tests {
 
   #[test]
   fn open_etching_claims_can_use_split() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4030,7 +4268,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             ..Default::default()
           }),
@@ -4114,9 +4352,7 @@ mod tests {
 
   #[test]
   fn runes_can_be_etched_and_claimed_in_the_same_transaction() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4125,7 +4361,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             ..Default::default()
           }),
@@ -4166,9 +4402,7 @@ mod tests {
 
   #[test]
   fn limit_over_max_limit_is_ignored() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4177,7 +4411,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(MAX_LIMIT + 1),
             ..Default::default()
           }),
@@ -4242,9 +4476,7 @@ mod tests {
 
   #[test]
   fn omitted_limit_defaults_to_max_limit() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4253,7 +4485,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             term: Some(1),
             ..Default::default()
           }),
@@ -4289,9 +4521,7 @@ mod tests {
 
   #[test]
   fn transactions_cannot_claim_more_than_limit() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4300,7 +4530,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             ..Default::default()
           }),
@@ -4400,9 +4630,7 @@ mod tests {
 
   #[test]
   fn multiple_edicts_in_one_transaction_may_claim_open_etching() {
-    let context = Context::builder()
-      .arg("--index-runes-pre-alpha-i-agree-to-get-rekt")
-      .build();
+    let context = Context::builder().arg("--index-runes").build();
 
     context.mine_blocks(1);
 
@@ -4411,7 +4639,7 @@ mod tests {
       op_return: Some(
         Runestone {
           etching: Some(Etching {
-            rune: Rune(RUNE),
+            rune: Some(Rune(RUNE)),
             limit: Some(1000),
             ..Default::default()
           }),

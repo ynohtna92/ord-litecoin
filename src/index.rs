@@ -9,8 +9,8 @@ use {
     updater::Updater,
   },
   super::*,
-  crate::subcommand::find::FindRangeOutput,
   crate::wallet::Wallet,
+  crate::{subcommand::find::FindRangeOutput, templates::StatusHtml},
   bitcoin::block::Header,
   bitcoincore_rpc::{json::GetBlockHeaderResult, Client},
   chrono::SubsecRound,
@@ -39,7 +39,7 @@ mod updater;
 #[cfg(test)]
 pub(crate) mod testing;
 
-const SCHEMA_VERSION: u64 = 13;
+const SCHEMA_VERSION: u64 = 14;
 
 macro_rules! define_table {
   ($name:ident, $key:ty, $value:ty) => {
@@ -91,6 +91,7 @@ pub(crate) enum Statistic {
   IndexSats,
   LostSats,
   OutputsTraversed,
+  ReservedRunes,
   Runes,
   SatRanges,
   UnboundInscriptions,
@@ -181,6 +182,7 @@ pub(crate) struct Index {
   index_sats: bool,
   options: Options,
   path: PathBuf,
+  started: DateTime<Utc>,
   unrecoverably_reorged: AtomicBool,
 }
 
@@ -342,10 +344,11 @@ impl Index {
       first_inscription_height: options.first_inscription_height(),
       genesis_block_coinbase_transaction,
       height_limit: options.height_limit,
-      options: options.clone(),
       index_runes,
       index_sats,
+      options: options.clone(),
       path,
+      started: Utc::now(),
       unrecoverably_reorged: AtomicBool::new(false),
     })
   }
@@ -441,6 +444,51 @@ impl Index {
 
   pub(crate) fn has_sat_index(&self) -> bool {
     self.index_sats
+  }
+
+  pub(crate) fn status(&self) -> Result<StatusHtml> {
+    let rtx = self.database.begin_read()?;
+
+    let statistic_to_count = rtx.open_table(STATISTIC_TO_COUNT)?;
+
+    let statistic = |statistic: Statistic| -> Result<u64> {
+      Ok(
+        statistic_to_count
+          .get(statistic.key())?
+          .map(|guard| guard.value())
+          .unwrap_or_default(),
+      )
+    };
+
+    let height = rtx
+      .open_table(HEIGHT_TO_BLOCK_HASH)?
+      .range(0..)?
+      .next_back()
+      .transpose()?
+      .map(|(height, _hash)| height.value());
+
+    let next_height = height.map(|height| height + 1).unwrap_or(0);
+
+    let blessed_inscriptions = statistic(Statistic::BlessedInscriptions)?;
+    let cursed_inscriptions = statistic(Statistic::CursedInscriptions)?;
+
+    Ok(StatusHtml {
+      blessed_inscriptions,
+      cursed_inscriptions,
+      height,
+      inscriptions: blessed_inscriptions + cursed_inscriptions,
+      lost_sats: statistic(Statistic::LostSats)?,
+      minimum_rune_for_next_block: Rune::minimum_at_height(
+        self.options.chain(),
+        Height(next_height),
+      ),
+      rune_index: statistic(Statistic::IndexRunes)? != 0,
+      runes: statistic(Statistic::Runes)?,
+      sat_index: statistic(Statistic::IndexSats)? != 0,
+      started: self.started,
+      unrecoverably_reorged: self.unrecoverably_reorged.load(atomic::Ordering::Relaxed),
+      uptime: (Utc::now() - self.started).to_std()?,
+    })
   }
 
   pub(crate) fn info(&self) -> Result<Info> {
@@ -716,10 +764,6 @@ impl Index {
     Ok(())
   }
 
-  pub(crate) fn is_unrecoverably_reorged(&self) -> bool {
-    self.unrecoverably_reorged.load(atomic::Ordering::Relaxed)
-  }
-
   fn begin_read(&self) -> Result<rtx::Rtx> {
     Ok(rtx::Rtx(self.database.begin_read()?))
   }
@@ -735,7 +779,7 @@ impl Index {
     let value = statistic_to_count
       .get(&(statistic.key()))?
       .map(|x| x.value())
-      .unwrap_or(0)
+      .unwrap_or_default()
       + n;
     statistic_to_count.insert(&statistic.key(), &value)?;
     Ok(())
@@ -752,7 +796,7 @@ impl Index {
       .get(&statistic.key())
       .unwrap()
       .map(|x| x.value())
-      .unwrap_or(0)
+      .unwrap_or_default()
   }
 
   pub(crate) fn block_count(&self) -> Result<u32> {
@@ -851,10 +895,36 @@ impl Index {
     Ok(entries)
   }
 
+  pub(crate) fn get_rune_balance(&self, outpoint: OutPoint, id: RuneId) -> Result<u128> {
+    let rtx = self.database.begin_read()?;
+
+    let outpoint_to_balances = rtx.open_table(OUTPOINT_TO_RUNE_BALANCES)?;
+
+    let Some(balances) = outpoint_to_balances.get(&outpoint.store())? else {
+      return Ok(0);
+    };
+
+    let balances_buffer = balances.value();
+
+    let mut i = 0;
+    while i < balances_buffer.len() {
+      let (balance_id, length) = runes::varint::decode(&balances_buffer[i..]);
+      i += length;
+      let (amount, length) = runes::varint::decode(&balances_buffer[i..]);
+      i += length;
+
+      if RuneId::try_from(balance_id).unwrap() == id {
+        return Ok(amount);
+      }
+    }
+
+    Ok(0)
+  }
+
   pub(crate) fn get_rune_balances_for_outpoint(
     &self,
     outpoint: OutPoint,
-  ) -> Result<Vec<(Rune, Pile)>> {
+  ) -> Result<Vec<(SpacedRune, Pile)>> {
     let rtx = self.database.begin_read()?;
 
     let outpoint_to_balances = rtx.open_table(OUTPOINT_TO_RUNE_BALANCES)?;
@@ -870,9 +940,9 @@ impl Index {
     let mut balances = Vec::new();
     let mut i = 0;
     while i < balances_buffer.len() {
-      let (id, length) = runes::varint::decode(&balances_buffer[i..]).unwrap();
+      let (id, length) = runes::varint::decode(&balances_buffer[i..]);
       i += length;
-      let (amount, length) = runes::varint::decode(&balances_buffer[i..]).unwrap();
+      let (amount, length) = runes::varint::decode(&balances_buffer[i..]);
       i += length;
 
       let id = RuneId::try_from(id).unwrap();
@@ -880,7 +950,7 @@ impl Index {
       let entry = RuneEntry::load(id_to_rune_entries.get(id.store())?.unwrap().value());
 
       balances.push((
-        entry.rune,
+        entry.spaced_rune(),
         Pile {
           amount,
           divisibility: entry.divisibility,
@@ -954,9 +1024,9 @@ impl Index {
       let mut balances = Vec::new();
       let mut i = 0;
       while i < balances_buffer.len() {
-        let (id, length) = runes::varint::decode(&balances_buffer[i..])?;
+        let (id, length) = runes::varint::decode(&balances_buffer[i..]);
         i += length;
-        let (balance, length) = runes::varint::decode(&balances_buffer[i..])?;
+        let (balance, length) = runes::varint::decode(&balances_buffer[i..]);
         i += length;
         balances.push((RuneId::try_from(id)?, balance));
       }
@@ -1120,26 +1190,41 @@ impl Index {
     Ok((children, more))
   }
 
-  pub(crate) fn get_etching(&self, txid: Txid) -> Result<Option<Rune>> {
-    Ok(
-      self
-        .database
-        .begin_read()?
-        .open_table(TRANSACTION_ID_TO_RUNE)?
-        .get(&txid.store())?
-        .map(|entry| Rune(entry.value())),
-    )
+  pub(crate) fn get_etching(&self, txid: Txid) -> Result<Option<SpacedRune>> {
+    let rtx = self.database.begin_read()?;
+
+    let transaction_id_to_rune = rtx.open_table(TRANSACTION_ID_TO_RUNE)?;
+    let Some(rune) = transaction_id_to_rune.get(&txid.store())? else {
+      return Ok(None);
+    };
+
+    let rune_to_rune_id = rtx.open_table(RUNE_TO_RUNE_ID)?;
+    let id = rune_to_rune_id.get(rune.value())?.unwrap();
+
+    let rune_id_to_rune_entry = rtx.open_table(RUNE_ID_TO_RUNE_ENTRY)?;
+    let entry = rune_id_to_rune_entry.get(&id.value())?.unwrap();
+
+    Ok(Some(RuneEntry::load(entry.value()).spaced_rune()))
   }
 
-  pub(crate) fn get_rune_by_sequence_number(&self, sequence_number: u32) -> Result<Option<Rune>> {
-    Ok(
-      self
-        .database
-        .begin_read()?
-        .open_table(SEQUENCE_NUMBER_TO_RUNE)?
-        .get(sequence_number)?
-        .map(|entry| Rune(entry.value())),
-    )
+  pub(crate) fn get_rune_by_sequence_number(
+    &self,
+    sequence_number: u32,
+  ) -> Result<Option<SpacedRune>> {
+    let rtx = self.database.begin_read()?;
+
+    let sequence_number_to_rune = rtx.open_table(SEQUENCE_NUMBER_TO_RUNE)?;
+    let Some(rune) = sequence_number_to_rune.get(sequence_number)? else {
+      return Ok(None);
+    };
+
+    let rune_to_rune_id = rtx.open_table(RUNE_TO_RUNE_ID)?;
+    let id = rune_to_rune_id.get(rune.value())?.unwrap();
+
+    let rune_id_to_rune_entry = rtx.open_table(RUNE_ID_TO_RUNE_ENTRY)?;
+    let entry = rune_id_to_rune_entry.get(&id.value())?.unwrap();
+
+    Ok(Some(RuneEntry::load(entry.value()).spaced_rune()))
   }
 
   pub(crate) fn get_inscription_ids_by_sat(&self, sat: Sat) -> Result<Vec<InscriptionId>> {
@@ -1756,7 +1841,7 @@ impl Index {
             .any(|entry| entry.unwrap().value() == sequence_number));
 
           // we do not track common sats (only the sat ranges)
-          if !Sat(sat).is_common() {
+          if !Sat(sat).common() {
             assert_eq!(
               SatPoint::load(
                 *rtx

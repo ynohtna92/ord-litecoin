@@ -24,11 +24,13 @@ pub(crate) struct InscriptionHtml {
 pub struct InscriptionJson {
   pub address: Option<String>,
   pub charms: Vec<String>,
+  pub script_pubkey: Option<ScriptBuf>,
   pub children: Vec<InscriptionId>,
   pub content_length: Option<usize>,
   pub content_type: Option<String>,
   pub genesis_fee: u64,
   pub genesis_height: u32,
+  pub genesis_address: Option<String>,
   pub inscription_id: InscriptionId,
   pub inscription_number: i32,
   pub next: Option<InscriptionId>,

@@ -1296,6 +1296,12 @@ impl Server {
           genesis_height: info.entry.height,
           parent: info.parent,
           genesis_fee: info.entry.fee,
+          genesis_address: info.genesis_output.
+            and_then(|output| {
+              server_config.chain.address_from_script(&output.script_pubkey).ok()
+              .map(|address| address.to_string())
+            }),
+          script_pubkey: info.output.as_ref().map(|o| o.clone().script_pubkey),
           output_value: info.output.as_ref().map(|o| o.value),
           address: info
             .output

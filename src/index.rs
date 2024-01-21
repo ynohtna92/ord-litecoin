@@ -156,6 +156,7 @@ pub(crate) struct InscriptionInfo {
   pub(crate) entry: InscriptionEntry,
   pub(crate) parent: Option<InscriptionId>,
   pub(crate) output: Option<TxOut>,
+  pub(crate) genesis_output: Option<TxOut>,
   pub(crate) satpoint: SatPoint,
   pub(crate) inscription: Inscription,
   pub(crate) previous: Option<InscriptionId>,
@@ -1865,6 +1866,20 @@ impl Index {
         .nth(satpoint.outpoint.vout.try_into().unwrap())
     };
 
+    let genesis_output = if satpoint.outpoint == unbound_outpoint() || satpoint.outpoint == OutPoint::null()
+    {
+      None
+    } else {
+      let Some(transaction) = index.get_transaction(satpoint.outpoint.txid)? else {
+        return Ok(None);
+      };
+
+      transaction
+          .output
+          .into_iter()
+          .next()
+    };
+
     let previous = if let Some(n) = sequence_number.checked_sub(1) {
       Some(
         InscriptionEntry::load(
@@ -1933,6 +1948,7 @@ impl Index {
       entry,
       parent,
       output,
+      genesis_output,
       satpoint,
       inscription,
       previous,

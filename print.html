@@ -187,6 +187,9 @@
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="hi">हिंदी</a>
                           </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="it">Italiano</a>
+                          </button></li>
                         </ul>
 
                         <script>
@@ -1545,7 +1548,7 @@ following command:</p>
 <h2 id="example-batchyaml"><a class="header" href="#example-batchyaml">Example <code>batch.yaml</code></a></h2>
 <pre><code class="language-yaml"># example batch file
 
-# there are two modes:
+# inscription modes:
 # - `separate-outputs`: inscribe on separate postage-sized outputs
 # - `shared-output`: inscribe on a single output separated by postage
 # - `same-sat`: inscribe on the same sat
@@ -1564,9 +1567,10 @@ postage: 12345
 #
 # each inscription has the following fields:
 #
-# `inscription`: path to inscription contents
+# `file`: path to inscription contents
 # `metadata`: inscription metadata (optional)
 # `metaprotocol`: inscription metaprotocol (optional)
+# `destination`: destination for that inscription (optional). Note: If no destination is specified a new wallet change address will be used
 inscriptions:
   - file: mango.avif
     metadata:
@@ -1975,6 +1979,10 @@ can be run with the following network flags:</p>
 </code></pre>
 <p>View the inscription in the regtest explorer:</p>
 <pre><code>ord -r server
+</code></pre>
+<p>By default, browsers don't support compression over HTTP. To test compressed
+content over HTTP, use the <code>--decompress</code> flag:</p>
+<pre><code>ord -r server --decompress
 </code></pre>
 <h2 id="testing-recursion"><a class="header" href="#testing-recursion">Testing Recursion</a></h2>
 <p>When testing out <a href="guides/../inscriptions/recursion.html">recursion</a>, inscribe the

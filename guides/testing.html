@@ -186,6 +186,9 @@
                           <li role="none"><button role="menuitem" class="theme">
                               <a id="hi">हिंदी</a>
                           </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="it">Italiano</a>
+                          </button></li>
                         </ul>
 
                         <script>
@@ -279,6 +282,10 @@ can be run with the following network flags:</p>
 </code></pre>
 <p>View the inscription in the regtest explorer:</p>
 <pre><code>ord -r server
+</code></pre>
+<p>By default, browsers don't support compression over HTTP. To test compressed
+content over HTTP, use the <code>--decompress</code> flag:</p>
+<pre><code>ord -r server --decompress
 </code></pre>
 <h2 id="testing-recursion"><a class="header" href="#testing-recursion">Testing Recursion</a></h2>
 <p>When testing out <a href="../inscriptions/recursion.html">recursion</a>, inscribe the

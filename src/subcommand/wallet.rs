@@ -158,13 +158,8 @@ pub(crate) fn get_change_address(client: &Client, chain: Chain) -> Result<Addres
 }
 
 pub(crate) fn initialize(wallet: String, options: &Options, _seed: [u8; 64]) -> Result {
-  check_version(options.bitcoin_rpc_client(None)?)?.create_wallet(
-    &wallet,
-    None,
-    None,
-    None,
-    None,
-  )?;
+  check_version(options.bitcoin_rpc_client(None)?)?
+    .create_wallet(&wallet, None, None, None, None)?;
 
   let _client = options.bitcoin_rpc_client(Some(wallet))?;
 

@@ -162,7 +162,7 @@ pub(crate) fn initialize(wallet: String, options: &Options, _seed: [u8; 64]) -> 
 
   let _network = options.chain().network();
 
-  client.create_wallet(&wallet, None, Some(true), None, None)?;
+  client.create_wallet(&wallet, None, None, None, None)?;
 
   // Functionally not supported with Litecoin
   // let secp = Secp256k1::new();

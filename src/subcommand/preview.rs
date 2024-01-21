@@ -44,7 +44,7 @@ impl Preview {
 
     fs::create_dir(&litecoin_data_dir)?;
 
-    eprintln!("Spawning bitcoind…");
+    eprintln!("Spawning litecoind…");
 
     let _bitcoind = KillOnDrop(
       Command::new("litecoind")

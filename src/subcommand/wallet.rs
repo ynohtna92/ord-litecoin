@@ -158,11 +158,17 @@ pub(crate) fn get_change_address(client: &Client, chain: Chain) -> Result<Addres
 }
 
 pub(crate) fn initialize(wallet: String, options: &Options, _seed: [u8; 64]) -> Result {
-  let client = check_version(options.bitcoin_rpc_client(None)?)?;
+  check_version(options.bitcoin_rpc_client(None)?)?.create_wallet(
+    &wallet,
+    None,
+    Some(true),
+    None,
+    None,
+  )?;
+
+  let _client = options.bitcoin_rpc_client(Some(wallet))?;
 
   let _network = options.chain().network();
-
-  client.create_wallet(&wallet, None, Some(true), None, None)?;
 
   // Functionally not supported with Litecoin
   // let secp = Secp256k1::new();
@@ -172,14 +178,14 @@ pub(crate) fn initialize(wallet: String, options: &Options, _seed: [u8; 64]) -> 
   // let fingerprint = master_private_key.fingerprint(&secp);
   //
   // let derivation_path = DerivationPath::master()
-  //   .child(ChildNumber::Hardened { index: 84 })
+  //   .child(ChildNumber::Hardened { index: 86 })
   //   .child(ChildNumber::Hardened {
-  //     index: if network == Network::Bitcoin { 2 } else { 0 },
+  //     index: u32::from(network != Network::Bitcoin),
   //   })
   //   .child(ChildNumber::Hardened { index: 0 });
   //
   // let derived_private_key = master_private_key.derive_priv(&secp, &derivation_path)?;
-
+  //
   // for change in [false, true] {
   //   derive_and_import_descriptor(
   //     &client,

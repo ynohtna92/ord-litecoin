@@ -1,3 +1,4 @@
+use std::str::FromStr;
 use {super::*, crate::command_builder::ToArgs, ord::subcommand::Empty};
 
 #[test]

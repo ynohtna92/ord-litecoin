@@ -1,7 +1,7 @@
 use {super::*, boilerplate::Boilerplate};
 
 pub(crate) use {
-  block::{BlockHtml, BlockJson},
+  block::{BlockHtml},
   blocks::BlocksHtml,
   children::{ChildrenHtml, ChildrenJson},
   clock::ClockSvg,

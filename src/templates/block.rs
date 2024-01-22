@@ -45,6 +45,7 @@ pub struct BlockJson {
 }
 
 impl BlockJson {
+  #[allow(dead_code)]
   pub(crate) fn new(
     block: Block,
     height: Height,

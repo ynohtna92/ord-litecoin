@@ -1,3 +1,5 @@
+use hex::encode;
+use std::collections::HashMap;
 use {
   self::{
     accept_encoding::AcceptEncoding,
@@ -9,7 +11,7 @@ use {
   crate::{
     server_config::ServerConfig,
     templates::{
-      BlockHtml, BlockJson, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml,
+      BlockHtml, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml,
       HomeHtml, InputHtml, InscriptionHtml, InscriptionJson, InscriptionsBlockHtml,
       InscriptionsHtml, InscriptionsJson, OutputHtml, OutputJson, PageContent, PageHtml,
       PreviewAudioHtml, PreviewCodeHtml, PreviewFontHtml, PreviewImageHtml, PreviewMarkdownHtml,
@@ -736,13 +738,146 @@ impl Server {
       };
 
       Ok(if accept_json {
+        // Prepare the inputs_per_tx map
+        let inputs_per_tx = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let inputs = tx
+              .input
+              .iter()
+              .map(|input| {
+                let list = index.list(input.previous_output).unwrap();
+
+                let output = if list.is_some()
+                  && (input.previous_output == OutPoint::null()
+                    || input.previous_output == unbound_outpoint())
+                {
+                  let mut value = 0;
+
+                  if let Some(List::Unspent(ranges)) = &list {
+                    for (start, end) in ranges {
+                      value += end - start;
+                    }
+                  }
+
+                  value
+                } else {
+                  index
+                          .get_transaction(input.previous_output.txid)
+                          .ok() // Convert Result to Option, discarding the error if any
+                          .and_then(|transaction| {
+                            transaction.and_then(|tx| {
+                              tx.output
+                                  .get(input.previous_output.vout as usize)
+                                  .map(|output| output.value)
+                            })
+                          })
+                          .unwrap_or(0)
+                };
+                (input.previous_output.to_string(), output)
+              })
+              .collect::<Vec<_>>();
+            (txid, inputs)
+          })
+          .collect::<HashMap<_, _>>();
+
+        // Prepare the outputs_per_tx map
+        let outputs_per_tx = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let outputs = tx.output.iter()
+                  .enumerate()  // Enumerate the iterator to get the index of each output
+                  .map(|(vout, _output)| {
+                    let outpoint = OutPoint::new(txid, vout as u32);  // Create the OutPoint from txid and vout
+                    (outpoint.to_string(), _output.value)  // Convert the OutPoint to a string
+                  })
+                  .collect::<Vec<_>>();
+            (txid, outputs)
+          })
+          .collect::<HashMap<_, _>>();
+
+        let output_addresses_per_tx: HashMap<_, _> = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let addresses = tx
+              .output
+              .iter()
+              .filter_map(|output| {
+                server_config
+                  .chain
+                  .address_from_script(&output.script_pubkey)
+                  .ok()
+              })
+              .map(|address| address.to_string())
+              .collect::<Vec<_>>();
+            (txid, addresses)
+          })
+          .collect();
+
         let inscriptions = index.get_inscriptions_in_block(height)?;
-        Json(BlockJson::new(
-          block,
-          Height(height),
-          Self::index_height(&index)?,
-          inscriptions,
-        ))
+
+        let inscriptions_per_tx: HashMap<_, _> = inscriptions
+          .iter()
+          .filter_map(
+            |inscription_id| match index.get_inscription_by_id(inscription_id.clone()) {
+              Ok(Some(inscription)) => {
+                let content_type = inscription.content_type().map(|s| encode(s));
+                let content = inscription.into_body().map(|s| encode(s));
+                let inscription_number = index
+                  .get_inscription_entry(inscription_id.clone())
+                  .unwrap()
+                  .unwrap()
+                  .inscription_number;
+                Some((
+                  inscription_id.txid,
+                  (inscription_id, content_type, content, inscription_number),
+                ))
+              }
+              _ => None,
+            },
+          )
+          .collect();
+
+        axum::Json(serde_json::json!({
+          "hash": block.header.block_hash(),
+          "target": block.header.target(),
+          "size": block.size(),
+          "weight": block.weight(),
+          "timestamp": timestamp(block.header.time).to_string(),
+          "height": height,
+          "previous_blockhash": block.header.prev_blockhash,
+          "transactions": block.txdata.iter().map(|tx| {
+            let txid = tx.txid();
+            serde_json::json!({
+              "transaction": txid,
+              "inputs": inputs_per_tx.get(&txid),
+              "outputs": outputs_per_tx.get(&txid),
+              "output_addresses": output_addresses_per_tx.get(&txid),
+              "inscriptions": inscriptions_per_tx.get(&txid).iter().map(|inscription| {
+                serde_json::json!({
+                  "inscription_id": inscription.0,
+                  "content_type": inscription.1.as_ref(),
+                  "content": inscription.2.as_ref(),
+                  "inscription_number": inscription.3,
+                })
+              }).collect::<Vec<_>>(),
+            })
+          }).collect::<Vec<_>>(),
+          "_links": {
+            "self": {
+              "href": format!("/block/{}", block.header.block_hash()),
+            },
+            "prev": {
+              "href": format!("/block/{}", block.header.prev_blockhash),
+            },
+          }
+        }))
         .into_response()
       } else {
         let (featured_inscriptions, total_num) =
@@ -1296,11 +1431,13 @@ impl Server {
           genesis_height: info.entry.height,
           parent: info.parent,
           genesis_fee: info.entry.fee,
-          genesis_address: info.genesis_output.
-            and_then(|output| {
-              server_config.chain.address_from_script(&output.script_pubkey).ok()
+          genesis_address: info.genesis_output.and_then(|output| {
+            server_config
+              .chain
+              .address_from_script(&output.script_pubkey)
+              .ok()
               .map(|address| address.to_string())
-            }),
+          }),
           script_pubkey: info.output.as_ref().map(|o| o.clone().script_pubkey),
           output_value: info.output.as_ref().map(|o| o.value),
           address: info

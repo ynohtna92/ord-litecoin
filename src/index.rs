@@ -1866,19 +1866,16 @@ impl Index {
         .nth(satpoint.outpoint.vout.try_into().unwrap())
     };
 
-    let genesis_output = if satpoint.outpoint == unbound_outpoint() || satpoint.outpoint == OutPoint::null()
-    {
-      None
-    } else {
-      let Some(transaction) = index.get_transaction(satpoint.outpoint.txid)? else {
-        return Ok(None);
-      };
+    let genesis_output =
+      if satpoint.outpoint == unbound_outpoint() || satpoint.outpoint == OutPoint::null() {
+        None
+      } else {
+        let Some(transaction) = index.get_transaction(satpoint.outpoint.txid)? else {
+          return Ok(None);
+        };
 
-      transaction
-          .output
-          .into_iter()
-          .next()
-    };
+        transaction.output.into_iter().next()
+      };
 
     let previous = if let Some(n) = sequence_number.checked_sub(1) {
       Some(

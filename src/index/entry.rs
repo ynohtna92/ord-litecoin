@@ -382,6 +382,18 @@ impl Entry for Txid {
   }
 }
 
+impl Entry for i32 {
+  type Value = [u8; 4];
+
+  fn load([b0, b1, b2, b3]: Self::Value) -> Self {
+    i32::from_le_bytes([b0, b1, b2, b3])
+  }
+
+  fn store(self) -> Self::Value {
+    self.to_le_bytes()
+  }
+}
+
 #[cfg(test)]
 mod tests {
   use super::*;

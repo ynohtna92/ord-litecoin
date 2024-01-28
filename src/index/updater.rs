@@ -384,6 +384,7 @@ impl<'index> Updater<'_> {
       wtx.open_table(INSCRIPTION_ID_TO_SEQUENCE_NUMBER)?;
     let mut inscription_number_to_sequence_number =
       wtx.open_table(INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER)?;
+    let mut address_to_inscription_number = wtx.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
     let mut sat_to_sequence_number = wtx.open_multimap_table(SAT_TO_SEQUENCE_NUMBER)?;
     let mut satpoint_to_sequence_number = wtx.open_multimap_table(SATPOINT_TO_SEQUENCE_NUMBER)?;
     let mut sequence_number_to_children = wtx.open_multimap_table(SEQUENCE_NUMBER_TO_CHILDREN)?;
@@ -423,6 +424,7 @@ impl<'index> Updater<'_> {
     let home_inscription_count = home_inscriptions.len()?;
 
     let mut inscription_updater = InscriptionUpdater {
+      index: self.index,
       blessed_inscription_count,
       chain: self.index.options.chain(),
       cursed_inscription_count,
@@ -432,7 +434,9 @@ impl<'index> Updater<'_> {
       home_inscriptions: &mut home_inscriptions,
       id_to_sequence_number: &mut inscription_id_to_sequence_number,
       index_transactions: self.index.index_transactions,
+      index_addresses: self.index.index_addresses,
       inscription_number_to_sequence_number: &mut inscription_number_to_sequence_number,
+      address_to_inscription_number: &mut address_to_inscription_number,
       lost_sats,
       next_sequence_number,
       outpoint_to_value: &mut outpoint_to_value,

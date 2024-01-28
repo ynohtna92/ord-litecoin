@@ -11,13 +11,13 @@ use {
   crate::{
     server_config::ServerConfig,
     templates::{
-      BlockHtml, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml,
-      HomeHtml, InputHtml, InscriptionHtml, InscriptionJson, InscriptionsBlockHtml,
-      InscriptionsHtml, InscriptionsJson, OutputHtml, OutputJson, PageContent, PageHtml,
-      PreviewAudioHtml, PreviewCodeHtml, PreviewFontHtml, PreviewImageHtml, PreviewMarkdownHtml,
-      PreviewModelHtml, PreviewPdfHtml, PreviewTextHtml, PreviewUnknownHtml, PreviewVideoHtml,
-      RangeHtml, RareTxt, RuneHtml, RuneJson, RunesHtml, RunesJson, SatHtml, SatInscriptionJson,
-      SatInscriptionsJson, SatJson, TransactionHtml,
+      BlockHtml, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml, HomeHtml,
+      InputHtml, InscriptionHtml, InscriptionJson, InscriptionsBlockHtml, InscriptionsHtml,
+      InscriptionsJson, OutputHtml, OutputJson, PageContent, PageHtml, PreviewAudioHtml,
+      PreviewCodeHtml, PreviewFontHtml, PreviewImageHtml, PreviewMarkdownHtml, PreviewModelHtml,
+      PreviewPdfHtml, PreviewTextHtml, PreviewUnknownHtml, PreviewVideoHtml, RangeHtml, RareTxt,
+      RuneHtml, RuneJson, RunesHtml, RunesJson, SatHtml, SatInscriptionJson, SatInscriptionsJson,
+      SatJson, TransactionHtml,
     },
   },
   axum::{
@@ -208,6 +208,7 @@ impl Server {
 
       let router = Router::new()
         .route("/", get(Self::home))
+        .route("/address/:address", get(Self::address))
         .route("/block/:query", get(Self::block))
         .route("/blockcount", get(Self::block_count))
         .route("/blockhash", get(Self::block_hash))
@@ -709,6 +710,21 @@ impl Server {
     Redirect::to("https://raw.githubusercontent.com/ordinals/ord/master/install.sh")
   }
 
+  async fn address(
+    Extension(index): Extension<Arc<Index>>,
+    Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
+  ) -> ServerResult<Response> {
+    let inscription_ids = index.get_inscriptions_by_address(&address)?;
+
+    Ok(
+      axum::Json(serde_json::json!({
+        "address": address,
+        "inscriptions": inscription_ids,
+      }))
+      .into_response(),
+    )
+  }
+
   async fn block(
     Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
@@ -765,16 +781,16 @@ impl Server {
                   value
                 } else {
                   index
-                          .get_transaction(input.previous_output.txid)
-                          .ok() // Convert Result to Option, discarding the error if any
-                          .and_then(|transaction| {
-                            transaction.and_then(|tx| {
-                              tx.output
-                                  .get(input.previous_output.vout as usize)
-                                  .map(|output| output.value)
-                            })
-                          })
-                          .unwrap_or(0)
+                    .get_transaction(input.previous_output.txid)
+                    .ok() // Convert Result to Option, discarding the error if any
+                    .and_then(|transaction| {
+                      transaction.and_then(|tx| {
+                        tx.output
+                            .get(input.previous_output.vout as usize)
+                            .map(|output| output.value)
+                      })
+                    })
+                    .unwrap_or(0)
                 };
                 (input.previous_output.to_string(), output)
               })
@@ -844,12 +860,15 @@ impl Server {
           )
           .collect();
 
+        let inscriptions_placeholder: Vec<i32> = vec![];
+
         axum::Json(serde_json::json!({
           "hash": block.header.block_hash(),
           "target": block.header.target(),
           "size": block.size(),
           "weight": block.weight(),
           "timestamp": timestamp(block.header.time).to_string(),
+          "best_height": Self::index_height(&index)?,
           "height": height,
           "previous_blockhash": block.header.prev_blockhash,
           "transactions": block.txdata.iter().map(|tx| {
@@ -869,6 +888,7 @@ impl Server {
               }).collect::<Vec<_>>(),
             })
           }).collect::<Vec<_>>(),
+          "inscriptions": inscriptions_placeholder,
           "_links": {
             "self": {
               "href": format!("/block/{}", block.header.block_hash()),

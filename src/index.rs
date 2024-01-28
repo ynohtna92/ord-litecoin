@@ -64,6 +64,7 @@ define_table! { HEIGHT_TO_LAST_SEQUENCE_NUMBER, u32, u32 }
 define_table! { HOME_INSCRIPTIONS, u32, InscriptionIdValue }
 define_table! { INSCRIPTION_ID_TO_SEQUENCE_NUMBER, InscriptionIdValue, u32 }
 define_table! { INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER, i32, u32 }
+define_table! { ADDRESS_TO_INSCRIPTION_NUMBERS, &str, &[u8] }
 define_table! { OUTPOINT_TO_RUNE_BALANCES, &OutPointValue, &[u8] }
 define_table! { OUTPOINT_TO_SAT_RANGES, &OutPointValue, &[u8] }
 define_table! { OUTPOINT_TO_VALUE, &OutPointValue, u64}
@@ -99,6 +100,7 @@ pub(crate) enum Statistic {
   SatRanges = 10,
   UnboundInscriptions = 11,
   IndexTransactions = 12,
+  IndexAddresses = 13,
 }
 
 impl Statistic {
@@ -199,6 +201,7 @@ pub struct Index {
   index_runes: bool,
   index_sats: bool,
   index_transactions: bool,
+  index_addresses: bool,
   options: Options,
   path: PathBuf,
   started: DateTime<Utc>,
@@ -241,6 +244,7 @@ impl Index {
     let index_runes;
     let index_sats;
     let index_transactions;
+    let index_addresses;
 
     let index_path = path.clone();
     let once = Once::new();
@@ -297,6 +301,7 @@ impl Index {
           index_runes = Self::is_statistic_set(&statistics, Statistic::IndexRunes)?;
           index_sats = Self::is_statistic_set(&statistics, Statistic::IndexSats)?;
           index_transactions = Self::is_statistic_set(&statistics, Statistic::IndexTransactions)?;
+          index_addresses = Self::is_statistic_set(&statistics, Statistic::IndexAddresses)?;
         }
 
         database
@@ -320,6 +325,7 @@ impl Index {
         tx.open_table(HOME_INSCRIPTIONS)?;
         tx.open_table(INSCRIPTION_ID_TO_SEQUENCE_NUMBER)?;
         tx.open_table(INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER)?;
+        tx.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
         tx.open_table(OUTPOINT_TO_RUNE_BALANCES)?;
         tx.open_table(OUTPOINT_TO_VALUE)?;
         tx.open_table(RUNE_ID_TO_RUNE_ENTRY)?;
@@ -342,10 +348,12 @@ impl Index {
           index_runes = options.index_runes();
           index_sats = options.index_sats;
           index_transactions = options.index_transactions;
+          index_addresses = options.index_addresses;
 
           Self::set_statistic(&mut statistics, Statistic::IndexRunes, u64::from(index_runes))?;
           Self::set_statistic(&mut statistics, Statistic::IndexSats, u64::from(index_sats))?;
           Self::set_statistic(&mut statistics, Statistic::IndexTransactions, u64::from(index_transactions))?;
+          Self::set_statistic(&mut statistics, Statistic::IndexAddresses, u64::from(index_addresses))?;
           Self::set_statistic(&mut statistics, Statistic::Schema, SCHEMA_VERSION)?;
         }
 
@@ -370,6 +378,7 @@ impl Index {
       index_runes,
       index_sats,
       index_transactions,
+      index_addresses,
       options: options.clone(),
       path,
       started: Utc::now(),
@@ -545,6 +554,12 @@ impl Index {
       &wtx,
       total_bytes,
       INSCRIPTION_NUMBER_TO_SEQUENCE_NUMBER,
+    );
+    insert_table_info(
+      &mut tables,
+      &wtx,
+      total_bytes,
+      ADDRESS_TO_INSCRIPTION_NUMBERS,
     );
     insert_table_info(&mut tables, &wtx, total_bytes, OUTPOINT_TO_RUNE_BALANCES);
     insert_table_info(&mut tables, &wtx, total_bytes, OUTPOINT_TO_SAT_RANGES);
@@ -817,6 +832,34 @@ impl Index {
     }
 
     Ok(blocks)
+  }
+
+  pub(crate) fn get_inscriptions_by_address(
+    &self,
+    address: &Address<NetworkUnchecked>,
+  ) -> Result<Option<Vec<InscriptionId>>> {
+    let rtx = self.begin_read()?;
+
+    let address_to_inscription_numbers = rtx.0.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
+
+    let mut inscription_ids: Vec<InscriptionId> = Vec::new();
+
+    if let Some(value) =
+      address_to_inscription_numbers.get(address.clone().assume_checked().to_string().as_str())?
+    {
+      for chunk in value.value().chunks_exact(8) {
+        let number = i32::load(chunk.try_into().unwrap());
+        inscription_ids.push(
+          self
+            .get_inscription_id_by_inscription_number(number)?
+            .unwrap(),
+        );
+      }
+
+      return Ok(Some(inscription_ids));
+    }
+
+    Ok(None)
   }
 
   pub(crate) fn rare_sat_satpoints(&self) -> Result<Vec<(Sat, SatPoint)>> {
@@ -1315,7 +1358,6 @@ impl Index {
     .transpose()
   }
 
-  #[cfg(test)]
   pub(crate) fn get_inscription_id_by_inscription_number(
     &self,
     inscription_number: i32,

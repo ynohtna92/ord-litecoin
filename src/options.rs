@@ -51,6 +51,8 @@ pub struct Options {
   pub(crate) index_sats: bool,
   #[arg(long, help = "Store transactions in index.")]
   pub(crate) index_transactions: bool,
+  #[arg(long, help = "Store addresses in index.")]
+  pub(crate) index_addresses: bool,
   #[arg(
     long,
     short,

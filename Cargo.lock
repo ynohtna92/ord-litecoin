@@ -507,7 +507,7 @@ dependencies = [
 [[package]]
 name = "bitcoincore-rpc"
 version = "0.17.0"
-source = "git+https://github.com/ynohtna92/rust-bitcoincore-rpc#2eb2cfcc2ab0eaa49f535dc59662143aeb8d2de3"
+source = "git+https://github.com/ynohtna92/rust-bitcoincore-rpc#9268a687f419ea96de0faffa164f3c6e1cdaac7f"
 dependencies = [
  "bitcoin-private 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "bitcoincore-rpc-json",
@@ -520,7 +520,7 @@ dependencies = [
 [[package]]
 name = "bitcoincore-rpc-json"
 version = "0.17.0"
-source = "git+https://github.com/ynohtna92/rust-bitcoincore-rpc#9fa722de2e2d9c210f80f598af000eb407dcb83b"
+source = "git+https://github.com/ynohtna92/rust-bitcoincore-rpc#9268a687f419ea96de0faffa164f3c6e1cdaac7f"
 dependencies = [
  "bitcoin",
  "bitcoin-private 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",

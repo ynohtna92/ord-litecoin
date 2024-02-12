@@ -764,35 +764,7 @@ impl Server {
               .input
               .iter()
               .map(|input| {
-                let list = index.list(input.previous_output).unwrap();
-
-                let output = if list.is_some()
-                  && (input.previous_output == OutPoint::null()
-                    || input.previous_output == unbound_outpoint())
-                {
-                  let mut value = 0;
-
-                  if let Some(List::Unspent(ranges)) = &list {
-                    for (start, end) in ranges {
-                      value += end - start;
-                    }
-                  }
-
-                  value
-                } else {
-                  index
-                    .get_transaction(input.previous_output.txid)
-                    .ok() // Convert Result to Option, discarding the error if any
-                    .and_then(|transaction| {
-                      transaction.and_then(|tx| {
-                        tx.output
-                            .get(input.previous_output.vout as usize)
-                            .map(|output| output.value)
-                      })
-                    })
-                    .unwrap_or(0)
-                };
-                (input.previous_output.to_string(), output)
+                (input.previous_output.to_string(), 0)
               })
               .collect::<Vec<_>>();
             (txid, inputs)

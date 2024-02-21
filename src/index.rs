@@ -847,7 +847,7 @@ impl Index {
     if let Some(value) =
       address_to_inscription_numbers.get(address.clone().assume_checked().to_string().as_str())?
     {
-      for chunk in value.value().chunks_exact(8) {
+      for chunk in value.value().chunks_exact(4) {
         let number = i32::load(chunk.try_into().unwrap());
         inscription_ids.push(
           self

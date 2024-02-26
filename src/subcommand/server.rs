@@ -763,9 +763,7 @@ impl Server {
             let inputs = tx
               .input
               .iter()
-              .map(|input| {
-                (input.previous_output.to_string(), 0)
-              })
+              .map(|input| (input.previous_output.to_string(), 0))
               .collect::<Vec<_>>();
             (txid, inputs)
           })

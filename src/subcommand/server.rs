@@ -1,4 +1,5 @@
 use hex::encode;
+use std::cmp::min;
 use std::collections::HashMap;
 use {
   self::{
@@ -76,6 +77,13 @@ impl Display for InscriptionQuery {
       Self::Number(number) => write!(f, "{number}"),
     }
   }
+}
+
+#[derive(Debug, Deserialize)]
+pub struct AddressQuery {
+  full: Option<bool>,
+  cursor: Option<usize>,
+  size: Option<usize>,
 }
 
 enum BlockQuery {
@@ -711,10 +719,113 @@ impl Server {
   }
 
   async fn address(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
     Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
+    Query(query): Query<AddressQuery>,
   ) -> ServerResult<Response> {
-    let inscription_ids = index.get_inscriptions_by_address(&address)?;
+    let inscription_ids = index
+      .get_inscriptions_by_address(&address)?
+      .ok_or_not_found(|| format!(""))
+      .unwrap();
+
+    let enrich = query.full.unwrap_or(false);
+
+    let cursor = query.cursor.unwrap_or(0);
+    let size = query.size.unwrap_or(10);
+
+    let inscriptions = {
+      let mut inscriptions_vec = Vec::new();
+
+      if enrich && cursor < inscription_ids.len() {
+        let end_index = min(cursor + size, inscription_ids.len());
+
+        let inscription_ids_page = &inscription_ids[cursor..end_index];
+
+        for inscription_id in inscription_ids_page.iter() {
+          let entry = index
+            .get_inscription_entry(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+
+          let inscription = index
+            .get_inscription_by_id(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+
+          let satpoint = index
+            .get_inscription_satpoint_by_id(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+
+          let output = if satpoint.outpoint == unbound_outpoint() {
+            None
+          } else {
+            Some(
+              index
+                .get_transaction(satpoint.outpoint.txid)?
+                .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
+                .output
+                .into_iter()
+                .nth(satpoint.outpoint.vout.try_into().unwrap())
+                .ok_or_not_found(|| {
+                  format!("inscription {inscription_id} current transaction output")
+                })?,
+            )
+          };
+
+          let genesis_output = index
+            .get_transaction(inscription_id.txid)?
+            .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
+            .output
+            .into_iter()
+            .next()
+            .ok_or_not_found(|| {
+              format!("inscription {inscription_id} genesis transaction output")
+            })?;
+
+          inscriptions_vec.push((
+            inscription_id,
+            entry,
+            genesis_output,
+            output,
+            inscription,
+            satpoint,
+          ));
+        }
+      }
+
+      inscriptions_vec
+    };
+
+    if enrich {
+      return Ok(
+        axum::Json(serde_json::json!({
+          "address": address,
+          "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
+            serde_json::json!({
+              "inscription_id": inscription_id,
+              "genesis_fee": entry.fee,
+              "genesis_height": entry.height,
+              "genesis_transaction": inscription_id.txid,
+              "genesis_address": server_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
+              "address": output.is_some().then(|| {
+                server_config.chain.address_from_script(&output.clone().unwrap().script_pubkey).unwrap()
+              }),
+              "number": entry.inscription_number,
+              "content_length": inscription.content_length(),
+              "content_type": inscription.content_type(),
+              "sat": entry.sat,
+              "location": satpoint,
+              "output": satpoint.outpoint,
+              "output_value": output.is_some().then(|| {
+                output.clone().unwrap().value
+              }),
+              "offset": satpoint.offset,
+              "timestamp": timestamp(entry.timestamp).to_string(),
+            })
+          }).collect::<Vec<_>>(),
+        }))
+        .into_response(),
+      );
+    }
 
     Ok(
       axum::Json(serde_json::json!({

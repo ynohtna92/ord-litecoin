@@ -799,6 +799,7 @@ impl Server {
       return Ok(
         axum::Json(serde_json::json!({
           "address": address,
+          "total": inscription_ids.len(),
           "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
             serde_json::json!({
               "inscription_id": inscription_id,

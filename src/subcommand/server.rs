@@ -724,10 +724,9 @@ impl Server {
     Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
     Query(query): Query<AddressQuery>,
   ) -> ServerResult<Response> {
-    let inscription_ids = index
-      .get_inscriptions_by_address(&address)?
-      .ok_or_not_found(|| format!(""))
-      .unwrap();
+    let inscription_ids = index.get_inscriptions_by_address(&address)
+        .unwrap_or_else(|_| None)
+        .unwrap_or_else(|| Vec::new());
 
     let enrich = query.full.unwrap_or(false);
 

@@ -5,11 +5,11 @@ use {
 
 #[test]
 fn output_found() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let core = mockcore::spawn();
   let output = CommandBuilder::new(
     "--index-sats list 97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9:0",
   )
-  .bitcoin_rpc_server(&rpc_server)
+  .core(&core)
   .run_and_deserialize_output::<Output>();
 
   assert_eq!(
@@ -30,11 +30,11 @@ fn output_found() {
 
 #[test]
 fn output_not_found() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let core = mockcore::spawn();
   CommandBuilder::new(
     "--index-sats list 0000000000000000000000000000000000000000000000000000000000000000:0",
   )
-  .bitcoin_rpc_server(&rpc_server)
+  .core(&core)
   .expected_exit_code(1)
   .expected_stderr("error: output not found\n")
   .run_and_extract_stdout();
@@ -42,9 +42,9 @@ fn output_not_found() {
 
 #[test]
 fn no_satoshi_index() {
-  let rpc_server = test_bitcoincore_rpc::spawn();
+  let core = mockcore::spawn();
   CommandBuilder::new("list 97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9:0")
-    .bitcoin_rpc_server(&rpc_server)
+    .core(&core)
     .expected_stderr("error: list requires index created with `--index-sats` flag\n")
     .expected_exit_code(1)
     .run_and_extract_stdout();

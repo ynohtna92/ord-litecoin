@@ -73,7 +73,7 @@ impl Settings {
     };
 
     let config = if let Some(config_path) = config_path {
-      serde_yaml::from_reader(File::open(&config_path).context(anyhow!(
+      serde_yaml::from_reader(fs::File::open(&config_path).context(anyhow!(
         "failed to open config file `{}`",
         config_path.display()
       ))?)
@@ -588,8 +588,8 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-          litecoin_rpc_username: Some("foo".into()),
-          ..Default::default()
+              litecoin_rpc_username: Some("foo".into()),
+          ..default()
         },
         Default::default(),
       )
@@ -604,8 +604,8 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-          litecoin_rpc_password: Some("foo".into()),
-          ..Default::default()
+            litecoin_rpc_password: Some("foo".into()),
+          ..default()
         },
         Default::default(),
       )
@@ -649,15 +649,13 @@ mod tests {
 
   #[test]
   fn rpc_server_chain_must_match() {
-    let rpc_server = test_bitcoincore_rpc::builder()
-      .network(Network::Testnet)
-      .build();
+    let core = mockcore::builder().network(Network::Testnet).build();
 
     let settings = parse(&[
       "--cookie-file",
-      rpc_server.cookie_file().to_str().unwrap(),
+      core.cookie_file().to_str().unwrap(),
       "--litecoin-rpc-url",
-      &rpc_server.url(),
+      &core.url(),
     ]);
 
     assert_eq!(
@@ -782,7 +780,7 @@ mod tests {
 
   #[test]
   fn network_is_joined_with_data_dir() {
-    let data_dir = parse(&["--chain=signet", "--data-dir=foo"])
+    let data_dir = parse(&["--chain=signet", "--datadir=foo"])
       .data_dir()
       .display()
       .to_string();
@@ -899,9 +897,9 @@ mod tests {
   #[test]
   fn bitcoin_rpc_and_pass_setting() {
     let config = Settings {
-      litecoin_rpc_username: Some("config_user".into()),
-      litecoin_rpc_password: Some("config_pass".into()),
-      ..Default::default()
+        litecoin_rpc_username: Some("config_user".into()),
+        litecoin_rpc_password: Some("config_pass".into()),
+      ..default()
     };
 
     let tempdir = TempDir::new().unwrap();
@@ -916,7 +914,7 @@ mod tests {
           litecoin_rpc_username: Some("option_user".into()),
           litecoin_rpc_password: Some("option_pass".into()),
           config: Some(config_path.clone()),
-          ..Default::default()
+          ..default()
         },
         vec![
           ("LITECOIN_RPC_USERNAME".into(), "env_user".into()),
@@ -935,7 +933,7 @@ mod tests {
       Settings::merge(
         Options {
           config: Some(config_path.clone()),
-          ..Default::default()
+          ..default()
         },
         vec![
           ("LITECOIN_RPC_USERNAME".into(), "env_user".into()),
@@ -954,7 +952,7 @@ mod tests {
       Settings::merge(
         Options {
           config: Some(config_path),
-          ..Default::default()
+          ..default()
         },
         Default::default(),
       )
@@ -975,7 +973,7 @@ mod tests {
 
   #[test]
   fn example_config_file_is_valid() {
-    let _: Settings = serde_yaml::from_reader(File::open("ord.yaml").unwrap()).unwrap();
+    let _: Settings = serde_yaml::from_reader(fs::File::open("ord.yaml").unwrap()).unwrap();
   }
 
   #[test]
@@ -1067,7 +1065,7 @@ mod tests {
           "--config=config",
           "--config-dir=config dir",
           "--cookie-file=cookie file",
-          "--data-dir=/data/dir",
+          "--datadir=/data/dir",
           "--first-inscription-height=2",
           "--height-limit=3",
           "--index-cache-size=4",
@@ -1121,7 +1119,7 @@ mod tests {
 
     let config = Settings {
       index: Some("config".into()),
-      ..Default::default()
+      ..default()
     };
 
     let tempdir = TempDir::new().unwrap();

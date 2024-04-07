@@ -2,7 +2,6 @@ use {
   super::*,
   bitcoin::{
     blockdata::{opcodes, script},
-    key::PrivateKey,
     key::{TapTweak, TweakedKeyPair, TweakedPublicKey, UntweakedKeyPair},
     policy::MAX_STANDARD_TX_WEIGHT,
     secp256k1::{self, constants::SCHNORR_SIGNATURE_SIZE, rand, Secp256k1, XOnlyPublicKey},
@@ -10,7 +9,7 @@ use {
     taproot::Signature,
     taproot::{ControlBlock, LeafVersion, TapLeafHash, TaprootBuilder},
   },
-  bitcoincore_rpc::bitcoincore_rpc_json::{ImportDescriptors, SignRawTransactionInput, Timestamp},
+  bitcoincore_rpc::bitcoincore_rpc_json::{SignRawTransactionInput},
   wallet::transaction_builder::Target,
 };
 

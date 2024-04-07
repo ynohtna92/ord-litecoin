@@ -60,7 +60,7 @@ use {
   serde_with::{DeserializeFromStr, SerializeDisplay},
   std::{
     cmp::{self, Reverse},
-    collections::{BTreeMap, BTreeSet, HashMap, HashSet, VecDeque},
+    collections::{BTreeMap, BTreeSet, HashSet, VecDeque},
     env,
     fmt::{self, Display, Formatter},
     fs,

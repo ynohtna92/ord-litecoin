@@ -49,7 +49,7 @@ impl Plan {
     let Transactions {
       commit_tx,
       reveal_tx,
-      recovery_key_pair,
+      recovery_key_pair: _,
       total_fees,
       rune,
     } = self.create_batch_transactions(
@@ -93,31 +93,29 @@ impl Plan {
       .sign_raw_transaction_with_wallet(&commit_tx, None, None)?
       .hex;
 
-    let result = wallet.bitcoin_client().sign_raw_transaction_with_wallet(
-      &reveal_tx,
-      Some(
-        &commit_tx
-          .output
-          .iter()
-          .enumerate()
-          .map(|(vout, output)| SignRawTransactionInput {
-            txid: commit_tx.txid(),
-            vout: vout.try_into().unwrap(),
-            script_pub_key: output.script_pubkey.clone(),
-            redeem_script: None,
-            amount: Some(Amount::from_sat(output.value)),
-          })
-          .collect::<Vec<SignRawTransactionInput>>(),
-      ),
-      None,
-    )?;
-
-    ensure!(
-      result.complete,
-      format!("Failed to sign reveal transaction: {:?}", result.errors)
-    );
-
-    let signed_reveal_tx = result.hex;
+    let signed_reveal_tx = if self.parent_info.is_some() {
+      wallet.bitcoin_client().sign_raw_transaction_with_wallet(
+        &reveal_tx,
+        Some(
+          &commit_tx
+              .output
+              .iter()
+              .enumerate()
+              .map(|(vout, output)| SignRawTransactionInput {
+                txid: commit_tx.txid(),
+                vout: vout.try_into().unwrap(),
+                script_pub_key: output.script_pubkey.clone(),
+                redeem_script: None,
+                amount: Some(Amount::from_sat(output.value)),
+              })
+              .collect::<Vec<SignRawTransactionInput>>(),
+        ),
+        None,
+        )?
+        .hex
+    } else {
+      consensus::encode::serialize(&reveal_tx)
+    };
 
     if !self.no_backup {
       // Self::backup_recovery_key(wallet, recovery_key_pair)?;
@@ -632,7 +630,7 @@ impl Plan {
     let total_fees =
       Self::calculate_fee(&unsigned_commit_tx, &utxos) + Self::calculate_fee(&reveal_tx, &utxos);
 
-    match (Runestone::decipher(&reveal_tx).unwrap(), runestone) {
+    match (Runestone::decipher(&reveal_tx), runestone) {
       (Some(actual), Some(expected)) => assert_eq!(
         actual,
         Artifact::Runestone(expected),

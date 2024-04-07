@@ -2,11 +2,9 @@ use {
   super::*,
   base64::{self, Engine},
   batch::ParentInfo,
-  bitcoin::secp256k1::{All, Secp256k1},
   bitcoin::{
     psbt::Psbt,
   },
-  bitcoincore_rpc::bitcoincore_rpc_json::{Descriptor, ImportDescriptors, Timestamp},
   entry::{EtchingEntry, EtchingEntryValue},
   fee_rate::FeeRate,
   futures::{
@@ -16,7 +14,6 @@ use {
   index::entry::Entry,
   indicatif::{ProgressBar, ProgressStyle},
   log::log_enabled,
-  miniscript::descriptor::{DescriptorSecretKey, DescriptorXKey, Wildcard},
   redb::{Database, DatabaseError, ReadableTable, RepairSession, StorageError, TableDefinition},
   reqwest::header,
   std::sync::Once,

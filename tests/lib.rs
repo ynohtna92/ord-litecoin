@@ -165,9 +165,10 @@ fn etch(core: &mockcore::Handle, ord: &TestServer, rune: Rune) -> Etched {
         premine: "1000".parse().unwrap(),
         rune: SpacedRune { rune, spacers: 0 },
         symbol: '¢',
+        turbo: false,
       }),
       inscriptions: vec![batch::Entry {
-        file: "inscription.jpeg".into(),
+        file: Some("inscription.jpeg".into()),
         ..default()
       }],
       ..default()
@@ -185,7 +186,7 @@ fn batch(core: &mockcore::Handle, ord: &TestServer, batchfile: batch::File) -> E
       .ord(ord);
 
   for inscription in &batchfile.inscriptions {
-    builder = builder.write(&inscription.file, "inscription");
+    builder = builder.write(&inscription.file.clone().unwrap(), "inscription");
   }
 
   let mut spawn = builder.spawn();
@@ -224,6 +225,7 @@ fn batch(core: &mockcore::Handle, ord: &TestServer, batchfile: batch::File) -> E
     supply,
     symbol,
     terms,
+    turbo,
   } = batchfile.etching.unwrap();
 
   {
@@ -339,6 +341,8 @@ fn batch(core: &mockcore::Handle, ord: &TestServer, batchfile: batch::File) -> E
   <dd>{divisibility}</dd>
   <dt>symbol</dt>
   <dd>{symbol}</dd>
+  <dt>turbo</dt>
+  <dd>{turbo}</dd>
   <dt>etching</dt>
   <dd><a class=monospace href=/tx/{reveal}>{reveal}</a></dd>
   <dt>parent</dt>

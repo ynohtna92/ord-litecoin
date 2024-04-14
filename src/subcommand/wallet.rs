@@ -1,6 +1,6 @@
 use {
   super::*,
-  crate::wallet::{batch, Wallet},
+  crate::wallet::{batch, wallet_constructor::WalletConstructor, Wallet},
   shared_args::SharedArgs,
 };
 
@@ -79,7 +79,7 @@ impl WalletCommand {
       _ => {}
     };
 
-    let wallet = Wallet::build(
+    let wallet = WalletConstructor::construct(
       self.name.clone(),
       self.no_sync,
       settings.clone(),

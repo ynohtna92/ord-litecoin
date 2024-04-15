@@ -1234,7 +1234,7 @@ fn inscription_with_delegate_returns_effective_content_type() {
 
   let inscription_json: api::Inscription =
     serde_json::from_str(&json_response.text().unwrap()).unwrap();
-  assert_regex_match!(inscription_json.address.unwrap(), r"bc1p.*");
+  assert_regex_match!(inscription_json.address.unwrap(), r"ltc1p.*");
 
   assert_eq!(inscription_json.content_type, Some("audio/wav".to_string()));
   assert_eq!(

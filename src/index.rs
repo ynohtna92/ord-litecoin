@@ -375,8 +375,8 @@ impl Index {
                 amount: Some(1),
                 cap: Some(u128::MAX),
                 height: (
+                  Some((SUBSIDY_HALVING_INTERVAL * 3).into()),
                   Some((SUBSIDY_HALVING_INTERVAL * 4).into()),
-                  Some((SUBSIDY_HALVING_INTERVAL * 5).into()),
                 ),
                 offset: (None, None),
               }),

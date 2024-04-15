@@ -141,7 +141,7 @@ fn send_inscription_by_sat() {
 
   let sat = sat_list.iter().find(|s| s.output.txid == txid).unwrap().sat;
 
-  let address = "bc1qcqgs2pps4u4yedfyl5pysdjjncs8et5utseepv";
+  let address = "ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu";
 
   let output = CommandBuilder::new(format!("wallet send --fee-rate 1 {address} {}", sat.name()))
     .core(&core)

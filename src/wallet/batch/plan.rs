@@ -655,7 +655,7 @@ impl Plan {
 
     Ok(Transactions {
       commit_tx: unsigned_commit_tx,
-      recovery_key_pair,
+      recovery_key_pair: recovery_key_pair,
       reveal_tx,
       rune,
       total_fees,

@@ -723,278 +723,72 @@ impl Server {
     Extension(index): Extension<Arc<Index>>,
     Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
     Query(query): Query<AddressQuery>,
-  ) -> ServerResult<Response> {
+) -> ServerResult<Response> {
     let inscription_ids = index.get_inscriptions_by_address(&address)
         .unwrap_or_else(|_| None)
         .unwrap_or_else(|| Vec::new());
 
     let enrich = query.full.unwrap_or(false);
-
     let cursor = query.cursor.unwrap_or(0);
     let size = query.size.unwrap_or(10);
 
     let inscriptions = {
-      let mut inscriptions_vec = Vec::new();
+        let mut inscriptions_vec = Vec::new();
 
-      if enrich && cursor < inscription_ids.len() {
-        let end_index = min(cursor + size, inscription_ids.len());
+        if enrich && cursor < inscription_ids.len() {
+            let end_index = min(cursor + size, inscription_ids.len());
+            let inscription_ids_page = &inscription_ids[cursor..end_index];
 
-        let inscription_ids_page = &inscription_ids[cursor..end_index];
+            for inscription_id in inscription_ids_page.iter() {
+                let entry = index.get_inscription_entry(*inscription_id)?
+                    .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-        for inscription_id in inscription_ids_page.iter() {
-          let entry = index
-            .get_inscription_entry(*inscription_id)?
-            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+                let inscription = index.get_inscription_by_id(*inscription_id)?
+                    .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-          let inscription = index
-            .get_inscription_by_id(*inscription_id)?
-            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+                let output = index.get_inscription_output_by_id(*inscription_id)?
+                    .ok_or_not_found(|| format!("inscription {inscription_id} output"))?;
 
-          let satpoint = index
-            .get_inscription_satpoint_by_id(*inscription_id)?
-            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+                // Constructing URLs for preview and content
+                let preview_url = format!("https://ordinalslite.com/preview/{inscription_id}");
+                let content_url = format!("https://ordinalslite.com/content/{inscription_id}");
 
-          let output = if satpoint.outpoint == unbound_outpoint() {
-            None
-          } else {
-            Some(
-              index
-                .get_transaction(satpoint.outpoint.txid)?
-                .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
-                .output
-                .into_iter()
-                .nth(satpoint.outpoint.vout.try_into().unwrap())
-                .ok_or_not_found(|| {
-                  format!("inscription {inscription_id} current transaction output")
-                })?,
-            )
-          };
+                let detail = serde_json::json!({
+                    "inscriptionId": inscription_id,
+                    "inscriptionNumber": entry.inscription_number,
+                    "address": address.to_string(),
+                    "preview": preview_url,
+                    "content": content_url,
+                    "contentLength": inscription.content_length(),
+                    "contentType": inscription.content_type(),
+                    "contentBody": "", // Assuming contentBody is empty or needs another function call
+                    "timestamp": timestamp(entry.timestamp).to_string(),
+                    "genesisTransaction": entry.txid,
+                    "location": entry.location,
+                    "output": output.outpoint,
+                    "outputValue": output.value,
+                    "offset": output.offset
+                });
 
-          let genesis_output = index
-            .get_transaction(inscription_id.txid)?
-            .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
-            .output
-            .into_iter()
-            .next()
-            .ok_or_not_found(|| {
-              format!("inscription {inscription_id} genesis transaction output")
-            })?;
-
-          inscriptions_vec.push((
-            inscription_id,
-            entry,
-            genesis_output,
-            output,
-            inscription,
-            satpoint,
-          ));
+                inscriptions_vec.push(detail);
+            }
         }
-      }
 
-      inscriptions_vec
+        inscriptions_vec
     };
 
-    if enrich {
-      return Ok(
-        axum::Json(serde_json::json!({
-          "address": address,
-          "total": inscription_ids.len(),
-          "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
-            serde_json::json!({
-              "inscription_id": inscription_id,
-              "genesis_fee": entry.fee,
-              "genesis_height": entry.height,
-              "genesis_transaction": inscription_id.txid,
-              "genesis_address": server_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
-              "address": output.is_some().then(|| {
-                server_config.chain.address_from_script(&output.clone().unwrap().script_pubkey).unwrap()
-              }),
-              "number": entry.inscription_number,
-              "content_length": inscription.content_length(),
-              "content_type": inscription.content_type(),
-              "sat": entry.sat,
-              "location": satpoint,
-              "output": satpoint.outpoint,
-              "output_value": output.is_some().then(|| {
-                output.clone().unwrap().value
-              }),
-              "offset": satpoint.offset,
-              "timestamp": timestamp(entry.timestamp).to_string(),
-            })
-          }).collect::<Vec<_>>(),
-        }))
-        .into_response(),
-      );
-    }
-
-    Ok(
-      axum::Json(serde_json::json!({
-        "address": address,
-        "inscriptions": inscription_ids,
-      }))
-      .into_response(),
-    )
-  }
-
-  async fn block(
-    Extension(server_config): Extension<Arc<ServerConfig>>,
-    Extension(index): Extension<Arc<Index>>,
-    Path(DeserializeFromStr(query)): Path<DeserializeFromStr<BlockQuery>>,
-    AcceptJson(accept_json): AcceptJson,
-  ) -> ServerResult<Response> {
-    task::block_in_place(|| {
-      let (block, height) = match query {
-        BlockQuery::Height(height) => {
-          let block = index
-            .get_block_by_height(height)?
-            .ok_or_not_found(|| format!("block {height}"))?;
-
-          (block, height)
+    let response = serde_json::json!({
+        "status": 1,
+        "message": "OK",
+        "result": {
+            "list": inscriptions,
+            "total": inscription_ids.len()
         }
-        BlockQuery::Hash(hash) => {
-          let info = index
-            .block_header_info(hash)?
-            .ok_or_not_found(|| format!("block {hash}"))?;
+    });
 
-          let block = index
-            .get_block_by_hash(hash)?
-            .ok_or_not_found(|| format!("block {hash}"))?;
+    Ok(axum::Json(response).into_response())
+}
 
-          (block, u32::try_from(info.height).unwrap())
-        }
-      };
-
-      Ok(if accept_json {
-        // Prepare the inputs_per_tx map
-        let inputs_per_tx = block
-          .txdata
-          .iter()
-          .map(|tx| {
-            let txid = tx.txid();
-            let inputs = tx
-              .input
-              .iter()
-              .map(|input| (input.previous_output.to_string(), 0))
-              .collect::<Vec<_>>();
-            (txid, inputs)
-          })
-          .collect::<HashMap<_, _>>();
-
-        // Prepare the outputs_per_tx map
-        let outputs_per_tx = block
-          .txdata
-          .iter()
-          .map(|tx| {
-            let txid = tx.txid();
-            let outputs = tx.output.iter()
-                  .enumerate()  // Enumerate the iterator to get the index of each output
-                  .map(|(vout, _output)| {
-                    let outpoint = OutPoint::new(txid, vout as u32);  // Create the OutPoint from txid and vout
-                    (outpoint.to_string(), _output.value)  // Convert the OutPoint to a string
-                  })
-                  .collect::<Vec<_>>();
-            (txid, outputs)
-          })
-          .collect::<HashMap<_, _>>();
-
-        let output_addresses_per_tx: HashMap<_, _> = block
-          .txdata
-          .iter()
-          .map(|tx| {
-            let txid = tx.txid();
-            let addresses = tx
-              .output
-              .iter()
-              .filter_map(|output| {
-                server_config
-                  .chain
-                  .address_from_script(&output.script_pubkey)
-                  .ok()
-              })
-              .map(|address| address.to_string())
-              .collect::<Vec<_>>();
-            (txid, addresses)
-          })
-          .collect();
-
-        let inscriptions = index.get_inscriptions_in_block(height)?;
-
-        let inscriptions_per_tx: HashMap<_, _> = inscriptions
-          .iter()
-          .filter_map(
-            |inscription_id| match index.get_inscription_by_id(inscription_id.clone()) {
-              Ok(Some(inscription)) => {
-                let content_type = inscription.content_type().map(|s| encode(s));
-                let content = inscription.into_body().map(|s| encode(s));
-                let inscription_number = index
-                  .get_inscription_entry(inscription_id.clone())
-                  .unwrap()
-                  .unwrap()
-                  .inscription_number;
-                Some((
-                  inscription_id.txid,
-                  (inscription_id, content_type, content, inscription_number),
-                ))
-              }
-              _ => None,
-            },
-          )
-          .collect();
-
-        let inscriptions_placeholder: Vec<i32> = vec![];
-
-        axum::Json(serde_json::json!({
-          "hash": block.header.block_hash(),
-          "target": block.header.target(),
-          "size": block.size(),
-          "weight": block.weight(),
-          "timestamp": timestamp(block.header.time).to_string(),
-          "best_height": Self::index_height(&index)?,
-          "height": height,
-          "previous_blockhash": block.header.prev_blockhash,
-          "transactions": block.txdata.iter().map(|tx| {
-            let txid = tx.txid();
-            serde_json::json!({
-              "transaction": txid,
-              "inputs": inputs_per_tx.get(&txid),
-              "outputs": outputs_per_tx.get(&txid),
-              "output_addresses": output_addresses_per_tx.get(&txid),
-              "inscriptions": inscriptions_per_tx.get(&txid).iter().map(|inscription| {
-                serde_json::json!({
-                  "inscription_id": inscription.0,
-                  "content_type": inscription.1.as_ref(),
-                  "content": inscription.2.as_ref(),
-                  "inscription_number": inscription.3,
-                })
-              }).collect::<Vec<_>>(),
-            })
-          }).collect::<Vec<_>>(),
-          "inscriptions": inscriptions_placeholder,
-          "_links": {
-            "self": {
-              "href": format!("/block/{}", block.header.block_hash()),
-            },
-            "prev": {
-              "href": format!("/block/{}", block.header.prev_blockhash),
-            },
-          }
-        }))
-        .into_response()
-      } else {
-        let (featured_inscriptions, total_num) =
-          index.get_highest_paying_inscriptions_in_block(height, 8)?;
-        BlockHtml::new(
-          block,
-          Height(height),
-          Self::index_height(&index)?,
-          total_num,
-          featured_inscriptions,
-        )
-        .page(server_config)
-        .into_response()
-      })
-    })
-  }
 
   async fn transaction(
     Extension(server_config): Extension<Arc<ServerConfig>>,

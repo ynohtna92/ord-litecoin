@@ -723,71 +723,126 @@ impl Server {
     Extension(index): Extension<Arc<Index>>,
     Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
     Query(query): Query<AddressQuery>,
-) -> ServerResult<Response> {
+  ) -> ServerResult<Response> {
     let inscription_ids = index.get_inscriptions_by_address(&address)
         .unwrap_or_else(|_| None)
         .unwrap_or_else(|| Vec::new());
 
     let enrich = query.full.unwrap_or(false);
+
     let cursor = query.cursor.unwrap_or(0);
     let size = query.size.unwrap_or(10);
 
     let inscriptions = {
-        let mut inscriptions_vec = Vec::new();
+      let mut inscriptions_vec = Vec::new();
 
-        if enrich && cursor < inscription_ids.len() {
-            let end_index = min(cursor + size, inscription_ids.len());
-            let inscription_ids_page = &inscription_ids[cursor..end_index];
+      if enrich && cursor < inscription_ids.len() {
+        let end_index = min(cursor + size, inscription_ids.len());
 
-            for inscription_id in inscription_ids_page.iter() {
-                let entry = index.get_inscription_entry(*inscription_id)?
-                    .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+        let inscription_ids_page = &inscription_ids[cursor..end_index];
 
-                let inscription = index.get_inscription_by_id(*inscription_id)?
-                    .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
+        for inscription_id in inscription_ids_page.iter() {
+          let entry = index
+            .get_inscription_entry(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-                let output = index.get_inscription_output_by_id(*inscription_id)?
-                    .ok_or_not_found(|| format!("inscription {inscription_id} output"))?;
+          let inscription = index
+            .get_inscription_by_id(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-                // Constructing URLs for preview and content
-                let preview_url = format!("https://ordinalslite.com/preview/{inscription_id}");
-                let content_url = format!("https://ordinalslite.com/content/{inscription_id}");
+          let satpoint = index
+            .get_inscription_satpoint_by_id(*inscription_id)?
+            .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-                let detail = serde_json::json!({
-                    "inscriptionId": inscription_id,
-                    "inscriptionNumber": entry.inscription_number,
-                    "address": address.to_string(),
-                    "preview": preview_url,
-                    "content": content_url,
-                    "contentLength": inscription.content_length(),
-                    "contentType": inscription.content_type(),
-                    "contentBody": "", // Assuming contentBody is empty or needs another function call
-                    "timestamp": timestamp(entry.timestamp).to_string(),
-                    "genesisTransaction": entry.txid,
-                    "location": entry.location,
-                    "output": output.outpoint,
-                    "outputValue": output.value,
-                    "offset": output.offset
-                });
+          let output = if satpoint.outpoint == unbound_outpoint() {
+            None
+          } else {
+            Some(
+              index
+                .get_transaction(satpoint.outpoint.txid)?
+                .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
+                .output
+                .into_iter()
+                .nth(satpoint.outpoint.vout.try_into().unwrap())
+                .ok_or_not_found(|| {
+                  format!("inscription {inscription_id} current transaction output")
+                })?,
+            )
+          };
 
-                inscriptions_vec.push(detail);
-            }
+          let genesis_output = index
+            .get_transaction(inscription_id.txid)?
+            .ok_or_not_found(|| format!("inscription {inscription_id} current transaction"))?
+            .output
+            .into_iter()
+            .next()
+            .ok_or_not_found(|| {
+              format!("inscription {inscription_id} genesis transaction output")
+            })?;
+
+          inscriptions_vec.push((
+            inscription_id,
+            entry,
+            genesis_output,
+            output,
+            inscription,
+            satpoint,
+          ));
         }
+      }
 
-        inscriptions_vec
+      inscriptions_vec
     };
 
-    let response = serde_json::json!({
-        "status": 1,
-        "message": "OK",
-        "result": {
-            "list": inscriptions,
-            "total": inscription_ids.len()
-        }
-    });
+    
+    // Constructing URLs for preview and content
+    let preview_url = format!("https://ordinalslite.com/preview/{inscription_id}");
+    let content_url = format!("https://ordinalslite.com/content/{inscription_id}");
 
-    Ok(axum::Json(response).into_response())
-}
+    if enrich {
+      return Ok(
+        axum::Json(serde_json::json!({
+          "address": address,
+          "total": inscription_ids.len(),
+          "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
+            serde_json::json!({
+              "inscription_id": inscription_id,
+              "preview": preview_url,
+              "content": content_url,
+              "genesis_fee": entry.fee,
+              "genesis_height": entry.height,
+              "genesis_transaction": inscription_id.txid,
+              "genesis_address": server_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
+              "address": output.is_some().then(|| {
+                server_config.chain.address_from_script(&output.clone().unwrap().script_pubkey).unwrap()
+              }),
+              "number": entry.inscription_number,
+              "content_length": inscription.content_length(),
+              "content_type": inscription.content_type(),
+              "sat": entry.sat,
+              "location": satpoint,
+              "output": satpoint.outpoint,
+              "output_value": output.is_some().then(|| {
+                output.clone().unwrap().value
+              }),
+              "offset": satpoint.offset,
+              "timestamp": timestamp(entry.timestamp).to_string(),
+            })
+          }).collect::<Vec<_>>(),
+        }))
+        .into_response(),
+      );
+    }
+
+    Ok(
+      axum::Json(serde_json::json!({
+        "address": address,
+        "inscriptions": inscription_ids,
+      }))
+      .into_response(),
+    )
+  }
+
 
 
   async fn transaction(

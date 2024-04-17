@@ -794,11 +794,6 @@ impl Server {
       inscriptions_vec
     };
 
-    
-    // Constructing URLs for preview and content
-    let preview_url = format!("https://ordinalslite.com/preview/{inscription_id}");
-    let content_url = format!("https://ordinalslite.com/content/{inscription_id}");
-
     if enrich {
       return Ok(
         axum::Json(serde_json::json!({
@@ -807,8 +802,6 @@ impl Server {
           "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
             serde_json::json!({
               "inscription_id": inscription_id,
-              "preview": preview_url,
-              "content": content_url,
               "genesis_fee": entry.fee,
               "genesis_height": entry.height,
               "genesis_transaction": inscription_id.txid,
@@ -842,6 +835,7 @@ impl Server {
       .into_response(),
     )
   }
+
 
 
 

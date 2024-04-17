@@ -836,8 +836,165 @@ impl Server {
     )
   }
 
+  async fn block(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    Path(DeserializeFromStr(query)): Path<DeserializeFromStr<BlockQuery>>,
+    AcceptJson(accept_json): AcceptJson,
+  ) -> ServerResult<Response> {
+    task::block_in_place(|| {
+      let (block, height) = match query {
+        BlockQuery::Height(height) => {
+          let block = index
+            .get_block_by_height(height)?
+            .ok_or_not_found(|| format!("block {height}"))?;
 
+          (block, height)
+        }
+        BlockQuery::Hash(hash) => {
+          let info = index
+            .block_header_info(hash)?
+            .ok_or_not_found(|| format!("block {hash}"))?;
 
+          let block = index
+            .get_block_by_hash(hash)?
+            .ok_or_not_found(|| format!("block {hash}"))?;
+
+          (block, u32::try_from(info.height).unwrap())
+        }
+      };
+
+      Ok(if accept_json {
+        // Prepare the inputs_per_tx map
+        let inputs_per_tx = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let inputs = tx
+              .input
+              .iter()
+              .map(|input| (input.previous_output.to_string(), 0))
+              .collect::<Vec<_>>();
+            (txid, inputs)
+          })
+          .collect::<HashMap<_, _>>();
+
+        // Prepare the outputs_per_tx map
+        let outputs_per_tx = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let outputs = tx.output.iter()
+                  .enumerate()  // Enumerate the iterator to get the index of each output
+                  .map(|(vout, _output)| {
+                    let outpoint = OutPoint::new(txid, vout as u32);  // Create the OutPoint from txid and vout
+                    (outpoint.to_string(), _output.value)  // Convert the OutPoint to a string
+                  })
+                  .collect::<Vec<_>>();
+            (txid, outputs)
+          })
+          .collect::<HashMap<_, _>>();
+
+        let output_addresses_per_tx: HashMap<_, _> = block
+          .txdata
+          .iter()
+          .map(|tx| {
+            let txid = tx.txid();
+            let addresses = tx
+              .output
+              .iter()
+              .filter_map(|output| {
+                server_config
+                  .chain
+                  .address_from_script(&output.script_pubkey)
+                  .ok()
+              })
+              .map(|address| address.to_string())
+              .collect::<Vec<_>>();
+            (txid, addresses)
+          })
+          .collect();
+
+        let inscriptions = index.get_inscriptions_in_block(height)?;
+
+        let inscriptions_per_tx: HashMap<_, _> = inscriptions
+          .iter()
+          .filter_map(
+            |inscription_id| match index.get_inscription_by_id(inscription_id.clone()) {
+              Ok(Some(inscription)) => {
+                let content_type = inscription.content_type().map(|s| encode(s));
+                let content = inscription.into_body().map(|s| encode(s));
+                let inscription_number = index
+                  .get_inscription_entry(inscription_id.clone())
+                  .unwrap()
+                  .unwrap()
+                  .inscription_number;
+                Some((
+                  inscription_id.txid,
+                  (inscription_id, content_type, content, inscription_number),
+                ))
+              }
+              _ => None,
+            },
+          )
+          .collect();
+
+        let inscriptions_placeholder: Vec<i32> = vec![];
+
+        axum::Json(serde_json::json!({
+          "hash": block.header.block_hash(),
+          "target": block.header.target(),
+          "size": block.size(),
+          "weight": block.weight(),
+          "timestamp": timestamp(block.header.time).to_string(),
+          "best_height": Self::index_height(&index)?,
+          "height": height,
+          "previous_blockhash": block.header.prev_blockhash,
+          "transactions": block.txdata.iter().map(|tx| {
+            let txid = tx.txid();
+            serde_json::json!({
+              "transaction": txid,
+              "inputs": inputs_per_tx.get(&txid),
+              "outputs": outputs_per_tx.get(&txid),
+              "output_addresses": output_addresses_per_tx.get(&txid),
+              "inscriptions": inscriptions_per_tx.get(&txid).iter().map(|inscription| {
+                serde_json::json!({
+                  "inscription_id": inscription.0,
+                  "content_type": inscription.1.as_ref(),
+                  "content": inscription.2.as_ref(),
+                  "inscription_number": inscription.3,
+                })
+              }).collect::<Vec<_>>(),
+            })
+          }).collect::<Vec<_>>(),
+          "inscriptions": inscriptions_placeholder,
+          "_links": {
+            "self": {
+              "href": format!("/block/{}", block.header.block_hash()),
+            },
+            "prev": {
+              "href": format!("/block/{}", block.header.prev_blockhash),
+            },
+          }
+        }))
+        .into_response()
+      } else {
+        let (featured_inscriptions, total_num) =
+          index.get_highest_paying_inscriptions_in_block(height, 8)?;
+        BlockHtml::new(
+          block,
+          Height(height),
+          Self::index_height(&index)?,
+          total_num,
+          featured_inscriptions,
+        )
+        .page(server_config)
+        .into_response()
+      })
+    })
+  }
 
   async fn transaction(
     Extension(server_config): Extension<Arc<ServerConfig>>,

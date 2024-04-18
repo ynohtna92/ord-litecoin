@@ -797,9 +797,10 @@ impl Server {
     if enrich {
       return Ok(     
         axum::Json(serde_json::json!({
-          "address": address,
-          "total": inscription_ids.len(),
-          "inscriptions": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
+          "status": 1,
+          "message": "OK",
+          "result": {
+          "list": inscriptions.iter().map(|(inscription_id, entry, genesis_output, output, inscription, satpoint)| {
             // Constructing URLs for preview and content    
             let preview_url = format!("https://ordinalslite.com/preview/{inscription_id}");
             let content_url = format!("https://ordinalslite.com/content/{inscription_id}");   
@@ -828,7 +829,9 @@ impl Server {
               "sat": entry.sat,
             })
           }).collect::<Vec<_>>(),
-        }))
+        },
+        "address": address,
+        "total": inscription_ids.len()}))
         .into_response(),
       );
     }

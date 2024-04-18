@@ -829,9 +829,9 @@ impl Server {
               "sat": entry.sat,
             })
           }).collect::<Vec<_>>(),
-        },
-        "address": address,
-        "total": inscription_ids.len()}))
+          "address": address,
+          "total": inscription_ids.len()
+        }}))
         .into_response(),
       );
     }

@@ -805,26 +805,27 @@ impl Server {
             let content_url = format!("https://ordinalslite.com/content/{inscription_id}");   
             serde_json::json!({
               "inscription_id": inscription_id,
-              "preview": preview_url,
-              "content": content_url,
-              "genesis_fee": entry.fee,
-              "genesis_height": entry.height,
-              "genesis_transaction": inscription_id.txid,
-              "genesis_address": server_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
+              "inscriptionNumber": entry.inscription_number,
               "address": output.is_some().then(|| {
                 server_config.chain.address_from_script(&output.clone().unwrap().script_pubkey).unwrap()
               }),
-              "number": entry.inscription_number,
+              "preview": preview_url,
+              "content": content_url,
               "content_length": inscription.content_length(),
               "content_type": inscription.content_type(),
-              "sat": entry.sat,
+              "contentBody": "",
+              "timestamp": entry.timestamp.timestamp(),
+              "genesis_transaction": inscription_id.txid,
               "location": satpoint,
               "output": satpoint.outpoint,
               "output_value": output.is_some().then(|| {
                 output.clone().unwrap().value
               }),
               "offset": satpoint.offset,
-              "timestamp": timestamp(entry.timestamp).to_string(),
+              "genesis_fee": entry.fee,
+              "genesis_height": entry.height,
+              "genesis_address": server_config.chain.address_from_script(&genesis_output.script_pubkey).unwrap(),
+              "sat": entry.sat,
             })
           }).collect::<Vec<_>>(),
         }))

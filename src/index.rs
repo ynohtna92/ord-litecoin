@@ -837,30 +837,32 @@ impl Index {
   pub(crate) fn get_inscriptions_by_address(
     &self,
     address: &Address<NetworkUnchecked>,
-  ) -> Result<Option<Vec<InscriptionId>>> {
+) -> Result<Option<Vec<InscriptionDetail>>> {
     let rtx = self.begin_read()?;
 
     let address_to_inscription_numbers = rtx.0.open_table(ADDRESS_TO_INSCRIPTION_NUMBERS)?;
 
-    let mut inscription_ids: Vec<InscriptionId> = Vec::new();
+    let mut inscription_details: Vec<InscriptionDetail> = Vec::new();
 
     if let Some(value) =
       address_to_inscription_numbers.get(address.clone().assume_checked().to_string().as_str())?
     {
       for chunk in value.value().chunks_exact(4) {
         let number = i32::load(chunk.try_into().unwrap());
-        inscription_ids.push(
-          self
+        let inscription_id = self
             .get_inscription_id_by_inscription_number(number)?
-            .unwrap(),
-        );
+            .unwrap();
+
+        // Call the new function here to get details and collect them
+        let detail = self.inscription_detail(inscription_id)?;
+        inscription_details.push(detail);
       }
 
-      return Ok(Some(inscription_ids));
+      return Ok(Some(inscription_details));
     }
 
     Ok(None)
-  }
+}
 
   pub(crate) fn rare_sat_satpoints(&self) -> Result<Vec<(Sat, SatPoint)>> {
     let rtx = self.database.begin_read()?;

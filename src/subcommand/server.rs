@@ -216,6 +216,7 @@ impl Server {
 
       let router = Router::new()
         .route("/", get(Self::home))
+        .route("/address/:address", get(Self::address))
         .route("/address/inscriptions/:address", get(Self::address))
         .route("/block/:query", get(Self::block))
         .route("/blockcount", get(Self::block_count))

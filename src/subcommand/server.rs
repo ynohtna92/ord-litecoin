@@ -814,7 +814,7 @@ impl Server {
               "content_length": inscription.content_length(),
               "content_type": inscription.content_type(),
               "contentBody": "",
-              "timestamp": entry.timestamp.timestamp(),
+              "timestamp": entry.timestamp,
               "genesis_transaction": inscription_id.txid,
               "location": satpoint,
               "output": satpoint.outpoint,

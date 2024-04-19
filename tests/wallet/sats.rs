@@ -52,10 +52,12 @@ fn sats_from_tsv_success() {
     .write("foo.tsv", "bgmbpulndxfd")
     .core(&core)
     .ord(&ord)
-    .run_and_deserialize_output::<Vec<OutputTsv>>();
+    .run_and_deserialize_output::<OutputTsv>();
 
-  assert_eq!(output[0].sat, "bgmbpulndxfd");
-  assert_eq!(output[0].output.to_string(), format!("{second_coinbase}:0"));
+  assert_eq!(
+    output.found["bgmbpulndxfd"].to_string(),
+    format!("{second_coinbase}:0:0")
+  );
 }
 
 #[test]

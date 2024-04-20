@@ -9,7 +9,7 @@ use {
     taproot::Signature,
     taproot::{ControlBlock, LeafVersion, TapLeafHash, TaprootBuilder},
   },
-  bitcoincore_rpc::bitcoincore_rpc_json::{SignRawTransactionInput},
+  bitcoincore_rpc::bitcoincore_rpc_json::SignRawTransactionInput,
   wallet::transaction_builder::Target,
 };
 

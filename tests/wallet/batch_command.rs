@@ -2664,7 +2664,7 @@ fn batch_inscribe_errors_if_pending_etchings() {
 
     assert_regex_match!(
       buffer,
-      "Waiting for rune commitment [[:xdigit:]]{64} to mature…\n"
+      "Waiting for rune .* commitment [[:xdigit:]]{64} to mature…\n"
     );
 
     core.mine_blocks(1);
@@ -2737,7 +2737,7 @@ fn forbid_etching_below_rune_activation_height() {
     )
     .core(&core)
     .ord(&ord)
-    .expected_stderr("error: rune reveal height below rune activation height: 7 < 2520000\n")
+    .expected_stderr("error: rune reveal height below rune activation height: 7 < 2675600\n")
     .expected_exit_code(1)
     .run_and_extract_stdout();
 }

@@ -44,14 +44,13 @@ impl Rune {
   }
 
   pub fn first_rune_height(network: Network) -> u32 {
-    SUBSIDY_HALVING_INTERVAL
-      * match network {
-        Network::Bitcoin => 3,
-        Network::Regtest => 0,
-        Network::Signet => 0,
-        Network::Testnet => 3,
-        _ => 0,
-      }
+    match network {
+      Network::Bitcoin => 2675600,
+      Network::Regtest => 0,
+      Network::Signet => 0,
+      Network::Testnet => SUBSIDY_HALVING_INTERVAL * 3,
+      _ => 0,
+    }
   }
 
   pub fn minimum_at_height(chain: Network, height: Height) -> Self {
@@ -246,7 +245,7 @@ mod tests {
       );
     }
 
-    const START: u32 = SUBSIDY_HALVING_INTERVAL * 4;
+    const START: u32 = 2675600;
     const END: u32 = START + SUBSIDY_HALVING_INTERVAL;
     const INTERVAL: u32 = SUBSIDY_HALVING_INTERVAL / 12;
 
@@ -332,17 +331,17 @@ mod tests {
     case(Network::Testnet, 0, "AAAAAAAAAAAAA");
     case(
       Network::Testnet,
-      SUBSIDY_HALVING_INTERVAL * 12 - 1,
+      SUBSIDY_HALVING_INTERVAL * 3 - 1,
       "AAAAAAAAAAAAA",
     );
     case(
       Network::Testnet,
-      SUBSIDY_HALVING_INTERVAL * 12,
+      SUBSIDY_HALVING_INTERVAL * 3,
       "ZZZTMGXWFSYU",
     );
     case(
       Network::Testnet,
-      SUBSIDY_HALVING_INTERVAL * 12 + 1,
+      SUBSIDY_HALVING_INTERVAL * 3 + 1,
       "ZZZMYNVSLLXN",
     );
 

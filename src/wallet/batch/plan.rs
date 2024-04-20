@@ -95,10 +95,12 @@ impl Plan {
       .hex;
 
     let signed_reveal_tx = if self.parent_info.is_some() {
-      wallet.bitcoin_client().sign_raw_transaction_with_wallet(
-        &reveal_tx,
-        Some(
-          &commit_tx
+      wallet
+        .bitcoin_client()
+        .sign_raw_transaction_with_wallet(
+          &reveal_tx,
+          Some(
+            &commit_tx
               .output
               .iter()
               .enumerate()
@@ -110,8 +112,8 @@ impl Plan {
                 amount: Some(Amount::from_sat(output.value)),
               })
               .collect::<Vec<SignRawTransactionInput>>(),
-        ),
-        None,
+          ),
+          None,
         )?
         .hex
     } else {
@@ -135,10 +137,10 @@ impl Plan {
       let commit = consensus::encode::deserialize::<Transaction>(&signed_commit_tx)?;
       let reveal = consensus::encode::deserialize::<Transaction>(&signed_reveal_tx)?;
 
-      Ok(Some(Box::new(wallet.wait_for_maturation(
+      wallet.save_etching(
         &rune_info.rune.rune,
-        commit.clone(),
-        reveal.clone(),
+        &commit,
+        &reveal,
         self.output(
           commit.txid(),
           None,
@@ -149,7 +151,11 @@ impl Plan {
           self.inscriptions.clone(),
           rune.clone(),
         ),
-      )?)))
+      )?;
+
+      Ok(Some(Box::new(
+        wallet.wait_for_maturation(rune_info.rune.rune)?,
+      )))
     } else {
       let reveal = match wallet
         .bitcoin_client()

@@ -588,7 +588,7 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-              litecoin_rpc_username: Some("foo".into()),
+          litecoin_rpc_username: Some("foo".into()),
           ..default()
         },
         Default::default(),
@@ -604,7 +604,7 @@ mod tests {
     assert_eq!(
       Settings::merge(
         Options {
-            litecoin_rpc_password: Some("foo".into()),
+          litecoin_rpc_password: Some("foo".into()),
           ..default()
         },
         Default::default(),
@@ -897,8 +897,8 @@ mod tests {
   #[test]
   fn bitcoin_rpc_and_pass_setting() {
     let config = Settings {
-        litecoin_rpc_username: Some("config_user".into()),
-        litecoin_rpc_password: Some("config_pass".into()),
+      litecoin_rpc_username: Some("config_user".into()),
+      litecoin_rpc_password: Some("config_pass".into()),
       ..default()
     };
 

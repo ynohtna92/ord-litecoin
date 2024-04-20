@@ -6,7 +6,7 @@ fn default() {
     .integration_test(false)
     .stdout_regex(
       r#"\{
-  "litecoin_data_dir": ".*(Bitcoin|Litecoin|litecoin)",
+  "litecoin_data_dir": ".*(Bitcoin|bitcoin|Litecoin|litecoin)",
   "litecoin_rpc_password": null,
   "litecoin_rpc_url": "127.0.0.1:9332",
   "litecoin_rpc_username": null,

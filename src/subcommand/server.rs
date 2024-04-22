@@ -10,6 +10,7 @@ use {
   },
   super::*,
   crate::{
+    Index,
     server_config::ServerConfig,
     templates::{
       BlockHtml, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml, HomeHtml,
@@ -240,6 +241,7 @@ impl Server {
         .route("/feed.xml", get(Self::feed))
         .route("/input/:block/:transaction/:input", get(Self::input))
         .route("/inscription/:inscription_query", get(Self::inscription))
+        .route("/inscription/inscription_num/:inscription_num", get(Self::get_inscription_id_by_inscription_number))
         .route("/inscriptions", get(Self::inscriptions))
         .route("/inscriptions/:page", get(Self::inscriptions_paginated))
         .route(
@@ -1518,6 +1520,16 @@ impl Server {
       }
     })
   }
+
+  async fn get_inscription_id_by_inscription_number(data: Extension<Arc<Index>>, path: Path<i32>) -> impl IntoResponse {
+    let inscription_number = path.into_inner();
+    let result = data.get_inscription_id_by_inscription_number(inscription_number).await;
+    match result {
+        Ok(Some(inscription_id)) => HttpResponse::Ok().json(inscription_id),
+        Ok(None) => HttpResponse::NotFound().finish(),
+        Err(_) => HttpResponse::InternalServerError().finish(),
+    }
+}
 
   async fn inscription(
     Extension(server_config): Extension<Arc<ServerConfig>>,

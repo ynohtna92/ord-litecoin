@@ -3,6 +3,7 @@ use std::cmp::min;
 use std::collections::HashMap;
 use serde_json::json;
 use std::sync::Arc;
+use http::Response as HttpResponse;
 
 use {
   self::{
@@ -25,15 +26,11 @@ use {
     },
   },
   axum::{
-    body,
-    extract::{Extension, Json, Path, Query},
-    headers::UserAgent,
-    http::{header, HeaderMap, HeaderValue, StatusCode, Uri, Response},
-    response::{IntoResponse, Redirect, Response},
-    routing::get,
-    Router, TypedHeader,
-    Json,
-  },
+    extract::{Extension, Json as AxumJson, Path, Query},
+    http::{header, HeaderMap, HeaderValue, StatusCode, Uri, Response as HttpResponse},
+    response::{IntoResponse, Redirect},
+    Router, routing::get,
+},
   axum_server::Handle,
   brotli::Decompressor,
   rust_embed::RustEmbed,

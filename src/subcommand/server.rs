@@ -485,14 +485,39 @@ impl Server {
     index.block_height()?.ok_or_not_found(|| "genesis block")
   }
 
-  async fn get_inscription_id_by_number(
-    Path(inscription_number): Path<u64>, 
-    Extension(index): Extension<IndexType>
-) -> Result<Json<u64>, StatusCode> {
-    match index.get_inscription_id_by_inscription_number(inscription_number) {
-        Ok(id) => Ok(Json(id)),
-        Err(_) => Err(StatusCode::INTERNAL_SERVER_ERROR),
-    }
+  use axum::{
+    Json, 
+    http::{StatusCode, Response},
+    Extension, 
+    response::IntoResponse,
+    routing::Path
+};
+use serde_json::json;
+use std::sync::Arc;
+
+
+async fn get_inscription_id_by_number(
+  Path(inscription_number): Path<u64>,
+  Extension(index): Extension<Arc<IndexType>>
+) -> Result<Json<serde_json::Value>, impl IntoResponse> {
+  match index.get_inscription_id_by_inscription_number(inscription_number) {
+      Ok(inscription_id) => {
+          // Assume we fetch some details about the inscription here, modify as needed
+          let details = index.get_inscription_details(inscription_id).unwrap_or_default();
+
+          Ok(Json(json!({
+              "status": "success",
+              "inscription_id": inscription_id,
+              "details": details
+          })))
+      },
+      Err(e) => {
+          Err((
+              StatusCode::INTERNAL_SERVER_ERROR,
+              Json(json!({"status": "error", "message": e.to_string()}))
+          ))
+      }
+  }
 }
 
   async fn clock(Extension(index): Extension<Arc<Index>>) -> ServerResult<Response> {

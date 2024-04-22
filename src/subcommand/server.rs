@@ -30,6 +30,7 @@ use {
     response::{IntoResponse, Redirect, Response},
     routing::get,
     Router, TypedHeader,
+    Json,
   },
   axum_server::Handle,
   brotli::Decompressor,
@@ -1521,15 +1522,14 @@ impl Server {
     })
   }
 
-  async fn get_inscription_id_by_inscription_number(data: Extension<Arc<Index>>, path: Path<i32>) -> impl IntoResponse {
-    let inscription_number = path.into_inner();
-    let result = data.get_inscription_id_by_inscription_number(inscription_number).await;
-    match result {
-        Ok(Some(inscription_id)) => HttpResponse::Ok().json(inscription_id),
-        Ok(None) => HttpResponse::NotFound().finish(),
-        Err(_) => HttpResponse::InternalServerError().finish(),
+  async fn get_inscription_id_by_inscription_number(Path(inscription_num): Path<i32>) -> impl IntoResponse {
+    match some_async_lookup_function(inscription_num).await {
+        Ok(Some(inscription_id)) => (StatusCode::OK, Json(inscription_id)).into_response(),
+        Ok(None) => StatusCode::NOT_FOUND.into_response(),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
     }
 }
+
 
   async fn inscription(
     Extension(server_config): Extension<Arc<ServerConfig>>,

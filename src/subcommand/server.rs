@@ -26,11 +26,10 @@ use {
     body,
     extract::{Extension, Json, Path, Query},
     headers::UserAgent,
-    http::{header, HeaderMap, HeaderValue, StatusCode, response::ResponseBuilder, Uri},
+    http::{header, HeaderMap, HeaderValue, StatusCode, Uri},
     response::{IntoResponse, Redirect, Response},
     routing::get,
     Router, TypedHeader,
-    Json,
   },
   axum_server::Handle,
   brotli::Decompressor,
@@ -1521,14 +1520,28 @@ impl Server {
       }
     })
   }
-
-  async fn get_inscription_id_by_inscription_number(Path(inscription_num): Path<i32>) -> impl IntoResponse {
-    match some_async_lookup_function(inscription_num).await {
-        Ok(Some(inscription_id)) => (StatusCode::OK, Json(inscription_id)).into_response(),
-        Ok(None) => StatusCode::NOT_FOUND.into_response(),
-        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
+  
+  
+  async fn get_inscription_id_by_inscription_number(
+    data: axum::extract::Extension<Index>, // Assuming the function is a method of Index and you are passing Index in the state
+    Path(inscription_num): Path<i32>
+) -> impl IntoResponse {
+    // Call the function on the Index struct
+    let result = data.get_inscription_id_by_inscription_number(inscription_num).await;
+    match result {
+        Ok(Some(inscription_id)) => {
+            let json = Json(inscription_id); // Assuming inscription_id is the actual data you want to send as JSON
+            Response::builder()
+                .status(StatusCode::OK)
+                .header("Content-Type", "application/json")
+                .body(json.into())
+                .unwrap()
+        },
+        Ok(None) => StatusCode::NOT_FOUND.into(),
+        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into(),
     }
 }
+
 
 
   async fn inscription(

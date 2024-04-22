@@ -859,30 +859,24 @@ impl Server {
 
     match inscription_id_option {
         Some(inscription_id) => {
+            // The response object is directly of type Json, which implements IntoResponse.
             let response = Json(serde_json::json!({
                 "status": 1,
                 "message": "Inscription ID found",
                 "inscription_id": inscription_id
             }));
-            Ok(Response::builder()
-                .status(StatusCode::OK)
-                .body(response.into_response())
-                .unwrap())
+            Ok(response.into_response())
         },
         None => {
+            // Error response directly as Json which also implements IntoResponse.
             let error_response = Json(serde_json::json!({
                 "status": 0,
                 "message": "Inscription ID not found"
             }));
-            Ok(Response::builder()
-                .status(StatusCode::NOT_FOUND)
-                .body(error_response.into_response())
-                .unwrap())
+            Ok(error_response.into_response())
         }
     }
 }
-
-
 
 
   async fn block(

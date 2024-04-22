@@ -851,28 +851,27 @@ impl Server {
     Extension(index): Extension<Arc<Index>>,
     Path(inscription_number): Path<i32>,
 ) -> ServerResult<Response> {
-    let inscription_id_result = index.get_inscription_id_by_inscription_number(inscription_number)
+    let inscription_id_option = index.get_inscription_id_by_inscription_number(inscription_number)
         .unwrap_or_else(|e| {
             eprintln!("Error fetching inscription ID: {:?}", e);
             None
-        })
-        .unwrap_or_else(|| {
-            eprintln!("No inscription ID found for number: {}", inscription_number);
-            None
         });
 
-    match inscription_id_result {
+    match inscription_id_option {
         Some(inscription_id) => {
-            // If you need to enrich the response or fetch more data based on inscription_id, add that code here.
-            Ok(axum::Json(serde_json::json!({
-                "status": 1,
-                "message": "Inscription ID found",
-                "inscription_id": inscription_id
-            }))
-            .into_response())
+            // Successful retrieval
+            Ok(axum::response::Response::builder()
+                .status(200)
+                .body(axum::Json(serde_json::json!({
+                    "status": 1,
+                    "message": "Inscription ID found",
+                    "inscription_id": inscription_id
+                }))
+                .into_response())
+                .unwrap())
         },
         None => {
-            // Construct an appropriate response for the scenario where the inscription ID is not found.
+            // Inscription ID not found or an error occurred
             Ok(axum::response::Response::builder()
                 .status(404)
                 .body(axum::Json(serde_json::json!({
@@ -884,6 +883,8 @@ impl Server {
         }
     }
 }
+
+
   async fn block(
     Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,

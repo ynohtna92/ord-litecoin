@@ -1,10 +1,6 @@
 use hex::encode;
 use std::cmp::min;
 use std::collections::HashMap;
-use serde_json::json;
-use std::sync::Arc;
-use http::Response as HttpResponse;
-
 use {
   self::{
     accept_encoding::AcceptEncoding,
@@ -26,11 +22,14 @@ use {
     },
   },
   axum::{
-    extract::{Extension, Json as AxumJson, Path, Query},
-    http::{header, HeaderMap, HeaderValue, StatusCode, Uri, Response as HttpResponse},
-    response::{IntoResponse, Redirect},
-    Router, routing::get,
-},
+    body,
+    extract::{Extension, Json, Path, Query},
+    headers::UserAgent,
+    http::{header, HeaderMap, HeaderValue, StatusCode, Uri},
+    response::{IntoResponse, Redirect, Response},
+    routing::get,
+    Router, TypedHeader,
+  },
   axum_server::Handle,
   brotli::Decompressor,
   rust_embed::RustEmbed,
@@ -241,7 +240,6 @@ impl Server {
         .route("/feed.xml", get(Self::feed))
         .route("/input/:block/:transaction/:input", get(Self::input))
         .route("/inscription/:inscription_query", get(Self::inscription))
-        .route("/inscription/inscription_num/:inscription_number", get(get_inscription_id_by_number))
         .route("/inscriptions", get(Self::inscriptions))
         .route("/inscriptions/:page", get(Self::inscriptions_paginated))
         .route(
@@ -485,24 +483,6 @@ impl Server {
   fn index_height(index: &Index) -> ServerResult<Height> {
     index.block_height()?.ok_or_not_found(|| "genesis block")
   }
-
-
-async fn get_inscription_id_by_number(
-  Path(inscription_number): Path<u64>,
-  Extension(index): Extension<Arc<Index>>
-) -> Result<Json<serde_json::Value>, impl IntoResponse> {
-  match index.get_inscription_id_by_inscription_number(inscription_number.try_into().map_err(|_| StatusCode::BAD_REQUEST)?) {
-      Ok(inscription_id) => {
-          Ok(Json(json!({
-              "status": "success",
-              "inscription_id": inscription_id
-          })))
-      },
-      Err(e) => {
-          Err((StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"status": "error", "message": e.to_string()}))))
-      }
-  }
-}
 
   async fn clock(Extension(index): Extension<Arc<Index>>) -> ServerResult<Response> {
     task::block_in_place(|| {

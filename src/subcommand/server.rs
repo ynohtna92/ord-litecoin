@@ -860,29 +860,30 @@ impl Server {
     match inscription_id_option {
         Some(inscription_id) => {
             // Successful retrieval
+            let response = axum::Json(serde_json::json!({
+                "status": 1,
+                "message": "Inscription ID found",
+                "inscription_id": inscription_id
+            }));
             Ok(axum::response::Response::builder()
                 .status(200)
-                .body(axum::Json(serde_json::json!({
-                    "status": 1,
-                    "message": "Inscription ID found",
-                    "inscription_id": inscription_id
-                }))
-                .into_response())
+                .body(response)
                 .unwrap())
         },
         None => {
             // Inscription ID not found or an error occurred
+            let error_response = axum::Json(serde_json::json!({
+                "status": 0,
+                "message": "Inscription ID not found"
+            }));
             Ok(axum::response::Response::builder()
                 .status(404)
-                .body(axum::Json(serde_json::json!({
-                    "status": 0,
-                    "message": "Inscription ID not found"
-                }))
-                .into_response())
+                .body(error_response)
                 .unwrap())
         }
     }
 }
+
 
 
   async fn block(

@@ -240,7 +240,7 @@ impl Server {
         .route("/feed.xml", get(Self::feed))
         .route("/input/:block/:transaction/:input", get(Self::input))
         .route("/inscription/:inscription_query", get(Self::inscription))
-        .route("/inscription/inscription_num/:inscription_number", get(Self::get_inscription_id_by_number))
+        .route("/inscription/inscription_num/:inscription_number", get(get_inscription_id_by_number))
         .route("/inscriptions", get(Self::inscriptions))
         .route("/inscriptions/:page", get(Self::inscriptions_paginated))
         .route(
@@ -487,13 +487,31 @@ impl Server {
 
 
 
-  async fn get_inscription_id_by_number(
-    Path(inscription_number): Path<u64>, 
-    Extension(index): Extension<IndexType>
-) -> Result<Json<u64>, StatusCode> {
+  use axum::{
+    routing::get,
+    Router,
+    Json,
+    http::{StatusCode, Response},
+    response::IntoResponse,
+    extract::{Path, Extension},
+};
+use serde_json::json;
+use std::sync::Arc;
+
+async fn get_inscription_id_by_number(
+    Path(inscription_number): Path<u64>,
+    Extension(index): Extension<Arc<Index>>
+) -> Result<Json<serde_json::Value>, impl IntoResponse> {
     match index.get_inscription_id_by_inscription_number(inscription_number) {
-        Ok(id) => Ok(Json(id)),
-        Err(_) => Err(StatusCode::INTERNAL_SERVER_ERROR),
+        Ok(inscription_id) => {
+            Ok(Json(json!({
+                "status": "success",
+                "inscription_id": inscription_id
+            })))
+        },
+        Err(e) => {
+            Err((StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"status": "error", "message": e.to_string()}))))
+        }
     }
 }
 

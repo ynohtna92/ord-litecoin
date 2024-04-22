@@ -240,6 +240,7 @@ impl Server {
         .route("/feed.xml", get(Self::feed))
         .route("/input/:block/:transaction/:input", get(Self::input))
         .route("/inscription/:inscription_query", get(Self::inscription))
+        .route("/inscription/inscription_num/:inscription_number", get(Self::get_inscription_id_by_number))
         .route("/inscriptions", get(Self::inscriptions))
         .route("/inscriptions/:page", get(Self::inscriptions_paginated))
         .route(
@@ -483,6 +484,16 @@ impl Server {
   fn index_height(index: &Index) -> ServerResult<Height> {
     index.block_height()?.ok_or_not_found(|| "genesis block")
   }
+
+  async fn get_inscription_id_by_number(
+    Path(inscription_number): Path<u64>, 
+    Extension(index): Extension<IndexType>
+) -> Result<Json<u64>, StatusCode> {
+    match index.get_inscription_id_by_inscription_number(inscription_number) {
+        Ok(id) => Ok(Json(id)),
+        Err(_) => Err(StatusCode::INTERNAL_SERVER_ERROR),
+    }
+}
 
   async fn clock(Extension(index): Extension<Arc<Index>>) -> ServerResult<Response> {
     task::block_in_place(|| {

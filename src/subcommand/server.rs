@@ -26,7 +26,7 @@ use {
     body,
     extract::{Extension, Json, Path, Query},
     headers::UserAgent,
-    http::{header, HeaderMap, HeaderValue, StatusCode, Uri},
+    http::{header, HeaderMap, HeaderValue, StatusCode, response::ResponseBuilder, Uri},
     response::{IntoResponse, Redirect, Response},
     routing::get,
     Router, TypedHeader,

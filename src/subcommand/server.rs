@@ -1,6 +1,9 @@
 use hex::encode;
 use std::cmp::min;
 use std::collections::HashMap;
+use serde_json::json;
+use std::sync::Arc;
+
 use {
   self::{
     accept_encoding::AcceptEncoding,
@@ -25,10 +28,11 @@ use {
     body,
     extract::{Extension, Json, Path, Query},
     headers::UserAgent,
-    http::{header, HeaderMap, HeaderValue, StatusCode, Uri},
+    http::{header, HeaderMap, HeaderValue, StatusCode, Uri, Response},
     response::{IntoResponse, Redirect, Response},
     routing::get,
     Router, TypedHeader,
+    Json,
   },
   axum_server::Handle,
   brotli::Decompressor,
@@ -486,33 +490,21 @@ impl Server {
   }
 
 
-
-  use axum::{
-    routing::get,
-    Router,
-    Json,
-    http::{StatusCode, Response},
-    response::IntoResponse,
-    extract::{Path, Extension},
-};
-use serde_json::json;
-use std::sync::Arc;
-
 async fn get_inscription_id_by_number(
-    Path(inscription_number): Path<u64>,
-    Extension(index): Extension<Arc<Index>>
+  Path(inscription_number): Path<u64>,
+  Extension(index): Extension<Arc<Index>>
 ) -> Result<Json<serde_json::Value>, impl IntoResponse> {
-    match index.get_inscription_id_by_inscription_number(inscription_number) {
-        Ok(inscription_id) => {
-            Ok(Json(json!({
-                "status": "success",
-                "inscription_id": inscription_id
-            })))
-        },
-        Err(e) => {
-            Err((StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"status": "error", "message": e.to_string()}))))
-        }
-    }
+  match index.get_inscription_id_by_inscription_number(inscription_number.try_into().map_err(|_| StatusCode::BAD_REQUEST)?) {
+      Ok(inscription_id) => {
+          Ok(Json(json!({
+              "status": "success",
+              "inscription_id": inscription_id
+          })))
+      },
+      Err(e) => {
+          Err((StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"status": "error", "message": e.to_string()}))))
+      }
+  }
 }
 
   async fn clock(Extension(index): Extension<Arc<Index>>) -> ServerResult<Response> {

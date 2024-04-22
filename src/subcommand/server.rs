@@ -10,7 +10,6 @@ use {
   },
   super::*,
   crate::{
-    Index,
     server_config::ServerConfig,
     templates::{
       BlockHtml, BlocksHtml, ChildrenHtml, ChildrenJson, ClockSvg, CollectionsHtml, HomeHtml,
@@ -241,7 +240,7 @@ impl Server {
         .route("/feed.xml", get(Self::feed))
         .route("/input/:block/:transaction/:input", get(Self::input))
         .route("/inscription/:inscription_query", get(Self::inscription))
-        .route("/inscription/inscription_num/:inscription_num", get(Self::get_inscription_id_by_inscription_number))
+        .route("/inscription/inscription_num/:inscription_number", get(Self::get_inscription_id))
         .route("/inscriptions", get(Self::inscriptions))
         .route("/inscriptions/:page", get(Self::inscriptions_paginated))
         .route(
@@ -848,6 +847,43 @@ impl Server {
     )
   }
 
+  async fn get_inscription_id(
+    Extension(index): Extension<Arc<Index>>,
+    Path(inscription_number): Path<i32>,
+) -> ServerResult<Response> {
+    let inscription_id_result = index.get_inscription_id_by_inscription_number(inscription_number)
+        .unwrap_or_else(|e| {
+            eprintln!("Error fetching inscription ID: {:?}", e);
+            None
+        })
+        .unwrap_or_else(|| {
+            eprintln!("No inscription ID found for number: {}", inscription_number);
+            None
+        });
+
+    match inscription_id_result {
+        Some(inscription_id) => {
+            // If you need to enrich the response or fetch more data based on inscription_id, add that code here.
+            Ok(axum::Json(serde_json::json!({
+                "status": 1,
+                "message": "Inscription ID found",
+                "inscription_id": inscription_id
+            }))
+            .into_response())
+        },
+        None => {
+            // Construct an appropriate response for the scenario where the inscription ID is not found.
+            Ok(axum::response::Response::builder()
+                .status(404)
+                .body(axum::Json(serde_json::json!({
+                    "status": 0,
+                    "message": "Inscription ID not found"
+                }))
+                .into_response())
+                .unwrap())
+        }
+    }
+}
   async fn block(
     Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
@@ -1520,29 +1556,6 @@ impl Server {
       }
     })
   }
-  
-  
-  async fn get_inscription_id_by_inscription_number(
-    data: axum::extract::Extension<Index>, // Assuming the function is a method of Index and you are passing Index in the state
-    Path(inscription_num): Path<i32>
-) -> impl IntoResponse {
-    // Call the function on the Index struct
-    let result = data.get_inscription_id_by_inscription_number(inscription_num).await;
-    match result {
-        Ok(Some(inscription_id)) => {
-            let json = Json(inscription_id); // Assuming inscription_id is the actual data you want to send as JSON
-            Response::builder()
-                .status(StatusCode::OK)
-                .header("Content-Type", "application/json")
-                .body(json.into())
-                .unwrap()
-        },
-        Ok(None) => StatusCode::NOT_FOUND.into(),
-        Err(_) => StatusCode::INTERNAL_SERVER_ERROR.into(),
-    }
-}
-
-
 
   async fn inscription(
     Extension(server_config): Extension<Arc<ServerConfig>>,

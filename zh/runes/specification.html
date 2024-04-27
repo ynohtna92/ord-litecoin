@@ -1,0 +1,632 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="coal" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>规范 - Ordinal Theory Handbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../language-picker.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> 委托</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> 元数据</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> 指针</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> 渲染</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> 符文｜福文🧧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html" class="active"><strong aria-hidden="true">4.1.</strong> 规范</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> 麻雀钱包</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> 批量铸造</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 调节</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 重新索引</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> 设置</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> 燃烧传送</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> 调试</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> 任务 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> 任务 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> 任务 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> 任务 3: 400,000 sats</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="de">Deutsch</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fr">Français</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
+                          </button></li>
+                           <li role="none"><button role="menuitem" class="theme">
+                              <a id="ru">Русский</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ko">한국어</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fil">Filipino</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ar">العربية</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="hi">हिंदी</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="it">Italiano</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("zh");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "runes/specification.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="符文没有规范"><a class="header" href="#符文没有规范">符文没有规范</a></h1>
+<p>符文的参考实现，即<code>ord</code>，是符文协议的规范性规格说明。</p>
+<p>您在这里或其他地方阅读的内容，除了<code>ord</code>的代码之外，都不是规格说明。这篇关于符文协议的描述是作为<code>ord</code>行为的指南提供的，而<code>ord</code>的代码本身应始终被查询以确认任何描述的正确性。</p>
+<p>如果由于<code>ord</code>中的一个错误，本文档与<code>ord</code>的实际行为出现偏差，并且改变<code>ord</code>的行为实际上是不切实际的，那么本文档将被修订以符合<code>ord</code>的实际行为。</p>
+<p>使用替代实现的用户需自担风险，强烈建议希望整合符文的服务使用<code>ord</code>本身来进行符文交易，并确定符文、铸币和余额的状态</p>
+<h2 id="符石"><a class="header" href="#符石">符石</a></h2>
+<p>符文协议消息被称为 "符石 "。</p>
+<p>符文协议在区块840,000激活。早期区块中的符石将被忽略。</p>
+<p>抽象地，符石包含以下字段：1</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Runestone {
+  edicts: Vec&lt;Edict&gt;,
+  etching: Option&lt;Etching&gt;,
+  mint: Option&lt;RuneId&gt;,
+  pointer: Option&lt;u32&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>符文是通过蚀刻创建的：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Etching {
+  divisibility: Option&lt;u8&gt;,
+  premine: Option&lt;u128&gt;,
+  rune: Option&lt;Rune&gt;,
+  spacers: Option&lt;u32&gt;,
+  symbol: Option&lt;char&gt;,
+  terms: Option&lt;Terms&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>其中可能包含铸造术语：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Terms {
+  amount: Option&lt;u128&gt;,
+  cap: Option&lt;u128&gt;,
+  height: (Option&lt;u64&gt;, Option&lt;u64&gt;),
+  offset: (Option&lt;u64&gt;, Option&lt;u64&gt;),
+}
+<span class="boring">}</span></code></pre></pre>
+<p>符文通过法令转移：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Edict {
+  id: RuneId,
+  amount: u128,
+  output: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>符文 ID 被编码为蚀刻符文的交易的区块高度和交易索引：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct RuneId {
+  block: u64,
+  tx: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>符文 ID 在文本中表示为<code>BLOCK:TX</code>。</p>
+<p>符文名称被编码为修改后的 26 进制整数：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Rune(u128);
+<span class="boring">}</span></code></pre></pre>
+<h3 id="破译"><a class="header" href="#破译">破译</a></h3>
+<p>解读符石是通过以下步骤从交易中解码得到的：</p>
+<ol>
+<li>
+<p>查找第一个其脚本公钥以 <code>OP_RETURN</code> <code>OP_13</code> 开头的交易输出。</p>
+</li>
+<li>
+<p>将所有后续数据推送连接到一个有效载荷缓冲区中。</p>
+</li>
+<li>
+<p>从有效载荷缓冲区解码一系列 128 位的 <a href="https://en.wikipedia.org/wiki/LEB128">LEB128</a> 整数。</p>
+</li>
+<li>
+<p>将整数序列解析为未类型化消息。</p>
+</li>
+<li>
+<p>将未类型化消息解析为符石。</p>
+</li>
+</ol>
+<p>解读可能会产生一个格式错误的符石，称为<a href="https://en.wikipedia.org/wiki/Cenotaph">纪念碑</a>。</p>
+<h4 id="定位符石输出"><a class="header" href="#定位符石输出">定位符石输出</a></h4>
+<p>搜索第一个脚本公钥以 <code>OP_RETURN</code> <code>OP_13</code> 开头的输出。如果解读失败，不会考虑后续匹配的输出。</p>
+<h4 id="组装有效载荷缓冲区"><a class="header" href="#组装有效载荷缓冲区">组装有效载荷缓冲区</a></h4>
+<p>The payload buffer is assembled by concatenating data pushes, after <code>OP_13</code>, in the matching script pubkey.</p>
+<p>Data pushes are opcodes 0 through 78 inclusive. If a non-data push opcode is encountered, i.e., any opcode equal to or greater than opcode 79, the deciphered runestone is a cenotaph with no etching, mint, or edicts.</p>
+<h4 id="解码整数序列"><a class="header" href="#解码整数序列">解码整数序列</a></h4>
+<p>从有效载荷中解码一系列 128 位整数作为 LEB128 变长整数。</p>
+<p>LEB128 变长整数被编码为一系列字节，每个字节的最高有效位都被设置，最后一个字节除外。</p>
+<p>如果 LEB128 变长整数包含超过 18 个字节，会溢出一个 u128，或者是截断的，意味着在遇到未设置继续位的字节之前达到有效载荷缓冲区的末尾，解码的符石是没有铭刻、铸造或法令的纪念碑。</p>
+<h4 id="解析消息"><a class="header" href="#解析消息">解析消息</a></h4>
+<p>将整数序列解析为未类型化消息。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Message {
+  fields: Map&lt;u128, Vec&lt;u128&gt;&gt;,
+  edicts: Vec&lt;Edict&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>整数被解释为一系列标签/值对，重复的标签将其值附加到字段值上。</p>
+<p>如果遇到值为零的标签，则所有后续的整数都被解释为一系列四整数法令，每个法令包括一个符文ID块高度、符文ID交易索引、数量和输出。</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Edict {
+  id: RuneId,
+  amount: u128,
+  output: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>法令中的符文ID块高度和交易索引采用增量编码。</p>
+<p>解码法令符文ID时，起始于基础块高度和交易索引均为零。在解码每个符文ID时，首先将编码的块高度增量加到基础块高度上。如果块高度增量为零，则下一个整数是交易索引增量。如果块高度增量大于零，则下一个整数改为绝对交易索引。</p>
+<p>这意味着在将法令编码进符石之前，必须先按符文ID对法令进行排序。</p>
+<p>例如，要编码以下法令：</p>
+<div class="table-wrapper"><table><thead><tr><th>区块</th><th>TX</th><th>数量</th><th>输出</th></tr></thead><tbody>
+<tr><td>10</td><td>5</td><td>5</td><td>1</td></tr>
+<tr><td>50</td><td>1</td><td>25</td><td>4</td></tr>
+<tr><td>10</td><td>7</td><td>1</td><td>8</td></tr>
+<tr><td>10</td><td>5</td><td>10</td><td>3</td></tr>
+</tbody></table>
+</div>
+<p>它们首先按区块高度和交易索引排序：</p>
+<div class="table-wrapper"><table><thead><tr><th>区块</th><th>TX</th><th>数量</th><th>输出</th></tr></thead><tbody>
+<tr><td>10</td><td>5</td><td>5</td><td>1</td></tr>
+<tr><td>10</td><td>5</td><td>10</td><td>3</td></tr>
+<tr><td>10</td><td>7</td><td>1</td><td>8</td></tr>
+<tr><td>50</td><td>1</td><td>25</td><td>4</td></tr>
+</tbody></table>
+</div>
+<p>然后 delta 编码为：</p>
+<div class="table-wrapper"><table><thead><tr><th>block delta</th><th>TX delta</th><th>数量</th><th>输出</th></tr></thead><tbody>
+<tr><td>10</td><td>5</td><td>5</td><td>1</td></tr>
+<tr><td>0</td><td>0</td><td>10</td><td>3</td></tr>
+<tr><td>0</td><td>2</td><td>1</td><td>8</td></tr>
+<tr><td>40</td><td>1</td><td>25</td><td>4</td></tr>
+</tbody></table>
+</div>
+<p>如果法令输出大于交易的输出数量，则遇到块为零且交易索引非零的法令符文 ID，或者字段被截断，意味着遇到没有值的标签，解码后的符文石是纪念碑 。</p>
+<p>请注意，如果这里制作了一个纪念碑，那么这个纪念碑并不是空的，意味着它包含了字段和法令，这可能包括一种蚀刻和铸币。</p>
+<h4 id="解析符石"><a class="header" href="#解析符石">解析符石</a></h4>
+<p>符石</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Runestone {
+  edicts: Vec&lt;Edict&gt;,
+  etching: Option&lt;Etching&gt;,
+  mint: Option&lt;RuneId&gt;,
+  pointer: Option&lt;u32&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>使用以下标签从未签名的消息中解析：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Tag {
+  Body = 0,
+  Flags = 2,
+  Rune = 4,
+  Premine = 6,
+  Cap = 8,
+  Amount = 10,
+  HeightStart = 12,
+  HeightEnd = 14,
+  OffsetStart = 16,
+  OffsetEnd = 18,
+  Mint = 20,
+  Pointer = 22,
+  Cenotaph = 126,
+
+  Divisibility = 1,
+  Spacers = 3,
+  Symbol = 5,
+  Nop = 127,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>请注意，标签按奇偶性分组，即奇数还是偶数。无法识别的奇数标签将被忽略。无法识别的偶数标签会产生纪念碑。</p>
+<p>所有未使用的标签都保留供协议使用，可以随时分配，并且不得使用。</p>
+<h5 id="主体"><a class="header" href="#主体">主体</a></h5>
+<p><code>主体</code>标签标记了符石字段的结束，导致所有后续的整数被解释为法令。</p>
+<h5 id="标记"><a class="header" href="#标记">标记</a></h5>
+<p><code>标记</code>字段包含一个标志的位图，其位置为 <code>1 &lt;&lt; FLAG_VALUE</code>：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>enum Flag {
+  Etching = 0,
+  Terms = 1,
+  Turbo = 2,
+  Cenotaph = 127,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>Etching</code>标志表示此交易包含蚀刻。</p>
+<p><code>Terms</code>标志表示此交易的蚀刻具有开放的铸币条款。</p>
+<p>The <code>Turbo</code> flag marks this transaction's etching as opting into future protocol changes. These protocol changes may increase light client validation costs, or just be highly degenerate.</p>
+<p><code>Cenotaph</code>标志表示无法识别</p>
+<p>如果在移除已识别标志后，标志字段的值非零，则该符石为纪念碑。</p>
+<h5 id="符文"><a class="header" href="#符文">符文</a></h5>
+<p>符文 <code>Rune</code> 字段包含正在蚀刻的符文的名称。如果设置了蚀刻<code>Etching</code>标志但省略了符文<code>Rune</code>字段，则会分配一个保留的符文名称。</p>
+<h5 id="预挖"><a class="header" href="#预挖">预挖</a></h5>
+<p>预铸<code>Premine</code>字段包含预铸符文的数量。</p>
+<h5 id="上限"><a class="header" href="#上限">上限</a></h5>
+<p>上限<code>Cap</code> 字段包含允许的铸币次数。</p>
+<h5 id="数量"><a class="header" href="#数量">数量</a></h5>
+<p>数量<code>Amount</code>字段包含每个铸币交易接收的符文数量。</p>
+<h5 id="起始高度和结束高度"><a class="header" href="#起始高度和结束高度">起始高度和结束高度</a></h5>
+<p><code>起始高度</code>和<code>结束高度</code>字段分别包含铸币的起始和结束的绝对区块高度。铸币从具有<code>起始高度</code>的区块开始，并在具有<code>结束高度</code>的区块中关闭。</p>
+<h5 id="起始偏移和结束偏移"><a class="header" href="#起始偏移和结束偏移">起始偏移和结束偏移</a></h5>
+<p><code>起始偏移</code>和<code>结束偏移</code>字段包含铸币的起始和结束区块高度，相对于蚀刻被挖掘的区块。铸币从高度为<code>起始偏移</code> + <code>蚀刻高度</code>的区块开始，并在高度为<code>结束偏移</code> + <code>蚀刻高度</code>的区块中关闭。</p>
+<h5 id="铸造"><a class="header" href="#铸造">铸造</a></h5>
+<p>铸造<code>Mint</code>字段包含此交易中将要铸造的符文的符文ID。</p>
+<h5 id="指针"><a class="header" href="#指针">指针</a></h5>
+<p>指针<code>Pointer</code>字段包含应将未分配的符文通过法令转移至的输出索引。如果缺少指针<code>Pointer</code>字段，则未分配的符文将转移到第一个非<code>OP_RETURN</code>输出。</p>
+<h5 id="纪念碑"><a class="header" href="#纪念碑">纪念碑</a></h5>
+<p>纪念碑<code>Cenotaph</code> 字段无法识别。</p>
+<h5 id="可分性"><a class="header" href="#可分性">可分性</a></h5>
+<p>可分性<code>Divisibility</code>字段，提升十的幂次，是一个超级单位符文中的子单位数量。</p>
+<p>例如，不同符文的数量<code>1234</code>，其可分性为0至3，显示如下：</p>
+<div class="table-wrapper"><table><thead><tr><th>可分性</th><th>显示</th></tr></thead><tbody>
+<tr><td>0</td><td>1234</td></tr>
+<tr><td>1</td><td>123.4</td></tr>
+<tr><td>2</td><td>12.34</td></tr>
+<tr><td>3</td><td>1.234</td></tr>
+</tbody></table>
+</div>
+<h5 id="间隔符"><a class="header" href="#间隔符">间隔符</a></h5>
+<p>间隔符<code>Spacers</code>字段是一个<code>•</code>位字段，用于表示符文名称字母之间是否应显示间隔符。</p>
+<p>位字段的第N个字段，从最不重要的位开始，决定从符文名称的左侧开始,是否在符文名称的第N个字符和第N+1个字符之间显示间隔符。</p>
+<p>例如，符文名<code>AAAA</code>在不同间隔符的渲染下：</p>
+<div class="table-wrapper"><table><thead><tr><th>间隔符</th><th>显示</th></tr></thead><tbody>
+<tr><td>0b1</td><td>A•AAA</td></tr>
+<tr><td>0b11</td><td>A•A•AA</td></tr>
+<tr><td>0b10</td><td>AA•AA</td></tr>
+<tr><td>0b111</td><td>A•A•A•A</td></tr>
+</tbody></table>
+</div>
+<p>尾随间隔符将被忽略。</p>
+<h5 id="符号"><a class="header" href="#符号">符号</a></h5>
+<p>符号<code>Symbol</code>字段是符文货币符号的Unicode代码点，应在该符文金额之后显示。如果符文没有货币符号，则应使用通用货币字符 <code>¤</code>。</p>
+<p>例如，如果<code>符号</code>是<code>#</code>，可分性为2，那么<code>1234</code>单位的金额应显示为12.34#。</p>
+<h5 id="nop"><a class="header" href="#nop">Nop</a></h5>
+<p><code>Nop</code>字段无法识别。</p>
+<h4 id="墓碑"><a class="header" href="#墓碑">墓碑</a></h4>
+<p>纪念碑具有以下效果：</p>
+<ul>
+<li>
+<p>包含纪念碑的交易中的所有输入符文都将被销毁。</p>
+</li>
+<li>
+<p>如果产生纪念碑的符石包含蚀刻，那么蚀刻的符文供应量为零且无法铸造。</p>
+</li>
+<li>
+<p>如果产生纪念碑的符石是铸币，那么铸币将计入铸币上限，且铸造的符文将被销毁。</p>
+</li>
+</ul>
+<p>如果符石包含无法识别的偶数标签、无法识别的标志、输出编号大于输入数量的法令、区块为零且交易索引非零的符文ID、格式错误的varint、符石输出脚本公钥中的非数据推送指令、没有后续值的标签或不属于法令的尾随整数，则可能创建纪念碑。</p>
+<h4 id="执行符石"><a class="header" href="#执行符石">执行符石</a></h4>
+<p>符石按照其交易被包含在区块中的顺序执行。</p>
+<h5 id="蚀刻"><a class="header" href="#蚀刻">蚀刻</a></h5>
+<p>符石可能包含蚀刻：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Etching {
+  divisibility: Option&lt;u8&gt;,
+  premine: Option&lt;u128&gt;,
+  rune: Option&lt;Rune&gt;,
+  spacers: Option&lt;u32&gt;,
+  symbol: Option&lt;char&gt;,
+  terms: Option&lt;Terms&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>rune</code>是要蚀刻的符文的名称，编码为修改后的26进制整数。</p>
+<p>符文名称由字母A至Z组成，编码如下：</p>
+<div class="table-wrapper"><table><thead><tr><th>名字</th><th>编码</th></tr></thead><tbody>
+<tr><td>A</td><td>0</td></tr>
+<tr><td>B</td><td>1</td></tr>
+<tr><td>…</td><td>…</td></tr>
+<tr><td>Y</td><td>24</td></tr>
+<tr><td>Z</td><td>25</td></tr>
+<tr><td>AA</td><td>26</td></tr>
+<tr><td>AB</td><td>27</td></tr>
+<tr><td>…</td><td>…</td></tr>
+<tr><td>AY</td><td>50</td></tr>
+<tr><td>AZ</td><td>51</td></tr>
+<tr><td>BA</td><td>52</td></tr>
+</tbody></table>
+</div>
+<p>依此类推。</p>
+<p>符文名称<code>AAAAAAAAAAAAAAAAAAAAAAAAAAA</code>及以上被保留。</p>
+<p>如果省略<code>rune</code>，则按以下方式分配保留的符文名称：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn reserve(block: u64, tx: u32) -&gt; Rune {
+  Rune(
+    6402364363415443603228541259936211926
+    + (u128::from(block) &lt;&lt; 32 | u128::from(tx))
+  )
+}
+<span class="boring">}</span></code></pre></pre>
+<p><code>6402364363415443603228541259936211926</code> 对应于符文名称 <code>AAAAAAAAAAAAAAAAAAAAAAAAAAA</code>.</p>
+<p>如果存在 <code>rune </code>，则它必须在蚀刻出现的区块中解锁。</p>
+<p>最初，所有长度为十三及以上的符文名称，直到第一个保留的符文名称，都被解锁。</p>
+<p>符文从840,000区块开始解锁，即符文协议激活的区块。</p>
+<p>此后，每个17,500区块周期，连续解锁下一个最短长度的符文名称。因此，在840,000到857,500区块之间，解锁十二字符的符文名称，在857,500到875,000区块之间，解锁十一字符的符文名称，依此类推，直到在1,032,500到1,050,000区块之间解锁一个字符的符文名称。具体的解锁时间表请参见ord代码库。</p>
+<p>为了防止对已广播但未挖掘的蚀刻进行前置操作，如果正在蚀刻非保留的符文名称，则蚀刻交易必须包含对正在蚀刻的名称的有效承诺。</p>
+<p>承诺commitment包括在输入见证tapscript中推送的符文名称数据，编码为省略尾随零字节的小端整数，其中被花费的输出至少有六次确认。</p>
+<p>如果没有有效的承诺commitment，蚀刻将被忽略。</p>
+<h4 id="铸造-1"><a class="header" href="#铸造-1">铸造</a></h4>
+<p>符石可以通过在铸币<code>Mint</code>字段中包含符文的ID来铸造符文。</p>
+<p>如果铸币是开放的，铸币金额将添加到交易输入中的未分配符文中。这些符文可以使用法令转移，并且否则将转移到第一个非<code>OP_RETURN</code>输出，或由指针Pointer`字段指定的输出。</p>
+<p>铸币可以在蚀刻之后的任何交易中进行，包括在同一个区块中。</p>
+<h4 id="转移"><a class="header" href="#转移">转移</a></h4>
+<p>符文通过法令转移：</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct Edict {
+  id: RuneId,
+  amount: u128,
+  output: u32,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>符石可以包含任意数量的法令edicts，这些法令edicts按顺序处理。</p>
+<p>在处理法令edicts之前，输入符文以及铸造或预铸的符文（如果有）是未分配的。</p>
+<p>每个法令将rune <code>id</code>的未分配余额减少，并将rune <code>id</code>的余额增加到交易输出。</p>
+<p>如果法令edict将分配的符文数量超过当前未分配的符文，则数量将减少到当前未分配的符文<code>数量</code>。换句话说，法令edict分配了rune<code>id</code>的所有剩余未分配单位。</p>
+<p>因为在蚀刻被包含在区块之前不知道蚀刻的符文的ID，所以使用ID <code>0:0</code>表示此交易中正在蚀刻的符文（如果有）。</p>
+<p>金额<code>amount</code>为零的法令分配了rune <code>id</code>的所有剩余单位。</p>
+<p>输出<code>output</code> 等于交易输出数量<code>amount</code> 的法令将金额符文分配给每个非<code>OP_RETURN</code>输出。</p>
+<p>金额<code>amount</code> 为零且输出等于交易输出<code>output</code> 数量的法令将所有未分配的rune <code>id</code>单位平均分配给每个非<code>OP_RETURN</code>输出。如果未分配的符文数量不能被非<code>OP_RETURN</code>输出的数量整除，则前<code>R</code>个非<code>OP_RETURN</code>输出将分配1个额外的符文，其中<code>R</code>是将未分配的rune <code>id</code>单位余额除以非<code>OP_RETURN</code>输出数量后的余数。</p>
+<p>如果符石中的任何法令具有<code>区块</code>为零且<code>tx</code>大于零的符文ID，或<code>输出</code>大于交易输出数量，则符石是纪念碑。</p>
+<p>注意，纪念碑中的法令不会被处理，所有输入符文都将被销毁。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../runes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../faq.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../runes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../faq.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

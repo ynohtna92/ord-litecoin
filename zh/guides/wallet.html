@@ -1,0 +1,509 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="coal" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>麻雀钱包 - Ordinal Theory Handbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../language-picker.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> 委托</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> 元数据</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> 指针</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> 渲染</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> 符文｜福文🧧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> 规范</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> 麻雀钱包</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> 批量铸造</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 调节</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 重新索引</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> 设置</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> 燃烧传送</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> 调试</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> 任务 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> 任务 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> 任务 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> 任务 3: 400,000 sats</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="de">Deutsch</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fr">Français</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
+                          </button></li>
+                           <li role="none"><button role="menuitem" class="theme">
+                              <a id="ru">Русский</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ko">한국어</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fil">Filipino</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ar">العربية</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="hi">हिंदी</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="it">Italiano</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("zh");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "guides/wallet.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="麻雀钱包"><a class="header" href="#麻雀钱包">麻雀钱包</a></h1>
+<p>单个 聪 可以刻有任意内容，创建可以保存在比特币钱包中并使用比特币交易传输的比特币原生数字人工制品。铭文与比特币本身一样持久、不变、安全和去中心化。</p>
+<p>使用铭文需要一个比特币完整节点，让您了解比特币区块链的当前状态，以及一个可以创建铭文并在构建交易以将铭文发送到另一个钱包时执行 聪 控制的钱包。</p>
+<p>Bitcoin Core 提供比特币全节点和钱包。 但是，Bitcoin Core 钱包不能创建铭文，不执行 聪 控制。</p>
+<p>这需要<a href="https://github.com/ordinals/ord"><code>ord</code></a>，序数实用程序。 <code>ord</code> 没有自己的钱包，因此  <code>ord wallet</code>子命令与 Bitcoin Core 钱包交互。</p>
+<p>本指南涵盖：</p>
+<ol>
+<li>安装 Bitcoin Core</li>
+<li>同步比特币区块链</li>
+<li>创建 Bitcoin Core 钱包</li>
+<li>使用 <code>ord wallet receive</code>收取聪</li>
+<li>使用<code>ord wallet inscribe</code>创建铭文</li>
+<li>使用 <code>ord wallet send</code>发送铭文</li>
+<li>使用<code>ord wallet receive</code>收取铭文</li>
+<li>使用<code>ord wallet inscribe</code>创建铭文</li>
+</ol>
+<h2 id="寻求帮助"><a class="header" href="#寻求帮助">寻求帮助</a></h2>
+<p>如果你遇到困难，可以在<a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>,或者检查Github上的相关内容<a href="https://github.com/ordinals/ord/issues">问题</a> 和<a href="https://github.com/ordinals/ord/discussions">讨论</a>.</p>
+<h2 id="安装-bitcoin-core"><a class="header" href="#安装-bitcoin-core">安装 Bitcoin Core</a></h2>
+<p>Bitcoin Core 可以在 <a href="https://bitcoincore.org/">bitcoincore.org</a> 上的<a href="https://bitcoincore.org/en/download/">下载页面</a>.</p>
+<p>制作铭文需要Bitcoin Core 24 或者更新版本。</p>
+<p>本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可以在命令行使用 <code>bitcoind -version</code>命令。</p>
+<h2 id="配置-bitcoin-core"><a class="header" href="#配置-bitcoin-core">配置 Bitcoin Core</a></h2>
+<p><code>ord</code> 需要Bitcoin Core 的交易索引</p>
+<p>配置你的Bitcoin Core阶段去维护一个交易索引，需要在<code>bitcoin.conf</code>里面添加:</p>
+<pre><code>txindex=1
+</code></pre>
+<p>或者, 运行 <code>bitcoind</code> 和 <code>-txindex</code>:</p>
+<pre><code>bitcoind -txindex
+</code></pre>
+<p>关于创建或者修改你的 <code>bitcoin.conf</code>文件，可以参考 <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">这里</a>.</p>
+<h2 id="比特币区块同步"><a class="header" href="#比特币区块同步">比特币区块同步</a></h2>
+<p>区块同步，运行：</p>
+<pre><code>bitcoind -txindex
+</code></pre>
+<p>…直到运行 <code>getblockcount</code>:</p>
+<pre><code>bitcoin-cli getblockcount
+</code></pre>
+<p>像区块链浏览器<a href="https://mempool.space/">the mempool.space block explorer</a>一样对区块进行记述. <code>ord</code>同<code>bitcoind</code>进行交互, 所以你在使用<code>ord</code>时候需要让<code>bitcoind</code> 在后台运行。</p>
+<p>区块链占用约600GB的磁盘空间。如果你有一个外接硬盘来存储区块，可以使用配置选项<code>blocksdir=&lt;external_drive_path&gt;</code>. 这比使用<code>datadir</code> 选项更简单， <code>bitcoin-cli</code> 和 <code>ord</code> 可以在默认的位置找到cookie文件</p>
+<h2 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h2>
+<p>确保你可以通过 <code>bitcoin-cli -getinfo</code> 来访问<code>bitcoind</code> ，并且它已经完全同步</p>
+<p>假如 <code>bitcoin-cli -getinfo</code> 返回的是 <code>Could not connect to the server</code>, 这可能是<code>bitcoind</code> 没有运行</p>
+<p>确保 <code>rpcuser</code>, <code>rpcpassword</code>, 或者 <code>rpcauth</code> <em>没有</em> 在你的 <code>bitcoin.conf</code> 文件里进行设置。 <code>ord</code> 需要使用 cookie 认证。因此需要确保 你的bitcoin data的文件夹里有 <code>.cookie</code>文件。</p>
+<p>如果 <code>bitcoin-cli -getinfo</code> 返回<code>Could not locate RPC credentials</code>, 那么 你必须指定 cookie 文件的位置。如果你正在使用自定义的数据目录 (指定 <code>datadir</code> 的选项),那么你必须指定cookie文件的位置. <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/ cookie -getinfo</code>.当你运行 <code>ord</code> 命令时，你必须指定 cookie 文件的位置 <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
+<p>确保你在<code>bitcoin.conf</code> 文件中 <em>没有</em> 配置 <code>disablewallet=1</code> 如果 <code>bitcoin-cli listwallets</code> 返回 <code>Method not found</code> 那么钱包就会被禁用你将要无法使用 <code>ord</code>.</p>
+<p>确保设置 <code>txindex=1</code> 。运行 <code>bitcoin-cli getindexinfo</code> 将会返回一些这样的结果</p>
+<pre><code class="language-json">{
+  "txindex": {
+    "synced": true,
+    "best_block_height": 776546
+  }
+}
+</code></pre>
+<p>假如仅仅返回 <code>{}</code>, <code>txindex</code> 没有被设置。如果返回 <code>"synced": false</code>, <code>bitcoind</code> 仍然在创建 <code>txindex</code>。那就需要等到<code>"synced": true</code> ，<code>ord</code>命令方可以使用.</p>
+<p>如果你设置了<code>maxuploadtarget</code> ，他将干扰 <code>ord</code> 的索引获取区块， 你可以选择移除或者设置<code>whitebind=127.0.0.1:8333</code>.</p>
+<h2 id="安装-ord"><a class="header" href="#安装-ord">安装 <code>ord</code></a></h2>
+<p><code>ord</code> 程序使用Rust语言写成，可以从<a href="https://github.com/ordinals/ord">源码</a>安装. 预制文件可以从<a href="https://github.com/ordinals/ord/releases">版本发布页</a>下载。</p>
+<p>你也可以在命令行中使用下面命令来安装最新的文件：</p>
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+</code></pre>
+<p>当 <code>ord</code> 成功安装以后,你可以运行 :</p>
+<pre><code>ord --version
+</code></pre>
+<p>这会返回 <code>ord</code>的版本信息.</p>
+<h2 id="创建一个bitcoin-core钱包"><a class="header" href="#创建一个bitcoin-core钱包">创建一个Bitcoin Core钱包</a></h2>
+<p><code>ord</code> 使用Bitcoin Core来管理私钥，签署交易以及向比特币网络广播交易。此外，<code>ord</code> 钱包需要在后台运行<a href="explorer.html"><code>ord server</code></a>，请确保这些程序运行</p>
+<pre><code>bitcoind -txindex
+</code></pre>
+<pre><code>ord server
+</code></pre>
+<p>创建一个名为<code>ord</code> 的Bitcoin Core 钱包，运行:</p>
+<pre><code>ord wallet create
+</code></pre>
+<p>这将打印出您的助记词，并将其存储在安全的地方。</p>
+<pre><code>{
+  "mnemonic": "dignity buddy actor toast talk crisp city annual tourist orient similar federal",
+  "passphrase": ""
+}
+</code></pre>
+<p>如果你想指定不同的名称或者在非默认的URL上运行 <code>ord server</code>你可以设置以下选项:</p>
+<pre><code>ord wallet --name foo --server-url http://127.0.0.1:8080 create
+</code></pre>
+<p>查看所有可用的钱包选项，你可以运行</p>
+<pre><code>ord wallet help
+</code></pre>
+<h2 id="恢复和转存钱包"><a class="header" href="#恢复和转存钱包">恢复和转存钱包</a></h2>
+<p><code>ord</code>钱包使用描述符descriptors,你可以导出输出描述符并将它们导入另外一个基于描述符的钱包导出钱包描述符，其中包含你的私钥:</p>
+<pre><code>$ ord wallet dump
+==========================================
+= 这个字节包含你的私钥信息 =
+=   不要和任何人分享 =
+==========================================
+{
+  "wallet_name": "ord",
+  "descriptors": [
+    {
+      "desc": "tr([551ac972/86'/1'/0']tprv8h4xBhrfZwX9o1XtUMmz92yNiGRYjF9B1vkvQ858aN1UQcACZNqN9nFzj3vrYPa4jdPMfw4ooMuNBfR4gcYm7LmhKZNTaF4etbN29Tj7UcH/0/*)#uxn94yt5",
+      "timestamp": 1296688602,
+      "active": true,
+      "internal": false,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0
+    },
+    {
+      "desc": "tr([551ac972/86'/1'/0']tprv8h4xBhrfZwX9o1XtUMmz92yNiGRYjF9B1vkvQ858aN1UQcACZNqN9nFzj3vrYPa4jdPMfw4ooMuNBfR4gcYm7LmhKZNTaF4etbN29Tj7UcH/1/*)#djkyg3mv",
+      "timestamp": 1296688602,
+      "active": true,
+      "internal": true,
+      "range": [
+        0,
+        999
+      ],
+      "next": 0
+    }
+  ]
+}
+</code></pre>
+<p><code>ord</code> 钱包可以从助记词恢复:</p>
+<pre><code>ord wallet restore --from mnemonic
+</code></pre>
+<p>输入你的助记词并按回车</p>
+<p>从<code>descriptor.json</code>恢复描述符:</p>
+<pre><code>cat descriptor.json | ord wallet restore --from descriptor
+</code></pre>
+<p>要从剪贴板中的描述符恢复：</p>
+<pre><code>ord wallet restore --from descriptor
+</code></pre>
+<p>将描述符粘贴到终端中，UNIX里按CTRL-D 或 Windows里按 CTRL-Z</p>
+<h2 id="接收聪"><a class="header" href="#接收聪">接收聪</a></h2>
+<p>铭文是在单个聪上制作的，使用聪来支付费用的普通比特币交易，因此你的钱包将需要一些 聪（比特币）。</p>
+<p>为你的 <code>ord</code> 钱包创建一个新地址，运行:</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>向上面地址发送一些资金。</p>
+<p>你可以使用以下命令看到交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，你应该可以使用 <code>ord wallet outputs</code>看到交易的输出；</p>
+<h2 id="创建铭文内容"><a class="header" href="#创建铭文内容">创建铭文内容</a></h2>
+<p>聪上可以刻录任何类型的内容，但<code>ord</code>钱包只支持<code>ord</code>区块浏览器可以显示的内容类型。</p>
+<p>另外，铭文是包含在交易中的，所以内容越大，铭文交易需要支付的费用就越高。</p>
+<p>铭文内容包含在交易见证中，获得见证折扣。要计算写入交易将支付的大概费用，请将内容大小除以四，然后乘以费率。</p>
+<p>铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。</p>
+<h2 id="创建铭文"><a class="header" href="#创建铭文">创建铭文</a></h2>
+<p>以<code>FILE</code>的内容创建一个铭文，需要运行:</p>
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
+</code></pre>
+<p>Ord会输出两个交易ID，一个是commit交易，一个是reveal交易，还有铭文ID。铭文 ID 的格式为<code>TXIDiN</code>，其中<code>TXID</code> 是揭示交易的交易 ID，<code>N</code> 是揭示交易中铭文的索引。</p>
+<p>Commit交易提交到包含铭文内容的 tapscript，reveal交易则从该 tapscript 中花费，显示链上的内容并将它们铭刻在reveal交易的第一个输出的第一个 sat 上。</p>
+<p>在等待reveal交易被记录的同时，你可以使用<a href="https://mempool.space/">the mempool.space block explorer</a>来检查交易的状态。</p>
+<p>一旦reveal交易完成记账，你可以使用以下命令查询铭文ID：</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<h2 id="父-子铭文"><a class="header" href="#父-子铭文">父-子铭文</a></h2>
+<p>父子铭文使得人们通常所说的收藏成为可能，有关更多信息，请参见<a href="../inscriptions/provenance.html">provenance</a>。</p>
+<p>要使一个铭文成为另一个铭文的子项，父铭文必须已经被铭刻并且存在于钱包中。要选择一个父铭文，请运行<code>ord wallet inscriptions</code>并复制铭文ID（<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>）。</p>
+<p>为父系铭文P创建一个子铭文C:</p>
+<pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
+</code></pre>
+<p>这种父子关系不能事后添加，父铭文必须在子铭文创建之初就存在。</p>
+<h2 id="发送铭文"><a class="header" href="#发送铭文">发送铭文</a></h2>
+<p>铭文接收方使用一下命令生成地址</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>使用命令格式发送铭文：</p>
+<pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; &lt;ADDRESS&gt; &lt;INSCRIPTION_ID&gt;
+</code></pre>
+<p>检查未完成交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，接收方可以使用一下命令查看接收到的铭文</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+<h2 id="发送铭文-1"><a class="header" href="#发送铭文-1">发送铭文</a></h2>
+<p>铭文接收方使用一下命令生成地址</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>使用命令格式发送铭文：</p>
+<pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; &lt;ADDRESS&gt; &lt;RUNES_AMOUNT&gt;
+</code></pre>
+<p>在 <code>RUNES_AMOUNT</code> 是要发送的符文数量，一个 <code>:</code> 字符，和符文的名字。例如，如果你想发送1000个EXAMPLE符文，你应该使用<code>1000:EXAMPLE</code>。</p>
+<pre><code>ord wallet send --fee-rate 1 SOME_ADDRESS 1000:EXAMPLE
+</code></pre>
+<p>检查未完成交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，接收方可以使用一下命令查看接收到的铭文</p>
+<pre><code>ord wallet balance
+</code></pre>
+<h2 id="接收铭文"><a class="header" href="#接收铭文">接收铭文</a></h2>
+<p>使用以下命令生成一个新的接收地址</p>
+<pre><code>ord wallet receive
+</code></pre>
+<p>发送方使用命令发送铭文到你的地址</p>
+<pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; ADDRESS INSCRIPTION_ID
+</code></pre>
+<p>检查未完成交易情况：</p>
+<pre><code>ord wallet transactions
+</code></pre>
+<p>一旦交易确认，你可以使用以下命令确认收到</p>
+<pre><code>ord wallet inscriptions
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

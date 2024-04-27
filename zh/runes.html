@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="coal" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>符文｜福文🧧 - Ordinal Theory Handbook</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="language-picker.css">
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('coal')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> 委托</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> 元数据</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> 指针</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 递归</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> 渲染</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html" class="active"><strong aria-hidden="true">4.</strong> 符文｜福文🧧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> 规范</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> 麻雀钱包</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> 批量铸造</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 调节</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 重新索引</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> 设置</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> 燃烧传送</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> 调试</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> 任务 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> 任务 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> 任务 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> 任务 3: 400,000 sats</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Ordinal Theory Handbook</h1>
+
+                    <div class="right-buttons">
+                        <button id="language-toggle" class="icon-button" type="button"
+                                title="Change language" aria-label="Change language"
+                                aria-haspopup="true" aria-expanded="false"
+                                aria-controls="language-list">
+                            <i class="fa fa-globe"></i>
+                        </button>
+                        <ul id="language-list" class="theme-popup" aria-label="Languages" role="menu">
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="en">English</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="de">Deutsch</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fr">Français</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="es">Español</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="pt">Português</a>
+                          </button></li>
+                           <li role="none"><button role="menuitem" class="theme">
+                              <a id="ru">Русский</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="zh">中文版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ja">日本語版</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ko">한국어</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="fil">Filipino</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="ar">العربية</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="hi">हिंदी</a>
+                          </button></li>
+                          <li role="none"><button role="menuitem" class="theme">
+                              <a id="it">Italiano</a>
+                          </button></li>
+                        </ul>
+
+                        <script>
+                          let langToggle = document.getElementById("language-toggle");
+                          let langList = document.getElementById("language-list");
+                          langToggle.addEventListener("click", (event) => {
+                              langList.style.display = langList.style.display == "block" ? "none" : "block";
+                          });
+                          let selectedLang = document.getElementById("zh");
+                          if (selectedLang) {
+                              selectedLang.parentNode.classList.add("theme-selected");
+                          }
+
+                          // The path to the root, taking the current
+                          // language into account.
+                          let full_path_to_root = "../";
+                          // The page path (mdbook only gives us
+                          // access to the path to the Markdown file).
+                          let path = "runes.md".replace(/\.md$/, ".html");
+                          for (let lang of langList.querySelectorAll("a")) {
+                              if (lang.id == "en") {
+                                  lang.href = `${full_path_to_root}${path}`;
+                              } else {
+                                  lang.href = `${full_path_to_root}${lang.id}/${path}`;
+                              }
+                          }
+                        </script>
+
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="符文福文"><a class="header" href="#符文福文">符文｜福文🧧</a></h1>
+<p>符文，又称福文🧧，允许比特币交易来刻画、铸造和转移比特币原生的数字商品。</p>
+<p>虽然每个铭文都是独一无二的，但每个符文的每个单位都是相同的。它们是可互换的代币，适用于多种用途。</p>
+<h2 id="符石"><a class="header" href="#符石">符石</a></h2>
+<p>称为符石的符文协议消息，存储在比特币交易输出中。</p>
+<p>符石输出的脚本公钥以一个OP_RETURN开始，接着是OP_13，然后是零个或多个数据推送。这些数据推送被连接起来并解码成一系列128位整数，最终解析成一个符石。</p>
+<p>一笔交易最多可以有一个符石。</p>
+<p>符石可以刻画一个新的符文，铸造一个现有的符文，并将符文从交易的输入转移到输出。</p>
+<p>一个交易输出可以持有任意数量的符文余额。</p>
+<p>符文通过ID来识别，ID由刻画符文的区块和该区块内刻画交易的索引组成，以文本形式表示为<code>BLOCK:TX</code>。例如，在第500个区块的第20笔交易中铸造的符文的ID是<code>500:20</code>。</p>
+<h2 id="刻画"><a class="header" href="#刻画">刻画</a></h2>
+<p>符文通过刻画而产生。刻画创建一个符文并设置其属性。一旦设置，这些属性即使对其刻画者来说也是不可变的。</p>
+<h3 id="名字"><a class="header" href="#名字">名字</a></h3>
+<p>名称由A到Z的字母组成，长度在一到二十八个字符之间。例如<code>UNCOMMONGOODS</code>是一个符文名称。</p>
+<p>名称可以包含空格符，表示为点符号，以帮助提高可读性。<code>UNCOMMONGOODS</code> 可能被刻画为<code>UNCOMMON•GOODS</code>。</p>
+<p>名称的唯一性不依赖于空格符。因此，即使空格符不同，也不能用与现有符文相同的字母序列来刻画一个符文。</p>
+<h3 id="可分性"><a class="header" href="#可分性">可分性</a></h3>
+<p>符文的可分性是指它可以被细分到多少个原子单位。可分性以符文数量中允许的小数点后数字位数来表示。可分性为0的符文不能被分割。可分性为1的符文可以被分割成十个子单位，可分性为2的符文可以被分割成一百个，依此类推。</p>
+<h3 id="符号"><a class="header" href="#符号">符号</a></h3>
+<p>符文的货币符号是一个单一的Unicode代码点，例如<code>$</code>、<code>⧉</code>或<code>🧿</code>，显示在该符文数量之后。</p>
+<p>具有可分性2和符号<code>🧿</code>的101个原子单位的符文将被渲染为<code>1.01 🧿</code>。</p>
+<p>如果符文没有符号，应使用通用货币符号<code>¤</code>，也称为圣甲虫。</p>
+<h3 id="预挖"><a class="header" href="#预挖">预挖</a></h3>
+<p>刻画符文的人可以选择性地为自己分配被刻画的符文单位。这种分配称为预挖。</p>
+<h3 id="条款"><a class="header" href="#条款">条款</a></h3>
+<p>符文可以有一个开放的铸造，允许任何人为自己创建和分配符文单位。开放铸造受到刻画时设置的条款的约束</p>
+<p>只要铸造的所有条款都得到满足，铸造就是开放的，当其中任何一个不满足时，铸造就关闭了。例如，铸造可能被限制在一个开始高度、一个结束高度和一个上限之间，并且在开始高度和结束高度之间或直到达到上限时开放。</p>
+<h4 id="上限"><a class="header" href="#上限">上限</a></h4>
+<p>符文可以被铸造的次数是其上限。一旦达到上限，铸造就关闭了。</p>
+<h4 id="数量"><a class="header" href="#数量">数量</a></h4>
+<p>每笔铸造交易创建一个固定数量的新符文单位。</p>
+<h4 id="开始高度"><a class="header" href="#开始高度">开始高度</a></h4>
+<p>铸造从给定开始高度的区块开始开放。</p>
+<h4 id="结束高度"><a class="header" href="#结束高度">结束高度</a></h4>
+<p>符文不能在给定结束高度的区块之后被铸造。</p>
+<h4 id="起始偏移"><a class="header" href="#起始偏移">起始偏移</a></h4>
+<p>铸造从其高度等于开始偏移加上刻画符文的区块的高度的区块开始开放。</p>
+<h4 id="结束偏移"><a class="header" href="#结束偏移">结束偏移</a></h4>
+<p>符文不能在其高度等于结束偏移加上刻画符文的区块的高度的区块之后被铸造。</p>
+<h2 id="铸造"><a class="header" href="#铸造">铸造</a></h2>
+<p>当符文的铸造是开放的时，任何人都可以创建一个铸造交易，根据铸造的条款创建一个固定数量的新符文单位。</p>
+<h2 id="转移"><a class="header" href="#转移">转移</a></h2>
+<p>当交易输入包含符文，或者通过预挖或铸造创建了新的符文时，这些符文被转移到该交易的输出。交易的符石可能会改变输入符文转移到输出的方式。</p>
+<h3 id="法令"><a class="header" href="#法令">法令</a></h3>
+<p>符石可以包含任意数量的法令。法令由一个符文ID、一个数量和一个输出编号组成。法令按顺序处理，将未分配的符文分配给输出。</p>
+<h3 id="指针"><a class="header" href="#指针">指针</a></h3>
+<p>在所有法令处理完毕后，剩余的未分配符文被转移到交易的第一个非OP_RETURN输出。符石可以选择性地包含一个指针，指定一个替代的默认输出。</p>
+<h3 id="燃烧"><a class="header" href="#燃烧">燃烧</a></h3>
+<p>符文可以通过将它们转移到一个包含法令或指针的<code>OP_RETURN</code>输出来燃烧。</p>
+<h2 id="墓碑"><a class="header" href="#墓碑">墓碑</a></h2>
+<p>由于多种原因，符石可能会形成错误，包括符石<code>OOP_RETURN</code>中的非推送数据操作码、无效的变长整数或无法识别的符石字段。</p>
+<p>形成错误的符石被称为<a href="https://en.wikipedia.org/wiki/Cenotaph">墓碑</a>.</p>
+<p>输入到包含墓碑的交易的符文被燃烧。在包含墓碑的交易中刻画的符文被设置为不可铸造。在包含墓碑的交易中的铸造计入铸造上限，但铸造的符文被燃烧。</p>
+<p>墓碑是一种升级机制，允许符石被赋予新的语义，改变符文的创建和转移方式，同时不会误导未升级的客户端关于这些符文的位置，因为未升级的客户端会看到这些符文已经被燃烧。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="inscriptions/rendering.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="runes/specification.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="inscriptions/rendering.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="runes/specification.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

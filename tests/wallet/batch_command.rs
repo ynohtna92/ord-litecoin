@@ -576,7 +576,7 @@ inscriptions:
     format!("/inscription/{}", output.inscriptions[0].id),
     ".*
   <dt>address</dt>
-  <dd class=monospace>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</dd>.*",
+  <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>.*",
   );
 
   ord.assert_response_regex(
@@ -584,7 +584,7 @@ inscriptions:
     format!(
       ".*
   <dt>address</dt>
-  <dd class=monospace>{}</dd>.*",
+  <dd class=monospace><a href=/address/{0}>{0}</a></dd>.*",
       core.state().change_addresses[0],
     ),
   );
@@ -593,7 +593,7 @@ inscriptions:
     format!("/inscription/{}", output.inscriptions[2].id),
     ".*
   <dt>address</dt>
-  <dd class=monospace>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</dd>.*",
+  <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>.*",
   );
 }
 

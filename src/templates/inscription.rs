@@ -94,7 +94,7 @@ mod tests {
         ..default()
       },
       "
-        <h1>Inscription 1</h1>
+        .*<h1>Inscription 1</h1>
         <div class=inscription>
         <div>❮</div>
         <iframe .* src=/preview/1{64}i1></iframe>
@@ -103,7 +103,7 @@ mod tests {
         <dl>
           .*
           <dt>address</dt>
-          <dd class=monospace>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</dd>
+          <dd class=monospace><a href=/address/ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9>ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9</a></dd>
           <dt>value</dt>
           <dd>1</dd>
           .*
@@ -133,6 +133,8 @@ mod tests {
           .*
           <dt>sat</dt>
           <dd><a href=/sat/1>1</a></dd>
+          <dt>sat name</dt>
+          <dd><a href=/sat/bgmbqkqiqsxk>bgmbqkqiqsxk</a></dd>
           <dt>preview</dt>
           .*
         </dl>

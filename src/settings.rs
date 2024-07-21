@@ -4,6 +4,7 @@ use {super::*, bitcoincore_rpc::Auth};
 #[serde(default, deny_unknown_fields)]
 pub struct Settings {
   litecoin_data_dir: Option<PathBuf>,
+  litecoin_rpc_limit: Option<u32>,
   litecoin_rpc_password: Option<String>,
   litecoin_rpc_url: Option<String>,
   litecoin_rpc_username: Option<String>,
@@ -108,6 +109,7 @@ impl Settings {
   pub(crate) fn or(self, source: Settings) -> Self {
     Self {
       litecoin_data_dir: self.litecoin_data_dir.or(source.litecoin_data_dir),
+      litecoin_rpc_limit: self.litecoin_rpc_limit.or(source.litecoin_rpc_limit),
       litecoin_rpc_password: self.litecoin_rpc_password.or(source.litecoin_rpc_password),
       litecoin_rpc_url: self.litecoin_rpc_url.or(source.litecoin_rpc_url),
       litecoin_rpc_username: self.litecoin_rpc_username.or(source.litecoin_rpc_username),
@@ -147,6 +149,7 @@ impl Settings {
   pub(crate) fn from_options(options: Options) -> Self {
     Self {
       litecoin_data_dir: options.litecoin_data_dir,
+      litecoin_rpc_limit: options.litecoin_rpc_limit,
       litecoin_rpc_password: options.litecoin_rpc_password,
       litecoin_rpc_url: options.litecoin_rpc_url,
       litecoin_rpc_username: options.litecoin_rpc_username,
@@ -230,6 +233,7 @@ impl Settings {
 
     Ok(Self {
       litecoin_data_dir: get_path("LITECOIN_DATA_DIR"),
+      litecoin_rpc_limit: get_u32("LITECOIN_RPC_LIMIT")?,
       litecoin_rpc_password: get_string("LITECOIN_RPC_PASSWORD"),
       litecoin_rpc_url: get_string("LITECOIN_RPC_URL"),
       litecoin_rpc_username: get_string("LITECOIN_RPC_USERNAME"),
@@ -262,6 +266,7 @@ impl Settings {
       litecoin_rpc_password: None,
       litecoin_rpc_url: Some(rpc_url.into()),
       litecoin_rpc_username: None,
+      litecoin_rpc_limit: None,
       chain: Some(Chain::Regtest),
       commit_interval: None,
       config: None,
@@ -320,6 +325,7 @@ impl Settings {
 
     Ok(Self {
       litecoin_data_dir: Some(bitcoin_data_dir),
+      litecoin_rpc_limit: Some(self.litecoin_rpc_limit.unwrap_or(12)),
       litecoin_rpc_password: self.litecoin_rpc_password,
       litecoin_rpc_url: Some(
         self
@@ -548,6 +554,10 @@ impl Settings {
       Some(wallet_name) => format!("{base_url}/wallet/{wallet_name}"),
       None => format!("{base_url}/"),
     }
+  }
+
+  pub(crate) fn bitcoin_rpc_limit(&self) -> u32 {
+    self.litecoin_rpc_limit.unwrap()
   }
 
   pub(crate) fn server_url(&self) -> Option<&str> {
@@ -980,6 +990,7 @@ mod tests {
   fn from_env() {
     let env = vec![
       ("LITECOIN_DATA_DIR", "/litecoin/data/dir"),
+      ("LITECOIN_RPC_LIMIT", "12"),
       ("LITECOIN_RPC_PASSWORD", "litecoin password"),
       ("LITECOIN_RPC_URL", "url"),
       ("LITECOIN_RPC_USERNAME", "litecoin username"),
@@ -1012,6 +1023,7 @@ mod tests {
       Settings::from_env(env).unwrap(),
       Settings {
         litecoin_data_dir: Some("/litecoin/data/dir".into()),
+        litecoin_rpc_limit: Some(12),
         litecoin_rpc_password: Some("litecoin password".into()),
         litecoin_rpc_url: Some("url".into()),
         litecoin_rpc_username: Some("litecoin username".into()),
@@ -1057,6 +1069,7 @@ mod tests {
         Options::try_parse_from([
           "ord",
           "--litecoin-data-dir=/litecoin/data/dir",
+          "--litecoin-rpc-limit=12",
           "--litecoin-rpc-password=litecoin password",
           "--litecoin-rpc-url=url",
           "--litecoin-rpc-username=litecoin username",
@@ -1083,6 +1096,7 @@ mod tests {
       ),
       Settings {
         litecoin_data_dir: Some("/litecoin/data/dir".into()),
+        litecoin_rpc_limit: Some(12),
         litecoin_rpc_password: Some("litecoin password".into()),
         litecoin_rpc_url: Some("url".into()),
         litecoin_rpc_username: Some("litecoin username".into()),

@@ -463,7 +463,7 @@ OP_ENDIF
 </code></pre>
 <p>सबसे पहले स्ट्रिंग <code>ऑर्डर</code> को लिफाफों के अन्य उपयोगों से इंस्‍क्रि‍प्‍शंस को स्पष्ट करने के लिए प्रेरित किया जाता है।</p>
 <p><code>OP_PUSH 1</code> इंगित करता है कि अगले पुश में विषय-वस्‍तु के प्रकार शामिल हैं, और <code>OP_PUSH 0</code> इंगित करता है कि आगामी डेटा पुश में स्‍वयं विषय-वस्‍तु ही शामिल हैं। "बड़े इंस्‍क्रि‍प्‍शंस के लिए बहुल डेटा पुश का उपयोग किया जाना चाहिए, क्योंकि टैपरूट के कुछ प्रतिबंधों में से एक यह है कि व्यक्तिगत डेटा पुश 520 बाइट्स से बड़ा नहीं हो सकता है।</p>
-<p>The inscription content is contained within the input of a reveal transaction, and the inscription is made on the first sat of its input if it has no pointer field. This sat can then be tracked using the familiar rules of ordinal  theory, allowing it to be transferred, bought, sold, lost to fees, and recovered.</p>
+<p>The inscription content is contained within the input of a reveal transaction, and the inscription is made on the first sat of its input if it has no pointer field. This sat can then be tracked using the familiar rules of ordinal theory, allowing it to be transferred, bought, sold, lost to fees, and recovered.</p>
 <h2 id="विषय-वसतु"><a class="header" href="#विषय-वसतु">विषय-वस्‍तु</a></h2>
 <p>इंस्‍क्रि‍प्‍शंस का डेटा मॉडल एक HTTP प्रतिक्रिया है, जो इंस्‍क्रि‍प्‍शंस विषय-वस्‍तु को वेब सर्वर द्वारा प्रस्तुत करने और एक वेब ब्राउज़र में देखने की अनुमति देता है।</p>
 <h2 id="फीलडस"><a class="header" href="#फीलडस">फील्‍ड्स</a></h2>
@@ -502,12 +502,19 @@ OP_ENDIF
 <h2 id="सैंडबॉकसिंग"><a class="header" href="#सैंडबॉकसिंग">सैंडबॉक्सिंग</a></h2>
 <p>ऑफ-चेन संदेशों के संदर्भ निर्देशों को रोकने के लिए HTML और SVG इंस्‍क्रि‍प्‍शंस को सैंडबॉक्स कर देता है, इस प्रकार इंस्‍क्रि‍प्‍शंस को स्थिर और पृथक रखा जाता है।</p>
 <p>इसे <code>सैंडबॉक्स</code> गुणों के साथ <code>आईफ्रेम</code> के भीतर HTML और SVG इंस्‍क्रि‍प्‍शंस लोड करने के साथ-साथ इंस्‍क्रि‍प्‍शंस विषय-वस्‍तु को <code>Content-Security-Policy</code> है की सेवा प्रदान करके पूरा किया जाता है।</p>
+<h2 id="self-reference"><a class="header" href="#self-reference">Self-Reference</a></h2>
+<p>The content of the inscription with ID <code>INSCRIPTION_ID</code> must served from the URL path <code>/content/&lt;INSCRIPTION_ID&gt;</code>.</p>
+<p>This allows inscriptions to retrieve their own inscription ID with:</p>
+<pre><code class="language-js">let inscription_id = window.location.pathname.split("/").pop();
+</code></pre>
+<p>If an inscription with ID X delegates to an inscription with ID Y, that is to say, if inscription X contains a delegate field with value Y, the content of inscription X must be served from the URL path <code>/content/X</code>, <em>not</em> <code>/content/Y</code>.</p>
+<p>This allows delegating inscriptions to use their own inscription ID as a seed for generative delegate content.</p>
 <h2 id="reinscriptions"><a class="header" href="#reinscriptions">Reinscriptions</a></h2>
 <p>Previously inscribed sats can be reinscribed with the <code>--reinscribe</code> command if the inscription is present in the wallet. This will only append an inscription to a sat, not change the initial inscription.</p>
 <p>Reinscribe with satpoint: <code>ord wallet inscribe --fee-rate &lt;FEE_RATE&gt; --reinscribe --file &lt;FILE&gt; --satpoint &lt;SATPOINT&gt;</code></p>
 <p>Reinscribe on a sat (requires sat index): <code>ord --index-sats wallet inscribe --fee-rate &lt;FEE_RATE&gt; --reinscribe --file &lt;FILE&gt; --sat &lt;SAT&gt;</code></p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="delegate"><a class="header" href="#delegate">Delegate</a></h1>
-<p>Inscriptions may nominate a delegate inscription. Requests for the content of an inscription with a delegate will instead return the content and content type of the delegate. This can be used to cheaply create copies of an inscription.</p>
+<p>Inscriptions may nominate a delegate inscription. Requests for the content of an inscription with a delegate will instead return the content, content type and content encoding of the delegate. This can be used to cheaply create copies of an inscription.</p>
 <h3 id="विनिरदेश"><a class="header" href="#विनिरदेश">विनिर्देश</a></h3>
 <p>To create an inscription I with delegate inscription D:</p>
 <ul>
@@ -700,8 +707,12 @@ OP_ENDIF
 <li><code>/r/blocktime</code>: UNIX time stamp of latest block.</li>
 <li><code>/r/children/&lt;INSCRIPTION_ID&gt;</code>: the first 100 child inscription ids.</li>
 <li><code>/r/children/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</code>: the set of 100 child inscription ids on <code>&lt;PAGE&gt;</code>.</li>
+<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions</code>: details of the first 100 child inscriptions.</li>
+<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions/&lt;PAGE&gt;</code>: details of the set of 100 child inscriptions on <code>&lt;PAGE&gt;</code>.</li>
 <li><code>/r/inscription/&lt;INSCRIPTION_ID&gt;</code>: information about an inscription</li>
 <li><code>/r/metadata/&lt;INSCRIPTION_ID&gt;</code>: JSON string containing the hex-encoded CBOR metadata.</li>
+<li><code>/r/parents/&lt;INSCRIPTION_ID&gt;</code>: the first 100 parent inscription ids.</li>
+<li><code>/r/parents/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</code>: the set of 100 parent inscription ids on <code>&lt;PAGE&gt;</code>.</li>
 <li><code>/r/sat/&lt;SAT_NUMBER&gt;</code>: the first 100 inscription ids on a sat.</li>
 <li><code>/r/sat/&lt;SAT_NUMBER&gt;/&lt;PAGE&gt;</code>: the set of 100 inscription ids on <code>&lt;PAGE&gt;</code>.</li>
 <li><code>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;</code>: the inscription id at <code>&lt;INDEX&gt;</code> of all inscriptions on a sat. <code>&lt;INDEX&gt;</code> may be a negative number to index from the back. <code>0</code> being the first and <code>-1</code> being the most recent for example.</li>
@@ -728,6 +739,7 @@ OP_ENDIF
 <ul>
 <li><code>/r/blockinfo/0</code>:</li>
 </ul>
+<p>Note: <code>feerate_percentiles</code> are feerates at the 10th, 25th, 50th, 75th, and 90th percentile in sats/vB.</p>
 <pre><code class="language-json">{
   "average_fee": 0,
   "average_fee_rate": 0,
@@ -736,6 +748,7 @@ OP_ENDIF
   "confirmations": 0,
   "difficulty": 0.0,
   "hash": "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
+  "feerate_percentiles": [0, 0, 0, 0, 0],
   "height": 0,
   "max_fee": 0,
   "max_fee_rate": 0,
@@ -779,12 +792,50 @@ OP_ENDIF
 }
 </code></pre>
 <ul>
+<li><code>/r/children/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fai0/inscriptions/49</code>:</li>
+</ul>
+<pre><code class="language-json">{
+  "children": [
+    {
+      "charms": [
+        "cursed"
+      ],
+      "fee": 44,
+      "height": 813929,
+      "id": "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4900",
+      "number": -223695,
+      "output": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0",
+      "sat": 1897135510683785,
+      "satpoint": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0:74188588",
+      "timestamp": 1698326262
+    },
+      ...
+    {
+      "charms": [
+        "cursed"
+      ],
+      "fee": 44,
+      "height": 813929,
+      "id": "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4936",
+      "number": -223731,
+      "output": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0",
+      "sat": 1897135510683821,
+      "satpoint": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0:74188624",
+      "timestamp": 1698326262
+    }
+  ],
+  "more": false,
+  "page": 49
+}
+</code></pre>
+<ul>
 <li><code>/r/inscription/3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36i0</code></li>
 </ul>
 <pre><code class="language-json">{
   "charms": [],
   "content_type": "image/png",
   "content_length": 144037,
+  "delegate": null,
   "fee": 36352,
   "height": 209,
   "id": "3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36i0",
@@ -819,21 +870,6 @@ OP_ENDIF
    "id":"17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0"
 }
 </code></pre>
-<ul>
-<li><code>/r/children/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fai0/49</code>:</li>
-</ul>
-<pre><code class="language-json">{
-   "ids":[
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4900",
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4901",
-      ...
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4935",
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4936"
-   ],
-   "more":false,
-   "page":49
-}
-</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="rendering"><a class="header" href="#rendering">Rendering</a></h1>
 <h2 id="aspect-ratio"><a class="header" href="#aspect-ratio">Aspect Ratio</a></h2>
 <p>Inscriptions should be rendered with a square aspect ratio. Non-square aspect ratio inscriptions should not be cropped, and should instead be centered and resized to fit within their container.</p>
@@ -853,13 +889,14 @@ OP_ENDIF
 <p>A transaction may have at most one runestone.</p>
 <p>A runestone may etch a new rune, mint an existing rune, and transfer runes from a transaction's inputs to its outputs.</p>
 <p>A transaction output may hold balances of any number of runes.</p>
-<p>Runes are identified by IDs, which consist of the block in which a rune was etched and the index of the etching transaction within that block, represented in text as <code>BLOCK:TX</code>. For example, the ID of the rune minted in the 20th transaction of the 500th block is <code>500:20</code>.</p>
+<p>Runes are identified by IDs, which consist of the block in which a rune was etched and the index of the etching transaction within that block, represented in text as <code>BLOCK:TX</code>. For example, the ID of the rune etched in the 20th transaction of the 500th block is <code>500:20</code>.</p>
 <h2 id="etching"><a class="header" href="#etching">Etching</a></h2>
 <p>Runes come into existence by being etched. Etching creates a rune and sets its properties. Once set, these properties are immutable, even to its etcher.</p>
 <h3 id="name"><a class="header" href="#name">Name</a></h3>
-<p>Names consist of the letters A through Z and are between one and twenty-eight characters long. For example <code>UNCOMMONGOODS</code> is a rune name.</p>
+<p>Names consist of the letters A through Z and are between one and twenty-six letters long. For example <code>UNCOMMONGOODS</code> is a rune name.</p>
 <p>Names may contain spacers, represented as bullets, to aid readability. <code>UNCOMMONGOODS</code> might be etched as <code>UNCOMMON•GOODS</code>.</p>
 <p>The uniqueness of a name does not depend on spacers. Thus, a rune may not be etched with the same sequence of letters as an existing rune, even if it has different spacers.</p>
+<p>Spacers can only be placed between two letters. Finally, spacers do not count towards the letter count.</p>
 <h3 id="divisibility"><a class="header" href="#divisibility">Divisibility</a></h3>
 <p>A rune's divisibility is how finely it may be divided into its atomic units. Divisibility is expressed as the number of digits permissible after the decimal point in an amount of runes. A rune with divisibility 0 may not be divided. A unit of a rune with divisibility 1 may be divided into ten sub-units, a rune with divisibility 2 may be divided into a hundred, and so on.</p>
 <h3 id="symbol"><a class="header" href="#symbol">Symbol</a></h3>
@@ -1223,7 +1260,7 @@ OP_ENDIF
 <p>If an edict would allocate more runes than are currently unallocated, the <code>amount</code> is reduced to the number of currently unallocated runes. In other words, the edict allocates all remaining unallocated units of rune <code>id</code>.</p>
 <p>Because the ID of an etched rune is not known before it is included in a block, ID <code>0:0</code> is used to mean the rune being etched in this transaction, if any.</p>
 <p>An edict with <code>amount</code> zero allocates all remaining units of rune <code>id</code>.</p>
-<p>An edict with <code>output</code> equal to the number of transaction outputs allocates <code>amount</code> runes to each non-<code>OP_RETURN</code> output.</p>
+<p>An edict with <code>output</code> equal to the number of transaction outputs allocates <code>amount</code> runes to each non-<code>OP_RETURN</code> output in order.</p>
 <p>An edict with <code>amount</code> zero and <code>output</code> equal to the number of transaction outputs divides all unallocated units of rune <code>id</code> between each non-<code>OP_RETURN</code> output. If the number of unallocated runes is not divisible by the number of non-<code>OP_RETURN</code> outputs, 1 additional rune is assigned to the first <code>R</code> non-<code>OP_RETURN</code> outputs, where <code>R</code> is the remainder after dividing the balance of unallocated units of rune <code>id</code> by the number of non-<code>OP_RETURN</code> outputs.</p>
 <p>If any edict in a runestone has a rune ID with <code>block</code> zero and <code>tx</code> greater than zero, or <code>output</code> greater than the number of transaction outputs, the runestone is a cenotaph.</p>
 <p>Note that edicts in cenotaphs are not processed, and all input runes are burned.</p>
@@ -1253,7 +1290,7 @@ OP_ENDIF
 <p>आप शुल्क के बारे में पूछ सकते हैं, हैं ना? अच्छा सवाल! चलिए वही लेन-देन कल्पना करते हैं, इस बार दो सातोशी शुल्क के साथ। शुल्क वाले लेन-देन में प्रवेश में अधिक सातोशियाँ भेजी जाती हैं जितनी आउटपुट द्वारा प्राप्त होती है, इसलिए हमारे लेन-देन को एक शुल्क चुकाने वाले लेन-देन में बदलने के लिए, हम दूसरे आउटपुट को हटा देंगे:</p>
 <pre><code>[2] [1] [3] → [4]
 </code></pre>
-<p>सातोशी<var>e</var>और <var>f</var>आउटपुट में निष्क्रिय हो गया है:</p>
+<p>The satoshis <var>e</var> and <var>f</var> now have nowhere to go in the outputs:</p>
 <pre><code>[a b] [c] [d e f] → [a b c d]
 </code></pre>
 <p>इसलिए वे शुल्‍क के रूप में ब्‍लॉक का खनन करने वाले माइनर (खनिक) के पास जाते हैं। बीआईपी <a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">The BIP</a> "में विवरण दिए गये हैं, लेकिन संक्षेप में, लेनदेन द्वारा किए गये भुगतान शुल्‍क सिक्‍का आधारित लेनदेन के अतिरिक्त इनपुट के रूप में उपचारित किये जाएंगे, और इस तरह क्रमबद्ध किये जाएंगे जिस क्रम में ब्लॉक में उनके संबंधित लेनदेन के क्रम दिये गये हैं। ब्लॉक का कॉइनबेस लेनदेन इस तरह दिख सकता है:</p>
@@ -1406,7 +1443,6 @@ OP_ENDIF
 <li><code>/inscriptions/block/&lt;BLOCK_HEIGHT&gt;/&lt;PAGE_INDEX&gt;</code></li>
 <li><code>/inscriptions/&lt;FROM&gt;</code></li>
 <li><code>/inscriptions/&lt;FROM&gt;/&lt;N&gt;</code></li>
-<li><code>/output/&lt;OUTPOINT&gt;</code></li>
 <li><code>/output/&lt;OUTPOINT&gt;</code></li>
 <li><code>/sat/&lt;SAT&gt;</code></li>
 </ul>
@@ -1773,8 +1809,8 @@ inscriptions:
 <p>वर्तमान में एक <a href="https://github.com/ordinals/ord/issues/1589">बग</a> का हमला हुआ है, "जिसके कारण इंपोर्ट किए गये वॉलेट को ब्लॉकचेन के विरुद्ध स्वचालित रूप से दुबारा स्कैन नहीं किया जा सकता। इसे दुरूस्‍त करने के लिए, आपको bitcoin core cli:<code>bitcoin-cli -rpcwallet=ord rescanblockchain 767430</code> का उपयोग करके मैन्युअल रूप से रीस्कैन करना होगा।"</p>
 <p>इसके बाद आप <code>ord wallet inscriptions</code> का उपयोग कर अपने वॉलेट इंस्‍क्रीप्‍शंस (डिजिटल अभिलेखों) की जांच कर सकते हैं</p>
 <p>ध्यान रहे, यदि आपने पहले <code>ऑर्ड</code> के साथ एक वॉलेट बना चुके हैं, तब आपके पास पहले से ही डिफ़ॉल्ट नाम वाला एक वॉलेट पहले से ही उपलब्‍ध है, और इसलिए आपको अपने इंर्पोटेड वॉलेट को कोई दूसरा नाम देना होगा। आप सभी <code>ऑर्ड</code> में <code>–-wallet</code> पैरामीटर में सभी कमांड का उपयोग करके किसी भिन्न वॉलेट को संदर्भित कर सकते हैं, उदाहरण के लिए:</p>
-<p><code>ord --wallet ord_from_sparrow wallet restore "BIP39 SEED PHRASE"</code></p>
-<p><code>ord --wallet ord_from_sparrow wallet inscriptions</code></p>
+<p><code>ord wallet --name ord_from_sparrow wallet restore --from mnemonic</code></p>
+<p><code>ord wallet --name ord_from_sparrow wallet inscriptions</code></p>
 <p><code>bitcoin-cli -rpcwallet=ord_from_sparrow rescanblockchain 767430</code></p>
 <h2 id="सपैरो-वॉलेट-के-साथ-इंसकरीपशंस-डिजिटल-अभिलेख-परेषित-करना"><a class="header" href="#सपैरो-वॉलेट-के-साथ-इंसकरीपशंस-डिजिटल-अभिलेख-परेषित-करना">स्पैरो वॉलेट के साथ इंस्‍क्रीप्‍शंस (डिजिटल अभिलेख) प्रेषित करना</a></h2>
 <h4 id="-चेतावनी--1"><a class="header" href="#-चेतावनी--1">⚠️⚠️ चेतावनी ⚠️⚠️</a></h4>
@@ -1871,7 +1907,6 @@ ord index update
 </code></pre>
 <p>आप निस्‍संदेह <code>ord --datadir &lt;DIR&gt; index update</code> के साथ डेटा निर्देशिका का स्थान स्वयं भी सेट कर सकते हैं या इसे <code>ord --index &lt;FILENAME&gt; index update</code> के साथ एक विशिष्ट फ़ाइल नाम और पथ भी दे सकते हैं।</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="सैट-हंटिंग"><a class="header" href="#सैट-हंटिंग">सैट हंटिंग</a></h1>
-<p>_यह मार्गदर्शिका पुरानी हो गई है। जब से इसे लिखा गया है, <code>ऑर्ड</code> बाइनरी को <code>--index-sats</code> फ्लैग आपूर्ति करने के बाद पूर्ण सातोशी सूचकांक बनाने के लिए बदल दिया गया था। इसके अतिरिक्त, ऑर्ड में अब एक अंतरंग वॉलेट है जो बिटकॉइन कोर वॉलेट को सम्मिलित करता है। <code>ord wallet –help</code> पर देखें।</p>
 <p>ऑर्डिनल हंटिंग कठिन जरूर है लेकिन बहुत लाभदायक है। यूटीएक्सओ से युक्‍त वॉलेट के मालिक बनने का एहसास, सैट की आकर्षकता और दुर्लभता का सूचक है, जो अतुलनीय है।</p>
 <p>ऑर्डिनल्स सातोशी के लिए संख्याएँ हैं। प्रत्येक सातोशी में क्रमसूचक संख्या होती है और प्रत्येक क्रमसूचक संख्या की एक सातोशी होती है।</p>
 <h2 id="तैयारी-करना"><a class="header" href="#तैयारी-करना">तैयारी करना</a></h2>
@@ -1895,10 +1930,10 @@ ord index update
 <p><a href="https://github.com/ordinals/ord/">रेपो</a> से <code>ऑर्ड</code> की एक प्रति प्राप्त करें।</p>
 </li>
 <li>
-<p><code>RUST_LOG=जानकारी ऑर्ड इंडेक्स</code> क्रियाशील करें। यह आपके बिटकॉइन कोर नोड से जुड़ना चाहिए और सूचकांक शुरू हो जाना चाहिए।</p>
+<p>Run <code>ord --index-sats server</code>. It should connect to your bitcoin core node and start indexing.</p>
 </li>
 <li>
-<p>इसके सूचकांक के समाप्त होने तक प्रतीक्षा करें।</p>
+<p>Once it has finished indexing, leave the server running and submit new <code>ord</code> commands in a separate terminal session.</p>
 </li>
 </ul>
 </li>
@@ -2041,7 +2076,10 @@ ord index update
 <h4 id="सपैरो-वॉलेट"><a class="header" href="#सपैरो-वॉलेट">स्‍पैरो वॉलेट</a></h4>
 <p>पहले सेटिंग्स टैब पर जाएँ, फिर स्क्रिप्ट पॉलिसी पर जाएँ, और डिस्क्रिप्टर प्रदर्शित करने के लिए एडिट बटन दबाएँ।</p>
 <h3 id="ऑरडिनलस-करमसूचक-संखयाएं-सथानांतरित-करना"><a class="header" href="#ऑरडिनलस-करमसूचक-संखयाएं-सथानांतरित-करना">ऑर्डिनल्‍स (क्रमसूचक संख्‍याएं) स्थानांतरित करना</a></h3>
-<p><code>ऑर्ड</code> वॉलेट विशिष्ट सातोशी स्थानांतरित करने का समर्थन करता है। आप <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, और <code>sendrawtransaction</code> बिटकॉइन-सीएलआई कमांड भी प्रयोग कर सकते हैं, इसे कैसे करना है यह थोड़ा मुश्किल है और इस मार्गदर्शिका के दायरे से बाहर के विषय हैं।</p>
+<p>The <code>ord</code> wallet supports transferring specific satoshis by using the name of the satoshi. To send the satoshi <code>zonefruits</code>, do:</p>
+<pre><code>ord wallet send &lt;RECEIVING_ADDRESS&gt; zonefruits --fee-rate 21
+</code></pre>
+<p>You can also use the <code>bitcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="settings"><a class="header" href="#settings">Settings</a></h1>
 <p><code>ord</code> can be configured with the command line, environment variables, a configuration file, and default values.</p>
 <p>The command line takes precedence over environment variables, which take precedence over the configuration file, which takes precedence over defaults.</p>
@@ -2072,6 +2110,7 @@ hidden:
 - 6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0
 - 703e5f7c49d82aab99e605af306b9a30e991e57d42f982908a962a81ac439832i0
 index: /var/lib/ord/index.redb
+index_addresses: true
 index_cache_size: 1000000000
 index_runes: true
 index_sats: true
@@ -2102,7 +2141,7 @@ server_username: foo
 <p>Ethereum teleburn addresses are derived by taking the first 20 bytes of the SHA-256 hash of the inscription ID, serialized as 36 bytes, with the first 32 bytes containing the transaction ID, and the last four bytes containing big-endian inscription index, and interpreting it as an Ethereum address.</p>
 <h2 id="उदाहरण-3"><a class="header" href="#उदाहरण-3">उदाहरण</a></h2>
 <p>The ENS domain name <a href="https://app.ens.domains/rodarmor.eth">rodarmor.eth</a>, was teleburned to <a href="https://ordinals.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0">inscription zero</a>.</p>
-<p>Running the inscription ID of inscription zero is <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code>.</p>
+<p>The inscription ID of inscription zero is <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code>.</p>
 <p>Passing <code>6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0</code> to the teleburn command:</p>
 <pre><code class="language-bash">$ ord teleburn 6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0
 </code></pre>
@@ -2179,8 +2218,8 @@ $ord outputs
 <pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;
 </code></pre>
 <h3 id="mainnet-dependencies"><a class="header" href="#mainnet-dependencies">Mainnet Dependencies</a></h3>
-<p>To avoid having to change dependency inscription IDs to mainnet inscription IDs, you may utilize a content proxy when testing. <code>ord server</code> accepts a <code>--content-proxy</code> option, which takes the URL of a another <code>ord server</code> instance. When making a request to <code>/content/&lt;INSCRIPTION_ID&gt;</code> when a content proxy is set and the inscription is not found, <code>ord server</code> will forward the request to the content proxy. This allows you to run a test <code>ord server</code> instance with a mainnet content proxy. You can then use mainnet inscription IDs in your test inscription, which will then return the content of the mainnet inscriptions.</p>
-<pre><code>ord --regtest server --content-proxy https://ordinals.com
+<p>To avoid having to change dependency inscription IDs to mainnet inscription IDs, you may utilize a content proxy when testing. <code>ord server</code> accepts a <code>--proxy</code> option, which takes the URL of a another <code>ord server</code> instance. When making a request to <code>/content/&lt;INSCRIPTION_ID&gt;</code> when a content proxy is set and the inscription is not found, <code>ord server</code> will forward the request to the content proxy. This allows you to run a test <code>ord server</code> instance with a mainnet content proxy. You can then use mainnet inscription IDs in your test inscription, which will then return the content of the mainnet inscriptions.</p>
+<pre><code>ord --regtest server --proxy https://ordinals.com
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ऑरडिनल-करमसूचक-संखयाएं-बाउंटी-हंटिंग-सलाहें"><a class="header" href="#ऑरडिनल-करमसूचक-संखयाएं-बाउंटी-हंटिंग-सलाहें">ऑर्डिनल (क्रमसूचक संख्‍याएं) बाउंटी हंटिंग सलाहें</a></h1>
 <ul>
@@ -2219,7 +2258,8 @@ $ord outputs
 <p><a href="https://twitter.com/rodarmor/status/1569883266508853251">@ordinalsindex</a> द्वारा दावा किया गया!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="ऑरडिनल-बाउंटी-2"><a class="header" href="#ऑरडिनल-बाउंटी-2">ऑर्डिनल बाउंटी 2</a></h1>
 <h2 id="मानदंड-2"><a class="header" href="#मानदंड-2">मानदंड</a></h2>
-<p>प्रस्‍तुति पते पर <span class=uncommon>एक असामान्य</span>सैट प्रेषित करें:✅: <a href="https://ordinals.com/sat/347100000000000">347100000000000</a></p>
+<p>Send an <span class=uncommon>uncommon</span> sat to the submission address:</p>
+<p>✅: <a href="https://ordinals.com/sat/347100000000000">347100000000000</a></p>
 <p>❌: <a href="https://ordinals.com/sat/6685000001337">6685000001337</a></p>
 <p>पुष्टि करें कि प्रस्‍तुति पते पर आपकी प्रविष्टि प्रस्‍तुत करने से पहले लेनदेन प्राप्त नहीं हुआ है। केवल पहले सफल प्रस्तुतिकरण को ही पुरस्कृत किया जाएगा।</p>
 <h2 id="पुरसकार-2"><a class="header" href="#पुरसकार-2">पुरस्‍कार</a></h2>

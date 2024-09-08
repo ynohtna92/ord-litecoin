@@ -17,11 +17,10 @@ use {
   std::{
     cmp,
     collections::{HashMap, VecDeque},
-    fmt::{self, Display, Formatter},
+    fmt::{self, Formatter},
     io,
     num::ParseIntError,
     ops::{Add, AddAssign, Sub},
-    str::FromStr,
   },
   thiserror::Error,
 };
@@ -54,8 +53,8 @@ mod rarity;
 mod rune;
 mod rune_id;
 mod runestone;
-mod sat;
-mod sat_point;
-mod spaced_rune;
+pub mod sat;
+pub mod sat_point;
+pub mod spaced_rune;
 mod terms;
 pub mod varint;

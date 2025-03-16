@@ -724,9 +724,10 @@ impl Server {
     Path(DeserializeFromStr(address)): Path<DeserializeFromStr<bitcoin::Address<NetworkUnchecked>>>,
     Query(query): Query<AddressQuery>,
   ) -> ServerResult<Response> {
-    let inscription_ids = index.get_inscriptions_by_address(&address)
-        .unwrap_or_else(|_| None)
-        .unwrap_or_else(|| Vec::new());
+    let inscription_ids = index
+      .get_inscriptions_by_address(&address)
+      .unwrap_or_else(|_| None)
+      .unwrap_or_else(|| Vec::new());
 
     let enrich = query.full.unwrap_or(false);
 
@@ -919,27 +920,23 @@ impl Server {
 
         let inscriptions = index.get_inscriptions_in_block(height)?;
 
-        let inscriptions_per_tx: HashMap<_, _> = inscriptions
-          .iter()
-          .filter_map(
-            |inscription_id| match index.get_inscription_by_id(inscription_id.clone()) {
-              Ok(Some(inscription)) => {
-                let content_type = inscription.content_type().map(|s| encode(s));
-                let content = inscription.into_body().map(|s| encode(s));
-                let inscription_number = index
-                  .get_inscription_entry(inscription_id.clone())
-                  .unwrap()
-                  .unwrap()
-                  .inscription_number;
-                Some((
-                  inscription_id.txid,
-                  (inscription_id, content_type, content, inscription_number),
-                ))
-              }
-              _ => None,
-            },
-          )
-          .collect();
+        let mut inscriptions_per_tx: HashMap<_, Vec<_>> = HashMap::new();
+
+        for inscription_id in inscriptions {
+          if let Ok(Some(inscription)) = index.get_inscription_by_id(inscription_id.clone()) {
+            let content_type = inscription.content_type().map(|s| encode(s));
+            let content = inscription.into_body().map(|s| encode(s));
+            let inscription_number = index
+              .get_inscription_entry(inscription_id.clone())
+              .unwrap()
+              .unwrap()
+              .inscription_number;
+            inscriptions_per_tx
+              .entry(inscription_id.txid)
+              .or_default()
+              .push((inscription_id, content_type, content, inscription_number));
+          }
+        }
 
         let inscriptions_placeholder: Vec<i32> = vec![];
 
@@ -959,7 +956,7 @@ impl Server {
               "inputs": inputs_per_tx.get(&txid),
               "outputs": outputs_per_tx.get(&txid),
               "output_addresses": output_addresses_per_tx.get(&txid),
-              "inscriptions": inscriptions_per_tx.get(&txid).iter().map(|inscription| {
+              "inscriptions": inscriptions_per_tx.get(&txid).unwrap_or(&vec![]).iter().map(|inscription| {
                 serde_json::json!({
                   "inscription_id": inscription.0,
                   "content_type": inscription.1.as_ref(),

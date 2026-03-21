@@ -87,36 +87,169 @@ impl Fetcher {
       break;
     }
 
-    // Return early on any error, because we need all results to proceed
-    if let Some(err) = results.iter().find_map(|res| res.error.as_ref()) {
+    if results.len() != txids.len() {
       return Err(anyhow!(
-        "failed to fetch raw transaction: code {} message {}",
+        "batched JSON-RPC returned {} results for {} txids",
+        results.len(),
+        txids.len()
+      ));
+    }
+
+    results.sort_by(|a, b| a.id.cmp(&b.id));
+
+    let mut txs = Vec::with_capacity(txids.len());
+
+    for (expected_id, (txid, res)) in txids.iter().zip(results.into_iter()).enumerate() {
+      if res.id != expected_id {
+        return Err(anyhow!(
+          "batched JSON-RPC response id mismatch for {txid}: expected {expected_id}, got {}",
+          res.id
+        ));
+      }
+
+      match self.parse_batched_response(txid, res) {
+        Ok(tx) => txs.push(tx),
+        Err(error) => {
+          log::warn!(
+            "batched getrawtransaction decode failed for {txid}: {error}; retrying individually"
+          );
+
+          let tx = self
+            .get_transaction(*txid)
+            .await
+            .map_err(|single_error| {
+              anyhow!(
+                "failed to fetch transaction {txid} individually after batch failure: {single_error}"
+              )
+            })?;
+
+          txs.push(tx);
+        }
+      }
+    }
+
+    Ok(txs)
+  }
+
+  fn parse_batched_response(&self, txid: &Txid, res: JsonResponse<String>) -> Result<Transaction> {
+    if let Some(err) = res.error {
+      return Err(anyhow!(
+        "batched JSON-RPC error for {txid}: code {} message {}",
         err.code,
         err.message
       ));
     }
 
-    // Results from batched JSON-RPC requests can come back in any order, so we must sort them by id
-    results.sort_by(|a, b| a.id.cmp(&b.id));
+    let raw = res
+      .result
+      .ok_or_else(|| anyhow!("missing result for batched JSON-RPC response for {txid}"))?;
 
-    let txs = results
-      .into_iter()
-      .map(|res| {
-        res
-          .result
-          .ok_or_else(|| anyhow!("Missing result for batched JSON-RPC response"))
-          .and_then(|str| {
-            hex::decode(str)
-              .map_err(|e| anyhow!("Result for batched JSON-RPC response not valid hex: {e}"))
-          })
-          .and_then(|hex| {
-            consensus::deserialize(&hex).map_err(|e| {
-              anyhow!("Result for batched JSON-RPC response not valid bitcoin tx: {e}")
-            })
-          })
-      })
-      .collect::<Result<Vec<Transaction>>>()?;
-    Ok(txs)
+    self.deserialize_transaction(txid, &raw, "batched JSON-RPC response")
+  }
+
+  async fn get_transaction(&self, txid: Txid) -> Result<Transaction> {
+    let body = Value::Array(vec![json!({
+      "jsonrpc": "2.0",
+      "id": 0,
+      "method": "getrawtransaction",
+      "params": [ txid ],
+    })])
+    .to_string();
+
+    let mut results = self.try_get_transactions(body).await?;
+
+    if results.len() != 1 {
+      return Err(anyhow!(
+        "single JSON-RPC response for {txid} returned {} results",
+        results.len()
+      ));
+    }
+
+    let res = results.pop().unwrap();
+
+    if let Some(err) = res.error {
+      return Err(anyhow!(
+        "single JSON-RPC error for {txid}: code {} message {}",
+        err.code,
+        err.message
+      ));
+    }
+
+    let raw = res
+      .result
+      .ok_or_else(|| anyhow!("missing result for single JSON-RPC response for {txid}"))?;
+
+    self.deserialize_transaction(&txid, &raw, "single JSON-RPC response")
+  }
+
+  fn deserialize_transaction(
+    &self,
+    txid: &Txid,
+    raw: &str,
+    source: &str,
+  ) -> Result<Transaction> {
+    let hex =
+      hex::decode(raw).map_err(|e| anyhow!("{source} for {txid} not valid hex: {e}"))?;
+
+    match consensus::deserialize(&hex) {
+      Ok(tx) => Ok(tx),
+      Err(error) => {
+        if let Some(tx) = self.try_deserialize_litecoin_mweb(txid, &hex)? {
+          log::warn!("{source} for {txid} required Litecoin MWEB fallback deserialization");
+          return Ok(tx);
+        }
+
+        Err(anyhow!("{source} for {txid} not valid bitcoin tx: {error}"))
+      }
+    }
+  }
+
+  fn try_deserialize_litecoin_mweb(
+    &self,
+    txid: &Txid,
+    raw: &[u8],
+  ) -> Result<Option<Transaction>> {
+    if raw.len() < 10 || raw[4] != 0 {
+      return Ok(None);
+    }
+
+    let flags = raw[5];
+    if flags & 8 == 0 {
+      return Ok(None);
+    }
+
+    let (_, consumed) = match consensus::encode::deserialize_partial::<Transaction>(raw) {
+      Ok(result) => result,
+      Err(_) => return Ok(None),
+    };
+
+    if consumed < 10 || consumed > raw.len() || raw.len() < 4 {
+      return Ok(None);
+    }
+
+    let body_end = consumed
+      .checked_sub(4)
+      .ok_or_else(|| anyhow!("partial deserialize for {txid} consumed too few bytes"))?;
+
+    if body_end < 6 {
+      return Ok(None);
+    }
+
+    let mut canonical = Vec::with_capacity(raw.len());
+    canonical.extend_from_slice(&raw[..4]);
+
+    if flags & 1 != 0 {
+      canonical.push(0);
+      canonical.push(1);
+    }
+
+    canonical.extend_from_slice(&raw[6..body_end]);
+    canonical.extend_from_slice(&raw[raw.len() - 4..]);
+
+    let tx = consensus::deserialize(&canonical)
+      .map_err(|error| anyhow!("Litecoin MWEB fallback deserialize failed for {txid}: {error}"))?;
+
+    Ok(Some(tx))
   }
 
   async fn try_get_transactions(&self, body: String) -> Result<Vec<JsonResponse<String>>> {

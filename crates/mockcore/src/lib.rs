@@ -213,7 +213,7 @@ impl Handle {
     .unwrap()
   }
 
-  pub fn state(&self) -> MutexGuard<State> {
+  pub fn state(&self) -> MutexGuard<'_, State> {
     self.state.lock().unwrap()
   }
 

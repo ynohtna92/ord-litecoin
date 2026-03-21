@@ -41,7 +41,7 @@ pub struct UtxoEntry {
 }
 
 impl UtxoEntry {
-  pub fn parse(&self, index: &Index) -> ParsedUtxoEntry {
+  pub fn parse(&self, index: &Index) -> ParsedUtxoEntry<'_> {
     let sats;
     let mut script_pubkey = None;
     let mut inscriptions = None;

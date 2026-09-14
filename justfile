@@ -132,7 +132,7 @@ publish-release revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
   rm -rf tmp/release
-  git clone https://github.com/ordinals/ord.git tmp/release
+  git clone --depth 1 https://github.com/ordinals/ord.git tmp/release
   cd tmp/release
   git checkout {{ revision }}
   cargo publish
@@ -143,7 +143,7 @@ publish-tag-and-crate revision='master':
   #!/usr/bin/env bash
   set -euxo pipefail
   rm -rf tmp/release
-  git clone git@github.com:ordinals/ord.git tmp/release
+  git clone --depth 1 git@github.com:ordinals/ord.git tmp/release
   cd tmp/release
   git checkout {{revision}}
   version=`sed -En 's/version[[:space:]]*=[[:space:]]*"([^"]+)"/\1/p' Cargo.toml | head -1`

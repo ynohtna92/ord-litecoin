@@ -148,15 +148,9 @@ pub(super) async fn blocktime_string(
 
 pub(super) async fn children(
   Extension(index): Extension<Arc<Index>>,
-  Extension(server_config): Extension<Arc<ServerConfig>>,
   Path(inscription_id): Path<InscriptionId>,
 ) -> ServerResult {
-  children_paginated(
-    Extension(index),
-    Extension(server_config),
-    Path((inscription_id, 0)),
-  )
-  .await
+  children_paginated(Extension(index), Path((inscription_id, 0))).await
 }
 
 pub(super) async fn children_inscriptions(
@@ -181,31 +175,8 @@ pub(super) async fn children_inscriptions_paginated(
 
     let children = ids
       .into_iter()
-      .map(|inscription_id| {
-        let entry = index
-          .get_inscription_entry(inscription_id)
-          .unwrap()
-          .unwrap();
-
-        let satpoint = index
-          .get_inscription_satpoint_by_id(inscription_id)
-          .ok()
-          .flatten()
-          .unwrap();
-
-        api::ChildInscriptionRecursive {
-          charms: Charm::charms(entry.charms),
-          fee: entry.fee,
-          height: entry.height,
-          id: inscription_id,
-          number: entry.inscription_number,
-          output: satpoint.outpoint,
-          sat: entry.sat,
-          satpoint,
-          timestamp: timestamp(entry.timestamp.into()).timestamp(),
-        }
-      })
-      .collect();
+      .map(|inscription_id| get_relative_inscription(&index, inscription_id))
+      .collect::<ServerResult<Vec<api::RelativeInscriptionRecursive>>>()?;
 
     Ok(
       Json(api::ChildInscriptions {
@@ -220,19 +191,13 @@ pub(super) async fn children_inscriptions_paginated(
 
 pub(super) async fn children_paginated(
   Extension(index): Extension<Arc<Index>>,
-  Extension(server_config): Extension<Arc<ServerConfig>>,
   Path((parent, page)): Path<(InscriptionId, usize)>,
 ) -> ServerResult {
   task::block_in_place(|| {
     let Some(parent) = index.get_inscription_entry(parent)? else {
-      return if let Some(proxy) = server_config.proxy.as_ref() {
-        Server::proxy(proxy, &format!("r/children/{}/{}", parent, page))
-      } else {
-        Err(ServerError::NotFound(format!(
-          "inscription {} not found",
-          parent
-        )))
-      };
+      return Err(ServerError::NotFound(format!(
+        "inscription {parent} not found"
+      )));
     };
 
     let parent_sequence_number = parent.sequence_number;
@@ -257,13 +222,9 @@ pub(super) async fn content(
     }
 
     let Some(mut inscription) = index.get_inscription_by_id(inscription_id)? else {
-      return if let Some(proxy) = server_config.proxy.as_ref() {
-        Server::proxy(proxy, &format!("content/{}", inscription_id))
-      } else {
-        Err(ServerError::NotFound(format!(
-          "inscription {inscription_id} not found"
-        )))
-      };
+      return Err(ServerError::NotFound(format!(
+        "inscription {inscription_id} not found"
+      )));
     };
 
     if let Some(delegate) = inscription.delegate() {
@@ -299,7 +260,9 @@ pub(super) fn content_response(
         );
     }
     Some(origin) => {
-      let csp = format!("default-src {origin}/content/ {origin}/blockheight {origin}/blockhash {origin}/blockhash/ {origin}/blocktime {origin}/r/ 'unsafe-eval' 'unsafe-inline' data: blob:");
+      let csp = format!(
+        "default-src {origin}/content/ {origin}/blockheight {origin}/blockhash {origin}/blockhash/ {origin}/blocktime {origin}/r/ 'unsafe-eval' 'unsafe-inline' data: blob:"
+      );
       headers.insert(
         header::CONTENT_SECURITY_POLICY,
         HeaderValue::from_str(&csp).map_err(|err| ServerError::Internal(Error::from(err)))?,
@@ -357,14 +320,9 @@ pub(super) async fn inscription(
 ) -> ServerResult {
   task::block_in_place(|| {
     let Some(inscription) = index.get_inscription_by_id(inscription_id)? else {
-      return if let Some(proxy) = server_config.proxy.as_ref() {
-        Server::proxy(proxy, &format!("r/inscription/{}", inscription_id))
-      } else {
-        Err(ServerError::NotFound(format!(
-          "inscription {} not found",
-          inscription_id
-        )))
-      };
+      return Err(ServerError::NotFound(format!(
+        "inscription {inscription_id} not found",
+      )));
     };
 
     let entry = index
@@ -424,19 +382,13 @@ pub(super) async fn inscription(
 
 pub(super) async fn metadata(
   Extension(index): Extension<Arc<Index>>,
-  Extension(server_config): Extension<Arc<ServerConfig>>,
   Path(inscription_id): Path<InscriptionId>,
 ) -> ServerResult {
   task::block_in_place(|| {
     let Some(inscription) = index.get_inscription_by_id(inscription_id)? else {
-      return if let Some(proxy) = server_config.proxy.as_ref() {
-        Server::proxy(proxy, &format!("r/metadata/{}", inscription_id))
-      } else {
-        Err(ServerError::NotFound(format!(
-          "inscription {} not found",
-          inscription_id
-        )))
-      };
+      return Err(ServerError::NotFound(format!(
+        "inscription {inscription_id} not found"
+      )));
     };
 
     let metadata = inscription
@@ -454,6 +406,40 @@ pub(super) async fn parents(
   parents_paginated(Extension(index), Path((inscription_id, 0))).await
 }
 
+pub async fn parent_inscriptions(
+  Extension(index): Extension<Arc<Index>>,
+  Path(inscription_id): Path<InscriptionId>,
+) -> ServerResult {
+  parent_inscriptions_paginated(Extension(index), Path((inscription_id, 0))).await
+}
+
+pub async fn parent_inscriptions_paginated(
+  Extension(index): Extension<Arc<Index>>,
+  Path((child, page)): Path<(InscriptionId, usize)>,
+) -> ServerResult {
+  task::block_in_place(|| {
+    let entry = index
+      .get_inscription_entry(child)?
+      .ok_or_not_found(|| format!("inscription {child}"))?;
+
+    let (ids, more) = index.get_parents_by_sequence_number_paginated(entry.parents, 100, page)?;
+
+    let parents = ids
+      .into_iter()
+      .map(|inscription_id| get_relative_inscription(&index, inscription_id))
+      .collect::<ServerResult<Vec<api::RelativeInscriptionRecursive>>>()?;
+
+    Ok(
+      Json(api::ParentInscriptions {
+        parents,
+        more,
+        page,
+      })
+      .into_response(),
+    )
+  })
+}
+
 pub(super) async fn parents_paginated(
   Extension(index): Extension<Arc<Index>>,
   Path((inscription_id, page)): Path<(InscriptionId, usize)>,
@@ -463,7 +449,7 @@ pub(super) async fn parents_paginated(
       .get_inscription_entry(inscription_id)?
       .ok_or_not_found(|| format!("inscription {inscription_id}"))?;
 
-    let (ids, more) = index.get_parents_by_sequence_number_paginated(child.parents, page)?;
+    let (ids, more) = index.get_parents_by_sequence_number_paginated(child.parents, 100, page)?;
 
     let page_index =
       u32::try_from(page).map_err(|_| anyhow!("page index {} out of range", page))?;
@@ -545,6 +531,31 @@ pub(super) async fn sat_at_index_content(
   .await
 }
 
+fn get_relative_inscription(
+  index: &Index,
+  id: InscriptionId,
+) -> ServerResult<api::RelativeInscriptionRecursive> {
+  let entry = index
+    .get_inscription_entry(id)?
+    .ok_or_not_found(|| format!("inscription {id}"))?;
+
+  let satpoint = index
+    .get_inscription_satpoint_by_id(id)?
+    .ok_or_not_found(|| format!("satpoint for inscription {id}"))?;
+
+  Ok(api::RelativeInscriptionRecursive {
+    charms: Charm::charms(entry.charms),
+    fee: entry.fee,
+    height: entry.height,
+    id,
+    number: entry.inscription_number,
+    output: satpoint.outpoint,
+    sat: entry.sat,
+    satpoint,
+    timestamp: timestamp(entry.timestamp.into()).timestamp(),
+  })
+}
+
 pub(super) async fn tx(
   Extension(index): Extension<Arc<Index>>,
   Path(txid): Path<Txid>,
@@ -578,6 +589,22 @@ pub(super) async fn undelegated_content(
       r::content_response(inscription, accept_encoding, &server_config)?
         .ok_or_not_found(|| format!("inscription {inscription_id} content"))?
         .into_response(),
+    )
+  })
+}
+
+pub(super) async fn utxo(
+  Extension(index): Extension<Arc<Index>>,
+  Path(outpoint): Path<OutPoint>,
+) -> ServerResult {
+  task::block_in_place(|| {
+    Ok(
+      Json(
+        index
+          .get_utxo_recursive(outpoint)?
+          .ok_or_not_found(|| format!("output {outpoint}"))?,
+      )
+      .into_response(),
     )
   })
 }

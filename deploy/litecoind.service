@@ -1,20 +1,16 @@
 [Unit]
 After=network-online.target
-Description=Litecoin Core daemon
-Documentation=https://github.com/litecoin-project/litecoin/blob/master/doc/init.md
+Description=litecoindaemon
+Documentation=https://github.com/litecoin/litecoin/blob/master/doc/init.md
 Wants=network-online.target
 
 [Service]
-EnvironmentFile=/etc/ord/environment
 ConfigurationDirectory=litecoin
 ConfigurationDirectoryMode=0710
 ExecStart=/usr/local/bin/litecoind \
   -conf=/etc/litecoin/litecoin.conf \
-  -chain=${CORE_CHAIN}
+  -chain=${CHAIN}
 ExecStartPre=/bin/chgrp litecoin /etc/litecoin
-ExecStartPost=/usr/local/bin/litecoin-cli -conf=/etc/litecoin/litecoin.conf -chain=${CORE_CHAIN} -rpcwait getblockchaininfo
-ExecStartPost=+/usr/bin/setfacl -m u:ord:x /var/lib/litecoind ${COOKIE_FILE_DIR}
-ExecStartPost=+/usr/bin/setfacl -m u:ord:r ${COOKIE_FILE}
 Group=litecoin
 MemoryDenyWriteExecute=true
 NoNewPrivileges=true
@@ -26,7 +22,7 @@ ProtectSystem=full
 Restart=on-failure
 RuntimeDirectory=litecoin
 RuntimeDirectoryMode=0710
-StateDirectory=litecoind
+StateDirectory=litecoin
 StateDirectoryMode=0710
 TimeoutStartSec=infinity
 TimeoutStopSec=600

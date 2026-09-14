@@ -1,4 +1,4 @@
-#![allow(clippy::too_many_arguments)]
+#![allow(clippy::too_many_arguments, mismatched_lifetime_syntaxes)]
 
 use {
   api::Api,
@@ -372,7 +372,6 @@ impl Handle {
       Network::Signet => Network::Signet.to_string(),
       Network::Testnet4 => Network::Testnet4.to_string(),
       Network::Testnet => Network::Testnet.to_string(),
-      _ => panic!(),
     }
   }
 

@@ -52,15 +52,7 @@ deploy-mainnet-charlie branch='master' remote='ordinals/ord': \
 deploy-signet branch='master' remote='ordinals/ord': \
   (deploy branch remote 'signet' 'signet.ordinals.net')
 
-deploy-testnet branch='master' remote='ordinals/ord': \
-  (deploy branch remote 'test' 'testnet.ordinals.net')
-
-deploy-testnet4 branch='master' remote='ordinals/ord': \
-  (deploy branch remote 'testnet4' 'testnet4.ordinals.net')
-
 deploy-all: \
-  deploy-testnet \
-  deploy-testnet4 \
   deploy-signet \
   deploy-mainnet-alpha \
   deploy-mainnet-bravo \
@@ -68,12 +60,11 @@ deploy-all: \
 
 delete-indices: \
   (delete-index "signet.ordinals.net") \
-  (delete-index "testnet.ordinals.net")
 
 delete-index domain:
   ssh root@{{domain}} 'systemctl stop ord && rm -f /var/lib/ord/*/index.redb'
 
-servers := 'alpha bravo charlie signet testnet3 testnet4'
+servers := 'alpha bravo charlie signet'
 
 initialize-server-keys:
   #!/usr/bin/env bash
@@ -235,3 +226,9 @@ swap host:
 
 changed-files tag:
   git diff --name-only {{tag}}
+
+env:
+  cargo run env
+
+env-open:
+  open http://127.0.0.1:9001

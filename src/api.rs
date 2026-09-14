@@ -84,7 +84,14 @@ pub struct Children {
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct ChildInscriptions {
-  pub children: Vec<ChildInscriptionRecursive>,
+  pub children: Vec<RelativeInscriptionRecursive>,
+  pub more: bool,
+  pub page: usize,
+}
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct ParentInscriptions {
+  pub parents: Vec<RelativeInscriptionRecursive>,
   pub more: bool,
   pub page: usize,
 }
@@ -132,7 +139,7 @@ pub struct InscriptionRecursive {
 }
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
-pub struct ChildInscriptionRecursive {
+pub struct RelativeInscriptionRecursive {
   pub charms: Vec<Charm>,
   pub fee: u64,
   pub height: u32,
@@ -162,6 +169,7 @@ pub struct UtxoRecursive {
 #[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
 pub struct Output {
   pub address: Option<Address<NetworkUnchecked>>,
+  pub confirmations: u32,
   pub indexed: bool,
   pub inscriptions: Option<Vec<InscriptionId>>,
   pub outpoint: OutPoint,
@@ -176,6 +184,7 @@ pub struct Output {
 impl Output {
   pub fn new(
     chain: Chain,
+    confirmations: u32,
     inscriptions: Option<Vec<InscriptionId>>,
     outpoint: OutPoint,
     tx_out: TxOut,
@@ -189,6 +198,7 @@ impl Output {
         .address_from_script(&tx_out.script_pubkey)
         .ok()
         .map(|address| uncheck(&address)),
+      confirmations,
       indexed,
       inscriptions,
       outpoint,
@@ -240,4 +250,9 @@ pub struct AddressInfo {
   pub inscriptions: Option<Vec<InscriptionId>>,
   pub sat_balance: u64,
   pub runes_balances: Option<Vec<(SpacedRune, Decimal, Option<char>)>>,
+}
+
+#[derive(Debug, PartialEq, Serialize, Deserialize)]
+pub struct Offers {
+  pub offers: Vec<String>,
 }

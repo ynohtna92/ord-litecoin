@@ -493,24 +493,21 @@ fn batch_in_separate_outputs_with_parent() {
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[0].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_1
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{output_1}:0.*"
     ),
   );
 
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[1].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_2
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{output_2}:0.*"
     ),
   );
 
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[2].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_3
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>10000</dd>.*.*<dt>location</dt>.*{output_3}:0.*"
     ),
   );
 }
@@ -571,24 +568,21 @@ fn batch_in_separate_outputs_with_parent_and_non_default_postage() {
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[0].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_1
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{output_1}:0.*"
     ),
   );
 
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[1].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_2
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{output_2}:0.*"
     ),
   );
 
   ord.assert_response_regex(
     format!("/inscription/{}", output.inscriptions[2].id),
     format!(
-      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{}:0.*",
-      output_3
+      r".*<dt>parents</dt>\s*<dd>.*{parent_id}.*</dd>.*<dt>value</dt>.*<dd>777</dd>.*.*<dt>location</dt>.*{output_3}:0.*"
     ),
   );
 }
@@ -805,7 +799,7 @@ fn batch_same_sat_with_parent() {
   let txid = output.inscriptions[0].location.outpoint.txid;
 
   ord.assert_response_regex(
-    format!("/inscription/{}", parent_id),
+    format!("/inscription/{parent_id}"),
     format!(r".*<dt>location</dt>.*{txid}:0:0.*",),
   );
 
@@ -857,7 +851,7 @@ fn batch_same_sat_with_satpoint_and_reinscription() {
     .write("meow.wav", [0; 2048])
     .write(
       "batch.yaml",
-      format!("mode: same-sat\nsatpoint: {}\ninscriptions:\n- file: inscription.txt\n- file: tulip.png\n- file: meow.wav\n", satpoint)
+      format!("mode: same-sat\nsatpoint: {satpoint}\ninscriptions:\n- file: inscription.txt\n- file: tulip.png\n- file: meow.wav\n")
     )
     .core(&core)
     .ord(&ord)
@@ -871,7 +865,7 @@ fn batch_same_sat_with_satpoint_and_reinscription() {
     .write("meow.wav", [0; 2048])
     .write(
       "batch.yaml",
-      format!("mode: same-sat\nsatpoint: {}\nreinscribe: true\ninscriptions:\n- file: inscription.txt\n- file: tulip.png\n- file: meow.wav\n", satpoint)
+      format!("mode: same-sat\nsatpoint: {satpoint}\nreinscribe: true\ninscriptions:\n- file: inscription.txt\n- file: tulip.png\n- file: meow.wav\n")
     )
     .core(&core)
     .ord(&ord)
@@ -891,7 +885,7 @@ fn batch_same_sat_with_satpoint_and_reinscription() {
   let outpoint = output.inscriptions[0].location.outpoint;
 
   ord.assert_response_regex(
-    format!("/inscription/{}", inscription_id),
+    format!("/inscription/{inscription_id}"),
     format!(r".*<dt>location</dt>.*{outpoint}:0.*",),
   );
 
@@ -1240,13 +1234,12 @@ parents:
 - {parent_id}
 inscriptions:
 - file: inscription.txt
-  satpoint: {}
+  satpoint: {satpoint_1}
 - file: tulip.png
-  satpoint: {}
+  satpoint: {satpoint_2}
 - file: meow.wav
-  satpoint: {}
-"#,
-        satpoint_1, satpoint_2, satpoint_3
+  satpoint: {satpoint_3}
+"#
       ),
     )
     .core(&core)
@@ -1256,7 +1249,7 @@ inscriptions:
   core.mine_blocks(1);
 
   ord.assert_response_regex(
-    format!("/inscription/{}", parent_id),
+    format!("/inscription/{parent_id}"),
     format!(r".*<dt>location</dt>.*{}:0:0.*", output.reveal),
   );
 
@@ -1417,13 +1410,12 @@ fn batch_inscribe_with_satpoints_with_different_sizes() {
 mode: satpoints
 inscriptions:
 - file: inscription.txt
-  satpoint: {}
+  satpoint: {satpoint_1}
 - file: tulip.png
-  satpoint: {}
+  satpoint: {satpoint_2}
 - file: meow.wav
-  satpoint: {}
-"#,
-        satpoint_1, satpoint_2, satpoint_3
+  satpoint: {satpoint_3}
+"#
       ),
     )
     .core(&core)
@@ -2804,6 +2796,97 @@ fn forbid_etching_below_rune_activation_height() {
     .core(&core)
     .ord(&ord)
     .expected_stderr("error: rune reveal height below rune activation height: 7 < 2675600\n")
+    .expected_exit_code(1)
+    .run_and_extract_stdout();
+}
+
+#[test]
+fn batch_inscribe_can_create_inscription_with_gallery() {
+  let core = mockcore::spawn();
+
+  let ord = TestServer::spawn_with_server_args(&core, &[], &[]);
+
+  create_wallet(&core, &ord);
+
+  let (id0, _) = inscribe(&core, &ord);
+  let (id1, _) = inscribe(&core, &ord);
+
+  core.mine_blocks(1);
+
+  let output = CommandBuilder::new("wallet batch --fee-rate 2.1 --batch batch.yaml")
+    .write("inscription.txt", "Hello World")
+    .write(
+      "batch.yaml",
+      format!(
+        "
+mode: shared-output
+inscriptions:
+- file: inscription.txt
+  gallery:
+  - {id0}
+  - {id1}
+"
+      ),
+    )
+    .core(&core)
+    .ord(&ord)
+    .run_and_deserialize_output::<Batch>();
+
+  core.mine_blocks(1);
+
+  let request = ord.request(format!("/content/{}", output.inscriptions[0].id));
+
+  assert_eq!(request.status(), 200);
+  assert_eq!(
+    request.headers().get("content-type").unwrap(),
+    "text/plain;charset=utf-8"
+  );
+  assert_eq!(request.text().unwrap(), "Hello World");
+
+  ord.assert_response_regex(
+    format!("/inscription/{}", output.inscriptions[0].id),
+    format!(
+      r".*
+  <dt>gallery</dt>
+  <dd>
+    <div class=thumbnails>
+      <a href=/inscription/{id0}>.*</a>
+      <a href=/inscription/{id1}>.*</a>
+    </div>
+  </dd>
+.*"
+    ),
+  );
+}
+
+#[test]
+fn batch_inscribe_fails_if_gallery_inscription_does_not_exist() {
+  let core = mockcore::spawn();
+
+  let ord = TestServer::spawn_with_server_args(&core, &[], &[]);
+
+  create_wallet(&core, &ord);
+
+  core.mine_blocks(1);
+
+  CommandBuilder::new("wallet batch --fee-rate 2.1 --batch batch.yaml")
+    .write("inscription.txt", "Hello World")
+    .write(
+      "batch.yaml",
+      "
+mode: shared-output
+inscriptions:
+- file: inscription.txt
+  gallery:
+  - 0000000000000000000000000000000000000000000000000000000000000000i0
+",
+    )
+    .core(&core)
+    .ord(&ord)
+    .expected_stderr(
+      "error: gallery item does not exist: \
+      0000000000000000000000000000000000000000000000000000000000000000i0\n",
+    )
     .expected_exit_code(1)
     .run_and_extract_stdout();
 }

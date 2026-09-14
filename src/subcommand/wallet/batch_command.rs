@@ -18,6 +18,15 @@ impl Batch {
 
     let batchfile = batch::File::load(&self.batch)?;
 
+    for inscription in &batchfile.inscriptions {
+      for inscription_id in &inscription.gallery {
+        ensure! {
+          wallet.inscription_exists(*inscription_id)?,
+          "gallery item does not exist: {inscription_id}",
+        }
+      }
+    }
+
     let parent_info = wallet.get_parent_info(&batchfile.parents)?;
 
     let (inscriptions, reveal_satpoints, postages, destinations) = batchfile.inscriptions(
@@ -150,16 +159,16 @@ impl Batch {
 
       if let Some(end) = terms.height.and_then(|range| range.end) {
         ensure!(
-          end > reveal_height.into(),
+          end > u64::from(reveal_height),
           "`terms.height.end` must be greater than the reveal transaction block height of {reveal_height}"
         );
       }
 
       if let Some(start) = terms.height.and_then(|range| range.start) {
         ensure!(
-            start > reveal_height.into(),
-            "`terms.height.start` must be greater than the reveal transaction block height of {reveal_height}"
-          );
+          start > u64::from(reveal_height),
+          "`terms.height.start` must be greater than the reveal transaction block height of {reveal_height}"
+        );
       }
 
       ensure!(terms.cap > 0, "`terms.cap` must be greater than zero");

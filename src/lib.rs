@@ -2,7 +2,8 @@
   clippy::large_enum_variant,
   clippy::result_large_err,
   clippy::too_many_arguments,
-  clippy::type_complexity
+  clippy::type_complexity,
+  mismatched_lifetime_syntaxes
 )]
 #![deny(
   clippy::cast_lossless,
@@ -17,15 +18,18 @@ use {
     blocktime::Blocktime,
     decimal::Decimal,
     deserialize_from_str::DeserializeFromStr,
+    fund_raw_transaction::fund_raw_transaction,
     index::BitcoinCoreRpcResultExt,
     inscriptions::{
       inscription_id,
       media::{self, ImageRendering, Media},
-      teleburn, ParsedEnvelope,
+      teleburn,
     },
+    into_u64::IntoU64,
     into_usize::IntoUsize,
     option_ext::OptionExt,
     outgoing::Outgoing,
+    properties::Properties,
     representation::Representation,
     satscard::Satscard,
     settings::Settings,
@@ -45,9 +49,10 @@ use {
     hash_types::{BlockHash, TxMerkleNode},
     hashes::Hash,
     policy::MAX_STANDARD_TX_WEIGHT,
-    script, secp256k1,
+    script,
+    secp256k1::{self, Secp256k1},
     transaction::Version,
-    Amount, Block, KnownHrp, Network, OutPoint, Script, ScriptBuf, Sequence, SignedAmount,
+    Amount, Block, KnownHrp, Network, OutPoint, Psbt, Script, ScriptBuf, Sequence, SignedAmount,
     Transaction, TxIn, TxOut, Txid, Witness,
   },
   bitcoincore_rpc::{Client, RpcApi},
@@ -95,7 +100,7 @@ pub use self::{
   chain::Chain,
   fee_rate::FeeRate,
   index::{Index, RuneEntry},
-  inscriptions::{Envelope, Inscription, InscriptionId},
+  inscriptions::{Envelope, Inscription, InscriptionId, ParsedEnvelope, RawEnvelope},
   object::Object,
   options::Options,
   wallet::transaction_builder::{Target, TransactionBuilder},
@@ -117,14 +122,17 @@ pub mod decimal;
 mod deserialize_from_str;
 mod error;
 mod fee_rate;
+mod fund_raw_transaction;
 pub mod index;
 mod inscriptions;
+mod into_u64;
 mod into_usize;
 mod macros;
 mod object;
 mod option_ext;
 pub mod options;
 pub mod outgoing;
+mod properties;
 mod re;
 mod representation;
 pub mod runes;
@@ -157,53 +165,6 @@ pub struct SimulateRawTransactionResult {
 #[derive(Deserialize, Serialize)]
 pub struct SimulateRawTransactionOptions {
   include_watchonly: bool,
-}
-
-#[allow(clippy::cast_possible_truncation, clippy::cast_sign_loss)]
-fn fund_raw_transaction(
-  client: &Client,
-  fee_rate: FeeRate,
-  unfunded_transaction: &Transaction,
-) -> Result<Vec<u8>> {
-  let mut buffer = Vec::new();
-
-  {
-    unfunded_transaction.version.consensus_encode(&mut buffer)?;
-    unfunded_transaction.input.consensus_encode(&mut buffer)?;
-    unfunded_transaction.output.consensus_encode(&mut buffer)?;
-    unfunded_transaction
-      .lock_time
-      .consensus_encode(&mut buffer)?;
-  }
-
-  Ok(
-    client
-      .fund_raw_transaction(
-        &buffer,
-        Some(&bitcoincore_rpc::json::FundRawTransactionOptions {
-          // NB. This is `fundrawtransaction`'s `feeRate`, which is fee per kvB
-          // and *not* fee per vB. So, we multiply the fee rate given by the user
-          // by 1000.
-          fee_rate: Some(Amount::from_sat((fee_rate.n() * 1000.0).ceil() as u64)),
-          change_position: Some(unfunded_transaction.output.len().try_into()?),
-          ..default()
-        }),
-        Some(false),
-      )
-      .map_err(|err| {
-        if matches!(
-          err,
-          bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(
-            bitcoincore_rpc::jsonrpc::error::RpcError { code: -6, .. }
-          ))
-        ) {
-          anyhow!("not enough cardinal utxos")
-        } else {
-          err.into()
-        }
-      })?
-      .hex,
-  )
 }
 
 pub fn timestamp(seconds: u64) -> DateTime<Utc> {
@@ -276,6 +237,17 @@ fn gracefully_shut_down_indexer() {
       log::warn!("Index thread panicked; join failed");
     }
   }
+}
+
+/// Nota bene: This function extracts the leaf script from a witness if the
+/// witness could represent a taproot script path spend, respecting and
+/// ignoring the taproot script annex, if present. Note that the witness may
+/// not actually be for a P2TR output, and the leaf script version is ignored.
+/// This means that this function will return scripts for any witness program
+/// version, past and present, as well as for any leaf script version.
+fn unversioned_leaf_script_from_witness(witness: &Witness) -> Option<&Script> {
+  #[allow(deprecated)]
+  witness.tapscript()
 }
 
 pub fn main() {

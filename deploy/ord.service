@@ -1,27 +1,24 @@
 [Unit]
-After=network-online.target litecoind.service
-Wants=network-online.target litecoind.service
+After=network.target
 Description=Ord server
 StartLimitBurst=120
 StartLimitIntervalSec=10m
 
 [Service]
-EnvironmentFile=/etc/ord/environment
 AmbientCapabilities=CAP_NET_BIND_SERVICE
 Environment=RUST_BACKTRACE=1
 Environment=RUST_LOG=info
 ExecStart=/usr/local/bin/ord \
   --litecoin-data-dir /var/lib/litecoind \
-  --cookie-file ${COOKIE_FILE} \
-  --chain ${ORD_CHAIN} \
+  --chain ${CHAIN} \
   --config-dir /var/lib/ord \
   --datadir /var/lib/ord \
   --index-addresses \
   --index-runes \
   --index-sats \
   server \
-  --acme-domain ${DOMAIN} \
-  --csp-origin https://${DOMAIN} \
+  --acme-contact mailto:litecoin@litecoin.com \
+  --csp-origin https://${CSP_ORIGIN} \
   --http \
   --https
 Group=ord

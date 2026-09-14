@@ -1,7 +1,7 @@
 [package]
 name = "ord-litecoin"
 description = "◉ Ordinal wallet and block explorer for litecoin"
-version = "0.28.0"
+version = "0.29.0"
 autotests = false
 autobins = false
 
@@ -74,7 +74,7 @@ mime_guess = "2.0.4"
 minicbor = { version = "2.1.1", features = ["alloc", "derive", "half"] }
 miniscript = "13.0.0"
 mp4 = "0.14.0"
-ordinals = { version = "0.0.16", path = "crates/ordinals" }
+ordinals = { version = "0.0.17", path = "crates/ordinals" }
 redb = "3.1.0"
 ref-cast = "1.0.23"
 regex.workspace = true

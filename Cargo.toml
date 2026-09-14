@@ -1,7 +1,7 @@
 [package]
 name = "ord-litecoin"
 description = "◉ Ordinal wallet and block explorer for litecoin"
-version = "0.23.3"
+version = "0.24.2"
 autotests = false
 autobins = false
 
@@ -21,7 +21,7 @@ members = [".", "crates/*"]
 
 [workspace.package]
 authors = ["The Ord Maintainers"]
-edition = "2021"
+edition = "2024"
 homepage = "https://github.com/ynohtna92/ord-litecoin"
 license = "CC0-1.0"
 repository = "https://github.com/ynohtna92/ord-litecoin"
@@ -69,15 +69,14 @@ humantime = "2.1.0"
 hyper = { version = "1.5.2", features = ["client", "http2"] }
 hyper-util = { version = "0.1.10", features = ["client", "client-legacy", "http2", "tokio"] }
 indicatif = "0.18.0"
-lazy_static = "1.4.0"
 log = "0.4.14"
 mime = "0.3.16"
 mime_guess = "2.0.4"
-minicbor = { version = "2.1.1", features = ["alloc", "derive"] }
-miniscript = "12.0.0"
+minicbor = { version = "2.1.1", features = ["alloc", "derive", "half"] }
+miniscript = "13.0.0"
 mp4 = "0.14.0"
 ordinals = { version = "0.0.15", path = "crates/ordinals" }
-redb = "2.6.0"
+redb = "3.1.0"
 ref-cast = "1.0.23"
 regex.workspace = true
 reqwest.workspace = true

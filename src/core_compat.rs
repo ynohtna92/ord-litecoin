@@ -91,11 +91,13 @@ mod tests {
     let hash = "1c2cd34bc199c7061cb9bb975f8a15ad8b4696def85c958cd9e6e2ce36d594de"
       .parse()
       .unwrap();
-    assert!(decode_block(
-      &include_str!("../tests/data/litecoin-mweb-block.hex")[..150],
-      &hash
-    )
-    .is_err());
+    assert!(
+      decode_block(
+        &include_str!("../tests/data/litecoin-mweb-block.hex")[..150],
+        &hash
+      )
+      .is_err()
+    );
   }
 
   #[test]
@@ -131,9 +133,11 @@ mod tests {
   fn descriptor_version_boundary() {
     for version in [210000, 210508, 239999] {
       assert!(!CoreVersion(version).descriptors());
-      assert!(CoreVersion(version)
-        .require(240000, "descriptor wallets")
-        .is_err());
+      assert!(
+        CoreVersion(version)
+          .require(240000, "descriptor wallets")
+          .is_err()
+      );
     }
     for version in [240000, 240001, 310000] {
       assert!(CoreVersion(version).descriptors());

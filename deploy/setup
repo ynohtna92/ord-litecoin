@@ -90,7 +90,7 @@ fi
 
 litecoind --version
 
-rm -f /var/lib/bitcoind/settings.json
+rm -f /var/lib/litecoind/settings.json
 
 if [[ ! -e ~/.cargo/env ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

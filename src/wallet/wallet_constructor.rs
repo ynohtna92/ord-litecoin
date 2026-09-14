@@ -46,7 +46,7 @@ impl WalletConstructor {
   pub(crate) fn build(self) -> Result<Wallet> {
     let database = Wallet::open_database(&self.name, &self.settings)?;
 
-    let mut uses_descriptors = false;
+    let uses_descriptors;
     let bitcoin_client = {
       let client =
         Wallet::check_version(self.settings.bitcoin_rpc_client(Some(self.name.clone()))?)?;
@@ -78,13 +78,17 @@ impl WalletConstructor {
         }
       }
 
-      let version = CoreVersion::get(&client)?;
-      if version.descriptors() {
-        let info: serde_json::Value = client.call("getwalletinfo", &[])?;
-        uses_descriptors = info["descriptors"].as_bool().unwrap_or(true);
+      #[derive(Deserialize)]
+      struct WalletInfo {
+        private_keys_enabled: bool,
+        descriptors: Option<bool>,
       }
 
-      if uses_descriptors && client.get_wallet_info()?.private_keys_enabled {
+      let wallet_info = client.call::<WalletInfo>("getwalletinfo", &[])?;
+      uses_descriptors =
+        CoreVersion::get(&client)?.descriptors() && wallet_info.descriptors.unwrap_or(true);
+
+      if uses_descriptors && wallet_info.private_keys_enabled {
         Wallet::check_descriptors(
           &self.name,
           client

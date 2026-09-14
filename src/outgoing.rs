@@ -25,8 +25,8 @@ impl FromStr for Outgoing {
   type Err = SnafuError;
 
   fn from_str(input: &str) -> Result<Self, Self::Err> {
-    lazy_static! {
-      static ref AMOUNT: Regex = Regex::new(
+    static AMOUNT: LazyLock<Regex> = LazyLock::new(|| {
+      Regex::new(
         r"(?ix)
         ^
         (
@@ -40,10 +40,13 @@ impl FromStr for Outgoing {
         (bit|ltc|cltc|mltc|msat|nltc|pltc|sat|satoshi|ultc)
         (s)?
         $
-        "
+        ",
       )
-      .unwrap();
-      static ref RUNE: Regex = Regex::new(
+      .unwrap()
+    });
+
+    static RUNE: LazyLock<Regex> = LazyLock::new(|| {
+      Regex::new(
         r"(?x)
         ^
         (
@@ -58,10 +61,10 @@ impl FromStr for Outgoing {
           [A-Z•.]+
         )
         $
-        "
+        ",
       )
-      .unwrap();
-    }
+      .unwrap()
+    });
 
     if re::SAT_NAME.is_match(input) {
       Ok(Outgoing::Sat(

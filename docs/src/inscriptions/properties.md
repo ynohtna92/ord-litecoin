@@ -21,12 +21,14 @@ of the properties value is as follows:
 Properties = {
   ? 0: [*Item],
   ? 1: Attributes,
+  ? 2: bytes, ; concatenated gallery item transaction IDs
   * any => any,
 }
 
 Item = {
   ? 0: bytes .size (32..36),
   ? 1: Attributes,
+  ? 2: uint, ; inscription ID index
   * any => any,
 }
 
@@ -100,6 +102,26 @@ Galleries may be created when batch inscribing with `ord wallet batch` by
 including an array of string inscription IDs of under the `gallery` key of the
 inscription entry in the batch file, or when using `ord wallet inscribe` using
 the `--gallery` option.
+
+### Item Inscription IDs
+
+Inscription IDs consist of a 32-byte litecoin transaction ID and an 0-4 byte
+integer index, defaulting to zero if omitted. Transaction IDs are effectively
+incompressible, since they are as-if-random cryptographic hash digests.
+
+Interleaving this incompressible data with the rest of the properties CBOR can
+reduce the compressibility of the entire properties CBOR object.
+
+In order to allow for better compressibility, an alternate encoding of gallery
+item inscription IDs is allowed. Both schemes are interchangeable and must be
+accepted and displayed identically.
+
+The inline encoding is described above, where each gallery item's 32 to 36 byte
+inscription ID is stored under `Item` key `0`.
+
+The packed encoding stores the concatenated 32-byte transaction IDs of all
+inscription IDs under `Properties` key `2`, with the indices stored as integers
+under `Item` key `2`. Omitted indices default to the value `0`.
 
 Attributes
 ----------

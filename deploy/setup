@@ -2,7 +2,7 @@
 
 # This script is idempotent.
 
-set -euxo pipefail
+set -euo pipefail
 
 CHAIN=$1
 DOMAIN=$2
@@ -18,7 +18,12 @@ hostnamectl set-hostname $DOMAIN
 
 apt-get install --yes \
   acl \
+  build-essential \
   clang \
+  cmake \
+  git \
+  python3 \
+  wget \
   curl \
   libsqlite3-dev\
   libssl-dev \
@@ -27,36 +32,33 @@ apt-get install --yes \
   ufw \
   vim
 
-apt-get remove --yes --auto-remove
-
-ufw default allow outgoing
-ufw default deny incoming
-
 ufw allow 8080
 ufw allow http
 ufw allow https
 ufw allow ssh
 
 case $CHAIN in
-  main)
+  main|mainnet)
+    CHAIN=main
+    ORD_CHAIN=mainnet
     COOKIE_FILE_DIR=/var/lib/litecoind
-    CSP_ORIGIN=ordinals.com
     ufw allow 9333
     ;;
   regtest)
+    ORD_CHAIN=regtest
     COOKIE_FILE_DIR=/var/lib/litecoind/regtest
-    CSP_ORIGIN=regtest.ordinals.com
-    ufw allow 18444
+    ufw allow 19444
     ;;
   signet)
+    ORD_CHAIN=signet
     COOKIE_FILE_DIR=/var/lib/litecoind/signet
-    CSP_ORIGIN=signet.ordinals.com
-    ufw allow 39333
+    ufw allow 39335
     ;;
-  test)
-    COOKIE_FILE_DIR=/var/lib/litecoind/testnet3
-    CSP_ORIGIN=testnet.ordinals.com
-    ufw allow 19333
+  test|testnet)
+    CHAIN=test
+    ORD_CHAIN=testnet
+    COOKIE_FILE_DIR=/var/lib/litecoind/testnet4
+    ufw allow 19335
     ;;
   *)
     echo "Unknown chain: $CHAIN"
@@ -64,13 +66,14 @@ case $CHAIN in
     ;;
 esac
 
-mkdir -p \
-  /etc/systemd/system/litecoind.service.d \
-  /etc/systemd/system/ord.service.d
-
-printf "[Service]\nEnvironment=CHAIN=%s\nEnvironment=CSP_ORIGIN=%s\n" $CHAIN $CSP_ORIGIN \
-  | tee /etc/systemd/system/litecoind.service.d/override.conf \
-  > /etc/systemd/system/ord.service.d/override.conf
+install -d -m 0755 /etc/ord
+install -m 0600 /dev/stdin /etc/ord/environment <<EOF
+CORE_CHAIN=$CHAIN
+ORD_CHAIN=$ORD_CHAIN
+DOMAIN=$DOMAIN
+COOKIE_FILE_DIR=$COOKIE_FILE_DIR
+COOKIE_FILE=$COOKIE_FILE_DIR/.cookie
+EOF
 
 sed -i -E 's/#?PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sshd -t
@@ -94,16 +97,21 @@ source ~/.cargo/env
 
 rustup update stable
 
-cargo build --release
+if command -v python > /dev/null; then
+  python bin/prepare-vendor
+else
+  python3 bin/prepare-vendor
+fi
+cargo build --locked --release
 install --backup target/release/ord /usr/local/bin/ord
 
-id --user litecoin || useradd --system litecoin
-id --user ord || useradd --system ord
+id --user litecoin || useradd --system --user-group --home-dir /var/lib/litecoind --shell /usr/sbin/nologin litecoin
+id --user ord || useradd --system --user-group --home-dir /var/lib/ord --shell /usr/sbin/nologin ord
 
 cp deploy/litecoind.service /etc/systemd/system/
 
-mkdir -p /etc/litecoin
-cp deploy/litecoin.conf /etc/litecoin/litecoin.conf
+install -d -o root -g litecoin -m 0750 /etc/litecoin
+install -o root -g litecoin -m 0640 deploy/litecoin.conf /etc/litecoin/litecoin.conf
 
 if [[ ! -e ~/.litecoin/litecoin.conf ]]; then
   mkdir -p ~/.litecoin

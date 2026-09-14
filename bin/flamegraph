@@ -2,20 +2,29 @@
 
 set -euxo pipefail
 
-mkdir $1
-cd $1
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+
+if command -v python > /dev/null; then
+  python "$ROOT/bin/prepare-vendor"
+else
+  python3 "$ROOT/bin/prepare-vendor"
+fi
+
+mkdir -p -- "$1"
+cd -- "$1"
 
 sudo \
   CARGO_PROFILE_RELEASE_DEBUG=true \
   RUST_LOG=info \
   cargo flamegraph \
+  --manifest-path "$ROOT/Cargo.toml" \
   --deterministic \
   --bin ord \
   -- \
-  --chain signet \
+  --chain "${CHAIN:-mainnet}" \
   --datadir . \
   --height-limit 0 \
-  index
+  index update
 
 rm -f flamegraph.svg
 
@@ -23,13 +32,14 @@ rm -f flamegraph.svg
   CARGO_PROFILE_RELEASE_DEBUG=true \
   RUST_LOG=info \
   cargo flamegraph \
+  --manifest-path "$ROOT/Cargo.toml" \
   --deterministic \
   --bin ord \
   -- \
-  --chain signet \
+  --chain "${CHAIN:-mainnet}" \
   --datadir . \
   --height-limit 5000 \
-  index
+  index update
 
-sudo chown -n $UID flamegraph.svg
-sudo chown -n $UID index.redb
+sudo chown "$UID" flamegraph.svg
+sudo chown "$UID" index.redb

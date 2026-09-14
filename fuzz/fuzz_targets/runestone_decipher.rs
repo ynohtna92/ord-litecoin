@@ -4,7 +4,8 @@ use {
   bitcoin::{
     locktime, opcodes,
     script::{self, PushBytes},
-    Transaction, TxOut,
+    transaction::Version,
+    Amount, Transaction, TxOut,
   },
   libfuzzer_sys::fuzz_target,
   ordinals::Runestone,
@@ -27,9 +28,9 @@ fuzz_target!(|input: Vec<Vec<u8>>| {
     lock_time: locktime::absolute::LockTime::ZERO,
     output: vec![TxOut {
       script_pubkey: builder.into_script(),
-      value: 0,
+      value: Amount::ZERO,
     }],
-    version: 2,
+    version: Version::TWO,
   };
 
   Runestone::decipher(&tx);

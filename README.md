@@ -10,13 +10,12 @@ be collected and traded as curios.
 Ordinal numbers are serial numbers for litoshis, assigned in the order in which
 they are mined, and preserved across transactions.
 
-See [the docs](https://docs.ordinals.com) for documentation and guides.
+See [the docs](docs/src/introduction.md) for documentation and guides.
 
 See [the BIP](bip.mediawiki) for a technical description of the assignment and
 transfer algorithm.
 
-See [the project board](https://github.com/orgs/ordinals/projects/1) for
-currently prioritized issues.
+See [the issue tracker](https://github.com/ynohtna92/ord-litecoin/issues) for Litecoin work.
 
 Join [the Discord server](https://discord.gg/87cjuz4FYg) to chat with fellow
 ordinal degenerates.
@@ -24,28 +23,37 @@ ordinal degenerates.
 Donate
 ------
 
-Ordinals is open-source and community funded. The current lead maintainer of
-`ord` is [raphjaph](https://github.com/raphjaph/). Raph's work on `ord` is
-entirely funded by donations. If you can, please consider donating!
+See [funding information](docs/src/donate.md) for the distinction between this
+Litecoin adaptation and upstream Bitcoin development.
 
-The donation address is
-[bc1qguzk63exy7h5uygg8m2tcenca094a8t464jfyvrmr0s6wkt74wls3zr5m3](https://mempool.space/address/bc1qguzk63exy7h5uygg8m2tcenca094a8t464jfyvrmr0s6wkt74wls3zr5m3).
+Deployment
+----------
 
-This address is 2 of 4 multisig wallet with keys held by
-[raphjaph](https://twitter.com/raphjaph),
-[erin](https://twitter.com/realizingerin),
-[rodarmor](https://twitter.com/rodarmor), and
-[ordinally](https://twitter.com/veryordinally).
+The Linux deployment scripts install Litecoin Core and `ord` as separate
+system services, running as `litecoin` and `ord`. On the target server, as root:
 
-Bitcoin received will go towards funding maintenance and development of `ord`,
-as well as hosting costs for [ordinals.com](https://ordinals.com).
+```sh
+./deploy/checkout master ynohtna92/ord-litecoin main explorer.example.org
+```
 
-Thank you for donating!
+Use your own DNS hostname, pointed at the server, for the explorer and ACME TLS
+certificate. Supported chains are `main`, `test`, `signet`, and `regtest`;
+`mainnet` and `testnet` are accepted aliases. Bitcoin's `testnet4` chain flag is
+not supported: Litecoin's ordinary `test` chain already uses a `testnet4`
+data subdirectory.
+
+The scripts use `/etc/litecoin/litecoin.conf`, `/var/lib/litecoind`,
+`/var/lib/ord`, and a shared root-owned `/etc/ord/environment`. They grant the
+`ord` user read access to Core's new RPC cookie on every node restart. Existing
+firewall policy is retained; HTTP, HTTPS, SSH and the selected public peer port
+are allowed. Regtest peer access is local only. Litecoin must have `txindex=1`
+and remain unpruned. Initial chain and ordinal indexing can take substantial
+time; inspect `journalctl -u litecoind -u ord` for progress.
 
 Wallet
 ------
 
-`ord` relies on litecoin Core for private key management and transaction signing.
+`ord` relies on Litecoin Core for private key management and transaction signing.
 This has a number of implications that you must understand in order to use
 `ord` wallet commands safely:
 
@@ -57,7 +65,7 @@ This has a number of implications that you must understand in order to use
   `--name` option, which defaults to 'ord'. Keep in mind that after running
   an `ord wallet` command, an `ord` wallet may be loaded.
 
-- Because `ord` has access to your litecoin Core wallets, `ord` should not be
+- Because `ord` has access to your Litecoin Core wallets, `ord` should not be
   used with wallets that contain a material amount of funds. Keep ordinal and
   cardinal wallets segregated.
 
@@ -92,13 +100,13 @@ On Linux, `ord` requires `libssl-dev` when building from source.
 On Debian-derived Linux distributions, including Ubuntu:
 
 ```
-sudo apt-get install pkg-config libssl-dev build-essential
+sudo apt-get install pkg-config libssl-dev build-essential python3 git
 ```
 
 On Red Hat-derived Linux distributions:
 
 ```
-yum install -y pkgconfig openssl-devel
+yum install -y pkgconfig openssl-devel python3 git
 yum groupinstall "Development Tools"
 ```
 
@@ -121,11 +129,18 @@ To build a specific version of `ord`, first checkout that version:
 git checkout <VERSION>
 ```
 
-And finally to actually build `ord`:
+Prepare the Litecoin dependencies, then build `ord` (Python 3 and Git are required):
 
 ```
+python3 bin/prepare-vendor
 cargo build --release
 ```
+
+On Windows, use `python` instead of `python3`. The preparation command verifies
+pinned upstream crate archives and applies the three patches in `patches/`.
+Generated sources in `vendor/` and cached archives in `target/vendor-cache/` are
+ignored by Git. Run preparation again after changing patches or switching
+versions; use `--offline` to prepare from cached archives without downloading.
 
 Once built, the `ord` binary can be found at `./target/release/ord`.
 
@@ -137,22 +152,20 @@ you have this version. Run `rustup update` to get the latest stable release.
 A Docker image can be built with:
 
 ```
-docker build -t ordinals/ord .
+docker build -t ord-litecoin .
 ```
 
-### Homebrew
+### macOS
 
-`ord` is available in [Homebrew](https://brew.sh/):
-
-```
-brew install ord
-```
+Build this Litecoin fork from source using the steps above.
+The upstream Homebrew `ord` formula installs the Bitcoin project.
 
 ### Debian Package
 
 To build a `.deb` package:
 
 ```
+python3 bin/prepare-vendor
 cargo install cargo-deb
 cargo deb
 ```
@@ -201,7 +214,7 @@ the tests, or in your shell configuration.
 We also try to follow a TDD (Test-Driven-Development) approach, which means we
 use tests as a way to get visibility into the code. Tests have to run fast for that
 reason so that the feedback loop between making a change, running the test and
-seeing the result is small. To facilitate that we created a mocked Bitcoin Core
+seeing the result is small. To facilitate that we created a mocked Litecoin Core
 instance in [mockcore](./crates/mockcore)
 
 Syncing
@@ -303,7 +316,7 @@ Release x.y.z
 Translations
 ------------
 
-To translate [the docs](https://docs.ordinals.com) we use
+To translate [the docs](docs/src/introduction.md) we use
 [mdBook i18n helper](https://github.com/google/mdbook-i18n-helpers).
 
 See
@@ -314,7 +327,7 @@ Adding a new translations is somewhat involved, so feel free to start
 translation and open a pull request, even if your translation is incomplete.
 
 Take a look at
-[this commit](https://github.com/ordinals/ord/commit/329f31bf6dac207dad001507dd6f18c87fdef355)
+[this commit](https://github.com/ynohtna92/ord-litecoin/commit/329f31bf6dac207dad001507dd6f18c87fdef355)
 for an example of adding a new translation. A maintainer will help you integrate it
 into our build system.
 

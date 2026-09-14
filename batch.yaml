@@ -40,8 +40,8 @@ etching:
     cap: 90
     # mint start and end absolute block height (optional)
     height:
-      start: 840000
-      end: 850000
+      start: 3360000
+      end: 3400000
     # mint start and end block height relative to etching height (optional)
     offset:
       start: 1000
@@ -61,7 +61,7 @@ inscriptions:
   # inscription to delegate content to (optional)
   delegate: 6ac5cacb768794f4fd7a78bf00f2074891fce68bd65c4ff36e77177237aacacai0
   # destination (optional, if no destination is specified a new wallet change address will be used)
-  destination: bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4
+  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9
   # inscription metadata (optional)
   metadata:
     title: Delicious Mangos
@@ -77,6 +77,6 @@ inscriptions:
   metaprotocol: DOPEPROTOCOL-42069
 
 - file: tulip.png
-  destination: bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6
+  destination: ltc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyszdggkl
   metadata:
     author: Satoshi Nakamoto

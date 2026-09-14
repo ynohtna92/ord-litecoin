@@ -3,7 +3,7 @@ Ordinal Theory Overview
 
 Ordinals are a numbering scheme for satoshis that allows tracking and
 transferring individual sats. These numbers are called [ordinal
-numbers](https://ordinals.com). Satoshis are numbered in the order in which
+numbers](https://ordinalslite.com). Satoshis are numbered in the order in which
 they're mined, and transferred from transaction inputs to transaction outputs
 first-in-first-out. Both the numbering scheme and the transfer scheme rely on
 *order*, the numbering scheme on the *order* in which satoshis are mined, and
@@ -11,40 +11,40 @@ the transfer scheme on the *order* of transaction inputs and outputs. Thus the
 name, *ordinals*.
 
 Technical details are available in [the
-BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki).
+BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki).
 
 Ordinal theory does not require a separate token, another blockchain, or any
-changes to Bitcoin. It works right now.
+changes to Litecoin. It works right now.
 
 Ordinal numbers have a few different representations:
 
 - *Integer notation*:
-  [`2099994106992659`](https://ordinals.com/sat/2099994106992659) The
+  [`2099994106992659`](https://ordinalslite.com/sat/2099994106992659) The
   ordinal number, assigned according to the order in which the satoshi was
   mined.
 
 - *Decimal notation*:
-  [`3891094.16797`](https://ordinals.com/sat/3891094.16797) The first
+  [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) The first
   number is the block height in which the satoshi was mined, the second the
   offset of the satoshi within the block.
 
 - *Degree notation*:
-  [`3°111094′214″16797‴`](https://ordinals.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4).
+  [`3°111094′214″16797‴`](https://ordinalslite.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4).
   We'll get to that in a moment.
 
 - *Percentile notation*:
-  [`99.99971949060254%`](https://ordinals.com/sat/99.99971949060254%25) .
-  The satoshi's position in Bitcoin's supply, expressed as a percentage.
+  [`99.99971949060254%`](https://ordinalslite.com/sat/99.99971949060254%25) .
+  The satoshi's position in Litecoin's supply, expressed as a percentage.
 
-- *Name*: [`satoshi`](https://ordinals.com/sat/satoshi). An encoding of the
+- *Name*: [`satoshi`](https://ordinalslite.com/sat/satoshi). An encoding of the
   ordinal number using the characters `a` through `z`.
 
 Arbitrary assets, such as NFTs, security tokens, accounts, or stablecoins can
 be attached to satoshis using ordinal numbers as stable identifiers.
 
 Ordinals is an open-source project, developed [on
-GitHub](https://github.com/ordinals/ord). The project consists of a BIP describing
-the ordinal scheme, an index that communicates with a Bitcoin Core node to
+GitHub](https://github.com/ynohtna92/ord-litecoin). The project consists of a BIP describing
+the ordinal scheme, an index that communicates with a Litecoin Core node to
 track the location of all satoshis, a wallet that allows making ordinal-aware
 transactions, a block explorer for interactive exploration of the blockchain,
 functionality for inscribing satoshis with digital artifacts, and this manual.
@@ -56,23 +56,23 @@ Humans are collectors, and since satoshis can now be tracked and transferred,
 people will naturally want to collect them. Ordinal theorists can decide for
 themselves which sats are rare and desirable, but there are some hints…
 
-Bitcoin has periodic events, some frequent, some more uncommon, and these
+Litecoin has periodic events, some frequent, some more uncommon, and these
 naturally lend themselves to a system of rarity. These periodic events are:
 
-- *Blocks*: A new block is mined approximately every 10 minutes, from now until
+- *Blocks*: A new block is mined approximately every 2.5 minutes, from now until
   the end of time.
 
-- *Difficulty adjustments*: Every 2016 blocks, or approximately every two
-  weeks, the Bitcoin network responds to changes in hashrate by adjusting the
+- *Difficulty adjustments*: Every 2016 blocks, or approximately every 3.5
+  days, the Litecoin network responds to changes in hashrate by adjusting the
   difficulty target which blocks must meet in order to be accepted.
 
-- *Halvings*: Every 210,000 blocks, or roughly every four years, the amount of
+- *Halvings*: Every 840,000 blocks, or roughly every four years, the amount of
   new sats created in every block is cut in half.
 
-- *Cycles*: Every six halvings, something magical happens: the halving and the
+- *Cycles*: Every three halvings, something magical happens: the halving and the
   difficulty adjustment coincide. This is called a conjunction, and the time
-  period between conjunctions a cycle. A conjunction occurs roughly every 24
-  years. The first conjunction should happen sometime in 2032.
+  period between conjunctions a cycle. A conjunction occurs roughly every 12
+  years. The first conjunction happened in 2023.
 
 This gives us the following rarity levels:
 
@@ -171,7 +171,7 @@ from above:
 Rare Satoshi Supply
 -------------------
 
-### Total Supply
+### Upstream Total Supply
 
 - `common`: 2.1 quadrillion
 - `uncommon`: 6,929,999
@@ -180,7 +180,7 @@ Rare Satoshi Supply
 - `legendary`: 5
 - `mythic`: 1
 
-### Current Supply
+### Upstream Supply Snapshot
 
 - `common`: 1.9 quadrillion
 - `uncommon`: 808,262
@@ -190,7 +190,7 @@ Rare Satoshi Supply
 - `mythic`: 1
 
 At the moment, even uncommon satoshis are quite rare. As of this writing,
-745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in
+745,855 uncommon satoshis have been mined - one per 25.6 litecoin in
 circulation.
 
 Names
@@ -211,8 +211,8 @@ Exotics
 Satoshis may be prized for reasons other than their name or rarity. This might
 be due to a quality of the number itself, like having an integer square or cube
 root. Or it might be due to a connection to a historical event, such as
-satoshis from block 477,120, the block in which SegWit activated, or
-2099999997689999°, the last satoshi that will ever be mined.
+satoshis from block 1,201,536, the block in which SegWit activated, or
+8399999990759999°, the last satoshi that will ever be mined.
 
 Such satoshis are termed "exotic". Which satoshis are exotic and what makes
 them so is subjective. Ordinal theorists are encouraged to seek out exotics
@@ -221,7 +221,7 @@ based on criteria of their own devising.
 Inscriptions
 ------------
 
-Satoshis can be inscribed with arbitrary content, creating Bitcoin-native
+Satoshis can be inscribed with arbitrary content, creating Litecoin-native
 digital artifacts. Inscribing is done by sending the satoshi to be inscribed in
 a transaction that reveals the inscription content on-chain. This content is
 then inextricably linked to that satoshi, turning it into an immutable digital

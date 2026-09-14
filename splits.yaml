@@ -1,0 +1,15 @@
+# example split file
+
+# output fields:
+#   address: output recipient litecoin address
+#   value: output litecoin value (optional, defaults to minimal-non dust value for `address`)
+#   runes: output rune value map (values respect rune divisibility)
+outputs:
+- address: ltc1p5d7rjq7g6rdk2yhzks9smlaqtedr4dekq08ge8ztwac72sfr9rus9vl6lm
+  value: 10 sat
+  runes:
+    UNCOMMON•GOODS: 1234
+    GRIEF•WAGE: 5000000
+- address: MQMHBtvnBfxTzt3K2bdxgSE7qZPHSXWsGM
+  runes:
+    HELLO•WORLD: 22.5

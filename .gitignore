@@ -12,3 +12,5 @@
 /target
 /test-times.txt
 /tmp
+/.git
+/vendor/

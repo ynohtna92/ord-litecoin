@@ -7,14 +7,20 @@ DIST=`pwd`/dist
 
 echo "Packaging ord $VERSION for $TARGET..."
 
+if command -v python > /dev/null; then
+  python bin/prepare-vendor
+else
+  python3 bin/prepare-vendor
+fi
+
 test -f Cargo.lock || cargo generate-lockfile
 
 echo "Building ord..."
 RUSTFLAGS="--deny warnings $TARGET_RUSTFLAGS" \
-  cargo build --bin ord --target $TARGET --release
+  cargo build --bin ord --locked --target "$TARGET" --release
 EXECUTABLE=target/$TARGET/release/ord
 
-if [[ $OS == windows-latest ]]; then
+if [[ $OS == windows-* ]]; then
   EXECUTABLE=$EXECUTABLE.exe
 fi
 
@@ -33,12 +39,16 @@ echo "Creating release archive..."
 case $OS in
   ubuntu-latest | macos-latest)
     ARCHIVE=$DIST/ord-$VERSION-$TARGET.tar.gz
-    tar czf $ARCHIVE *
-    echo "::set-output name=archive::$ARCHIVE"
+    tar czf "$ARCHIVE" "ord-$VERSION"
+    if [[ -n "${GITHUB_OUTPUT+x}" ]]; then
+      echo archive=$ARCHIVE >> $GITHUB_OUTPUT
+    fi
     ;;
-  windows-latest)
+  windows-*)
     ARCHIVE=$DIST/ord-$VERSION-$TARGET.zip
-    7z a $ARCHIVE *
-    echo "::set-output name=archive::`pwd -W`/ord-$VERSION-$TARGET.zip"
+    7z a "$ARCHIVE" "ord-$VERSION"
+    if [[ -n "${GITHUB_OUTPUT+x}" ]]; then
+      echo archive=`pwd -W`/ord-$VERSION-$TARGET.zip >> $GITHUB_OUTPUT
+    fi
     ;;
 esac

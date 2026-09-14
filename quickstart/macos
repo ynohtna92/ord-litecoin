@@ -2,38 +2,32 @@
 
 set -euxo pipefail
 
-# install homebrew
-if ! command -v brew; then
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# install Litecoin Core from https://litecoin.org/
+if ! command -v litecoind || ! command -v litecoin-cli; then
+  echo 'Install Litecoin Core with litecoind and litecoin-cli in PATH.' >&2
+  exit 1
 fi
 
-# check homebrew
-brew --version
-
-# install bitcoin
-if ! command -v bitcoind; then
-  brew install bitcoin
-fi
-
-# check bitcoind
-bitcoind --version
+# check litecoind
+litecoind --version
 
 # write config
-if [[ ! -f ~/Library/Application\ Support/Bitcoin/bitcoin.conf ]]; then
-  printf 'txindex=1\nsignet=1\n' > ~/Library/Application\ Support/Bitcoin/bitcoin.conf
+mkdir -p ~/Library/Application\ Support/Litecoin
+if [[ ! -f ~/Library/Application\ Support/Litecoin/litecoin.conf ]]; then
+  printf 'server=1\ntxindex=1\nrpcserialversion=1\n' > ~/Library/Application\ Support/Litecoin/litecoin.conf
 fi
 
-# start bitcoind
-if ! bitcoin-cli getblockchaininfo; then
-  brew services start bitcoin
+# start litecoind
+if ! litecoin-cli getblockchaininfo; then
+  litecoind -daemon
 fi
 
-# check bitcoind
-bitcoin-cli getblockchaininfo | grep signet
+# check litecoind
+litecoin-cli -rpcwait getblockchaininfo
 
 # install ord
 if ! command -v ord; then
-  curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+  curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 fi
 
 # check ord

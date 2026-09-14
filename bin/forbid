@@ -11,6 +11,7 @@ fi
   --glob '!bin/forbid' \
   --glob '!docs/src/bounty/frequency.tsv' \
   --glob '!docs/po/*' \
+  --glob '!vendor/**' \
   --ignore-case \
   'dbg!|fixme|todo|xxx' \
   .

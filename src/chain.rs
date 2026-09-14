@@ -61,7 +61,7 @@ impl Chain {
 
   pub(crate) fn genesis_coinbase_outpoint(self) -> OutPoint {
     OutPoint {
-      txid: self.genesis_block().coinbase().unwrap().txid(),
+      txid: self.genesis_block().coinbase().unwrap().compute_txid(),
       vout: 0,
     }
   }
@@ -73,7 +73,7 @@ impl Chain {
   pub(crate) fn join_with_data_dir(self, data_dir: impl AsRef<Path>) -> PathBuf {
     match self {
       Self::Mainnet => data_dir.as_ref().to_owned(),
-      Self::Testnet => data_dir.as_ref().join("testnet3"),
+      Self::Testnet => data_dir.as_ref().join("testnet4"),
       Self::Signet => data_dir.as_ref().join("signet"),
       Self::Regtest => data_dir.as_ref().join("regtest"),
     }

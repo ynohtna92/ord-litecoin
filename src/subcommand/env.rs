@@ -30,15 +30,15 @@ pub(crate) struct Env {
 
 #[derive(Serialize)]
 struct Info {
-  bitcoin_cli_command: Vec<String>,
-  bitcoind_port: u16,
+  litecoin_cli_command: Vec<String>,
+  litecoind_port: u16,
   ord_port: u16,
   ord_wallet_command: Vec<String>,
 }
 
 impl Env {
   pub(crate) fn run(self) -> SubcommandResult {
-    let bitcoind_port = TcpListener::bind("127.0.0.1:9000")
+    let litecoind_port = TcpListener::bind("127.0.0.1:9000")
       .ok()
       .map(|listener| listener.local_addr().unwrap().port());
 
@@ -46,8 +46,8 @@ impl Env {
       .ok()
       .map(|listener| listener.local_addr().unwrap().port());
 
-    let (bitcoind_port, ord_port) = (
-      bitcoind_port.unwrap_or(TcpListener::bind("127.0.0.1:0")?.local_addr()?.port()),
+    let (litecoind_port, ord_port) = (
+      litecoind_port.unwrap_or(TcpListener::bind("127.0.0.1:0")?.local_addr()?.port()),
       ord_port.unwrap_or(TcpListener::bind("127.0.0.1:0")?.local_addr()?.port()),
     );
 
@@ -71,7 +71,7 @@ datadir={absolute_str}
 listen=0
 txindex=1
 [regtest]
-rpcport={bitcoind_port}
+rpcport={litecoind_port}
 ",
         ),
       )?;
@@ -107,7 +107,7 @@ rpcport={bitcoind_port}
       fs::write(absolute.join("batch.yaml"), yaml)?;
     }
 
-    let _bitcoind = KillOnDrop(
+    let _litecoind = KillOnDrop(
       Command::new("litecoind")
         .arg(format!(
           "-conf={}",
@@ -115,7 +115,7 @@ rpcport={bitcoind_port}
         ))
         .stdout(Stdio::null())
         .spawn()
-        .expect("failed to start bitcoind"),
+        .expect("failed to start litecoind"),
     );
 
     loop {
@@ -124,7 +124,7 @@ rpcport={bitcoind_port}
       }
     }
 
-    let rpc_url = format!("http://localhost:{bitcoind_port}");
+    let rpc_url = format!("http://localhost:{litecoind_port}");
 
     let server_url = format!("http://127.0.0.1:{ord_port}");
 
@@ -206,11 +206,11 @@ rpcport={bitcoind_port}
     }
 
     serde_json::to_writer_pretty(
-      fs::File::create(self.directory.join("env.json"))?,
+      File::create(self.directory.join("env.json"))?,
       &Info {
-        bitcoind_port,
+        litecoind_port,
         ord_port,
-        bitcoin_cli_command: vec!["litecoin-cli".into(), format!("-datadir={relative}")],
+        litecoin_cli_command: vec!["litecoin-cli".into(), format!("-datadir={relative}")],
         ord_wallet_command: vec![
           ord.to_str().unwrap().into(),
           "--datadir".into(),

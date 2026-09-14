@@ -47,6 +47,7 @@ impl WalletConstructor {
   pub(crate) fn build(self) -> Result<Wallet> {
     let database = Wallet::open_database(&self.name, &self.settings)?;
 
+    let mut uses_descriptors = false;
     let bitcoin_client = {
       let client =
         Wallet::check_version(self.settings.bitcoin_rpc_client(Some(self.name.clone()))?)?;
@@ -55,14 +56,20 @@ impl WalletConstructor {
         client.load_wallet(&self.name)?;
       }
 
-      // if client.get_wallet_info()?.private_keys_enabled {
-      //   Wallet::check_descriptors(
-      //     &self.name,
-      //     client
-      //       .call::<ListDescriptorsResult>("listdescriptors", &[serde_json::Value::Null])?
-      //       .descriptors,
-      //   )?;
-      // }
+      let version = CoreVersion::get(&client)?;
+      if version.descriptors() {
+        let info: serde_json::Value = client.call("getwalletinfo", &[])?;
+        uses_descriptors = info["descriptors"].as_bool().unwrap_or(true);
+      }
+
+      if uses_descriptors && client.get_wallet_info()?.private_keys_enabled {
+        Wallet::check_descriptors(
+          &self.name,
+          client
+            .call::<ListDescriptorsResult>("listdescriptors", &[serde_json::Value::Null])?
+            .descriptors,
+        )?;
+      }
 
       client
     };
@@ -104,7 +111,9 @@ impl WalletConstructor {
 
     Ok(Wallet {
       bitcoin_client,
+      uses_descriptors,
       database,
+      has_inscription_index: status.inscription_index,
       has_rune_index: status.rune_index,
       has_sat_index: status.sat_index,
       inscription_info,
@@ -167,18 +176,29 @@ impl WalletConstructor {
   }
 
   fn get_utxos(bitcoin_client: &Client) -> Result<BTreeMap<OutPoint, TxOut>> {
+    #[derive(Deserialize)]
+    struct Unspent {
+      txid: Txid,
+      vout: Option<u32>,
+      #[serde(rename = "scriptPubKey")]
+      script_pub_key: Option<ScriptBuf>,
+      #[serde(with = "bitcoin::amount::serde::as_btc")]
+      amount: Amount,
+    }
+
     Ok(
       bitcoin_client
-        .list_unspent(None, None, None, None, None)?
+        .call::<Vec<Unspent>>("listunspent", &[])?
         .into_iter()
-        .map(|utxo| {
-          let outpoint = OutPoint::new(utxo.txid, utxo.vout.unwrap());
+        .filter_map(|utxo| {
+          // MWEB outputs have no transparent outpoint or script and cannot carry ordinals.
+          let outpoint = OutPoint::new(utxo.txid, utxo.vout?);
           let txout = TxOut {
-            script_pubkey: utxo.script_pub_key.unwrap(),
-            value: utxo.amount.to_sat(),
+            script_pubkey: utxo.script_pub_key?,
+            value: utxo.amount,
           };
 
-          (outpoint, txout)
+          Some((outpoint, txout))
         })
         .collect(),
     )
@@ -204,7 +224,7 @@ impl WalletConstructor {
       utxos.insert(
         OutPoint::new(outpoint.txid, outpoint.vout),
         TxOut {
-          value: tx_out.value.to_sat(),
+          value: tx_out.value,
           script_pubkey: ScriptBuf::from_bytes(tx_out.script_pub_key.hex),
         },
       );

@@ -22,6 +22,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Prepare Litecoin dependencies
+      run: python bin/prepare-vendor
+
     - name: Install Rust Toolchain Components
       uses: actions-rs/toolchain@v1
       with:
@@ -73,6 +76,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Prepare Litecoin dependencies
+      run: python bin/prepare-vendor
+
     - name: Install Rust Toolchain Components
       uses: actions-rs/toolchain@v1
       with:
@@ -105,6 +111,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Prepare Litecoin dependencies
+      run: python bin/prepare-vendor
 
     - name: Install Rust Toolchain Components
       uses: actions-rs/toolchain@v1

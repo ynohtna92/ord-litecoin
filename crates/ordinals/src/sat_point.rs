@@ -5,9 +5,9 @@ use {super::*, bitcoin::transaction::ParseOutPointError};
 /// The string representation of a satpoint consists of that of an outpoint,
 /// which identifies and output, followed by `:OFFSET`. For example, the string
 /// representation of the first sat of the genesis block coinbase output is
-/// `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f:0:0`,
+/// `12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2:0:0`,
 /// that of the second sat of the genesis block coinbase output is
-/// `000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f:0:1`, and
+/// `12a765e31ffd4059bada1e25190f6e98c99d9714d334efa41a195a7e7e04bfe2:0:1`, and
 /// so on and so on.
 #[derive(
   Debug,
@@ -34,14 +34,17 @@ impl Display for SatPoint {
 }
 
 impl Encodable for SatPoint {
-  fn consensus_encode<S: io::Write + ?Sized>(&self, s: &mut S) -> Result<usize, io::Error> {
+  fn consensus_encode<S: bitcoin::io::Write + ?Sized>(
+    &self,
+    s: &mut S,
+  ) -> Result<usize, bitcoin::io::Error> {
     let len = self.outpoint.consensus_encode(s)?;
     Ok(len + self.offset.consensus_encode(s)?)
   }
 }
 
 impl Decodable for SatPoint {
-  fn consensus_decode<D: io::Read + ?Sized>(
+  fn consensus_decode<D: bitcoin::io::Read + bitcoin::io::BufRead + ?Sized>(
     d: &mut D,
   ) -> Result<Self, bitcoin::consensus::encode::Error> {
     Ok(SatPoint {

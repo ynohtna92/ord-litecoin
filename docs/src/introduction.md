@@ -32,16 +32,23 @@ When you're ready to get your hands dirty, a good place to start is with
 [inscriptions](guides/wallet.md), a curious species of digital artifact
 enabled by ordinal theory.
 
+
+Authors
+-------
+
+- [Casey Rodarmor](https://github.com/casey)
+- [Raph Japh](https://github.com/raphjaph)
+
 Links
 -----
 
-- [GitHub](https://github.com/ordinals/ord/)
-- [BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)
+- [GitHub](https://github.com/ynohtna92/ord-litecoin/)
+- [BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)
 - [Discord](https://discord.gg/ordinals)
 - [Open Ordinals Institute Website](https://ordinals.org/)
 - [Open Ordinals Institute X](https://x.com/ordinalsorg)
-- [Mainnet Block Explorer](https://ordinals.com)
-- [Signet Block Explorer](https://signet.ordinals.com)
+- [Mainnet Block Explorer](https://ordinalslite.com)
+- [Signet Block Explorer](https://ordinalslite.com)
 
 Videos
 ------

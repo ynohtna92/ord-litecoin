@@ -152,8 +152,8 @@ msgstr ""
 
 #: src/introduction.md:8
 msgid ""
-"Satoshis, not bitcoin, are the atomic, native currency of the Bitcoin "
-"network. One bitcoin can be sub-divided into 100,000,000 satoshis, but no "
+"Satoshis, not litecoin, are the atomic, native currency of the Litecoin "
+"network. One litecoin can be sub-divided into 100,000,000 satoshis, but no "
 "further."
 msgstr ""
 "聪（Satoshi），并非比特币，是比特币网络的原生货币和最小单位。一个比特币可以被"
@@ -161,8 +161,8 @@ msgstr ""
 
 #: src/introduction.md:11
 msgid ""
-"Ordinal theory does not require a sidechain or token aside from Bitcoin, and "
-"can be used without any changes to the Bitcoin network. It works right now."
+"Ordinal theory does not require a sidechain or token aside from Litecoin, and "
+"can be used without any changes to the Litecoin network. It works right now."
 msgstr ""
 "序数理论不需要比特币区块链之外的侧链或代币，并且可以在不对比特币网络进行任何"
 "更改的情况下使用。它即刻可以有效使用。"
@@ -176,9 +176,9 @@ msgstr "序数理论赋予聪以收藏价值，使它们可以作为古玩被收
 #: src/introduction.md:17
 msgid ""
 "Individual satoshis can be inscribed with arbitrary content, creating unique "
-"Bitcoin-native digital artifacts that can be held in Bitcoin wallets and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Litecoin-native digital artifacts that can be held in Litecoin wallets and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "单个聪可以刻有任意内容，创建独特的比特币原生的数字文物（Digital Artifact）可"
 "以保存在比特币钱包中并使用比特币交易进行传输。铭文（Inscription）与比特币本身"
@@ -217,12 +217,12 @@ msgid "Links"
 msgstr "链接"
 
 #: src/introduction.md:38
-msgid "[GitHub](https://github.com/ordinals/ord/)"
-msgstr "[GitHub仓库](https://github.com/ordinals/ord/)"
+msgid "[GitHub](https://github.com/ynohtna92/ord-litecoin/)"
+msgstr "[GitHub仓库](https://github.com/ynohtna92/ord-litecoin/)"
 
 #: src/introduction.md:39
-msgid "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
-msgstr "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
+msgstr "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 
 #: src/introduction.md:40
 msgid "[Discord](https://discord.gg/ordinals)"
@@ -237,12 +237,12 @@ msgid "[Open Ordinals Institute X](https://x.com/ordinalsorg)"
 msgstr "[Open Ordinals Institute X账户](https://x.com/ordinalsorg)"
 
 #: src/introduction.md:43
-msgid "[Mainnet Block Explorer](https://ordinals.com)"
-msgstr "[主网区块](https://ordinals.com)"
+msgid "[Mainnet Block Explorer](https://ordinalslite.com)"
+msgstr "[主网区块](https://ordinalslite.com)"
 
 #: src/introduction.md:44
-msgid "[Signet Block Explorer](https://signet.ordinals.com)"
-msgstr "[Signet区块浏览器](https://signet.ordinals.com)"
+msgid "[Signet Block Explorer](https://ordinalslite.com)"
+msgstr "[Signet区块浏览器](https://ordinalslite.com)"
 
 #: src/introduction.md:46
 msgid "Videos"
@@ -250,7 +250,7 @@ msgstr "视频"
 
 #: src/introduction.md:49
 msgid ""
-"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Bitcoin]"
+"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Litecoin]"
 "(https://www.youtube.com/watch?v=rSS0O2KQpsI)"
 msgstr ""
 "[解释序数理论: 聪的序列号和比特币上的NFT](https://www.youtube.com/watch?"
@@ -271,7 +271,7 @@ msgstr "序数理论概述"
 msgid ""
 "Ordinals are a numbering scheme for satoshis that allows tracking and "
 "transferring individual sats. These numbers are called [ordinal numbers]"
-"(https://ordinals.com). Satoshis are numbered in the order in which they're "
+"(https://ordinalslite.com). Satoshis are numbered in the order in which they're "
 "mined, and transferred from transaction inputs to transaction outputs first-"
 "in-first-out. Both the numbering scheme and the transfer scheme rely on "
 "_order_, the numbering scheme on the _order_ in which satoshis are mined, "
@@ -279,23 +279,23 @@ msgid ""
 "Thus the name, _ordinals_."
 msgstr ""
 "序数是一种比特币的编号方案，允许跟踪和转移单个聪。这些数字被称作[序号]"
-"(https://ordinals.com)。比特币是按照它们被挖掘的顺序编号的，并从交易输入转移"
+"(https://ordinalslite.com)。比特币是按照它们被挖掘的顺序编号的，并从交易输入转移"
 "到交易输出（遵循先进先出原则）。编号方案和传输方案都依赖于 _顺序_，编号方案依"
 "赖于比特币被挖掘的 _顺序_，而传输方案依赖于交易输入和输出的 _顺序_。因此得"
 "名，_序数（Ordinals）_。"
 
 #: src/overview.md:13
 msgid ""
-"Technical details are available in [the BIP](https://github.com/ordinals/ord/"
+"Technical details are available in [the BIP](https://github.com/ynohtna92/ord-litecoin/"
 "blob/master/bip.mediawiki)."
 msgstr ""
-"技术细节可以在[the BIP](https://github.com/ordinals/ord/blob/master/bip."
+"技术细节可以在[the BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip."
 "mediawiki)获取."
 
 #: src/overview.md:16
 msgid ""
 "Ordinal theory does not require a separate token, another blockchain, or any "
-"changes to Bitcoin. It works right now."
+"changes to Litecoin. It works right now."
 msgstr ""
 "序数理论不需要一个单独的代币，单独区块链，或者对比特币进行任何更改。它即刻可"
 "以有效运转。"
@@ -306,46 +306,46 @@ msgstr "序号有几种不同的表示方式："
 
 #: src/overview.md:21
 msgid ""
-"_Integer notation_: [`2099994106992659`](https://ordinals.com/"
+"_Integer notation_: [`2099994106992659`](https://ordinalslite.com/"
 "sat/2099994106992659) The ordinal number, assigned according to the order in "
 "which the satoshi was mined."
 msgstr ""
-"_整数符号_:[`2099994106992659`](https://ordinals.com/sat/2099994106992659) 这"
+"_整数符号_:[`2099994106992659`](https://ordinalslite.com/sat/2099994106992659) 这"
 "个序号是根据挖掘聪的顺序分配。"
 
 #: src/overview.md:26
 msgid ""
-"_Decimal notation_: [`3891094.16797`](https://ordinals.com/"
+"_Decimal notation_: [`3891094.16797`](https://ordinalslite.com/"
 "sat/3891094.16797) The first number is the block height in which the satoshi "
 "was mined, the second the offset of the satoshi within the block."
 msgstr ""
-"_十进制符号_: [`3891094.16797`](https://ordinals.com/sat/3891094.16797) 第一"
+"_十进制符号_: [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) 第一"
 "个数字是挖掘聪的区块高度，第二个数字是区块内聪的偏移量。 "
 
 #: src/overview.md:31
 msgid ""
-"_Degree notation_: [`3°111094′214″16797‴`](https://ordinals.com/"
+"_Degree notation_: [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). We'll get to that in "
 "a moment."
 msgstr ""
-"_度数符号_: [`3°111094′214″16797‴`](https://ordinals.com/"
+"_度数符号_: [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4) 我们马上就会讲到。 "
 
 #: src/overview.md:35
 msgid ""
-"_Percentile notation_: [`99.99971949060254%`](https://ordinals.com/"
-"sat/99.99971949060254%25) . The satoshi's position in Bitcoin's supply, "
+"_Percentile notation_: [`99.99971949060254%`](https://ordinalslite.com/"
+"sat/99.99971949060254%25) . The satoshi's position in Litecoin's supply, "
 "expressed as a percentage."
 msgstr ""
-"_百分数_: [`99.99971949060254%`](https://ordinals.com/"
+"_百分数_: [`99.99971949060254%`](https://ordinalslite.com/"
 "sat/99.99971949060254%25) . 以百分比表示聪在比特币供应中的位置 "
 
 #: src/overview.md:39
 msgid ""
-"_Name_: [`satoshi`](https://ordinals.com/sat/satoshi). An encoding of the "
+"_Name_: [`satoshi`](https://ordinalslite.com/sat/satoshi). An encoding of the "
 "ordinal number using the characters `a` through `z`."
 msgstr ""
-"_名字_: [`satoshi`](https://ordinals.com/sat/satoshi). 一种使用字母`a` 到 `z`"
+"_名字_: [`satoshi`](https://ordinalslite.com/sat/satoshi). 一种使用字母`a` 到 `z`"
 "对序号进行编码的方法"
 
 #: src/overview.md:42
@@ -360,12 +360,12 @@ msgstr ""
 msgid ""
 "Ordinals is an open-source project, developed [on GitHub](https://github.com/"
 "ordinals/ord). The project consists of a BIP describing the ordinal scheme, "
-"an index that communicates with a Bitcoin Core node to track the location of "
+"an index that communicates with a Litecoin Core node to track the location of "
 "all satoshis, a wallet that allows making ordinal-aware transactions, a "
 "block explorer for interactive exploration of the blockchain, functionality "
 "for inscribing satoshis with digital artifacts, and this manual."
 msgstr ""
-"Ordinals是一个开源项目，部署在[on GitHub](https://github.com/ordinals/ord). "
+"Ordinals是一个开源项目，部署在[on GitHub](https://github.com/ynohtna92/ord-litecoin). "
 "该项目包括一个描述序数方案的BIP、 一个与比特币核心节点通信以跟踪所有聪位置的"
 "索引一个允许进行序号感知交易的钱包、 一个用于区块链交互探索的区块资源管理器、"
 "用数字文物嵌入聪的功能，以及本手册。 "
@@ -386,7 +386,7 @@ msgstr ""
 
 #: src/overview.md:59
 msgid ""
-"Bitcoin has periodic events, some frequent, some more uncommon, and these "
+"Litecoin has periodic events, some frequent, some more uncommon, and these "
 "naturally lend themselves to a system of rarity. These periodic events are:"
 msgstr ""
 "比特币有周期性的事件，有些频繁，有些不常见，这些事件自然而然地形成了一个稀有"
@@ -401,7 +401,7 @@ msgstr "_区块_: 从现在到时间结束，大约每10分钟挖掘一个新区
 #: src/overview.md:65
 msgid ""
 "_Difficulty adjustments_: Every 2016 blocks, or approximately every two "
-"weeks, the Bitcoin network responds to changes in hashrate by adjusting the "
+"weeks, the Litecoin network responds to changes in hashrate by adjusting the "
 "difficulty target which blocks must meet in order to be accepted."
 msgstr ""
 "_难度调整_: 每2016个区块，或大约每两周， 比特币网络通过调整区块必须满足的难度"
@@ -701,7 +701,7 @@ msgstr "`传奇`: 0"
 #: src/overview.md:192
 msgid ""
 "At the moment, even uncommon satoshis are quite rare. As of this writing, "
-"745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in "
+"745,855 uncommon satoshis have been mined - one per 25.6 litecoin in "
 "circulation."
 msgstr ""
 "目前即使是非普通的聪也非常罕见。 截至撰写本文时， 已开采出 745,855 个非普通的"
@@ -759,7 +759,7 @@ msgstr ""
 
 #: src/overview.md:224
 msgid ""
-"Satoshis can be inscribed with arbitrary content, creating Bitcoin-native "
+"Satoshis can be inscribed with arbitrary content, creating Litecoin-native "
 "digital artifacts. Inscribing is done by sending the satoshi to be inscribed "
 "in a transaction that reveals the inscription content on-chain. This content "
 "is then inextricably linked to that satoshi, turning it into an immutable "
@@ -808,7 +808,7 @@ msgstr ""
 #: src/overview.md:247
 msgid ""
 "In another sense though, ordinals were in fact created by Satoshi Nakamoto "
-"in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, "
+"in 2009 when he mined the Litecoin genesis block. In this sense, ordinals, "
 "and especially early ordinals, are certainly of historical interest."
 msgstr ""
 "从这个意义上说，它们不具有历史意义。但从另一种意义上说，序数实际上是由中本聪"
@@ -827,11 +827,11 @@ msgstr ""
 #: src/overview.md:255
 msgid ""
 "On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake "
-"to Bitcoin to the Bitcoin Talk forum](https://bitcointalk.org/index.php?"
+"to Litecoin to the Litecoin Talk forum](https://bitcointalk.org/index.php?"
 "topic=102355.0). This wasn't an asset scheme, but did use the ordinal "
 "algorithm, and was implemented but never deployed."
 msgstr ""
-"2012 年 8 月 21 日，Charlie Lee 在 Charlie Lee [在Bitcoin Talk论坛上发布一项"
+"2012 年 8 月 21 日，Charlie Lee 在 Charlie Lee [在Litecoin Talk论坛上发布一项"
 "将比特币权益证明Proof-of-stake添加的提案](https://bitcointalk.org/index.php?"
 "topic=102355.0). 这不是资产方案，但确实使用了序数算法，并且已实施但从未部署"
 "过。"
@@ -851,7 +851,7 @@ msgstr ""
 msgid ""
 "These independent inventions of ordinals indicate in some way that ordinals "
 "were discovered, or rediscovered, and not invented. The ordinals are an "
-"inevitability of the mathematics of Bitcoin, stemming not from their modern "
+"inevitability of the mathematics of Litecoin, stemming not from their modern "
 "documentation, but from their ancient genesis. They are the culmination of a "
 "sequence of events set in motion with the mining of the first block, so many "
 "years ago."
@@ -954,7 +954,7 @@ msgstr ""
 
 #: src/inscriptions.md:4
 msgid ""
-"Inscriptions inscribe sats with arbitrary content, creating bitcoin-native "
+"Inscriptions inscribe sats with arbitrary content, creating litecoin-native "
 "digital artifacts, more commonly known as NFTs. Inscriptions do not require "
 "a sidechain or separate token."
 msgstr ""
@@ -963,9 +963,9 @@ msgstr ""
 
 #: src/inscriptions.md:8
 msgid ""
-"These inscribed sats can then be transferred using bitcoin transactions, "
-"sent to bitcoin addresses, and held in bitcoin UTXOs. These transactions, "
-"addresses, and UTXOs are normal bitcoin transactions, addresses, and UTXOS "
+"These inscribed sats can then be transferred using litecoin transactions, "
+"sent to litecoin addresses, and held in litecoin UTXOs. These transactions, "
+"addresses, and UTXOs are normal litecoin transactions, addresses, and UTXOS "
 "in all respects, with the exception that in order to send individual sats, "
 "transactions must control the order and value of inputs and outputs "
 "according to ordinal theory."
@@ -1423,7 +1423,7 @@ msgstr ""
 
 #: src/inscriptions/delegate.md:20 src/inscriptions/provenance.md:24
 msgid ""
-"_NB_ The bytes of a bitcoin transaction ID are reversed in their text "
+"_NB_ The bytes of a litecoin transaction ID are reversed in their text "
 "representation, so the serialized transaction ID will be in the opposite "
 "order."
 msgstr ""
@@ -2304,11 +2304,11 @@ msgstr "最大尺寸"
 
 #: src/inscriptions/rendering.md:14
 msgid ""
-"The `ord` explorer, used by [ordinals.com](https://ordinals.com/), displays "
+"The `ord` explorer, used by [ordinalslite.com](https://ordinalslite.com/), displays "
 "inscription previews with a maximum size of 576 by 576 pixels, making it a "
 "reasonable choice when choosing a maximum display size."
 msgstr ""
-"由[ordinals.com](https://ordinals.com/)使用的`ord` 浏览器，展示的铭文预览的最"
+"由[ordinalslite.com](https://ordinalslite.com/)使用的`ord` 浏览器，展示的铭文预览的最"
 "大尺寸为576乘以576像素，这使得它在选择最大显示尺寸时是一个合理的选择。"
 
 #: src/inscriptions/rendering.md:18
@@ -2355,7 +2355,7 @@ msgstr ""
 
 #: src/runes.md:4
 msgid ""
-"Runes allow Bitcoin transactions to etch, mint, and transfer Bitcoin-native "
+"Runes allow Litecoin transactions to etch, mint, and transfer Litecoin-native "
 "digital commodities."
 msgstr ""
 "符文，又称福文🧧，允许比特币交易来刻画、铸造和转移比特币原生的数字商品。 "
@@ -2374,7 +2374,7 @@ msgstr "符石"
 
 #: src/runes.md:13
 msgid ""
-"Rune protocol messages, called runestones, are stored in Bitcoin transaction "
+"Rune protocol messages, called runestones, are stored in Litecoin transaction "
 "outputs."
 msgstr "称为符石的符文协议消息，存储在比特币交易输出中。"
 
@@ -3733,7 +3733,7 @@ msgstr "什么是序数理论"
 #: src/faq.md:7
 msgid ""
 "Ordinal theory is a protocol for assigning serial numbers to satoshis, the "
-"smallest subdivision of a bitcoin, and tracking those satoshis as they are "
+"smallest subdivision of a litecoin, and tracking those satoshis as they are "
 "spent by transactions."
 msgstr ""
 "序数理论是一种为聪（satoshi，以下写作“聪”，比特币的最小单位）分配序列号的协"
@@ -3742,7 +3742,7 @@ msgstr ""
 #: src/faq.md:11
 msgid ""
 "These serial numbers are large numbers, like this 804766073970493. Every "
-"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a bitcoin, has an ordinal number."
+"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a litecoin, has an ordinal number."
 msgstr ""
 "这些序号都是很大的数字，比如，804766073970493. 每一个聪satoshi, 也都是比特币"
 "的 ¹⁄₁₀₀₀₀₀₀₀₀ 都有一个序数号号码"
@@ -3750,13 +3750,13 @@ msgstr ""
 #: src/faq.md:14
 msgid ""
 "Does ordinal theory require a side chain, a separate token, or changes to "
-"Bitcoin?"
+"Litecoin?"
 msgstr "序数理论是否需要一个侧链，一个单独的代币，或对比特币做出改变?"
 
 #: src/faq.md:17
 msgid ""
 "Nope! Ordinal theory works right now, without a side chain, and the only "
-"token needed is bitcoin itself."
+"token needed is litecoin itself."
 msgstr ""
 "完全不需要！序数理论现在有效可用，没有侧链，唯一需要的代币是比特币本身。"
 
@@ -3776,7 +3776,7 @@ msgstr ""
 #: src/faq.md:27
 msgid ""
 "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary "
-"content to individual satoshis, turning them into bitcoin-native digital "
+"content to individual satoshis, turning them into litecoin-native digital "
 "artifacts."
 msgstr ""
 "序数理论还赋能铭文，这是一种将任意内容附加到单个聪的协议，将它们变成比特币原"
@@ -3940,7 +3940,7 @@ msgid "Where can I find the nitty-gritty details?"
 msgstr "我在哪里可以找到这些详细信息"
 
 #: src/faq.md:104
-msgid "[The BIP!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[The BIP!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 msgstr ""
 
 #: src/faq.md:106
@@ -4071,7 +4071,7 @@ msgstr ""
 
 #: src/faq.md:165
 msgid ""
-"Inscriptions, on the other hand, depend on the Bitcoin blockchain, which is "
+"Inscriptions, on the other hand, depend on the Litecoin blockchain, which is "
 "relatively simple and conservative, and which introduces changes via "
 "backwards-compatible soft forks."
 msgstr ""
@@ -4084,7 +4084,7 @@ msgstr "_铭文更安全_"
 
 #: src/faq.md:171
 msgid ""
-"Inscriptions inherit Bitcoin's transaction model, which allow a user to see "
+"Inscriptions inherit Litecoin's transaction model, which allow a user to see "
 "exactly which inscriptions are being transferred by a transaction before "
 "they sign it. Inscriptions can be offered for sale using partially signed "
 "transactions, which don't require allowing a third party, such as an "
@@ -4113,7 +4113,7 @@ msgstr "_铭文更加稀缺_"
 
 #: src/faq.md:185
 msgid ""
-"Inscriptions require bitcoin to mint, transfer, and store. This seems like a "
+"Inscriptions require litecoin to mint, transfer, and store. This seems like a "
 "downside on the surface, but the raison d'etre of digital artifacts is to be "
 "scarce and thus valuable."
 msgstr ""
@@ -4163,9 +4163,9 @@ msgstr "_铭文开启了新的市场_"
 
 #: src/faq.md:208
 msgid ""
-"Bitcoin's market capitalization and liquidity are greater than Ethereum's by "
+"Litecoin's market capitalization and liquidity are greater than Ethereum's by "
 "a large margin. Much of this liquidity is not available to Ethereum NFTs, "
-"since many Bitcoiners prefer not to interact with the Ethereum ecosystem due "
+"since many Litecoin users prefer not to interact with the Ethereum ecosystem due "
 "to concerns related to simplicity, security, and decentralization."
 msgstr ""
 "比特币的市值和流动性都大大超越以太坊。以太坊NFT无法获得此类大部分的流动性，因"
@@ -4174,7 +4174,7 @@ msgstr ""
 
 #: src/faq.md:213
 msgid ""
-"Such Bitcoiners may be more interested in inscriptions than Ethereum NFTs, "
+"Such Litecoin users may be more interested in inscriptions than Ethereum NFTs, "
 "unlocking new classes of collector."
 msgstr ""
 "与以太坊 NFT 相比，此类比特币拥护者可能对铭文更感兴趣，从而解锁了新的类别的收"
@@ -4202,7 +4202,7 @@ msgstr "RGB 和 Taro 资产？"
 
 #: src/faq.md:226
 msgid ""
-"RGB and Taro are both second-layer asset protocols built on Bitcoin. "
+"RGB and Taro are both second-layer asset protocols built on Litecoin. "
 "Compared to inscriptions, they are much more complicated, but much more "
 "featureful."
 msgstr ""
@@ -4246,8 +4246,8 @@ msgstr "Counterparty资产"
 #: src/faq.md:245
 msgid ""
 "Counterparty has its own token, XCP, which is required for some "
-"functionality, which makes most bitcoiners regard it as an altcoin, and not "
-"an extension or second layer for bitcoin."
+"functionality, which makes most Litecoin users regard it as an altcoin, and not "
+"an extension or second layer for litecoin."
 msgstr ""
 "Counterparty 有自己的代币 XCP，它是某些功能所必需的，这使得大多数比特币持有者"
 "将其视为山寨币，而不是比特币的扩展或第二层。"
@@ -4270,7 +4270,7 @@ msgstr "艺术家"
 
 #: src/faq.md:257
 msgid ""
-"_Inscriptions are on Bitcoin._ Bitcoin is the digital currency with the "
+"_Inscriptions are on Litecoin._ Litecoin is the digital currency with the "
 "highest status and greatest chance of long-term survival. If you want to "
 "guarantee that your art survives into the future, there is no better way to "
 "publish it than as inscriptions."
@@ -4280,7 +4280,7 @@ msgstr ""
 
 #: src/faq.md:262
 msgid ""
-"_Cheaper on-chain storage._ At $20,000 per BTC and the minimum relay fee of "
+"_Cheaper on-chain storage._ At $20,000 per LTC and the minimum relay fee of "
 "1 satoshi per vbyte, publishing inscription content costs $50 per 1 million "
 "bytes."
 msgstr ""
@@ -4305,7 +4305,7 @@ msgstr "_铭文很简单_ 铭文不需要你编写或理解智能合约。"
 #: src/faq.md:273
 msgid ""
 "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and "
-"appealing to bitcoin holders, unlocking an entirely new class of collector."
+"appealing to litecoin holders, unlocking an entirely new class of collector."
 msgstr ""
 "_铭文解锁新的流动性_对于比特币持有者来说，铭文更容易获得，也更有吸引力，从而"
 "带来全新的收藏者。"
@@ -4353,22 +4353,22 @@ msgstr ""
 
 #: src/faq.md:296
 msgid ""
-"_Inscriptions are on Bitcoin._ You can verify the location and properties of "
-"inscriptions easily with Bitcoin full node that you control."
+"_Inscriptions are on Litecoin._ You can verify the location and properties of "
+"inscriptions easily with Litecoin full node that you control."
 msgstr ""
 "_铭文在比特币上_ 您可以使用您控制的比特币全节点轻松验证铭文的位置和属性。"
 
 #: src/faq.md:299
-msgid "Bitcoiners"
+msgid "Litecoin users"
 msgstr "比特币信仰者"
 
 #: src/faq.md:301
 msgid ""
 "Let me begin this section by saying: the most important thing that the "
-"Bitcoin network does is decentralize money. All other use-cases are "
+"Litecoin network does is decentralize money. All other use-cases are "
 "secondary, including ordinal theory. The developers of ordinal theory "
 "understand and acknowledge this, and believe that ordinal theory helps, at "
-"least in a small way, Bitcoin's primary mission."
+"least in a small way, Litecoin's primary mission."
 msgstr ""
 "让我在开头说明一下：比特币网络所做的最重要的事情是货币去中心化。所有其他用例"
 "都是次要的，包括序数理论。序数理论的开发者理解并承认这一点，并相信序数理论至"
@@ -4389,7 +4389,7 @@ msgstr ""
 
 #: src/faq.md:314
 msgid ""
-"Bitcoin provides an amazing platform for creating and collecting digital "
+"Litecoin provides an amazing platform for creating and collecting digital "
 "artifacts in a secure, decentralized way, that protects users and artists in "
 "the same way that it provides an amazing platform for sending and receiving "
 "value, and for all the same reasons."
@@ -4399,9 +4399,9 @@ msgstr ""
 
 #: src/faq.md:319
 msgid ""
-"Ordinals and inscriptions increase demand for Bitcoin block space, which "
-"increase Bitcoin's security budget, which is vital for safeguarding "
-"Bitcoin's transition to a fee-dependent security model, as the block subsidy "
+"Ordinals and inscriptions increase demand for Litecoin block space, which "
+"increase Litecoin's security budget, which is vital for safeguarding "
+"Litecoin's transition to a fee-dependent security model, as the block subsidy "
 "is halved into insignificance."
 msgstr ""
 "序数和铭文增加了对比特币区块空间的需求，这也增加了比特币的安全预算。这对于保"
@@ -4411,8 +4411,8 @@ msgstr ""
 msgid ""
 "Inscription content is stored on-chain, and thus the demand for block space "
 "for use in inscriptions is unlimited. This creates a buyer of last resort "
-"for _all_ Bitcoin block space. This will help support a robust fee market, "
-"which ensures that Bitcoin remains secure."
+"for _all_ Litecoin block space. This will help support a robust fee market, "
+"which ensures that Litecoin remains secure."
 msgstr ""
 "铭文内容存储在链上，因此对用于铭文区块空间的需求是无限的。这就为所有比特币区"
 "块空间创造了一个最后买家。这将有助于支持一个强大的收费市场，从而确保比特币一"
@@ -4420,7 +4420,7 @@ msgstr ""
 
 #: src/faq.md:329
 msgid ""
-"Inscriptions also counter the narrative that Bitcoin cannot be extended or "
+"Inscriptions also counter the narrative that Litecoin cannot be extended or "
 "used for new use-cases. If you follow projects like DLCs, Fedimint, "
 "Lightning, Taro, and RGB, you know that this narrative is false, but "
 "inscriptions provide a counter argument which is easy to understand, and "
@@ -4435,7 +4435,7 @@ msgstr ""
 msgid ""
 "If inscriptions prove, as the authors hope, to be highly sought after "
 "digital artifacts with a rich history, they will serve as a powerful hook "
-"for Bitcoin adoption: come for the fun, rich art, stay for the decentralized "
+"for Litecoin adoption: come for the fun, rich art, stay for the decentralized "
 "digital money."
 msgstr ""
 "如果像作者所希望的那样，铭文被证明是具有丰富历史的数字文物，并且受到高度追"
@@ -4446,10 +4446,10 @@ msgstr ""
 msgid ""
 "Inscriptions are an extremely benign source of demand for block space. "
 "Unlike, for example, stablecoins, which potentially give large stablecoin "
-"issuers influence over the future of Bitcoin development, or DeFi, which "
+"issuers influence over the future of Litecoin development, or DeFi, which "
 "might centralize mining by introducing opportunities for MEV, digital art "
-"and collectables on Bitcoin, are unlikely to produce individual entities "
-"with enough power to corrupt Bitcoin. Art is decentralized."
+"and collectables on Litecoin, are unlikely to produce individual entities "
+"with enough power to corrupt Litecoin. Art is decentralized."
 msgstr ""
 "铭文是区块空间需求的一个极其良性的来源，不像稳定币，可能会让大型发行人对比特"
 "币的未来发展产生影响；也不像DeFi，可能通过在比特币上引入MEV、数字艺术和收藏品"
@@ -4458,7 +4458,7 @@ msgstr ""
 
 #: src/faq.md:346
 msgid ""
-"Inscription users and service providers are incentivized to run Bitcoin full "
+"Inscription users and service providers are incentivized to run Litecoin full "
 "nodes, to publish and track inscriptions, and thus throw their economic "
 "weight behind the honest chain."
 msgstr ""
@@ -4467,15 +4467,15 @@ msgstr ""
 
 #: src/faq.md:350
 msgid ""
-"Ordinal theory and inscriptions do not meaningfully affect Bitcoin's "
-"fungibility. Bitcoin users can ignore both and be unaffected."
+"Ordinal theory and inscriptions do not meaningfully affect Litecoin's "
+"fungibility. Litecoin users can ignore both and be unaffected."
 msgstr ""
 "序数理论和铭文不会对比特币的可替代性产生重大影响。比特币用户即使忽略这两者也"
 "不会受到影响。"
 
 #: src/faq.md:353
 msgid ""
-"We hope that ordinal theory strengthens and enriches bitcoin, and gives it "
+"We hope that ordinal theory strengthens and enriches litecoin, and gives it "
 "another dimension of appeal and functionality, enabling it more effectively "
 "serve its primary use case as humanity's decentralized store of value."
 msgstr ""
@@ -4713,10 +4713,10 @@ msgstr ""
 #: src/donate.md:17
 msgid ""
 "Donations received will go towards funding maintenance and development of "
-"`ord`, as well as hosting costs for [ordinals.com](https://ordinals.com)."
+"`ord`, as well as hosting costs for [ordinalslite.com](https://ordinalslite.com)."
 msgstr ""
-"收到的捐赠款将用于资助 `ord`的维护和进一步开发，同时将支付[ordinals.com]"
-"(https://ordinals.com)的托管费用。"
+"收到的捐赠款将用于资助 `ord`的维护和进一步开发，同时将支付[ordinalslite.com]"
+"(https://ordinalslite.com)的托管费用。"
 
 #: src/donate.md:20
 msgid "Thank you for donating!"
@@ -4739,15 +4739,15 @@ msgstr "序数浏览器"
 #: src/guides/explorer.md:4
 msgid ""
 "The `ord` binary includes a block explorer. We host an instance of the block "
-"explorer on mainnet at [ordinals.com](https://ordinals.com), on signet at "
-"[signet.ordinals.com](https://signet.ordinals.com), and on testnet at "
-"[testnet.ordinals.com](https://testnet.ordinals.com). As of version 0.16.0 "
+"explorer on mainnet at [ordinalslite.com](https://ordinalslite.com), on signet at "
+"[signet.ordinalslite.com](https://ordinalslite.com), and on testnet at "
+"[testnet.ordinalslite.com](https://ordinalslite.com). As of version 0.16.0 "
 "the wallet needs `ord server` running in the background. This is analogous "
-"to how `bitcoin-cli` needs `bitcoind` running in the background."
+"to how `litecoin-cli` needs `litecoind` running in the background."
 msgstr ""
-"`ord` 文件包含一个区块浏览器。我们的主网区块链器部署在 [ordinals.com]"
-"(https://ordinals.com), signet部署在[signet.ordinals.com](https://signet."
-"ordinals.com)."
+"`ord` 文件包含一个区块浏览器。我们的主网区块链器部署在 [ordinalslite.com]"
+"(https://ordinalslite.com), signet部署在[signet.ordinalslite.com](https://signet."
+"ordinalslite.com)."
 
 #: src/guides/explorer.md:11
 msgid "Running The Explorer"
@@ -4800,7 +4800,7 @@ msgstr "区块可以通过哈希来查找，例如创世区块："
 #: src/guides/explorer.md:34
 msgid ""
 "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
 msgstr ""
 
@@ -4817,7 +4817,7 @@ msgstr "可以通过哈希查找交易，例如创世区块的coinbase交易："
 #: src/guides/explorer.md:41
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
 msgstr ""
 
@@ -4834,7 +4834,7 @@ msgstr "可以通过outpoint搜索交易输出，例如创世块coinbase交易�
 #: src/guides/explorer.md:48
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
 msgstr ""
 
@@ -4844,12 +4844,12 @@ msgstr "聪"
 
 #: src/guides/explorer.md:52
 msgid ""
-"Sats can be searched by integer, their position within the entire bitcoin "
+"Sats can be searched by integer, their position within the entire litecoin "
 "supply:"
 msgstr "聪 可以按整数搜索，它们在整个比特币供应中的位置："
 
 #: src/guides/explorer.md:55
-msgid "[2099994106992659](https://ordinals.com/search/2099994106992659)"
+msgid "[2099994106992659](https://ordinalslite.com/search/2099994106992659)"
 msgstr ""
 
 #: src/guides/explorer.md:57
@@ -4857,7 +4857,7 @@ msgid "By decimal, their block and offset within that block:"
 msgstr "按十进制，它们的块和该块内的偏移量："
 
 #: src/guides/explorer.md:59
-msgid "[481824.0](https://ordinals.com/search/481824.0)"
+msgid "[481824.0](https://ordinalslite.com/search/481824.0)"
 msgstr ""
 
 #: src/guides/explorer.md:61
@@ -4869,7 +4869,7 @@ msgstr ""
 "内的偏移量："
 
 #: src/guides/explorer.md:64
-msgid "[1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)"
+msgid "[1°0′0″0‴](https://ordinalslite.com/search/1°0′0″0‴)"
 msgstr ""
 
 #: src/guides/explorer.md:66
@@ -4878,17 +4878,17 @@ msgid ""
 msgstr "按照名称，它们使用字母\"a\"到\"z\"的 26个字母组合表示："
 
 #: src/guides/explorer.md:68
-msgid "[ahistorical](https://ordinals.com/search/ahistorical)"
+msgid "[ahistorical](https://ordinalslite.com/search/ahistorical)"
 msgstr ""
 
 #: src/guides/explorer.md:70
 msgid ""
-"Or by percentile, the percentage of bitcoin's supply that has been or will "
+"Or by percentile, the percentage of litecoin's supply that has been or will "
 "have been issued when they are mined:"
 msgstr "或者按百分位数，在开采时已经或将要发行的比特币供应量的百分比："
 
 #: src/guides/explorer.md:73
-msgid "[100%](https://ordinals.com/search/100%)"
+msgid "[100%](https://ordinalslite.com/search/100%)"
 msgstr ""
 
 #: src/guides/explorer.md:75
@@ -4974,7 +4974,7 @@ msgid ""
 "  \"script_pubkey\": \"OP_PUSHNUM_1 OP_PUSHBYTES_32 "
 "156cc4878306157720607cdcb4b32afa4cc6853868458d7258b907112e5a434b\",\n"
 "  \"address\": "
-"\"bc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9sfr6ayf\",\n"
+"\"ltc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9s285d7v\",\n"
 "  \"transaction\": "
 "\"bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed\",\n"
 "  \"sat_ranges\": null,\n"
@@ -4987,18 +4987,18 @@ msgstr ""
 
 #: src/guides/wallet.md:4
 msgid ""
-"Individual sats can be inscribed with arbitrary content, creating Bitcoin-"
-"native digital artifacts that can be held in a Bitcoin wallet and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Individual sats can be inscribed with arbitrary content, creating Litecoin-"
+"native digital artifacts that can be held in a Litecoin wallet and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "单个 聪 可以刻有任意内容，创建可以保存在比特币钱包中并使用比特币交易传输的比"
 "特币原生数字人工制品。铭文与比特币本身一样持久、不变、安全和去中心化。"
 
 #: src/guides/wallet.md:9
 msgid ""
-"Working with inscriptions requires a Bitcoin full node, to give you a view "
-"of the current state of the Bitcoin blockchain, and a wallet that can create "
+"Working with inscriptions requires a Litecoin full node, to give you a view "
+"of the current state of the Litecoin blockchain, and a wallet that can create "
 "inscriptions and perform sat control when constructing transactions to send "
 "inscriptions to another wallet."
 msgstr ""
@@ -5007,37 +5007,37 @@ msgstr ""
 
 #: src/guides/wallet.md:14
 msgid ""
-"Bitcoin Core provides both a Bitcoin full node and wallet. However, the "
-"Bitcoin Core wallet cannot create inscriptions and does not perform sat "
+"Litecoin Core provides both a Litecoin full node and wallet. However, the "
+"Litecoin Core wallet cannot create inscriptions and does not perform sat "
 "control."
 msgstr ""
-"Bitcoin Core 提供比特币全节点和钱包。 但是，Bitcoin Core 钱包不能创建铭文，不"
+"Litecoin Core 提供比特币全节点和钱包。 但是，Litecoin Core 钱包不能创建铭文，不"
 "执行 聪 控制。"
 
 #: src/guides/wallet.md:17
 msgid ""
-"This requires [`ord`](https://github.com/ordinals/ord), the ordinal utility. "
+"This requires [`ord`](https://github.com/ynohtna92/ord-litecoin), the ordinal utility. "
 "`ord` doesn't implement its own wallet, so `ord wallet` subcommands interact "
-"with Bitcoin Core wallets."
+"with Litecoin Core wallets."
 msgstr ""
-"这需要[`ord`](https://github.com/ordinals/ord)，序数实用程序。 `ord` 没有自己"
-"的钱包，因此  `ord wallet`子命令与 Bitcoin Core 钱包交互。"
+"这需要[`ord`](https://github.com/ynohtna92/ord-litecoin)，序数实用程序。 `ord` 没有自己"
+"的钱包，因此  `ord wallet`子命令与 Litecoin Core 钱包交互。"
 
 #: src/guides/wallet.md:21
 msgid "This guide covers:"
 msgstr "本指南涵盖："
 
 #: src/guides/wallet.md:23 src/guides/wallet.md:40
-msgid "Installing Bitcoin Core"
-msgstr "安装 Bitcoin Core"
+msgid "Installing Litecoin Core"
+msgstr "安装 Litecoin Core"
 
 #: src/guides/wallet.md:24
-msgid "Syncing the Bitcoin blockchain"
+msgid "Syncing the Litecoin blockchain"
 msgstr "同步比特币区块链"
 
 #: src/guides/wallet.md:25
-msgid "Creating a Bitcoin Core wallet"
-msgstr "创建 Bitcoin Core 钱包"
+msgid "Creating a Litecoin Core wallet"
+msgstr "创建 Litecoin Core 钱包"
 
 #: src/guides/wallet.md:26
 msgid "Using `ord wallet receive` to receive sats"
@@ -5067,48 +5067,48 @@ msgstr "寻求帮助"
 msgid ""
 "If you get stuck, try asking for help on the [Ordinals Discord Server]"
 "(https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant "
-"[issues](https://github.com/ordinals/ord/issues) and [discussions](https://"
+"[issues](https://github.com/ynohtna92/ord-litecoin/issues) and [discussions](https://"
 "github.com/ordinals/ord/discussions)."
 msgstr ""
 "如果你遇到困难，可以在[Ordinals Discord Server](https://discord.com/"
 "invite/87cjuz4FYg),或者检查Github上的相关内容[问题](https://github.com/"
-"ordinals/ord/issues) 和[讨论](https://github.com/ordinals/ord/discussions)."
+"ordinals/ord/issues) 和[讨论](https://github.com/ynohtna92/ord-litecoin/discussions)."
 
 #: src/guides/wallet.md:43
 msgid ""
-"Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) "
-"on the [download page](https://bitcoincore.org/en/download/)."
+"Litecoin Core is available from [litecoin.org](https://litecoin.org/) "
+"on the [download page](https://litecoin.org/)."
 msgstr ""
-"Bitcoin Core 可以在 [bitcoincore.org](https://bitcoincore.org/) 上的[下载页"
-"面](https://bitcoincore.org/en/download/)."
+"Litecoin Core 可以在 [litecoin.org](https://litecoin.org/) 上的[下载页"
+"面](https://litecoin.org/)."
 
 #: src/guides/wallet.md:46
-msgid "Making inscriptions requires Bitcoin Core 24 or newer."
-msgstr "制作铭文需要Bitcoin Core 24 或者更新版本。"
+msgid "Making inscriptions requires Litecoin Core 24 or newer."
+msgstr "制作铭文需要Litecoin Core 24 或者更新版本。"
 
 #: src/guides/wallet.md:48
 msgid ""
-"This guide does not cover installing Bitcoin Core in detail. Once Bitcoin "
-"Core is installed, you should be able to run `bitcoind -version` "
-"successfully from the command line. Do _NOT_ use `bitcoin-qt`."
+"This guide does not cover installing Litecoin Core in detail. Once Litecoin "
+"Core is installed, you should be able to run `litecoind -version` "
+"successfully from the command line. Do _NOT_ use `litecoin-qt`."
 msgstr ""
-"本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可"
-"以在命令行使用 `bitcoind -version`命令。"
+"本指南不包括如何详细安装 Litecoin Core；当你成功安装Litecoin Core以后，你应该可"
+"以在命令行使用 `litecoind -version`命令。"
 
 #: src/guides/wallet.md:52
-msgid "Configuring Bitcoin Core"
-msgstr "配置 Bitcoin Core"
+msgid "Configuring Litecoin Core"
+msgstr "配置 Litecoin Core"
 
 #: src/guides/wallet.md:55
-msgid "`ord` requires Bitcoin Core's transaction index and rest interface."
-msgstr "`ord` 需要Bitcoin Core 的交易索引"
+msgid "`ord` requires Litecoin Core's transaction index and rest interface."
+msgstr "`ord` 需要Litecoin Core 的交易索引"
 
 #: src/guides/wallet.md:57
 msgid ""
-"To configure your Bitcoin Core node to maintain a transaction index, add the "
-"following to your `bitcoin.conf`:"
+"To configure your Litecoin Core node to maintain a transaction index, add the "
+"following to your `litecoin.conf`:"
 msgstr ""
-"配置你的Bitcoin Core阶段去维护一个交易索引，需要在`bitcoin.conf`里面添加:"
+"配置你的Litecoin Core阶段去维护一个交易索引，需要在`litecoin.conf`里面添加:"
 
 #: src/guides/wallet.md:60 src/guides/sat-hunting.md:25
 msgid ""
@@ -5118,26 +5118,26 @@ msgid ""
 msgstr ""
 
 #: src/guides/wallet.md:64
-msgid "Or, run `bitcoind` with `-txindex`:"
-msgstr "或者, 运行 `bitcoind` 和 `-txindex`:"
+msgid "Or, run `litecoind` with `-txindex`:"
+msgstr "或者, 运行 `litecoind` 和 `-txindex`:"
 
 #: src/guides/wallet.md:66 src/guides/wallet.md:78 src/guides/wallet.md:169
 msgid ""
 "```\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/wallet.md:70
 msgid ""
-"Details on creating or modifying your `bitcoin.conf` file can be found [here]"
-"(https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)."
+"Details on creating or modifying your `litecoin.conf` file can be found [here]"
+"(https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md)."
 msgstr ""
-"关于创建或者修改你的 `bitcoin.conf`文件，可以参考 [这里](https://github.com/"
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)."
+"关于创建或者修改你的 `litecoin.conf`文件，可以参考 [这里](https://github.com/"
+"litecoin/litecoin/blob/master/doc/litecoin-conf.md)."
 
 #: src/guides/wallet.md:73
-msgid "Syncing the Bitcoin Blockchain"
+msgid "Syncing the Litecoin Blockchain"
 msgstr "比特币区块同步"
 
 #: src/guides/wallet.md:76
@@ -5151,20 +5151,20 @@ msgstr "…直到运行 `getblockcount`:"
 #: src/guides/wallet.md:84
 msgid ""
 "```\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
 #: src/guides/wallet.md:88
 msgid ""
 "agrees with the block count on a block explorer like [the mempool.space "
-"block explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so "
-"you should leave `bitcoind` running in the background when you're using "
+"block explorer](https://litecoinspace.org/). `ord` interacts with `litecoind`, so "
+"you should leave `litecoind` running in the background when you're using "
 "`ord`."
 msgstr ""
-"像区块链浏览器[the mempool.space block explorer](https://mempool.space/)一样"
-"对区块进行记述. `ord`同`bitcoind`进行交互, 所以你在使用`ord`时候需要让"
-"`bitcoind` 在后台运行。"
+"像区块链浏览器[the litecoinspace.org block explorer](https://litecoinspace.org/)一样"
+"对区块进行记述. `ord`同`litecoind`进行交互, 所以你在使用`ord`时候需要让"
+"`litecoind` 在后台运行。"
 
 #: src/guides/wallet.md:92
 msgid ""
@@ -5172,10 +5172,10 @@ msgid ""
 "drive you want to store blocks on, use the configuration option "
 "`blocksdir=<external_drive_path>`. This is much simpler than using the "
 "`datadir` option because the cookie file will still be in the default "
-"location for `bitcoin-cli` and `ord` to find."
+"location for `litecoin-cli` and `ord` to find."
 msgstr ""
 "区块链占用约600GB的磁盘空间。如果你有一个外接硬盘来存储区块，可以使用配置选项"
-"`blocksdir=<external_drive_path>`. 这比使用`datadir` 选项更简单， `bitcoin-"
+"`blocksdir=<external_drive_path>`. 这比使用`datadir` 选项更简单， `litecoin-"
 "cli` 和 `ord` 可以在默认的位置找到cookie文件"
 
 #: src/guides/wallet.md:98 src/guides/collecting/sparrow-wallet.md:173
@@ -5184,61 +5184,61 @@ msgstr "故障排除"
 
 #: src/guides/wallet.md:101
 msgid ""
-"Make sure you can access `bitcoind` with `bitcoin-cli -getinfo` and that it "
+"Make sure you can access `litecoind` with `litecoin-cli -getinfo` and that it "
 "is fully synced."
 msgstr ""
-"确保你可以通过 `bitcoin-cli -getinfo` 来访问`bitcoind` ，并且它已经完全同步 "
+"确保你可以通过 `litecoin-cli -getinfo` 来访问`litecoind` ，并且它已经完全同步 "
 
 #: src/guides/wallet.md:104
 msgid ""
-"If `bitcoin-cli -getinfo` returns `Could not connect to the server`, "
-"`bitcoind` is not running."
+"If `litecoin-cli -getinfo` returns `Could not connect to the server`, "
+"`litecoind` is not running."
 msgstr ""
-"假如 `bitcoin-cli -getinfo` 返回的是 `Could not connect to the server`, 这可"
-"能是`bitcoind` 没有运行"
+"假如 `litecoin-cli -getinfo` 返回的是 `Could not connect to the server`, 这可"
+"能是`litecoind` 没有运行"
 
 #: src/guides/wallet.md:107
 msgid ""
 "Make sure `rpcuser`, `rpcpassword`, or `rpcauth` are _NOT_ set in your "
-"`bitcoin.conf` file. `ord` requires using cookie authentication. Make sure "
-"there is a file `.cookie` in your bitcoin data directory."
+"`litecoin.conf` file. `ord` requires using cookie authentication. Make sure "
+"there is a file `.cookie` in your litecoin data directory."
 msgstr ""
-"确保 `rpcuser`, `rpcpassword`, 或者 `rpcauth` _没有_ 在你的 `bitcoin.conf` 文"
-"件里进行设置。 `ord` 需要使用 cookie 认证。因此需要确保 你的bitcoin data的文"
+"确保 `rpcuser`, `rpcpassword`, 或者 `rpcauth` _没有_ 在你的 `litecoin.conf` 文"
+"件里进行设置。 `ord` 需要使用 cookie 认证。因此需要确保 你的litecoin data的文"
 "件夹里有 `.cookie`文件。"
 
 #: src/guides/wallet.md:111
 msgid ""
-"If `bitcoin-cli -getinfo` returns `Could not locate RPC credentials`, then "
+"If `litecoin-cli -getinfo` returns `Could not locate RPC credentials`, then "
 "you must specify the cookie file location. If you are using a custom data "
 "directory (specifying the `datadir` option), then you must specify the "
-"cookie location like `bitcoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
+"cookie location like `litecoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
 "cookie -getinfo`. When running `ord` you must specify the cookie file "
 "location with `--cookie-file=<your_bitcoin_datadir>/.cookie`."
 msgstr ""
-"如果 `bitcoin-cli -getinfo` 返回`Could not locate RPC credentials`, 那么 你必"
+"如果 `litecoin-cli -getinfo` 返回`Could not locate RPC credentials`, 那么 你必"
 "须指定 cookie 文件的位置。如果你正在使用自定义的数据目录 (指定 `datadir` 的选"
-"项),那么你必须指定cookie文件的位置. `bitcoin-cli -"
+"项),那么你必须指定cookie文件的位置. `litecoin-cli -"
 "rpccookiefile=<your_bitcoin_datadir>/ cookie -getinfo`.当你运行 `ord` 命令"
 "时，你必须指定 cookie 文件的位置 `--cookie-file=<your_bitcoin_datadir>/."
 "cookie`."
 
 #: src/guides/wallet.md:119
 msgid ""
-"Make sure you do _NOT_ have `disablewallet=1` in your `bitcoin.conf` file. "
-"If `bitcoin-cli listwallets` returns `Method not found` then the wallet is "
+"Make sure you do _NOT_ have `disablewallet=1` in your `litecoin.conf` file. "
+"If `litecoin-cli listwallets` returns `Method not found` then the wallet is "
 "disabled and you won't be able to use `ord`."
 msgstr ""
-"确保你在`bitcoin.conf` 文件中 _没有_ 配置 `disablewallet=1` 如果 `bitcoin-"
+"确保你在`litecoin.conf` 文件中 _没有_ 配置 `disablewallet=1` 如果 `litecoin-"
 "cli listwallets` 返回 `Method not found` 那么钱包就会被禁用你将要无法使用 "
 "`ord`."
 
 #: src/guides/wallet.md:123
 msgid ""
-"Make sure `txindex=1` is set. Run `bitcoin-cli getindexinfo` and it should "
+"Make sure `txindex=1` is set. Run `litecoin-cli getindexinfo` and it should "
 "return something like"
 msgstr ""
-"确保设置 `txindex=1` 。运行 `bitcoin-cli getindexinfo` 将会返回一些这样的结"
+"确保设置 `txindex=1` 。运行 `litecoin-cli getindexinfo` 将会返回一些这样的结"
 "果 "
 
 #: src/guides/wallet.md:125
@@ -5256,20 +5256,20 @@ msgstr ""
 #: src/guides/wallet.md:133
 msgid ""
 "If it only returns `{}`, `txindex` is not set. If it returns `\"synced\": "
-"false`, `bitcoind` is still creating the `txindex`. Wait until `\"synced\": "
+"false`, `litecoind` is still creating the `txindex`. Wait until `\"synced\": "
 "true` before using `ord`."
 msgstr ""
 "假如仅仅返回 `{}`, `txindex` 没有被设置。如果返回 `\"synced\": false`, "
-"`bitcoind` 仍然在创建 `txindex`。那就需要等到`\"synced\": true` ，`ord`命令方"
+"`litecoind` 仍然在创建 `txindex`。那就需要等到`\"synced\": true` ，`ord`命令方"
 "可以使用."
 
 #: src/guides/wallet.md:137
 msgid ""
 "If you have `maxuploadtarget` set it can interfere with fetching blocks for "
-"`ord` index. Either remove it or set `whitebind=127.0.0.1:8333`."
+"`ord` index. Either remove it or set `whitebind=127.0.0.1:9333`."
 msgstr ""
 "如果你设置了`maxuploadtarget` ，他将干扰 `ord` 的索引获取区块， 你可以选择移"
-"除或者设置`whitebind=127.0.0.1:8333`."
+"除或者设置`whitebind=127.0.0.1:9333`."
 
 #: src/guides/wallet.md:140
 msgid "Installing `ord`"
@@ -5279,10 +5279,10 @@ msgstr "安装 `ord`"
 msgid ""
 "The `ord` utility is written in Rust and can be built from [source](https://"
 "github.com/ordinals/ord). Pre-built binaries are available on the [releases "
-"page](https://github.com/ordinals/ord/releases)."
+"page](https://github.com/ynohtna92/ord-litecoin/releases)."
 msgstr ""
-"`ord` 程序使用Rust语言写成，可以从[源码](https://github.com/ordinals/ord)安"
-"装. 预制文件可以从[版本发布页](https://github.com/ordinals/ord/releases)下"
+"`ord` 程序使用Rust语言写成，可以从[源码](https://github.com/ynohtna92/ord-litecoin)安"
+"装. 预制文件可以从[版本发布页](https://github.com/ynohtna92/ord-litecoin/releases)下"
 "载。"
 
 #: src/guides/wallet.md:147
@@ -5292,7 +5292,7 @@ msgstr "你也可以在命令行中使用下面命令来安装最新的文件：
 #: src/guides/wallet.md:149
 msgid ""
 "```sh\n"
-"curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash "
+"curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash "
 "-s\n"
 "```"
 msgstr ""
@@ -5314,16 +5314,16 @@ msgstr "这会返回 `ord`的版本信息."
 
 #: src/guides/wallet.md:161
 msgid "Creating a Wallet"
-msgstr "创建一个Bitcoin Core钱包"
+msgstr "创建一个Litecoin Core钱包"
 
 #: src/guides/wallet.md:164
 msgid ""
-"`ord` uses `bitcoind` to manage private keys, sign transactions, and "
-"broadcast transactions to the Bitcoin network. Additionally the `ord wallet` "
+"`ord` uses `litecoind` to manage private keys, sign transactions, and "
+"broadcast transactions to the Litecoin network. Additionally the `ord wallet` "
 "requires [`ord server`](explorer.md) running in the background. Make sure "
 "these programs are running:"
 msgstr ""
-"`ord` 使用Bitcoin Core来管理私钥，签署交易以及向比特币网络广播交易。此外，"
+"`ord` 使用Litecoin Core来管理私钥，签署交易以及向比特币网络广播交易。此外，"
 "`ord` 钱包需要在后台运行[`ord server`](explorer.md)，请确保这些程序运行"
 
 #: src/guides/wallet.md:173
@@ -5336,7 +5336,7 @@ msgstr ""
 #: src/guides/wallet.md:177
 msgid ""
 "To create a wallet named `ord`, the default, for use with `ord wallet`, run:"
-msgstr "创建一个名为`ord` 的Bitcoin Core 钱包，运行:"
+msgstr "创建一个名为`ord` 的Litecoin Core 钱包，运行:"
 
 #: src/guides/wallet.md:179
 msgid ""
@@ -5527,7 +5527,7 @@ msgstr "接收聪"
 
 #: src/guides/wallet.md:273
 msgid ""
-"Inscriptions are made on individual sats, using normal Bitcoin transactions "
+"Inscriptions are made on individual sats, using normal Litecoin transactions "
 "that pay fees in sats, so your wallet will need some sats."
 msgstr ""
 "铭文是在单个聪上制作的，使用聪来支付费用的普通比特币交易，因此你的钱包将需要"
@@ -5599,12 +5599,12 @@ msgstr ""
 #: src/guides/wallet.md:306
 msgid ""
 "Inscription transactions must be less than 400,000 weight units, or they "
-"will not be relayed by Bitcoin Core. One byte of inscription content costs "
+"will not be relayed by Litecoin Core. One byte of inscription content costs "
 "one weight unit. Since an inscription transaction includes not just the "
 "inscription content, limit inscription content to less than 400,000 weight "
 "units. 390,000 weight units should be safe."
 msgstr ""
-"铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字"
+"铭文交易必须少于 400,000 个权重计量单位，否则不会被 Litecoin Core 中继。一个字"
 "节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在"
 "400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。"
 
@@ -5648,11 +5648,11 @@ msgstr ""
 #: src/guides/wallet.md:331
 msgid ""
 "Wait for the reveal transaction to be mined. You can check the status of the "
-"commit and reveal transactions using  [the mempool.space block explorer]"
-"(https://mempool.space/)."
+"commit and reveal transactions using  [the litecoinspace.org block explorer]"
+"(https://litecoinspace.org/)."
 msgstr ""
-"在等待reveal交易被记录的同时，你可以使用[the mempool.space block explorer]"
-"(https://mempool.space/)来检查交易的状态。"
+"在等待reveal交易被记录的同时，你可以使用[the litecoinspace.org block explorer]"
+"(https://litecoinspace.org/)来检查交易的状态。"
 
 #: src/guides/wallet.md:335
 msgid ""
@@ -5900,7 +5900,7 @@ msgid ""
 "6ac5cacb768794f4fd7a78bf00f2074891fce68bd65c4ff36e77177237aacacai0\n"
 "  # destination (optional, if no destination is specified a new wallet "
 "change address will be used)\n"
-"  destination: bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4\n"
+"  destination: ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9\n"
 "  # inscription metadata (optional)\n"
 "  metadata:\n"
 "    title: Delicious Mangos\n"
@@ -5920,7 +5920,7 @@ msgid ""
 "\n"
 "- file: tulip.png\n"
 "  destination: "
-"bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6\n"
+"ltc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyszdggkl\n"
 "  metadata:\n"
 "    author: Satoshi Nakamoto\n"
 "```"
@@ -5928,11 +5928,11 @@ msgstr ""
 
 #: src/guides/collecting.md:4
 msgid ""
-"Currently, [ord](https://github.com/ordinals/ord/) is the only wallet "
+"Currently, [ord](https://github.com/ynohtna92/ord-litecoin/) is the only wallet "
 "supporting sat-control and sat-selection, which are required to safely store "
 "and send rare sats and inscriptions, hereafter ordinals."
 msgstr ""
-"目前，[ord](https://github.com/ordinals/ord/) 是唯一支持 sat-control 和 sat-"
+"目前，[ord](https://github.com/ynohtna92/ord-litecoin/) 是唯一支持 sat-control 和 sat-"
 "selection 的钱包，这是安全存储和发送稀有 sats 和铭文（以下简称序数）所必需"
 "的。"
 
@@ -5948,9 +5948,9 @@ msgstr ""
 #: src/guides/collecting.md:12
 msgid ""
 "As a general note, receiving ordinals in an unsupported wallet is not "
-"dangerous. Ordinals can be sent to any bitcoin address, and are safe as long "
+"dangerous. Ordinals can be sent to any litecoin address, and are safe as long "
 "as the UTXO that contains them is not spent. However, if that wallet is then "
-"used to send bitcoin, it may select the UTXO containing the ordinal as an "
+"used to send litecoin, it may select the UTXO containing the ordinal as an "
 "input, and send the inscription or spend it to fees."
 msgstr ""
 "作为一般说明，在不受支持的钱包中接收序号并不危险。 序号可以发送到任何比特币地"
@@ -5969,10 +5969,10 @@ msgstr ""
 #: src/guides/collecting.md:21
 msgid ""
 "Please note that if you follow this guide, you should not use the wallet you "
-"create to send BTC, unless you perform manual coin-selection to avoid "
+"create to send LTC, unless you perform manual coin-selection to avoid "
 "sending ordinals."
 msgstr ""
-"请注意，如果您遵循本指南，则不应使用您创建的钱包发送 BTC，除非您执行手动硬币"
+"请注意，如果您遵循本指南，则不应使用您创建的钱包发送 LTC，除非您执行手动硬币"
 "选择以避免发送序号。"
 
 #: src/guides/collecting/sparrow-wallet.md:1
@@ -6184,11 +6184,11 @@ msgid ""
 "inscription by heading over to the `UTXOs` tab, finding the UTXO you want to "
 "check, right-clicking on the `Output` and selecting `Copy Transaction "
 "Output`. This transaction output id can then be pasted into the [ordinals."
-"com](https://ordinals.com) search."
+"com](https://ordinalslite.com) search."
 msgstr ""
 "一旦交易被确认，你可以通过前往`UTXOs`选项卡，找到你想要检查的 UTXO，右键点击 "
 "`Output` 并选择 `Copy Transaction Output` 来验证和查看你的铭文。然后，这个交"
-"易输出 id 可以粘贴到 [ordinals.com](https://ordinals.com) 搜索。"
+"易输出 id 可以粘贴到 [ordinalslite.com](https://ordinalslite.com) 搜索。"
 
 #: src/guides/collecting/sparrow-wallet.md:72
 msgid "Freezing UTXO's"
@@ -6385,10 +6385,10 @@ msgstr ""
 msgid ""
 "To do this, you can follow the [Validating / Viewing Received Inscriptions]"
 "(./sparrow-wallet.md#validating--viewing-received-inscriptions) described "
-"above to find the inscription page for your inscription on ordinals.com"
+"above to find the inscription page for your inscription on ordinalslite.com"
 msgstr ""
 "为此，你可以按照上述 [验证/查看收到的铭文](./sparrow-wallet.md#validating--"
-"viewing-received-inscriptions)来找到ordinals.com上你的铭文的铭文页面。"
+"viewing-received-inscriptions)来找到ordinalslite.com上你的铭文的铭文页面。"
 
 #: src/guides/collecting/sparrow-wallet.md:120
 msgid ""
@@ -6580,10 +6580,10 @@ msgstr ""
 #: src/guides/collecting/sparrow-wallet.md:171
 msgid ""
 "Once the transaction has confirmed you can check the inscription page on "
-"[ordinals.com](https://ordinals.com) to validate that it has moved to the "
+"[ordinalslite.com](https://ordinalslite.com) to validate that it has moved to the "
 "new output location and address."
 msgstr ""
-"一旦交易确认，你可以在[ordinals.com](https://ordinals.com) 的铭文页面上验证它"
+"一旦交易确认，你可以在[ordinalslite.com](https://ordinalslite.com) 的铭文页面上验证它"
 "是否已移动到新的输出位置和地址。"
 
 #: src/guides/collecting/sparrow-wallet.md:175
@@ -6687,20 +6687,20 @@ msgid "`ord` must be restarted in to load changes to the config file."
 msgstr "`ord` 必须重启才可以加载在配置文件中的更改。"
 
 #: src/guides/moderation.md:37
-msgid "`ordinals.com`"
+msgid "`ordinalslite.com`"
 msgstr ""
 
 #: src/guides/moderation.md:40
 msgid ""
-"The `ordinals.com` instances use `systemd` to run the `ord server` service, "
+"The `ordinalslite.com` instances use `systemd` to run the `ord server` service, "
 "which is called `ord`, with a config file located at `/var/lib/ord/ord.yaml`."
 msgstr ""
-"`ordinals.com` 实例使用 `systemd` 运行名为 `ord`的 `ord server` 服务，配置文"
+"`ordinalslite.com` 实例使用 `systemd` 运行名为 `ord`的 `ord server` 服务，配置文"
 "件在 `/var/lib/ord/ord.yaml`."
 
 #: src/guides/moderation.md:43
-msgid "To hide an inscription on `ordinals.com`:"
-msgstr "要在 ordinals.com 上隐藏铭文:"
+msgid "To hide an inscription on `ordinalslite.com`:"
+msgstr "要在 ordinalslite.com 上隐藏铭文:"
 
 #: src/guides/moderation.md:45
 msgid "SSH into the server"
@@ -6844,25 +6844,25 @@ msgstr "在开始之前，你应该需要做的一些事情"
 
 #: src/guides/sat-hunting.md:15
 msgid ""
-"First, you'll need a synced Bitcoin Core node with a transaction index. To "
+"First, you'll need a synced Litecoin Core node with a transaction index. To "
 "turn on transaction indexing, pass `-txindex` on the command-line:"
 msgstr ""
-"首先，你需要一个已同步的带有交易索引的 Bitcoin Core 节点。"
+"首先，你需要一个已同步的带有交易索引的 Litecoin Core 节点。"
 "要开启交易索引，在命令行里使用 `-txindex` :"
 
 #: src/guides/sat-hunting.md:18
 msgid ""
 "```sh\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/sat-hunting.md:22
 msgid ""
-"Or put the following in your [Bitcoin configuration file](https://github.com/"
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+"Or put the following in your [Litecoin configuration file](https://github.com/"
+"litecoin/litecoin/blob/master/doc/litecoin-conf.md#configuration-file-path):"
 msgstr ""
-"或者将以下内容放入你的 [比特币配置文件](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path)："
+"或者将以下内容放入你的 [比特币配置文件](https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path)："
 
 #: src/guides/sat-hunting.md:29
 msgid ""
@@ -6874,7 +6874,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:32
 msgid ""
 "```sh\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
@@ -6884,12 +6884,12 @@ msgstr ""
 "其次，你需要一个已同步的 `ord` 索引。"
 
 #: src/guides/sat-hunting.md:38
-msgid "Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/)."
-msgstr "从 [ord 仓库](https://github.com/ordinals/ord/) 获取 `ord` 的副本。"
+msgid "Get a copy of `ord` from [the repo](https://github.com/ynohtna92/ord-litecoin/)."
+msgstr "从 [ord 仓库](https://github.com/ynohtna92/ord-litecoin/) 获取 `ord` 的副本。"
 
 #: src/guides/sat-hunting.md:40
 msgid ""
-"Run `ord --index-sats server`. It should connect to your bitcoin core node "
+"Run `ord --index-sats server`. It should connect to your litecoin core node "
 "and start indexing."
 msgstr ""
 "运行 `ord --index-sats server`。它应该会连接到你的比特币核心节点并开始索引。"
@@ -6910,13 +6910,13 @@ msgid "Searching for Rare Ordinals"
 msgstr "搜索稀有的序数"
 
 #: src/guides/sat-hunting.md:49
-msgid "Searching for Rare Ordinals in a Bitcoin Core Wallet"
-msgstr "在一个Bitcoin Core的钱包里搜索稀有的序数"
+msgid "Searching for Rare Ordinals in a Litecoin Core Wallet"
+msgstr "在一个Litecoin Core的钱包里搜索稀有的序数"
 
 #: src/guides/sat-hunting.md:51
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your "
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"searching for rare ordinals in a Litecoin Core wallet is Easy. Assuming your "
 "wallet is named `foo`:"
 msgstr ""
 "命令 `ord wallet`  只是比特币核心 RPC API 的一个封装，"
@@ -6929,7 +6929,7 @@ msgstr "加载你的钱包"
 #: src/guides/sat-hunting.md:57
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo\n"
+"litecoin-cli loadwallet foo\n"
 "```"
 msgstr ""
 
@@ -6945,29 +6945,29 @@ msgid ""
 msgstr ""
 
 #: src/guides/sat-hunting.md:67
-msgid "Searching for Rare Ordinals in a Non-Bitcoin Core Wallet"
-msgstr "在非Bitcoin Core钱包里搜索稀有的序数Ordinals"
+msgid "Searching for Rare Ordinals in a Non-Litecoin Core Wallet"
+msgstr "在非Litecoin Core钱包里搜索稀有的序数Ordinals"
 
 #: src/guides/sat-hunting.md:69
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to "
-"import your wallet's descriptors into Bitcoin Core."
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"to search for rare ordinals in a non-Litecoin Core wallet, you'll need to "
+"import your wallet's descriptors into Litecoin Core."
 msgstr ""
 "命令 `ord wallet` 只是比特币核心 RPC API 的一个封装，所以要在非比特币核心钱包中搜索稀有序数，"
 "你需要将钱包的描述符导入到比特币核心中。"
 
 #: src/guides/sat-hunting.md:73
 msgid ""
-"[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors."
+"[Descriptors](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors."
 "md) describe the ways that wallets generate private keys and public keys."
 msgstr ""
-"[描述符](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors."
+"[描述符](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors."
 "md) 描述了钱包生成私钥和公钥的方式。"
 
 #: src/guides/sat-hunting.md:76
 msgid ""
-"You should only import descriptors into Bitcoin Core for your wallet's "
+"You should only import descriptors into Litecoin Core for your wallet's "
 "public keys, not its private keys."
 msgstr ""
 "你应该只将钱包公钥的描述符导入到比特币核心中，而不是私钥。"
@@ -7008,7 +7008,7 @@ msgstr "创建一个名为 foo-watch-only 的仅观察钱包："
 #: src/guides/sat-hunting.md:94
 msgid ""
 "```sh\n"
-"bitcoin-cli createwallet foo-watch-only true true\n"
+"litecoin-cli createwallet foo-watch-only true true\n"
 "```"
 msgstr ""
 
@@ -7023,7 +7023,7 @@ msgstr "加载 `foo-watch-only` 钱包:"
 #: src/guides/sat-hunting.md:102 src/guides/sat-hunting.md:193
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo-watch-only\n"
+"litecoin-cli loadwallet foo-watch-only\n"
 "```"
 msgstr ""
 
@@ -7034,7 +7034,7 @@ msgstr "将你的钱包描述符descriptors导入到 foo-watch-only 中："
 #: src/guides/sat-hunting.md:108
 msgid ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"litecoin-cli importdescriptors \\\n"
 "  '[{ \"desc\": "
 "\"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)#tpnxnxax\", \"timestamp\":0 }]'\n"
@@ -7045,7 +7045,7 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of `\"timestamp\"` instead of "
-"`0`. This will reduce the time it takes for Bitcoin Core to search for your "
+"`0`. This will reduce the time it takes for Litecoin Core to search for your "
 "wallet's UTXOs."
 msgstr ""
 "如果你知道你的钱包首次开始接收交易的 Unix 时间戳，你可以使用它来替代 \"timestamp\" 的值 0。"
@@ -7058,7 +7058,7 @@ msgstr "检查一切是否正常"
 #: src/guides/sat-hunting.md:120 src/guides/sat-hunting.md:221
 msgid ""
 "```sh\n"
-"bitcoin-cli getwalletinfo\n"
+"litecoin-cli getwalletinfo\n"
 "```"
 msgstr ""
 
@@ -7083,8 +7083,8 @@ msgstr ""
 msgid ""
 "Some descriptors describe multiple paths in one descriptor using angle "
 "brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by "
-"Bitcoin Core, so you'll first need to convert them into multiple "
-"descriptors, and then import those multiple descriptors into Bitcoin Core."
+"Litecoin Core, so you'll first need to convert them into multiple "
+"descriptors, and then import those multiple descriptors into Litecoin Core."
 msgstr ""
 "一些描述符使用尖括号（例如  `<0;1>`）在一个描述符中描述多个路径。"
 "比特币核心目前还不支持多路径描述符，所以你需要先将它们转换为多个描述符，然后将这些多个描述符导入到比特币核心中。"
@@ -7138,7 +7138,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:159
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)'\n"
 "```"
@@ -7166,7 +7166,7 @@ msgstr "以及找零地址描述符的校验和，在这个例子中是 `64k8wnd
 #: src/guides/sat-hunting.md:176
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/"
 "*)'\n"
 "```"
@@ -7193,13 +7193,13 @@ msgstr "加载你要导入描述符的钱包："
 
 #: src/guides/sat-hunting.md:197
 msgid ""
-"Now import the descriptors, with the correct checksums, into Bitcoin Core."
+"Now import the descriptors, with the correct checksums, into Litecoin Core."
 msgstr "现在将带有正确校验和的描述符导入到比特币核心中："
 
 #: src/guides/sat-hunting.md:199
 msgid ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"litecoin-cli \\\n"
 " importdescriptors \\\n"
 " '[\n"
 "   {\n"
@@ -7222,7 +7222,7 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of the `\"timestamp\"` fields "
-"instead of `0`. This will reduce the time it takes for Bitcoin Core to "
+"instead of `0`. This will reduce the time it takes for Litecoin Core to "
 "search for your wallet's UTXOs."
 msgstr ""
 "如果你知道你的钱包首次开始接收交易的 Unix 时间戳，你可以使用它来替代 `\"timestamp\" `"
@@ -7259,11 +7259,11 @@ msgstr ""
 
 #: src/guides/sat-hunting.md:247
 msgid ""
-"You can also use the `bitcoin-cli` commands `createrawtransaction`, "
+"You can also use the `litecoin-cli` commands `createrawtransaction`, "
 "`signrawtransactionwithwallet`, and `sendrawtransaction`, but this method "
 "can be complex and is outside the scope of this guide."
 msgstr ""
-"你也可以使用 `bitcoin-cli` 命令` createrawtransaction`、`signrawtransactionwithwallet` "
+"你也可以使用 `litecoin-cli` 命令` createrawtransaction`、`signrawtransactionwithwallet` "
 "和 `sendrawtransaction`，但这种方法可能比较复杂，超出了本指南的范围。"
 
 #: src/guides/settings.md:4
@@ -7342,7 +7342,7 @@ msgid ""
 "\n"
 "# see `ord --help` for setting documentation\n"
 "\n"
-"bitcoin_data_dir: /var/lib/bitcoin\n"
+"bitcoin_data_dir: /var/lib/litecoin\n"
 "bitcoin_rpc_password: bar\n"
 "bitcoin_rpc_url: https://localhost:8000\n"
 "bitcoin_rpc_username: foo\n"
@@ -7350,7 +7350,7 @@ msgid ""
 "commit_interval: 10000\n"
 "config: /var/lib/ord/ord.yaml\n"
 "config_dir: /var/lib/ord\n"
-"cookie_file: /var/lib/bitcoin/.cookie\n"
+"cookie_file: /var/lib/litecoin/.cookie\n"
 "data_dir: /var/lib/ord\n"
 "first_inscription_height: 100\n"
 "height_limit: 1000\n"
@@ -7390,7 +7390,7 @@ msgstr "与其他设置不同，这只能通过配置文件或环境变量来配
 
 #: src/guides/settings.md:78
 msgid "To hide inscriptions with an environment variable:"
-msgstr "要在 ordinals.com 上隐藏铭文:"
+msgstr "要在 ordinalslite.com 上隐藏铭文:"
 
 #: src/guides/settings.md:80
 msgid ""
@@ -7418,14 +7418,14 @@ msgstr ""
 msgid ""
 "Teleburn addresses can be used to burn assets on other blockchains, leaving "
 "behind in the smoking rubble a sort of forwarding address pointing to an "
-"inscription on Bitcoin."
+"inscription on Litecoin."
 msgstr ""
 "燃烧传送Teleburn地址可以用于燃烧其他区块链上的资产， 留下一个转发地址指向一个"
 "比特币上的铭文这些地址就像是烟熏弹火后的废墟。 "
 
 #: src/guides/teleburning.md:8
 msgid ""
-"Teleburning an asset means something like, \"I'm out. Find me on Bitcoin.\""
+"Teleburning an asset means something like, \"I'm out. Find me on Litecoin.\""
 msgstr "燃烧传送一个资产似乎意味着 \"我走了，在比特币链上找我。\""
 
 #: src/guides/teleburning.md:10
@@ -7456,11 +7456,11 @@ msgstr ""
 #: src/guides/teleburning.md:26
 msgid ""
 "The ENS domain name [rodarmor.eth](https://app.ens.domains/rodarmor.eth), "
-"was teleburned to [inscription zero](https://ordinals.com/"
+"was teleburned to [inscription zero](https://ordinalslite.com/"
 "inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0)."
 msgstr ""
 "ENS 域名 [rodarmor.eth](https://app.ens.domains/rodarmor.eth), 被燃烧传输"
-"teleburned 到 [inscription zero](https://ordinals.com/"
+"teleburned 到 [inscription zero](https://ordinalslite.com/"
 "inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0)."
 
 #: src/guides/teleburning.md:30
@@ -7516,37 +7516,37 @@ msgstr "测试环境"
 #: src/guides/testing.md:7
 msgid ""
 "`ord env <DIRECTORY>` creates a test environment in `<DIRECTORY>`, spins up "
-"`bitcoind` and `ord server` instances, prints example commands for "
-"interacting with the test `bitcoind` and `ord server` instances, waits for "
-"`CTRL-C`, and then shuts down `bitcoind` and `ord server`."
+"`litecoind` and `ord server` instances, prints example commands for "
+"interacting with the test `litecoind` and `ord server` instances, waits for "
+"`CTRL-C`, and then shuts down `litecoind` and `ord server`."
 msgstr ""
-"`ord env <DIRECTORY>`在`<DIRECTORY>`中创建一个测试环境，启动`bitcoind`和`ord "
-"server`实例，打印与测试`bitcoind`和`ord server`实例交互的示例命令，等待`CTRL-"
-"C`，然后关闭`bitcoind`和`ord server`。"
+"`ord env <DIRECTORY>`在`<DIRECTORY>`中创建一个测试环境，启动`litecoind`和`ord "
+"server`实例，打印与测试`litecoind`和`ord server`实例交互的示例命令，等待`CTRL-"
+"C`，然后关闭`litecoind`和`ord server`。"
 
 #: src/guides/testing.md:12
 msgid ""
-"`ord env` tries to use port 9000 for `bitcoind`'s RPC interface, and port "
+"`ord env` tries to use port 9000 for `litecoind`'s RPC interface, and port "
 "`9001` for `ord`'s RPC interface, but will fall back to random unused ports."
 msgstr ""
-"`ord env`尝试使用端口9000作为`bitcoind`的RPC接口，以及端口`9001`作为`ord`的"
+"`ord env`尝试使用端口9000作为`litecoind`的RPC接口，以及端口`9001`作为`ord`的"
 "RPC接口，但如果这些端口被占用，它将回退到随机的未使用端口。"
 
 #: src/guides/testing.md:15
 msgid ""
-"Inside of the env directory, `ord env` will write `bitcoind`'s configuration "
-"to `bitcoin.conf`, `ord`'s configuration to `ord.yaml`, and the env "
+"Inside of the env directory, `ord env` will write `litecoind`'s configuration "
+"to `litecoin.conf`, `ord`'s configuration to `ord.yaml`, and the env "
 "configuration to `env.json`."
 msgstr ""
-"在env目录内部，`ord env`将会将`bitcoind`的配置写入`bitcoin.conf`，`ord`的配置"
+"在env目录内部，`ord env`将会将`litecoind`的配置写入`litecoin.conf`，`ord`的配置"
 "写入`ord.yaml`，以及环境配置写入`env.json`。"
 
 #: src/guides/testing.md:19
 msgid ""
-"`env.json` contains the commands needed to invoke `bitcoin-cli` and `ord "
-"wallet`, as well as the ports `bitcoind` and `ord server` are listening on."
+"`env.json` contains the commands needed to invoke `litecoin-cli` and `ord "
+"wallet`, as well as the ports `litecoind` and `ord server` are listening on."
 msgstr ""
-"`env.json`包含了调用`bitcoin-cli`和`ord wallet`所需的命令，以及`bitcoind`和"
+"`env.json`包含了调用`litecoin-cli`和`ord wallet`所需的命令，以及`litecoind`和"
 "`ord server`正在监听的端口信息。"
 
 #: src/guides/testing.md:22
@@ -7556,8 +7556,8 @@ msgstr "这些可以使用`jq`提取成shell命令："
 #: src/guides/testing.md:24
 msgid ""
 "```shell\n"
-"bitcoin=`jq -r '.bitcoin_cli_command | join(\" \")' env/env.json`\n"
-"$bitcoin listunspent\n"
+"litecoin=`jq -r '.litecoin_cli_command | join(\" \")' env/env.json`\n"
+"$litecoin listunspent\n"
 "\n"
 "ord=`jq -r '.ord_wallet_command | join(\" \")' env/env.json`\n"
 "$ord outputs\n"
@@ -7566,15 +7566,15 @@ msgstr ""
 
 #: src/guides/testing.md:32
 msgid ""
-"If `ord` is in the `$PATH` and the env directory is `env`, the `bitcoin-cli` "
+"If `ord` is in the `$PATH` and the env directory is `env`, the `litecoin-cli` "
 "command will be:"
 msgstr ""
-"如果`ord`在`$PATH`中，并且环境目录是`env`，那么`bitcoin-cli`命令将会是："
+"如果`ord`在`$PATH`中，并且环境目录是`env`，那么`litecoin-cli`命令将会是："
 
 #: src/guides/testing.md:35
 msgid ""
 "```\n"
-"bitcoin-cli -datadir=env`\n"
+"litecoin-cli -datadir=env`\n"
 "```"
 msgstr ""
 
@@ -7596,7 +7596,7 @@ msgstr "测试网络"
 #: src/guides/testing.md:48
 msgid ""
 "Ord can be tested using the following flags to specify the test network. For "
-"more information on running Bitcoin Core for testing, see [Bitcoin's "
+"more information on running Litecoin Core for testing, see [Litecoin's "
 "developer documentation](https://developer.bitcoin.org/examples/testing."
 "html)."
 msgstr ""
@@ -7651,13 +7651,13 @@ msgid ""
 msgstr "Regtest不需要下载区块链或者建立ord索引"
 
 #: src/guides/testing.md:66
-msgid "Run `bitcoind` in regtest with:"
+msgid "Run `litecoind` in regtest with:"
 msgstr "在regtest里运行bitcoind，使用："
 
 #: src/guides/testing.md:68
 msgid ""
 "```\n"
-"bitcoind -regtest -txindex\n"
+"litecoind -regtest -txindex\n"
 "```"
 msgstr ""
 
@@ -7701,7 +7701,7 @@ msgstr "挖取101个区块（解锁coinbase）使用："
 #: src/guides/testing.md:92
 msgid ""
 "```\n"
-"bitcoin-cli -regtest generatetoaddress 101 <receive address>\n"
+"litecoin-cli -regtest generatetoaddress 101 <receive address>\n"
 "```"
 msgstr ""
 
@@ -7723,7 +7723,7 @@ msgstr "挖取铭文"
 #: src/guides/testing.md:104
 msgid ""
 "```\n"
-"bitcoin-cli -regtest generatetoaddress 1 <receive address>\n"
+"litecoin-cli -regtest generatetoaddress 1 <receive address>\n"
 "```"
 msgstr ""
 
@@ -7793,7 +7793,7 @@ msgstr "最终你可以挖取一些区块来开始服务器："
 #: src/guides/testing.md:140
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 6 <receive address>\n"
+"litecoin-cli generatetoaddress 6 <receive address>\n"
 "```"
 msgstr ""
 
@@ -7822,7 +7822,7 @@ msgstr ""
 #: src/guides/testing.md:156
 msgid ""
 "```\n"
-"ord --regtest server --proxy https://ordinals.com\n"
+"ord --regtest server --proxy https://ordinalslite.com\n"
 "```"
 msgstr ""
 
@@ -7879,11 +7879,11 @@ msgid ""
 msgstr "发送一个序数以“零”结尾的聪到提交地址："
 
 #: src/bounty/0.md:9
-msgid "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
+msgid "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
 msgstr ""
 
 #: src/bounty/0.md:11
-msgid "❌: [1857578125803251](https://ordinals.com/ordinal/1857578125803251)"
+msgid "❌: [1857578125803251](https://ordinalslite.com/ordinal/1857578125803251)"
 msgstr ""
 
 #: src/bounty/0.md:13
@@ -7976,11 +7976,11 @@ msgid " sat to the submission address:"
 msgstr "聪到下列地址："
 
 #: src/bounty/2.md:9
-msgid "✅: [347100000000000](https://ordinals.com/sat/347100000000000)"
+msgid "✅: [347100000000000](https://ordinalslite.com/sat/347100000000000)"
 msgstr ""
 
 #: src/bounty/2.md:11
-msgid "❌: [6685000001337](https://ordinals.com/sat/6685000001337)"
+msgid "❌: [6685000001337](https://ordinalslite.com/sat/6685000001337)"
 msgstr ""
 
 #: src/bounty/2.md:13
@@ -8158,14 +8158,14 @@ msgstr "无人认领!"
 #~ "_This guide is out of date. Since it was written, the `ord` binary was "
 #~ "changed to only build the full satoshi index when the `--index-sats` flag "
 #~ "is supplied. Additionally, `ord` now has a built-in wallet that wraps a "
-#~ "Bitcoin Core wallet. See `ord wallet --help`._"
+#~ "Litecoin Core wallet. See `ord wallet --help`._"
 #~ msgstr ""
 #~ "_本指南已过时。自编写以来，“ord”安装文件已更改仅当提供“--index-sats”标志时"
 #~ "才构建完整的聪索引。此外，“ord”现在有一个内置钱包，其中包含比特币核心钱"
 #~ "包。请参阅`ord wallet --help`。_"
 
 #~ msgid ""
-#~ "[Ordinal Art: Mint Your own NFTs on Bitcoin w/ @rodarmor](https://www."
+#~ "[Ordinal Art: Mint Your own NFTs on Litecoin w/ @rodarmor](https://www."
 #~ "youtube.com/watch?v=j5V33kV3iqo)"
 #~ msgstr ""
 #~ "[序数艺术：在比特币上铸造你自己的NFT w/ @rodarmor](https://www.youtube."
@@ -8196,8 +8196,8 @@ msgstr "无人认领!"
 #~ msgstr "`非普通`: 745,855"
 
 #~ msgid ""
-#~ "And when you visit [the ordinals explorer](https://ordinals.com/) at "
-#~ "`ordinals.com/inscription/INSCRIPTION_ID`."
+#~ "And when you visit [the ordinals explorer](https://ordinalslite.com/) at "
+#~ "`ordinalslite.com/inscription/INSCRIPTION_ID`."
 #~ msgstr ""
-#~ "你可以在 [the ordinals explorer](https://ordinals.com/) 上用一下格式访问铭"
-#~ "文`ordinals.com/inscription/INSCRIPTION_ID`."
+#~ "你可以在 [the ordinals explorer](https://ordinalslite.com/) 上用一下格式访问铭"
+#~ "文`ordinalslite.com/inscription/INSCRIPTION_ID`."

@@ -1,13 +1,13 @@
 Inscriptions
 ============
 
-Inscriptions inscribe sats with arbitrary content, creating bitcoin-native
+Inscriptions inscribe sats with arbitrary content, creating litecoin-native
 digital artifacts, more commonly known as NFTs. Inscriptions do not require a
 sidechain or separate token.
 
-These inscribed sats can then be transferred using bitcoin transactions, sent
-to bitcoin addresses, and held in bitcoin UTXOs. These transactions, addresses,
-and UTXOs are normal bitcoin transactions, addresses, and UTXOS in all
+These inscribed sats can then be transferred using litecoin transactions, sent
+to litecoin addresses, and held in litecoin UTXOs. These transactions, addresses,
+and UTXOs are normal litecoin transactions, addresses, and UTXOS in all
 respects, with the exception that in order to send individual sats,
 transactions must control the order and value of inputs and outputs according
 to ordinal theory.

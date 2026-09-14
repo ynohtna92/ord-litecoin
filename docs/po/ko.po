@@ -131,8 +131,8 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/introduction.md:8
 msgid ""
-"Satoshis, not bitcoin, are the atomic, native currency of the Bitcoin "
-"network. One bitcoin can be sub-divided into 100,000,000 satoshis, but no "
+"Satoshis, not litecoin, are the atomic, native currency of the Litecoin "
+"network. One litecoin can be sub-divided into 100,000,000 satoshis, but no "
 "further."
 msgstr ""
 "비트코인 네트워크의 원자적 자체 통화는 비트코인이 아닌 사토시다. 1 비트코인"
@@ -140,8 +140,8 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/introduction.md:11
 msgid ""
-"Ordinal theory does not require a sidechain or token aside from Bitcoin, and "
-"can be used without any changes to the Bitcoin network. It works right now."
+"Ordinal theory does not require a sidechain or token aside from Litecoin, and "
+"can be used without any changes to the Litecoin network. It works right now."
 msgstr ""
 "오디널 이론은 비트코인 외에 사이드체인이나 토큰을 필요로하지 않으며, 비트코"
 "인 네트워크를 변경하지 않고도 사용할 수 있다. 지금 바로 사용할 수 있다."
@@ -157,9 +157,9 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/introduction.md:17
 msgid ""
 "Individual satoshis can be inscribed with arbitrary content, creating unique "
-"Bitcoin-native digital artifacts that can be held in Bitcoin wallets and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Litecoin-native digital artifacts that can be held in Litecoin wallets and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "각 사토시에 임의의 콘텐츠를 새길 수 있으며, 이로써 비트코인 지갑에 보관하고 "
 "비트코인 거래를 통해 전송할 수 있는 고유한 비트코인 자체 디지털 아티팩트를 만"
@@ -200,12 +200,12 @@ msgid "Links"
 msgstr "링크 모음"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:38
-msgid "[GitHub](https://github.com/ordinals/ord/)"
-msgstr "[깃허브](https://github.com/ordinals/ord/)"
+msgid "[GitHub](https://github.com/ynohtna92/ord-litecoin/)"
+msgstr "[깃허브](https://github.com/ynohtna92/ord-litecoin/)"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:39
-msgid "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
-msgstr "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
+msgstr "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:40
 msgid "[Discord](https://discord.gg/ordinals)"
@@ -220,12 +220,12 @@ msgid "[Open Ordinals Institute X](https://x.com/ordinalsorg)"
 msgstr "[오픈 오디널스 인스티튜트 X](https://x.com/ordinalsorg)"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:43
-msgid "[Mainnet Block Explorer](https://ordinals.com)"
-msgstr "[메인넷 블록 탐색기](https://ordinals.com)"
+msgid "[Mainnet Block Explorer](https://ordinalslite.com)"
+msgstr "[메인넷 블록 탐색기](https://ordinalslite.com)"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:44
-msgid "[Signet Block Explorer](https://signet.ordinals.com)"
-msgstr "[시그넷 블록 탐색기](https://signet.ordinals.com)"
+msgid "[Signet Block Explorer](https://ordinalslite.com)"
+msgstr "[시그넷 블록 탐색기](https://ordinalslite.com)"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:46
 msgid "Videos"
@@ -233,7 +233,7 @@ msgstr "비디오 모음"
 
 #: /workspaces/ord_ko/docs/src/introduction.md:49
 msgid ""
-"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Bitcoin]"
+"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Litecoin]"
 "(https://www.youtube.com/watch?v=rSS0O2KQpsI)"
 msgstr ""
 "[오디널 이론 설명: 사토시 일련 번호와 비트코인 NFT](https://www.youtube.com/"
@@ -249,7 +249,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/introduction.md:51
 msgid ""
-"[Ordinal Art: Mint Your own NFTs on Bitcoin w/ @rodarmor](https://www."
+"[Ordinal Art: Mint Your own NFTs on Litecoin w/ @rodarmor](https://www."
 "youtube.com/watch?v=j5V33kV3iqo)"
 msgstr ""
 "[@rodarmor와 함께하는 오디널 아트: 비트코인에서 당신의 NFT를 발행하는 방법]"
@@ -263,7 +263,7 @@ msgstr "오디널 이론 개요"
 msgid ""
 "Ordinals are a numbering scheme for satoshis that allows tracking and "
 "transferring individual sats. These numbers are called [ordinal numbers]"
-"(https://ordinals.com). Satoshis are numbered in the order in which they're "
+"(https://ordinalslite.com). Satoshis are numbered in the order in which they're "
 "mined, and transferred from transaction inputs to transaction outputs first-"
 "in-first-out. Both the numbering scheme and the transfer scheme rely on "
 "_order_, the numbering scheme on the _order_ in which satoshis are mined, "
@@ -271,7 +271,7 @@ msgid ""
 "Thus the name, _ordinals_."
 msgstr ""
 "오디널스는 개별 사토시(SAT)를 추적하고 전송할 수 있는 사토시를 위한 번호 체계"
-"이다. 이러한 번호를 [서수](https://ordinals.com)라고 한다. 사토시는 채굴된 순"
+"이다. 이러한 번호를 [서수](https://ordinalslite.com)라고 한다. 사토시는 채굴된 순"
 "서대로 번호가 매겨지며, 트랜잭션 입력에서 트랜잭션 출력으로 선입선출 방식으"
 "로 전송된다. 번호 체계와 전송 체계는 모두 _순서_ 에 의존한다. 번호 체계는 사"
 "토시가 채굴되는 _순서_ 에, 그리고 전송 체계는 트랜잭션 입력과 출력의 _순서_ "
@@ -279,16 +279,16 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/overview.md:13
 msgid ""
-"Technical details are available in [the BIP](https://github.com/ordinals/ord/"
+"Technical details are available in [the BIP](https://github.com/ynohtna92/ord-litecoin/"
 "blob/master/bip.mediawiki)."
 msgstr ""
-"기술적인 자세한 내용은 [BIP](https://github.com/ordinals/ord/blob/master/bip."
+"기술적인 자세한 내용은 [BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip."
 "mediawiki)에서 확인할 수 있다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:16
 msgid ""
 "Ordinal theory does not require a separate token, another blockchain, or any "
-"changes to Bitcoin. It works right now."
+"changes to Litecoin. It works right now."
 msgstr ""
 "오디널 이론은 별도의 토큰이나 다른 블록체인 또는 비트코인에 어떠한 변경도 요"
 "구하지 않는다. 지금 바로 사용할 수 있다."
@@ -299,48 +299,48 @@ msgstr "서수는 몇 가지 다른 방법으로 표현할 수 있다:"
 
 #: /workspaces/ord_ko/docs/src/overview.md:21
 msgid ""
-"_Integer notation_: [`2099994106992659`](https://ordinals.com/"
+"_Integer notation_: [`2099994106992659`](https://ordinalslite.com/"
 "sat/2099994106992659) The ordinal number, assigned according to the order in "
 "which the satoshi was mined."
 msgstr ""
-"_정수 표기법_ : [`2099994106992659`](https://ordinals.com/"
+"_정수 표기법_ : [`2099994106992659`](https://ordinalslite.com/"
 "sat/2099994106992659) 사토시가 채굴된 순서에 따라 할당된 서수이다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:26
 msgid ""
-"_Decimal notation_: [`3891094.16797`](https://ordinals.com/"
+"_Decimal notation_: [`3891094.16797`](https://ordinalslite.com/"
 "sat/3891094.16797) The first number is the block height in which the satoshi "
 "was mined, the second the offset of the satoshi within the block."
 msgstr ""
-"_소수 표기법_ : [`3891094.16797`](https://ordinals.com/sat/3891094.16797) 첫 "
+"_소수 표기법_ : [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) 첫 "
 "번째 숫자는 사토시가 채굴된 블록 높이(block height)이고, 두 번째 숫자는 블록 "
 "내 사토시의 오프셋(offset)이다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:31
 msgid ""
-"_Degree notation_: [`3°111094′214″16797‴`](https://ordinals.com/"
+"_Degree notation_: [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). We'll get to that in "
 "a moment."
 msgstr ""
-"_도 표기법_ : [`3°111094′214″16797‴`](https://ordinals.com/"
+"_도 표기법_ : [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). 잠시 후에 설명하겠다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:35
 msgid ""
-"_Percentile notation_: [`99.99971949060254%`](https://ordinals.com/"
-"sat/99.99971949060254%25) . The satoshi's position in Bitcoin's supply, "
+"_Percentile notation_: [`99.99971949060254%`](https://ordinalslite.com/"
+"sat/99.99971949060254%25) . The satoshi's position in Litecoin's supply, "
 "expressed as a percentage."
 msgstr ""
-"_백분의수 표기법_ : [`99.99971949060254%`](https://ordinals.com/"
+"_백분의수 표기법_ : [`99.99971949060254%`](https://ordinalslite.com/"
 "sat/99.99971949060254%25) . 비트코인 공급량에서 사토시가 차지하는 위치를 백분"
 "율로 표시한다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:39
 msgid ""
-"_Name_: [`satoshi`](https://ordinals.com/sat/satoshi). An encoding of the "
+"_Name_: [`satoshi`](https://ordinalslite.com/sat/satoshi). An encoding of the "
 "ordinal number using the characters `a` through `z`."
 msgstr ""
-"_이름_ : [`satoshi`](https://ordinals.com/sat/satoshi). 문자 `a`부터 `z`까지"
+"_이름_ : [`satoshi`](https://ordinalslite.com/sat/satoshi). 문자 `a`부터 `z`까지"
 "를 사용하여 서수를 인코딩한다."
 
 #: /workspaces/ord_ko/docs/src/overview.md:42
@@ -355,12 +355,12 @@ msgstr ""
 msgid ""
 "Ordinals is an open-source project, developed [on GitHub](https://github.com/"
 "ordinals/ord). The project consists of a BIP describing the ordinal scheme, "
-"an index that communicates with a Bitcoin Core node to track the location of "
+"an index that communicates with a Litecoin Core node to track the location of "
 "all satoshis, a wallet that allows making ordinal-aware transactions, a "
 "block explorer for interactive exploration of the blockchain, functionality "
 "for inscribing satoshis with digital artifacts, and this manual."
 msgstr ""
-"오디널스는 [깃허브](https://github.com/ordinals/ord)에서 개발된 오픈 소스 프"
+"오디널스는 [깃허브](https://github.com/ynohtna92/ord-litecoin)에서 개발된 오픈 소스 프"
 "로젝트다. 이 프로젝트는 오디널 체계를 설명하는 BIP, 비트코인 코어 노드와 통신"
 "하여 모든 사토시의 위치를 추적하는 인덱스, 오디널를 인식하고 트랜잭션를 할 "
 "수 있는 지갑, 블록체인의 대화형 탐색을 위한 블록 탐색기, 사토시에 디지털 아티"
@@ -383,7 +383,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/overview.md:59
 msgid ""
-"Bitcoin has periodic events, some frequent, some more uncommon, and these "
+"Litecoin has periodic events, some frequent, some more uncommon, and these "
 "naturally lend themselves to a system of rarity. These periodic events are:"
 msgstr ""
 "비트코인에는 주기적인 이벤트가 있으며, 일부는 빈번하고 일부는 드물게 발생하"
@@ -399,7 +399,7 @@ msgstr "_블록_ : 지금부터 영원히 약 10분마다 새로운 블록이 �
 #: /workspaces/ord_ko/docs/src/overview.md:65
 msgid ""
 "_Difficulty adjustments_: Every 2016 blocks, or approximately every two "
-"weeks, the Bitcoin network responds to changes in hashrate by adjusting the "
+"weeks, the Litecoin network responds to changes in hashrate by adjusting the "
 "difficulty target which blocks must meet in order to be accepted."
 msgstr ""
 "_난이도 조정_ : 비트코인 네트워크는 2016블록마다, 즉 약 2주마다 블록이 승인되"
@@ -562,7 +562,7 @@ msgstr "`legendary`: 0"
 #: /workspaces/ord_ko/docs/src/overview.md:192
 msgid ""
 "At the moment, even uncommon satoshis are quite rare. As of this writing, "
-"745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in "
+"745,855 uncommon satoshis have been mined - one per 25.6 litecoin in "
 "circulation."
 msgstr ""
 "현재로서는 uncommon 사토시도 매우 드물다. 이 글을 쓰는 현재, 745,855개의 "
@@ -623,7 +623,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/overview.md:224
 msgid ""
-"Satoshis can be inscribed with arbitrary content, creating Bitcoin-native "
+"Satoshis can be inscribed with arbitrary content, creating Litecoin-native "
 "digital artifacts. Inscribing is done by sending the satoshi to be inscribed "
 "in a transaction that reveals the inscription content on-chain. This content "
 "is then inextricably linked to that satoshi, turning it into an immutable "
@@ -676,7 +676,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/overview.md:247
 msgid ""
 "In another sense though, ordinals were in fact created by Satoshi Nakamoto "
-"in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, "
+"in 2009 when he mined the Litecoin genesis block. In this sense, ordinals, "
 "and especially early ordinals, are certainly of historical interest."
 msgstr ""
 "하지만 다른 의미에서 오디널스는 사실 2009년 사토시 나카모토가 비트코인 제네시"
@@ -696,7 +696,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/overview.md:255
 msgid ""
 "On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake "
-"to Bitcoin to the Bitcoin Talk forum](https://bitcointalk.org/index.php?"
+"to Litecoin to the Litecoin Talk forum](https://bitcointalk.org/index.php?"
 "topic=102355.0). This wasn't an asset scheme, but did use the ordinal "
 "algorithm, and was implemented but never deployed."
 msgstr ""
@@ -720,7 +720,7 @@ msgstr ""
 msgid ""
 "These independent inventions of ordinals indicate in some way that ordinals "
 "were discovered, or rediscovered, and not invented. The ordinals are an "
-"inevitability of the mathematics of Bitcoin, stemming not from their modern "
+"inevitability of the mathematics of Litecoin, stemming not from their modern "
 "documentation, but from their ancient genesis. They are the culmination of a "
 "sequence of events set in motion with the mining of the first block, so many "
 "years ago."
@@ -835,7 +835,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/inscriptions.md:4
 msgid ""
-"Inscriptions inscribe sats with arbitrary content, creating bitcoin-native "
+"Inscriptions inscribe sats with arbitrary content, creating litecoin-native "
 "digital artifacts, more commonly known as NFTs. Inscriptions do not require "
 "a sidechain or separate token."
 msgstr ""
@@ -845,9 +845,9 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/inscriptions.md:8
 msgid ""
-"These inscribed sats can then be transferred using bitcoin transactions, "
-"sent to bitcoin addresses, and held in bitcoin UTXOs. These transactions, "
-"addresses, and UTXOs are normal bitcoin transactions, addresses, and UTXOS "
+"These inscribed sats can then be transferred using litecoin transactions, "
+"sent to litecoin addresses, and held in litecoin UTXOs. These transactions, "
+"addresses, and UTXOs are normal litecoin transactions, addresses, and UTXOS "
 "in all respects, with the exception that in order to send individual sats, "
 "transactions must control the order and value of inputs and outputs "
 "according to ordinal theory."
@@ -1330,7 +1330,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/inscriptions/provenance.md:24
 msgid ""
-"_NB_ The bytes of a bitcoin transaction ID are reversed in their text "
+"_NB_ The bytes of a litecoin transaction ID are reversed in their text "
 "representation, so the serialized transaction ID will be in the opposite "
 "order."
 msgstr ""
@@ -1503,7 +1503,7 @@ msgstr "오디널 이론이란 무엇인가?"
 #: /workspaces/ord_ko/docs/src/faq.md:7
 msgid ""
 "Ordinal theory is a protocol for assigning serial numbers to satoshis, the "
-"smallest subdivision of a bitcoin, and tracking those satoshis as they are "
+"smallest subdivision of a litecoin, and tracking those satoshis as they are "
 "spent by transactions."
 msgstr ""
 "오디널 이론은 비트코인의 가장 작은 단위인 사토시에 일련번호를 할당하고 트랜잭"
@@ -1512,7 +1512,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/faq.md:11
 msgid ""
 "These serial numbers are large numbers, like this 804766073970493. Every "
-"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a bitcoin, has an ordinal number."
+"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a litecoin, has an ordinal number."
 msgstr ""
 "이 일련번호는 예를 들어 804766073970493같이 큰 숫자이다. 비트코인의 ¹⁄"
 "₁₀₀₀₀₀₀₀₀₀인 모든 사토시에는 서수 번호가 있다."
@@ -1520,14 +1520,14 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/faq.md:14
 msgid ""
 "Does ordinal theory require a side chain, a separate token, or changes to "
-"Bitcoin?"
+"Litecoin?"
 msgstr ""
 "오디널 이론은 사이드 체인, 별도의 토큰 또는 비트코인 변경을 필요로 하는가?"
 
 #: /workspaces/ord_ko/docs/src/faq.md:17
 msgid ""
 "Nope! Ordinal theory works right now, without a side chain, and the only "
-"token needed is bitcoin itself."
+"token needed is litecoin itself."
 msgstr ""
 "아니다! 오디널 이론은 현재 사이드 체인 없이도 작동하며, 필요한 유일한 토큰은 "
 "비트코인 자체이다."
@@ -1548,7 +1548,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/faq.md:27
 msgid ""
 "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary "
-"content to individual satoshis, turning them into bitcoin-native digital "
+"content to individual satoshis, turning them into litecoin-native digital "
 "artifacts."
 msgstr ""
 "오디널 이론은 또한 개별 사토시에 임의의 콘텐츠를 첨부하여 비트코인 고유의 디"
@@ -1674,9 +1674,9 @@ msgid "Where can I find the nitty-gritty details?"
 msgstr "핵심적인 세부 정보는 어디에서 찾을 수 있는가?"
 
 #: /workspaces/ord_ko/docs/src/faq.md:92
-msgid "[The BIP!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[The BIP!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 msgstr ""
-"[BIP을 참조하자!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+"[BIP을 참조하자!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 
 #: /workspaces/ord_ko/docs/src/faq.md:94
 msgid ""
@@ -1818,7 +1818,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:153
 msgid ""
-"Inscriptions, on the other hand, depend on the Bitcoin blockchain, which is "
+"Inscriptions, on the other hand, depend on the Litecoin blockchain, which is "
 "relatively simple and conservative, and which introduces changes via "
 "backwards-compatible soft forks."
 msgstr ""
@@ -1831,7 +1831,7 @@ msgstr "_인스크립션이 더 안전하다._"
 
 #: /workspaces/ord_ko/docs/src/faq.md:159
 msgid ""
-"Inscriptions inherit Bitcoin's transaction model, which allow a user to see "
+"Inscriptions inherit Litecoin's transaction model, which allow a user to see "
 "exactly which inscriptions are being transferred by a transaction before "
 "they sign it. Inscriptions can be offered for sale using partially signed "
 "transactions, which don't require allowing a third party, such as an "
@@ -1863,7 +1863,7 @@ msgstr "_인스크립션은 더 희귀하다._"
 
 #: /workspaces/ord_ko/docs/src/faq.md:173
 msgid ""
-"Inscriptions require bitcoin to mint, transfer, and store. This seems like a "
+"Inscriptions require litecoin to mint, transfer, and store. This seems like a "
 "downside on the surface, but the raison d'etre of digital artifacts is to be "
 "scarce and thus valuable."
 msgstr ""
@@ -1917,9 +1917,9 @@ msgstr "_인스크립션은 새로운 시장을 열어준다._"
 
 #: /workspaces/ord_ko/docs/src/faq.md:196
 msgid ""
-"Bitcoin's market capitalization and liquidity are greater than Ethereum's by "
+"Litecoin's market capitalization and liquidity are greater than Ethereum's by "
 "a large margin. Much of this liquidity is not available to Ethereum NFTs, "
-"since many Bitcoiners prefer not to interact with the Ethereum ecosystem due "
+"since many Litecoin users prefer not to interact with the Ethereum ecosystem due "
 "to concerns related to simplicity, security, and decentralization."
 msgstr ""
 "비트코인의 시가총액과 유동성은 이더리움보다 큰 폭으로 높다. 많은 비트코인 사"
@@ -1929,7 +1929,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:201
 msgid ""
-"Such Bitcoiners may be more interested in inscriptions than Ethereum NFTs, "
+"Such Litecoin users may be more interested in inscriptions than Ethereum NFTs, "
 "unlocking new classes of collector."
 msgstr ""
 "이러한 비트코인 사용자들은 이더리움 NFT보다 인스크립션에 더 관심을 가질 수 있"
@@ -1958,11 +1958,11 @@ msgstr "RGB 및 타로(Taro) 자산?"
 
 #: /workspaces/ord_ko/docs/src/faq.md:214
 msgid ""
-"RGB and Taro are both second-layer asset protocols built on Bitcoin. "
+"RGB and Taro are both second-layer asset protocols built on Litecoin. "
 "Compared to inscriptions, they are much more complicated, but much more "
 "featureful."
 msgstr ""
-"RGB와 타로는 모두 비트코인에 기반한 레이어2 자산 프로토콜이다. 인스크립션과 "
+"RGB와 타로는 모두 비트코인에 기반한 레이어""\"\"\"2 자산 프로토콜이다. 인스크립션과 "
 "비교하면 훨씬 더 복잡하지만 훨씬 더 많은 기능을 갖추고 있다."
 
 #: /workspaces/ord_ko/docs/src/faq.md:217
@@ -2004,8 +2004,8 @@ msgstr "카운터파티 자산(Counterparty assets)?"
 #: /workspaces/ord_ko/docs/src/faq.md:233
 msgid ""
 "Counterparty has its own token, XCP, which is required for some "
-"functionality, which makes most bitcoiners regard it as an altcoin, and not "
-"an extension or second layer for bitcoin."
+"functionality, which makes most Litecoin users regard it as an altcoin, and not "
+"an extension or second layer for litecoin."
 msgstr ""
 "카운터파티는 일부 기능에 필요한 자체 토큰인 XCP를 보유하고 있으며, 이로 인해 "
 "대부분의 비트코인 사용자들은 이를 비트코인의 확장 또는 세컨드 레이어가 아닌 "
@@ -2029,7 +2029,7 @@ msgstr "예술가"
 
 #: /workspaces/ord_ko/docs/src/faq.md:245
 msgid ""
-"_Inscriptions are on Bitcoin._ Bitcoin is the digital currency with the "
+"_Inscriptions are on Litecoin._ Litecoin is the digital currency with the "
 "highest status and greatest chance of long-term survival. If you want to "
 "guarantee that your art survives into the future, there is no better way to "
 "publish it than as inscriptions."
@@ -2040,7 +2040,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:250
 msgid ""
-"_Cheaper on-chain storage._ At $20,000 per BTC and the minimum relay fee of "
+"_Cheaper on-chain storage._ At $20,000 per LTC and the minimum relay fee of "
 "1 satoshi per vbyte, publishing inscription content costs $50 per 1 million "
 "bytes."
 msgstr ""
@@ -2069,7 +2069,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/faq.md:261
 msgid ""
 "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and "
-"appealing to bitcoin holders, unlocking an entirely new class of collector."
+"appealing to litecoin holders, unlocking an entirely new class of collector."
 msgstr ""
 "_인스크립션은 새로운 유동성을 열어준다._ 인스크립션은 비트코인 보유자가 더 쉽"
 "게 접근할 수 있고 매력적으로 보일 수 있으며, 완전히 새로운 종류의 수집가들이 "
@@ -2121,23 +2121,23 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:284
 msgid ""
-"_Inscriptions are on Bitcoin._ You can verify the location and properties of "
-"inscriptions easily with Bitcoin full node that you control."
+"_Inscriptions are on Litecoin._ You can verify the location and properties of "
+"inscriptions easily with Litecoin full node that you control."
 msgstr ""
 "_인스크립션은 비트코인에 있다._ 사용자가 제어하는 비트코인 풀 노드를 통해 인"
 "스크립션의 위치와 속성을 쉽게 확인할 수 있다."
 
 #: /workspaces/ord_ko/docs/src/faq.md:287
-msgid "Bitcoiners"
+msgid "Litecoin users"
 msgstr "비트코인 사용자"
 
 #: /workspaces/ord_ko/docs/src/faq.md:289
 msgid ""
 "Let me begin this section by saying: the most important thing that the "
-"Bitcoin network does is decentralize money. All other use-cases are "
+"Litecoin network does is decentralize money. All other use-cases are "
 "secondary, including ordinal theory. The developers of ordinal theory "
 "understand and acknowledge this, and believe that ordinal theory helps, at "
-"least in a small way, Bitcoin's primary mission."
+"least in a small way, Litecoin's primary mission."
 msgstr ""
 "이 부분을 이렇게 시작하고자 한다: 비트코인 네트워크가 하는 가장 중요한 일은 "
 "화폐를 탈중앙화하는 것이다. 오디널 이론을 포함한 다른 모든 사용 사례는 부차적"
@@ -2160,7 +2160,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:302
 msgid ""
-"Bitcoin provides an amazing platform for creating and collecting digital "
+"Litecoin provides an amazing platform for creating and collecting digital "
 "artifacts in a secure, decentralized way, that protects users and artists in "
 "the same way that it provides an amazing platform for sending and receiving "
 "value, and for all the same reasons."
@@ -2171,9 +2171,9 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:307
 msgid ""
-"Ordinals and inscriptions increase demand for Bitcoin block space, which "
-"increase Bitcoin's security budget, which is vital for safeguarding "
-"Bitcoin's transition to a fee-dependent security model, as the block subsidy "
+"Ordinals and inscriptions increase demand for Litecoin block space, which "
+"increase Litecoin's security budget, which is vital for safeguarding "
+"Litecoin's transition to a fee-dependent security model, as the block subsidy "
 "is halved into insignificance."
 msgstr ""
 "오디널과 인스크립션은 비트코인 블록 공간에 대한 수요를 증가시켜 비트코인의 보"
@@ -2184,8 +2184,8 @@ msgstr ""
 msgid ""
 "Inscription content is stored on-chain, and thus the demand for block space "
 "for use in inscriptions is unlimited. This creates a buyer of last resort "
-"for _all_ Bitcoin block space. This will help support a robust fee market, "
-"which ensures that Bitcoin remains secure."
+"for _all_ Litecoin block space. This will help support a robust fee market, "
+"which ensures that Litecoin remains secure."
 msgstr ""
 "인스크립션 콘텐츠는 온체인에 저장되며, 따라서 인스크립션에 사용되는 블록 공간"
 "에 대한 수요는 무제한이다. 이는 _모든_ 비트코인 블록 공간에 대한 최종구매자"
@@ -2194,7 +2194,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:317
 msgid ""
-"Inscriptions also counter the narrative that Bitcoin cannot be extended or "
+"Inscriptions also counter the narrative that Litecoin cannot be extended or "
 "used for new use-cases. If you follow projects like DLCs, Fedimint, "
 "Lightning, Taro, and RGB, you know that this narrative is false, but "
 "inscriptions provide a counter argument which is easy to understand, and "
@@ -2211,7 +2211,7 @@ msgstr ""
 msgid ""
 "If inscriptions prove, as the authors hope, to be highly sought after "
 "digital artifacts with a rich history, they will serve as a powerful hook "
-"for Bitcoin adoption: come for the fun, rich art, stay for the decentralized "
+"for Litecoin adoption: come for the fun, rich art, stay for the decentralized "
 "digital money."
 msgstr ""
 "저자들의 바람대로 인스크립션이 풍부한 역사를 지닌 인기가 높은 디지털 아티팩트"
@@ -2223,10 +2223,10 @@ msgstr ""
 msgid ""
 "Inscriptions are an extremely benign source of demand for block space. "
 "Unlike, for example, stablecoins, which potentially give large stablecoin "
-"issuers influence over the future of Bitcoin development, or DeFi, which "
+"issuers influence over the future of Litecoin development, or DeFi, which "
 "might centralize mining by introducing opportunities for MEV, digital art "
-"and collectables on Bitcoin, are unlikely to produce individual entities "
-"with enough power to corrupt Bitcoin. Art is decentralized."
+"and collectables on Litecoin, are unlikely to produce individual entities "
+"with enough power to corrupt Litecoin. Art is decentralized."
 msgstr ""
 "인스크립션은 블록 공간에 대한 매우 양성적인 수요의 원천이다. 예를 들어, 잠재"
 "적으로 대규모 스테이블코인 발행자가 비트코인 개발의 미래에 영향력을 행사할 "
@@ -2237,7 +2237,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:334
 msgid ""
-"Inscription users and service providers are incentivized to run Bitcoin full "
+"Inscription users and service providers are incentivized to run Litecoin full "
 "nodes, to publish and track inscriptions, and thus throw their economic "
 "weight behind the honest chain."
 msgstr ""
@@ -2246,8 +2246,8 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:338
 msgid ""
-"Ordinal theory and inscriptions do not meaningfully affect Bitcoin's "
-"fungibility. Bitcoin users can ignore both and be unaffected."
+"Ordinal theory and inscriptions do not meaningfully affect Litecoin's "
+"fungibility. Litecoin users can ignore both and be unaffected."
 msgstr ""
 "오디널 이론과 인스크립션은 비트코인의 대체 가능성에 의미 있는 영향을 미치지 "
 "않는다. 비트코인 사용자는 두 가지를 모두 무시해도 아무런 영향을 받지 않을 것"
@@ -2255,7 +2255,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/faq.md:341
 msgid ""
-"We hope that ordinal theory strengthens and enriches bitcoin, and gives it "
+"We hope that ordinal theory strengthens and enriches litecoin, and gives it "
 "another dimension of appeal and functionality, enabling it more effectively "
 "serve its primary use case as humanity's decentralized store of value."
 msgstr ""
@@ -2508,9 +2508,9 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/donate.md:17
 msgid ""
 "Donations received will go towards funding maintenance and development of "
-"`ord`, as well as hosting costs for [ordinals.com](https://ordinals.com)."
+"`ord`, as well as hosting costs for [ordinalslite.com](https://ordinalslite.com)."
 msgstr ""
-"받은 기부금은 'ord'의 유지 및 개발 자금과 [ordinals.com](https://ordinals."
+"받은 기부금은 'ord'의 유지 및 개발 자금과 [ordinalslite.com](https://ordinals."
 "com)의 호스팅 비용으로 사용된다."
 
 #: /workspaces/ord_ko/docs/src/donate.md:20
@@ -2536,12 +2536,12 @@ msgstr "오디널 탐색기"
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:4
 msgid ""
 "The `ord` binary includes a block explorer. We host a instance of the block "
-"explorer on mainnet at [ordinals.com](https://ordinals.com), and on signet "
-"at [signet.ordinals.com](https://signet.ordinals.com)."
+"explorer on mainnet at [ordinalslite.com](https://ordinalslite.com), and on signet "
+"at [signet.ordinalslite.com](https://ordinalslite.com)."
 msgstr ""
 "`ord` 바이너리에는 블록 탐색기가 포함되어 있다. 블록 탐색기의 인스턴스는 메인"
-"넷은 [ordinals.com](https://ordinals.com)에서, 시그넷은 [signet.ordinals.com]"
-"(https://signet.ordinals.com)에서 호스팅된다."
+"넷은 [ordinalslite.com](https://ordinalslite.com)에서, 시그넷은 [signet.ordinalslite.com]"
+"(https://ordinalslite.com)에서 호스팅된다."
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:8
 msgid "Running The Explorer"
@@ -2602,11 +2602,11 @@ msgstr "블록은 해시별로 검색할 수 있다 (예를 들어 제네시스 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:35
 msgid ""
 "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
 msgstr ""
 "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:37
@@ -2624,11 +2624,11 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:42
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
 msgstr ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:44
@@ -2646,11 +2646,11 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:49
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
 msgstr ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:51
@@ -2659,15 +2659,15 @@ msgstr "Sats"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:53
 msgid ""
-"Sats can be searched by integer, their position within the entire bitcoin "
+"Sats can be searched by integer, their position within the entire litecoin "
 "supply:"
 msgstr ""
 "각 SAT은 정수로 검색할 수 있다. 이는 전체 비트코인 공급량 내에서 해당 SAT의 "
 "위치다:"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:56
-msgid "[2099994106992659](https://ordinals.com/search/2099994106992659)"
-msgstr "[2099994106992659](https://ordinals.com/search/2099994106992659)"
+msgid "[2099994106992659](https://ordinalslite.com/search/2099994106992659)"
+msgstr "[2099994106992659](https://ordinalslite.com/search/2099994106992659)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:58
 msgid "By decimal, their block and offset within that block:"
@@ -2676,8 +2676,8 @@ msgstr ""
 "낸다:"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:60
-msgid "[481824.0](https://ordinals.com/search/481824.0)"
-msgstr "[481824.0](https://ordinals.com/search/481824.0)"
+msgid "[481824.0](https://ordinalslite.com/search/481824.0)"
+msgstr "[481824.0](https://ordinalslite.com/search/481824.0)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:62
 msgid ""
@@ -2688,8 +2688,8 @@ msgstr ""
 "도 조정 이후 블록, 블록 내 오프셋을 나타낸다:"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:65
-msgid "[1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)"
-msgstr "[1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)"
+msgid "[1°0′0″0‴](https://ordinalslite.com/search/1°0′0″0‴)"
+msgstr "[1°0′0″0‴](https://ordinalslite.com/search/1°0′0″0‴)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:67
 msgid ""
@@ -2699,20 +2699,20 @@ msgstr ""
 "로 표기하는 법이다:"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:69
-msgid "[ahistorical](https://ordinals.com/search/ahistorical)"
-msgstr "[ahistorical](https://ordinals.com/search/ahistorical)"
+msgid "[ahistorical](https://ordinalslite.com/search/ahistorical)"
+msgstr "[ahistorical](https://ordinalslite.com/search/ahistorical)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:71
 msgid ""
-"Or by percentile, the percentage of bitcoin's supply that has been or will "
+"Or by percentile, the percentage of litecoin's supply that has been or will "
 "have been issued when they are mined:"
 msgstr ""
 "또는 백분위수로 검색할 수 있다. 이는 해당 SAT가 채굴되었을 때 이미 발행되었거"
 "나 앞으로 발행될 비트코인의 공급량의 비율이다:"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:74
-msgid "[100%](https://ordinals.com/search/100%)"
-msgstr "[100%](https://ordinals.com/search/100%)"
+msgid "[100%](https://ordinalslite.com/search/100%)"
+msgstr "[100%](https://ordinalslite.com/search/100%)"
 
 #: /workspaces/ord_ko/docs/src/guides/explorer.md:76
 msgid "JSON-API"
@@ -2797,7 +2797,7 @@ msgid ""
 "  \"script_pubkey\": \"OP_PUSHNUM_1 OP_PUSHBYTES_32 "
 "156cc4878306157720607cdcb4b32afa4cc6853868458d7258b907112e5a434b\",\n"
 "  \"address\": "
-"\"bc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9sfr6ayf\",\n"
+"\"ltc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9s285d7v\",\n"
 "  \"transaction\": "
 "\"bc4c30829a9564c0d58e6287195622b53ced54a25711d1b86be7cd3a70ef61ed\",\n"
 "  \"sat_ranges\": null,\n"
@@ -2814,10 +2814,10 @@ msgstr "오디널 인스크립션 가이드"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:4
 msgid ""
-"Individual sats can be inscribed with arbitrary content, creating Bitcoin-"
-"native digital artifacts that can be held in a Bitcoin wallet and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Individual sats can be inscribed with arbitrary content, creating Litecoin-"
+"native digital artifacts that can be held in a Litecoin wallet and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "각 SAT에 임의의 콘텐츠를 새길 수 있으며, 이로써 비트코인 지갑에 보관하고 비트"
 "코인 거래를 통해 전송할 수 있는 고유한 비트코인 자체 디지털 아티팩트를 만들 "
@@ -2826,8 +2826,8 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:9
 msgid ""
-"Working with inscriptions requires a Bitcoin full node, to give you a view "
-"of the current state of the Bitcoin blockchain, and a wallet that can create "
+"Working with inscriptions requires a Litecoin full node, to give you a view "
+"of the current state of the Litecoin blockchain, and a wallet that can create "
 "inscriptions and perform sat control when constructing transactions to send "
 "inscriptions to another wallet."
 msgstr ""
@@ -2837,22 +2837,22 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:14
 msgid ""
-"Bitcoin Core provides both a Bitcoin full node and wallet. However, the "
-"Bitcoin Core wallet cannot create inscriptions and does not perform sat "
+"Litecoin Core provides both a Litecoin full node and wallet. However, the "
+"Litecoin Core wallet cannot create inscriptions and does not perform sat "
 "control."
 msgstr ""
-"Bitcoin Core는 비트코인 풀노드와 지갑을 모두 제공한다. 그러나 Bitcoin Core 지"
+"Litecoin Core는 비트코인 풀노드와 지갑을 모두 제공한다. 그러나 Litecoin Core 지"
 "갑은 인스크립션을 생성할 수 없으며, SAT 제어를 수행하지 않는다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:17
 msgid ""
-"This requires [`ord`](https://github.com/ordinals/ord), the ordinal utility. "
+"This requires [`ord`](https://github.com/ynohtna92/ord-litecoin), the ordinal utility. "
 "`ord` doesn't implement its own wallet, so `ord wallet` subcommands interact "
-"with Bitcoin Core wallets."
+"with Litecoin Core wallets."
 msgstr ""
-"이를 위해서는 오디널 유틸리티인 [`ord`](https://github.com/ordinals/ord)가 필"
+"이를 위해서는 오디널 유틸리티인 [`ord`](https://github.com/ynohtna92/ord-litecoin)가 필"
 "요하다. `ord`는 자체 지갑을 구현하지 않으므로 `ord wallet` 하위 명령은 "
-"Bitcoin Core 지갑과 상호작용한다."
+"Litecoin Core 지갑과 상호작용한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:21
 msgid "This guide covers:"
@@ -2860,16 +2860,16 @@ msgstr "이 가이드에서 다룰 토픽:"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:23
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:39
-msgid "Installing Bitcoin Core"
-msgstr "Bitcoin Core 설치"
+msgid "Installing Litecoin Core"
+msgstr "Litecoin Core 설치"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:24
-msgid "Syncing the Bitcoin blockchain"
+msgid "Syncing the Litecoin blockchain"
 msgstr "비트코인 블록체인 동기화"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:25
-msgid "Creating a Bitcoin Core wallet"
-msgstr "Bitcoin Core 지갑 만들기"
+msgid "Creating a Litecoin Core wallet"
+msgstr "Litecoin Core 지갑 만들기"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:26
 msgid "Using `ord wallet receive` to receive sats"
@@ -2895,67 +2895,67 @@ msgstr "도움 받기"
 msgid ""
 "If you get stuck, try asking for help on the [Ordinals Discord Server]"
 "(https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant "
-"[issues](https://github.com/ordinals/ord/issues) and [discussions](https://"
+"[issues](https://github.com/ynohtna92/ord-litecoin/issues) and [discussions](https://"
 "github.com/ordinals/ord/discussions)."
 msgstr ""
 "문제가 해결되지 않는다면, [오디널스 디스코드 서버](https://discord.com/"
 "invite/87cjuz4FYg)에서 도움을 요청해 보거나 깃허브에서 관련 [이슈](https://"
-"github.com/ordinals/ord/issues) 및 [토론](https://github.com/ordinals/ord/"
+"github.com/ordinals/ord/issues) 및 [토론](https://github.com/ynohtna92/ord-litecoin/"
 "discussions)을 확인해 보자."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:42
 msgid ""
-"Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) "
-"on the [download page](https://bitcoincore.org/en/download/)."
+"Litecoin Core is available from [litecoin.org](https://litecoin.org/) "
+"on the [download page](https://litecoin.org/)."
 msgstr ""
-"Bitcoin Core는 [bitcoincore.org](https://bitcoincore.org/)의 [다운로드 페이"
-"지](https://bitcoincore.org/en/download/)에서 이용할 수 있다."
+"Litecoin Core는 [litecoin.org](https://litecoin.org/)의 [다운로드 페이"
+"지](https://litecoin.org/)에서 이용할 수 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:45
-msgid "Making inscriptions requires Bitcoin Core 24 or newer."
-msgstr "인스립션을 만들려면 Bitcoin Core 24 이상이 필요하다."
+msgid "Making inscriptions requires Litecoin Core 24 or newer."
+msgstr "인스립션을 만들려면 Litecoin Core 24 이상이 필요하다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:47
 msgid ""
-"This guide does not cover installing Bitcoin Core in detail. Once Bitcoin "
-"Core is installed, you should be able to run `bitcoind -version` "
-"successfully from the command line. Do _NOT_ use `bitcoin-qt`."
+"This guide does not cover installing Litecoin Core in detail. Once Litecoin "
+"Core is installed, you should be able to run `litecoind -version` "
+"successfully from the command line. Do _NOT_ use `litecoin-qt`."
 msgstr ""
-"이 가이드에서는 Bitcoin Core 설치에 대해 자세히 다루지 않는다. Bitcoin Core"
-"가 설치되면 명령줄에서 `bitcoind -version`을 성공적으로 실행할 수 있어야 한"
-"다. `bitcoin-qt`는 사용하지 말라."
+"이 가이드에서는 Litecoin Core 설치에 대해 자세히 다루지 않는다. Litecoin Core"
+"가 설치되면 명령줄에서 `litecoind -version`을 성공적으로 실행할 수 있어야 한"
+"다. `litecoin-qt`는 사용하지 말라."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:51
-msgid "Configuring Bitcoin Core"
-msgstr "Bitcoin Core 설정하기"
+msgid "Configuring Litecoin Core"
+msgstr "Litecoin Core 설정하기"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:54
-msgid "`ord` requires Bitcoin Core's transaction index and rest interface."
-msgstr "`ord`는 Bitcoin Core의 트랜잭션 인덱스와 rest 인터페이스가 필요하다."
+msgid "`ord` requires Litecoin Core's transaction index and rest interface."
+msgstr "`ord`는 Litecoin Core의 트랜잭션 인덱스와 rest 인터페이스가 필요하다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:56
 msgid ""
-"To configure your Bitcoin Core node to maintain a transaction index, add the "
-"following to your `bitcoin.conf`:"
+"To configure your Litecoin Core node to maintain a transaction index, add the "
+"following to your `litecoin.conf`:"
 msgstr ""
-"트랜잭션 인덱스를 유지하도록 Bitcoin Core 노드를 설정하려면, `bitcoin.conf`"
+"트랜잭션 인덱스를 유지하도록 Litecoin Core 노드를 설정하려면, `litecoin.conf`"
 "에 다음을 추가한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:63
-msgid "Or, run `bitcoind` with `-txindex`:"
-msgstr "또는 `-txindex`와 함께 `bitcoind`를 실행한다:"
+msgid "Or, run `litecoind` with `-txindex`:"
+msgstr "또는 `-txindex`와 함께 `litecoind`를 실행한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:69
 msgid ""
-"Details on creating or modifying your `bitcoin.conf` file can be found [here]"
-"(https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)."
+"Details on creating or modifying your `litecoin.conf` file can be found [here]"
+"(https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md)."
 msgstr ""
-"`bitcoin.conf` 파일 생성 또는 수정에 대한 자세한 내용은 [여기](https://"
-"github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md)에서 확인할 수 있"
+"`litecoin.conf` 파일 생성 또는 수정에 대한 자세한 내용은 [여기](https://"
+"github.com/litecoin/litecoin/blob/master/doc/litecoin-conf.md)에서 확인할 수 있"
 "다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:72
-msgid "Syncing the Bitcoin Blockchain"
+msgid "Syncing the Litecoin Blockchain"
 msgstr "비트코인 블록체인 동기화"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:75
@@ -2969,13 +2969,13 @@ msgstr "...그리고 `getblockcount`가:"
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:87
 msgid ""
 "agrees with the block count on a block explorer like [the mempool.space "
-"block explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so "
-"you should leave `bitcoind` running in the background when you're using "
+"block explorer](https://litecoinspace.org/). `ord` interacts with `litecoind`, so "
+"you should leave `litecoind` running in the background when you're using "
 "`ord`."
 msgstr ""
-"[mempool.space block explorer](https://mempool.space/)와 같은 블록 탐색기의 "
-"블록 수와 일치할때까지 실행한다. `ord`는 `bitcoind`와 상호 작용하므로 `ord`"
-"을 사용할 때는 `bitcoind`를 백그라운드에서 실행하도록 두어야 한다."
+"[litecoinspace.org block explorer](https://litecoinspace.org/)와 같은 블록 탐색기의 "
+"블록 수와 일치할때까지 실행한다. `ord`는 `litecoind`와 상호 작용하므로 `ord`"
+"을 사용할 때는 `litecoind`를 백그라운드에서 실행하도록 두어야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:91
 msgid ""
@@ -2983,11 +2983,11 @@ msgid ""
 "drive you want to store blocks on, use the configuration option "
 "`blocksdir=<external_drive_path>`. This is much simpler than using the "
 "`datadir` option because the cookie file will still be in the default "
-"location for `bitcoin-cli` and `ord` to find."
+"location for `litecoin-cli` and `ord` to find."
 msgstr ""
 "블록체인은 약 600GB의 디스크 공간을 필요로 한다. 블록을 저장할 외장 드라이브"
 "가 있는 경우, 설정 옵션 `blocksdir=<external_drive_path>`를 사용한다. 이렇게 "
-"하면 쿠키 파일이 여전히 `bitcoin-cli`와 `ord`가 찾을 수 있는 기본 위치에 있"
+"하면 쿠키 파일이 여전히 `litecoin-cli`와 `ord`가 찾을 수 있는 기본 위치에 있"
 "기 때문에 `datadir` 옵션을 사용하는 것보다 훨씬 간단하다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:97
@@ -2997,61 +2997,61 @@ msgstr "트러블 슈팅"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:100
 msgid ""
-"Make sure you can access `bitcoind` with `bitcoin-cli -getinfo` and that it "
+"Make sure you can access `litecoind` with `litecoin-cli -getinfo` and that it "
 "is fully synced."
 msgstr ""
-"`bitcoind`를 `bitcoin-cli -getinfo`로 액세스할 수 있는지 그리고 이것이 완전"
+"`litecoind`를 `litecoin-cli -getinfo`로 액세스할 수 있는지 그리고 이것이 완전"
 "히 동기화되었는지를 확인한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:103
 msgid ""
-"If `bitcoin-cli -getinfo` returns `Could not connect to the server`, "
-"`bitcoind` is not running."
+"If `litecoin-cli -getinfo` returns `Could not connect to the server`, "
+"`litecoind` is not running."
 msgstr ""
-"`bitcoin-cli -getinfo`가 `Could not connect to the server`을 반환하면 "
-"`bitcoind`가 실행되고 있지 않은 것이다."
+"`litecoin-cli -getinfo`가 `Could not connect to the server`을 반환하면 "
+"`litecoind`가 실행되고 있지 않은 것이다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:106
 msgid ""
 "Make sure `rpcuser`, `rpcpassword`, or `rpcauth` are _NOT_ set in your "
-"`bitcoin.conf` file. `ord` requires using cookie authentication. Make sure "
-"there is a file `.cookie` in your bitcoin data directory."
+"`litecoin.conf` file. `ord` requires using cookie authentication. Make sure "
+"there is a file `.cookie` in your litecoin data directory."
 msgstr ""
-"`rpcuser`, `rpcpassword` 또는 `rpcauth`가 `bitcoin.conf` 파일에 설정되어 있"
+"`rpcuser`, `rpcpassword` 또는 `rpcauth`가 `litecoin.conf` 파일에 설정되어 있"
 "지 _않는_ 것을 확인하자. `ord`는 쿠키 인증에 사용을 요구한다. 비트코인 데이"
 "터 디렉토리에 `.cookie` 파일이 있는지 확인하자."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:110
 msgid ""
-"If `bitcoin-cli -getinfo` returns `Could not locate RPC credentials`, then "
+"If `litecoin-cli -getinfo` returns `Could not locate RPC credentials`, then "
 "you must specify the cookie file location. If you are using a custom data "
 "directory (specifying the `datadir` option), then you must specify the "
-"cookie location like `bitcoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
+"cookie location like `litecoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
 "cookie -getinfo`. When running `ord` you must specify the cookie file "
 "location with `--cookie-file=<your_bitcoin_datadir>/.cookie`."
 msgstr ""
-"`bitcoin-cli -getinfo`가 `Could not locate RPC credentials`을 반환하면 쿠키 "
+"`litecoin-cli -getinfo`가 `Could not locate RPC credentials`을 반환하면 쿠키 "
 "파일 위치를 지정해야 한다. 사용자 지정 데이터 디렉터리를 사용하는 경우"
-"(`datadir` 옵션을 지정) `bitcoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
+"(`datadir` 옵션을 지정) `litecoin-cli -rpccookiefile=<your_bitcoin_datadir>/."
 "cookie -getinfo`와 같이 쿠키 위치를 지정해야 한다. `ord`을 실행할 때는 `--"
 "cookie-file=<your_bitcoin_datadir>/.cookie`로 쿠키 파일 위치를 지정해야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:118
 msgid ""
-"Make sure you do _NOT_ have `disablewallet=1` in your `bitcoin.conf` file. "
-"If `bitcoin-cli listwallets` returns `Method not found` then the wallet is "
+"Make sure you do _NOT_ have `disablewallet=1` in your `litecoin.conf` file. "
+"If `litecoin-cli listwallets` returns `Method not found` then the wallet is "
 "disabled and you won't be able to use `ord`."
 msgstr ""
-"`bitcoin.conf` 파일에 `disablewallet=1`이 _없는_ 것을 확인하자. `bitcoin-cli "
+"`litecoin.conf` 파일에 `disablewallet=1`이 _없는_ 것을 확인하자. `litecoin-cli "
 "listwallets`가 `Method not found`을 반환하면 지갑이 비활성화된 것이며 `ord`"
 "를 사용할 수 없다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:122
 msgid ""
-"Make sure `txindex=1` is set. Run `bitcoin-cli getindexinfo` and it should "
+"Make sure `txindex=1` is set. Run `litecoin-cli getindexinfo` and it should "
 "return something like"
 msgstr ""
-"`txindex=1`이 설정되어 있는지 확인한다. `bitcoin-cli getindexinfo`를 실행하"
+"`txindex=1`이 설정되어 있는지 확인한다. `litecoin-cli getindexinfo`를 실행하"
 "면 다음과 같은 결과가 반환되어야 한다"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:124
@@ -3077,20 +3077,20 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:132
 msgid ""
 "If it only returns `{}`, `txindex` is not set. If it returns `\"synced\": "
-"false`, `bitcoind` is still creating the `txindex`. Wait until `\"synced\": "
+"false`, `litecoind` is still creating the `txindex`. Wait until `\"synced\": "
 "true` before using `ord`."
 msgstr ""
 "만약 `{}`만 반환하면 `txindex`가 설정되지 않은 것이다. `”synced”: false`를 반"
-"환하면 `bitcoind`가 여전히 `txindex`를 생성하고 있는 것이다. `”synced”: true`"
+"환하면 `litecoind`가 여전히 `txindex`를 생성하고 있는 것이다. `”synced”: true`"
 "가 될 때까지 기다렸다가 `ord`를 사용하라."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:136
 msgid ""
 "If you have `maxuploadtarget` set it can interfere with fetching blocks for "
-"`ord` index. Either remove it or set `whitebind=127.0.0.1:8333`."
+"`ord` index. Either remove it or set `whitebind=127.0.0.1:9333`."
 msgstr ""
 "`maxuploadtarget`이 설정되어 있으면 `ord` 인덱스를 위해 블록을 가져오는 데 방"
-"해가 될 수 있다. 이를 제거하거나 `whitebind=127.0.0.1:8333`을 설정하라."
+"해가 될 수 있다. 이를 제거하거나 `whitebind=127.0.0.1:9333`을 설정하라."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:139
 msgid "Installing `ord`"
@@ -3100,9 +3100,9 @@ msgstr "`ord` 설치"
 msgid ""
 "The `ord` utility is written in Rust and can be built from [source](https://"
 "github.com/ordinals/ord). Pre-built binaries are available on the [releases "
-"page](https://github.com/ordinals/ord/releases)."
+"page](https://github.com/ynohtna92/ord-litecoin/releases)."
 msgstr ""
-"'ord` 유틸리티는 Rust로 작성되었으며 [소스](https://github.com/ordinals/ord)"
+"'ord` 유틸리티는 Rust로 작성되었으며 [소스](https://github.com/ynohtna92/ord-litecoin)"
 "에서 빌드할 수 있다. 미리 빌드된 바이너리는 [릴리스 페이지](https://github."
 "com/ordinals/ord/releases)에서 사용할 수 있다."
 
@@ -3113,12 +3113,12 @@ msgstr "명령줄에서 다음을 사용하여 미리 빌드된 최신 바이너
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:148
 msgid ""
 "```sh\n"
-"curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash "
+"curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash "
 "-s\n"
 "```"
 msgstr ""
 "```sh\n"
-"curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash "
+"curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash "
 "-s\n"
 "```"
 
@@ -3131,21 +3131,21 @@ msgid "Which prints out `ord`'s version number."
 msgstr "이것이 `ord`의 버전 번호를 출력한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:160
-msgid "Creating a Bitcoin Core Wallet"
-msgstr "Bitcoin Core 지갑 만들기"
+msgid "Creating a Litecoin Core Wallet"
+msgstr "Litecoin Core 지갑 만들기"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:163
 msgid ""
-"`ord` uses Bitcoin Core to manage private keys, sign transactions, and "
-"broadcast transactions to the Bitcoin network."
+"`ord` uses Litecoin Core to manage private keys, sign transactions, and "
+"broadcast transactions to the Litecoin network."
 msgstr ""
 "'ord'는 비트코인 코어를 사용해 개인 키를 관리하고, 트랜잭션에 서명하고, 비트"
 "코인 네트워크로 트랜잭션을 브로드캐스트한다."
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:166
-msgid "To create a Bitcoin Core wallet named `ord` for use with `ord`, run:"
+msgid "To create a Litecoin Core wallet named `ord` for use with `ord`, run:"
 msgstr ""
-"`ord`와 함께 사용할 `ord`이라는 이름을 가진 Bitcoin Core 지갑을 만들려면 다음"
+"`ord`와 함께 사용할 `ord`이라는 이름을 가진 Litecoin Core 지갑을 만들려면 다음"
 "을 실행한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:172
@@ -3154,7 +3154,7 @@ msgstr "SAT 받기"
 
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:175
 msgid ""
-"Inscriptions are made on individual sats, using normal Bitcoin transactions "
+"Inscriptions are made on individual sats, using normal Litecoin transactions "
 "that pay fees in sats, so your wallet will need some sats."
 msgstr ""
 "인스크립션은 SAT로 수수료를 지불하는 일반 비트코인 거래를 사용하여 개별 SAT"
@@ -3213,13 +3213,13 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:208
 msgid ""
 "Inscription transactions must be less than 400,000 weight units, or they "
-"will not be relayed by Bitcoin Core. One byte of inscription content costs "
+"will not be relayed by Litecoin Core. One byte of inscription content costs "
 "one weight unit. Since an inscription transaction includes not just the "
 "inscription content, limit inscription content to less than 400,000 weight "
 "units. 390,000 weight units should be safe."
 msgstr ""
 "인스크립션 트랜잭션은 400,000 가중치 단위(weight unit) 미만이어야 하며, 그렇"
-"지 않으면 Bitcoin Core에서 릴레이 되지 않는다. 1바이트의 인스크립션 콘텐츠는 "
+"지 않으면 Litecoin Core에서 릴레이 되지 않는다. 1바이트의 인스크립션 콘텐츠는 "
 "1 가중치 단위의 비용이 든다. 인스크립션 트랜잭션에는 인스크립션 콘텐츠만 포함"
 "되지 않으므로, 인스크립션 콘텐츠를 400,000 가중치 단위 미만으로 제한하라. "
 "390,000 개의 가중치 단위미만은 안전할 것이다."
@@ -3258,8 +3258,8 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/inscriptions.md:233
 msgid ""
 "Wait for the reveal transaction to be mined. You can check the status of the "
-"commit and reveal transactions using  [the mempool.space block explorer]"
-"(https://mempool.space/)."
+"commit and reveal transactions using  [the litecoinspace.org block explorer]"
+"(https://litecoinspace.org/)."
 msgstr ""
 "리빌 트랜잭션이 채굴될 때까지 기다린다. [Mempool.space 블록 탐색기](https://"
 "mempool.space/)를 사용하여 커밋 및 리빌 트랜잭션의 상태를 확인할 수 있다."
@@ -3350,12 +3350,12 @@ msgstr "전송 트랜잭션이 확인되면 다음을 실행하여 수신을 확
 msgid ""
 "_This guide is out of date. Since it was written, the `ord` binary was "
 "changed to only build the full satoshi index when the `--index-sats` flag is "
-"supplied. Additionally, `ord` now has a built-in wallet that wraps a Bitcoin "
+"supplied. Additionally, `ord` now has a built-in wallet that wraps a Litecoin "
 "Core wallet. See `ord wallet --help`._"
 msgstr ""
 "_이 가이드는 오래되었다. 이 가이드가 작성된 이후, `ord` 바이너리는 `--index-"
 "sats` 플래그가 제공될 때만 풀 사토시 인덱스를 빌드하도록 변경되다. 또한 `ord`"
-"에는 이제 Bitcoin Core 지갑을 감싸는 지갑이 내장되어 있다. `ord wallet —help`"
+"에는 이제 Litecoin Core 지갑을 감싸는 지갑이 내장되어 있다. `ord wallet —help`"
 "를 참조하자._"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:9
@@ -3385,19 +3385,19 @@ msgstr "시작하기 전에 몇 가지 준비해야 할 사항이 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:20
 msgid ""
-"First, you'll need a synced Bitcoin Core node with a transaction index. To "
+"First, you'll need a synced Litecoin Core node with a transaction index. To "
 "turn on transaction indexing, pass `-txindex` on the command-line:"
 msgstr ""
-"첫째, 트랜잭션 인덱스가 있는 동기화된 Bitcoin Core 노드가 필요하다. 트랜잭션 "
+"첫째, 트랜잭션 인덱스가 있는 동기화된 Litecoin Core 노드가 필요하다. 트랜잭션 "
 "인덱싱을 활성화하려면 명령줄에 `-txindex`를 입력한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:27
 msgid ""
-"Or put the following in your [Bitcoin configuration file](https://github.com/"
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+"Or put the following in your [Litecoin configuration file](https://github.com/"
+"litecoin/litecoin/blob/master/doc/litecoin-conf.md#configuration-file-path):"
 msgstr ""
-"또는 다음을 [Bitcoin configuration file](https://github.com/bitcoin/bitcoin/"
-"blob/master/doc/bitcoin-conf.md#configuration-file-path)에 입력한다:"
+"또는 다음을 [Litecoin configuration file](https://github.com/litecoin-project/litecoin/"
+"blob/master/doc/litecoin-conf.md#configuration-file-path)에 입력한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:34
 msgid ""
@@ -3412,16 +3412,16 @@ msgid "Second, you'll need a synced `ord` index."
 msgstr "둘째, 동기화된 `ord` 인덱스가 필요하다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:43
-msgid "Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/)."
+msgid "Get a copy of `ord` from [the repo](https://github.com/ynohtna92/ord-litecoin/)."
 msgstr ""
-"[the repo](https://github.com/ordinals/ord/)에서 `ord`의 사본을 가져오자."
+"[the repo](https://github.com/ynohtna92/ord-litecoin/)에서 `ord`의 사본을 가져오자."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:45
 msgid ""
-"Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node "
+"Run `RUST_LOG=info ord index`. It should connect to your litecoin core node "
 "and start indexing."
 msgstr ""
-"`RUST_LOG=info ord index`를 실행한다. Bitcoin Core 노드에 연결되고 인덱싱을 "
+"`RUST_LOG=info ord index`를 실행한다. Litecoin Core 노드에 연결되고 인덱싱을 "
 "시작할 것이다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:48
@@ -3437,16 +3437,16 @@ msgid "Searching for Rare Ordinals"
 msgstr "희귀 오디널스 검색하기"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:55
-msgid "Searching for Rare Ordinals in a Bitcoin Core Wallet"
-msgstr "Bitcoin Core 지갑에서 희귀 오디널스 검색하기"
+msgid "Searching for Rare Ordinals in a Litecoin Core Wallet"
+msgstr "Litecoin Core 지갑에서 희귀 오디널스 검색하기"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:57
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your "
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"searching for rare ordinals in a Litecoin Core wallet is Easy. Assuming your "
 "wallet is named `foo`:"
 msgstr ""
-"`ord wallet` 명령은 Bitcoin Core의 RPC API를 감싸는 래퍼일 뿐이므로 Bitcoin "
+"`ord wallet` 명령은 Litecoin Core의 RPC API를 감싸는 래퍼일 뿐이므로 Litecoin "
 "Core 지갑에서 희귀한 오디널스를 검색하는 것은 쉽다. 지갑의 이름이 `foo`이라"
 "는 가정하에:"
 
@@ -3459,33 +3459,33 @@ msgid "Display any rare ordinals wallet `foo`'s UTXOs:"
 msgstr "희귀한 오디널스 지갑 `foo`의 UTXO를 표시한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:73
-msgid "Searching for Rare Ordinals in a Non-Bitcoin Core Wallet"
-msgstr "Bitcoin Core 지갑이 아닌 지갑에서 희귀 오디널스 검색하기"
+msgid "Searching for Rare Ordinals in a Non-Litecoin Core Wallet"
+msgstr "Litecoin Core 지갑이 아닌 지갑에서 희귀 오디널스 검색하기"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:75
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to "
-"import your wallet's descriptors into Bitcoin Core."
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"to search for rare ordinals in a non-Litecoin Core wallet, you'll need to "
+"import your wallet's descriptors into Litecoin Core."
 msgstr ""
-"`ord wallet` 명령은 Bitcoin Core의 RPC API를 감싸는 래퍼일 뿐이므로, Bitcoin "
+"`ord wallet` 명령은 Litecoin Core의 RPC API를 감싸는 래퍼일 뿐이므로, Litecoin "
 "Core가 아닌 지갑에서 희귀 오디널스를 검색하려면 지갑의 기술자(discriptors)를 "
-"Bitcoin Core로 가져오기 해야 한다."
+"Litecoin Core로 가져오기 해야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:79
 msgid ""
-"[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors."
+"[Descriptors](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors."
 "md) describe the ways that wallets generate private keys and public keys."
 msgstr ""
-"[기술자](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md)"
+"[기술자](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md)"
 "는 지갑이 개인 키와 공개 키를 생성하는 방법을 설명한다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:82
 msgid ""
-"You should only import descriptors into Bitcoin Core for your wallet's "
+"You should only import descriptors into Litecoin Core for your wallet's "
 "public keys, not its private keys."
 msgstr ""
-"지갑의 공개 키에 대한 기술자만 Bitcoin Core로 가져와야 하며, 개인 키는 가져오"
+"지갑의 공개 키에 대한 기술자만 Litecoin Core로 가져와야 하며, 개인 키는 가져오"
 "지 않아야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:85
@@ -3517,7 +3517,7 @@ msgstr "‘foo-watch-only’라는 이름으로 Watch-only 지갑을 생성한�
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:104
 msgid "Feel free to give it a better name than `foo-watch-only`!"
-msgstr "당신 마음대로 `foo-watch-only`보다 더 좋은 이름으로 지어주자!"
+msgstr "당신 마음대""\"\"\"\"로 `foo-watch-only`보다 더 좋은 이름으로 지어주자!"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:106
 msgid "Load the `foo-watch-only` wallet:"
@@ -3530,14 +3530,14 @@ msgstr "지갑 기술자를 'foo-watch-only'로 가져온다:"
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:114
 msgid ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"litecoin-cli importdescriptors \\\n"
 "  '[{ \"desc\": "
 "\"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)#tpnxnxax\", \"timestamp\":0 }]'\n"
 "```"
 msgstr ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"litecoin-cli importdescriptors \\\n"
 "  ‘[{ “desc”: "
 "“wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)#tpnxnxax”, “timestamp”:0 }]’\n"
@@ -3547,11 +3547,11 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of `\"timestamp\"` instead of "
-"`0`. This will reduce the time it takes for Bitcoin Core to search for your "
+"`0`. This will reduce the time it takes for Litecoin Core to search for your "
 "wallet's UTXOs."
 msgstr ""
 "지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, `0` 대신 "
-"`”timestamp”` 값에 사용할 수 있다. 이렇게 하면 Bitcoin Core가 당신 지갑의 "
+"`”timestamp”` 값에 사용할 수 있다. 이렇게 하면 Litecoin Core가 당신 지갑의 "
 "UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:124
@@ -3573,12 +3573,12 @@ msgstr "다중 경로 기술자를 내보내기 하는 지갑에서 희귀 오�
 msgid ""
 "Some descriptors describe multiple paths in one descriptor using angle "
 "brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by "
-"Bitcoin Core, so you'll first need to convert them into multiple "
-"descriptors, and then import those multiple descriptors into Bitcoin Core."
+"Litecoin Core, so you'll first need to convert them into multiple "
+"descriptors, and then import those multiple descriptors into Litecoin Core."
 msgstr ""
 "일부 기술자는 꺾쇠 괄호(예: `<0;1>`)를 사용하여 하나의 기술자 안에 다수에 경"
-"로를 기술한다. 다중 경로 기술자는 아직 Bitcoin Core에서 지원되지 않으므로, 먼"
-"저 다수에 기술자들로 변환한 다음 Bitcoin Core로 해당 기술자들을 가져오기 해"
+"로를 기술한다. 다중 경로 기술자는 아직 Litecoin Core에서 지원되지 않으므로, 먼"
+"저 다수에 기술자들로 변환한 다음 Litecoin Core로 해당 기술자들을 가져오기 해"
 "야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:143
@@ -3665,13 +3665,13 @@ msgstr "기술자를 가져오기 할 지갑을 로드한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:203
 msgid ""
-"Now import the descriptors, with the correct checksums, into Bitcoin Core."
-msgstr "이제 올바른 체크섬과 기술자를 Bitcoin Core로 가져오기 한다."
+"Now import the descriptors, with the correct checksums, into Litecoin Core."
+msgstr "이제 올바른 체크섬과 기술자를 Litecoin Core로 가져오기 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:205
 msgid ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"litecoin-cli \\\n"
 " importdescriptors \\\n"
 " '[\n"
 "   {\n"
@@ -3690,7 +3690,7 @@ msgid ""
 "```"
 msgstr ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"litecoin-cli \\\n"
 " importdescriptors \\\n"
 " ‘[\n"
 "   {\n"
@@ -3712,11 +3712,11 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of the `\"timestamp\"` fields "
-"instead of `0`. This will reduce the time it takes for Bitcoin Core to "
+"instead of `0`. This will reduce the time it takes for Litecoin Core to "
 "search for your wallet's UTXOs."
 msgstr ""
 "지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, `0` 대신 "
-"`”timestamp”` 값에 사용할 수 있다. 이렇게 하면 Bitcoin Core가 당신 지갑의 "
+"`”timestamp”` 값에 사용할 수 있다. 이렇게 하면 Litecoin Core가 당신 지갑의 "
 "UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:237
@@ -3738,17 +3738,17 @@ msgstr "오디널스 전송하기"
 #: /workspaces/ord_ko/docs/src/guides/sat-hunting.md:246
 msgid ""
 "The `ord` wallet supports transferring specific satoshis. You can also use "
-"`bitcoin-cli` commands `createrawtransaction`, "
+"`litecoin-cli` commands `createrawtransaction`, "
 "`signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is "
 "complex and outside the scope of this guide."
 msgstr ""
-"`ord` 지갑은 특정 사토시 전송을 지원한다. `bitcoin-cli` 명령어인 "
+"`ord` 지갑은 특정 사토시 전송을 지원한다. `litecoin-cli` 명령어인 "
 "`createrawtransaction`, `signrawtransactionwithwallet`, `sendrawtransaction`"
 "을 사용할 수도 있지만, 이 방법들은 복잡하며 이 가이드의 범위를 벗어난다."
 
 #: /workspaces/ord_ko/docs/src/guides/collecting.md:4
 msgid ""
-"Currently, [ord](https://github.com/ordinals/ord/) is the only wallet "
+"Currently, [ord](https://github.com/ynohtna92/ord-litecoin/) is the only wallet "
 "supporting sat-control and sat-selection, which are required to safely store "
 "and send rare sats and inscriptions, hereafter ordinals."
 msgstr ""
@@ -3769,9 +3769,9 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/collecting.md:12
 msgid ""
 "As a general note, receiving ordinals in an unsupported wallet is not "
-"dangerous. Ordinals can be sent to any bitcoin address, and are safe as long "
+"dangerous. Ordinals can be sent to any litecoin address, and are safe as long "
 "as the UTXO that contains them is not spent. However, if that wallet is then "
-"used to send bitcoin, it may select the UTXO containing the ordinal as an "
+"used to send litecoin, it may select the UTXO containing the ordinal as an "
 "input, and send the inscription or spend it to fees."
 msgstr ""
 "일반적으로, 지원되지 않는 지갑에서 오디널을 받는 것은 위험하지 않다. 오디널"
@@ -3792,7 +3792,7 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/collecting.md:21
 msgid ""
 "Please note that if you follow this guide, you should not use the wallet you "
-"create to send BTC, unless you perform manual coin-selection to avoid "
+"create to send LTC, unless you perform manual coin-selection to avoid "
 "sending ordinals."
 msgstr ""
 "이 가이드를 따르는 경우, 오디널 전송을 피하기 위해 수동으로 코인선택을 하지 "
@@ -4016,12 +4016,12 @@ msgid ""
 "inscription by heading over to the `UTXOs` tab, finding the UTXO you want to "
 "check, right-clicking on the `Output` and selecting `Copy Transaction "
 "Output`. This transaction output id can then be pasted into the [ordinals."
-"com](https://ordinals.com) search."
+"com](https://ordinalslite.com) search."
 msgstr ""
 "트랜잭션이 확인되면 `UTXOs` 탭으로 이동하여 확인하려는 UTXO를 찾아 `Output`"
 "을 마우스 오른쪽 버튼으로 클릭하고 `Copy Transaction Output`를 선택하여 인스"
 "크립션의 유효성을 검사하고 확인할 수 있다. 그런 다음 이 트랜잭션 출력 ID를 "
-"[ordinals.com](https://ordinals.com) 검색에 붙여넣을 수 있다."
+"[ordinalslite.com](https://ordinalslite.com) 검색에 붙여넣을 수 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/collecting/sparrow-wallet.md:72
 msgid "Freezing UTXO's"
@@ -4232,10 +4232,10 @@ msgstr ""
 msgid ""
 "To do this, you can follow the [Validating / Viewing Received Inscriptions]"
 "(./sparrow-wallet.md#validating--viewing-received-inscriptions) described "
-"above to find the inscription page for your inscription on ordinals.com"
+"above to find the inscription page for your inscription on ordinalslite.com"
 msgstr ""
 "이것을 하려면 위에서 설명한 [수신된 인스크립션 확인하기/보기](./sparrow-"
-"wallet.md#validating--viewing-received-inscriptions)를 따라 ordinals.com에서 "
+"wallet.md#validating--viewing-received-inscriptions)를 따라 ordinalslite.com에서 "
 "해당 인스크립션에 대한 인스크립션 페이지를 찾을 수 있다"
 
 #: /workspaces/ord_ko/docs/src/guides/collecting/sparrow-wallet.md:120
@@ -4442,10 +4442,10 @@ msgstr ""
 #: /workspaces/ord_ko/docs/src/guides/collecting/sparrow-wallet.md:171
 msgid ""
 "Once the transaction has confirmed you can check the inscription page on "
-"[ordinals.com](https://ordinals.com) to validate that it has moved to the "
+"[ordinalslite.com](https://ordinalslite.com) to validate that it has moved to the "
 "new output location and address."
 msgstr ""
-"트랜잭션이 확인되면 [ordinals.com](https://ordinals.com)에서 인스크립션 페이"
+"트랜잭션이 확인되면 [ordinalslite.com](https://ordinalslite.com)에서 인스크립션 페이"
 "지를 확인하여 새 출력 위치(output location) 및 주소로 이동했는지 확인할 수 있"
 "다."
 
@@ -4486,13 +4486,13 @@ msgstr "![](images/troubleshooting_02.png)"
 #: /workspaces/ord_ko/docs/src/guides/testing.md:4
 msgid ""
 "Ord can be tested using the following flags to specify the test network. For "
-"more information on running Bitcoin Core for testing, see [Bitcoin's "
+"more information on running Litecoin Core for testing, see [Litecoin's "
 "developer documentation](https://developer.bitcoin.org/examples/testing."
 "html)."
 msgstr ""
 "Ord는 다음 플래그를 사용하여 테스트 네트워크를 지정하여 테스트할 수 있다. 테"
-"스트를 위한 Bitcoin Core 실행에 대한 자세한 내용은 [비트코인 개발자 문서]"
-"(https://developer.bitcoin.org/examples/testing.html)를 참조하자."
+"스트를 위한 Litecoin Core 실행에 대한 자세한 내용은 [비트코인 개발자 문서]"
+"(https://github.com/litecoin-project/litecoin/tree/master/doc)를 참조하자."
 
 #: /workspaces/ord_ko/docs/src/guides/testing.md:7
 msgid ""
@@ -4539,7 +4539,7 @@ msgid "Regtest doesn't require downloading the blockchain or indexing ord."
 msgstr "Regtest는 블록체인을 다운로드하거나 ord를 인덱싱할 필요가 없다."
 
 #: /workspaces/ord_ko/docs/src/guides/testing.md:21
-msgid "Run bitcoind in regtest with:"
+msgid "Run litecoind in regtest with:"
 msgstr "다음을 사용해 regtest에 bitcoind를 실행한다:"
 
 #: /workspaces/ord_ko/docs/src/guides/testing.md:25
@@ -4672,20 +4672,20 @@ msgid "`ord` must be restarted in to load changes to the config file."
 msgstr "구성 파일의 변경 사항을 로드하려면 `ord`를 다시 시작해야 한다."
 
 #: /workspaces/ord_ko/docs/src/guides/moderation.md:37
-msgid "`ordinals.com`"
-msgstr "`ordinals.com`"
+msgid "`ordinalslite.com`"
+msgstr "`ordinalslite.com`"
 
 #: /workspaces/ord_ko/docs/src/guides/moderation.md:40
 msgid ""
-"The `ordinals.com` instances use `systemd` to run the `ord server` service, "
+"The `ordinalslite.com` instances use `systemd` to run the `ord server` service, "
 "which is called `ord`, with a config file located at `/var/lib/ord/ord.yaml`."
 msgstr ""
-"`ordinals.com` 인스턴스는 `systemd`를 사용하여 `ord`라고 하는 `ord server` 서"
+"`ordinalslite.com` 인스턴스는 `systemd`를 사용하여 `ord`라고 하는 `ord server` 서"
 "비스를 실행하며, 구성 파일은 `/var/lib/ord/ord.yaml`에 있다."
 
 #: /workspaces/ord_ko/docs/src/guides/moderation.md:43
-msgid "To hide an inscription on `ordinals.com`:"
-msgstr "`ordinals.com`에서 인스크립션을 숨기려면:"
+msgid "To hide an inscription on `ordinalslite.com`:"
+msgstr "`ordinalslite.com`에서 인스크립션을 숨기려면:"
 
 #: /workspaces/ord_ko/docs/src/guides/moderation.md:45
 msgid "SSH into the server"
@@ -4841,7 +4841,7 @@ msgstr ""
 
 #: /workspaces/ord_ko/docs/src/bounties.md:19
 msgid "Good luck and godspeed!"
-msgstr "행운과 성공을 빈다!"
+msgstr "행운과 성""\"\"\"\"공을 빈다!"
 
 #: /workspaces/ord_ko/docs/src/bounty/0.md:1
 msgid "Ordinal Bounty 0"
@@ -4860,12 +4860,12 @@ msgid ""
 msgstr "서수가 0으로 끝나는 SAT를 제출 주소로 보낸다:"
 
 #: /workspaces/ord_ko/docs/src/bounty/0.md:9
-msgid "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
-msgstr "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
+msgid "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
+msgstr "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
 
 #: /workspaces/ord_ko/docs/src/bounty/0.md:11
-msgid "❌: [1857578125803251](https://ordinals.com/ordinal/1857578125803251)"
-msgstr "❌: [1857578125803251](https://ordinals.com/ordinal/1857578125803251)"
+msgid "❌: [1857578125803251](https://ordinalslite.com/ordinal/1857578125803251)"
+msgstr "❌: [1857578125803251](https://ordinalslite.com/ordinal/1857578125803251)"
 
 #: /workspaces/ord_ko/docs/src/bounty/0.md:13
 msgid "The sat must be the first sat of the output you send."
@@ -4971,12 +4971,12 @@ msgid " sat to the submission address:"
 msgstr " SAT를 보낸다:"
 
 #: /workspaces/ord_ko/docs/src/bounty/2.md:9
-msgid "✅: [347100000000000](https://ordinals.com/sat/347100000000000)"
-msgstr "✅: [347100000000000](https://ordinals.com/sat/347100000000000)"
+msgid "✅: [347100000000000](https://ordinalslite.com/sat/347100000000000)"
+msgstr "✅: [347100000000000](https://ordinalslite.com/sat/347100000000000)"
 
 #: /workspaces/ord_ko/docs/src/bounty/2.md:11
-msgid "❌: [6685000001337](https://ordinals.com/sat/6685000001337)"
-msgstr "❌: [6685000001337](https://ordinals.com/sat/6685000001337)"
+msgid "❌: [6685000001337](https://ordinalslite.com/sat/6685000001337)"
+msgstr "❌: [6685000001337](https://ordinalslite.com/sat/6685000001337)"
 
 #: /workspaces/ord_ko/docs/src/bounty/2.md:13
 msgid ""
@@ -5176,8 +5176,8 @@ msgstr "미수령!"
 
 #, fuzzy
 #~ msgid ""
-#~ "And when you visit [the ordinals explorer](https://ordinals.com/) at "
-#~ "`ordinals.com/inscription/INSCRIPTION_ID`."
+#~ "And when you visit [the ordinals explorer](https://ordinalslite.com/) at "
+#~ "`ordinalslite.com/inscription/INSCRIPTION_ID`."
 #~ msgstr ""
-#~ "그리고 [오디널스 익스플로러](https://ordinals.com/)에서 `ordinals.com/"
+#~ "그리고 [오디널스 익스플로러](https://ordinalslite.com/)에서 `ordinalslite.com/"
 #~ "inscription/INSCRIPTION_ID`를 방문하면 됩니다."

@@ -46,11 +46,15 @@ impl Plan {
     utxos: &BTreeMap<OutPoint, TxOut>,
     wallet: &Wallet,
   ) -> SubcommandResult {
+    if !self.dry_run && !self.no_backup {
+      wallet.require_descriptors("commit recovery backup (or explicitly use --no-backup)")?;
+    }
+
     let Transactions {
       commit_tx,
       commit_vout,
       reveal_tx,
-      recovery_key_pair: _,
+      recovery_key_pair,
       total_fees,
       rune,
     } = self.create_batch_transactions(
@@ -78,9 +82,9 @@ impl Plan {
       let reveal_psbt = Psbt::from_unsigned_tx(Self::remove_witnesses(reveal_tx.clone()))?;
 
       return Ok(Some(Box::new(self.output(
-        commit_tx.txid(),
+        commit_tx.compute_txid(),
         Some(commit_psbt),
-        reveal_tx.txid(),
+        reveal_tx.compute_txid(),
         false,
         Some(base64::engine::general_purpose::STANDARD.encode(reveal_psbt.serialize())),
         total_fees,
@@ -94,34 +98,47 @@ impl Plan {
       .sign_raw_transaction_with_wallet(&commit_tx, None, None)?
       .hex;
 
-    let result = wallet.bitcoin_client().sign_raw_transaction_with_wallet(
-      &reveal_tx,
-      Some(
-        &commit_tx
-          .output
+    let signed_reveal_tx = if !CoreVersion::get(wallet.bitcoin_client())?.descriptors() {
+      // Core 21's signing RPC asserts when verifying a pre-signed Taproot input.
+      // The commit input is already signed by create_batch_transactions.
+      ensure!(
+        reveal_tx
+          .input
           .iter()
-          .enumerate()
-          .map(|(vout, output)| SignRawTransactionInput {
-            txid: commit_tx.txid(),
-            vout: vout.try_into().unwrap(),
-            script_pub_key: output.script_pubkey.clone(),
-            redeem_script: None,
-            amount: Some(Amount::from_sat(output.value)),
-          })
-          .collect::<Vec<SignRawTransactionInput>>(),
-      ),
-      None,
-    )?;
+          .all(|input| !input.witness.is_empty()),
+        "wallet signing of additional reveal inputs requires Litecoin Core 24.0.0 or newer"
+      );
+      consensus::serialize(&reveal_tx)
+    } else {
+      let result = wallet.bitcoin_client().sign_raw_transaction_with_wallet(
+        &reveal_tx,
+        Some(
+          &commit_tx
+            .output
+            .iter()
+            .enumerate()
+            .map(|(vout, output)| SignRawTransactionInput {
+              txid: commit_tx.compute_txid(),
+              vout: vout.try_into().unwrap(),
+              script_pub_key: output.script_pubkey.clone(),
+              redeem_script: None,
+              amount: Some(output.value),
+            })
+            .collect::<Vec<SignRawTransactionInput>>(),
+        ),
+        None,
+      )?;
 
-    ensure!(
-      result.complete,
-      format!("Failed to sign reveal transaction: {:?}", result.errors)
-    );
+      ensure!(
+        result.complete,
+        format!("Failed to sign reveal transaction: {:?}", result.errors)
+      );
 
-    let signed_reveal_tx = result.hex;
+      result.hex
+    };
 
     if !self.no_backup {
-      // Self::backup_recovery_key(wallet, recovery_key_pair)?;
+      Self::backup_recovery_key(wallet, recovery_key_pair)?;
     }
 
     let commit_txid = wallet
@@ -142,9 +159,9 @@ impl Plan {
         &commit,
         &reveal,
         self.output(
-          commit.txid(),
+          commit.compute_txid(),
           None,
-          reveal.txid(),
+          reveal.compute_txid(),
           false,
           None,
           total_fees,
@@ -322,7 +339,7 @@ impl Plan {
       utxos
         .iter()
         .find(|(outpoint, txout)| {
-          txout.value > 0
+          txout.value.to_sat() > 0
             && !inscribed_utxos.contains(outpoint)
             && !locked_utxos.contains(outpoint)
             && !runic_utxos.contains(outpoint)
@@ -364,7 +381,7 @@ impl Plan {
     }
 
     let secp256k1 = Secp256k1::new();
-    let key_pair = UntweakedKeyPair::new(&secp256k1, &mut rand::thread_rng());
+    let key_pair = UntweakedKeypair::new(&secp256k1, &mut rand::thread_rng());
     let (public_key, _parity) = XOnlyPublicKey::from_keypair(&key_pair);
 
     let reveal_script = Inscription::append_batch_reveal_script(
@@ -386,7 +403,7 @@ impl Plan {
 
     let commit_tx_address = Address::p2tr_tweaked(taproot_spend_info.output_key(), chain.network());
 
-    let total_postage = self.postages.iter().map(|amount| amount.to_sat()).sum();
+    let total_postage = self.postages.clone().into_iter().sum();
 
     let mut reveal_inputs = Vec::new();
     let mut reveal_outputs = Vec::new();
@@ -417,7 +434,7 @@ impl Plan {
       reveal_outputs.push(TxOut {
         script_pubkey: destination.script_pubkey(),
         value: match self.mode {
-          Mode::SeparateOutputs | Mode::SatPoints => self.postages[i].to_sat(),
+          Mode::SeparateOutputs | Mode::SatPoints => self.postages[i],
           Mode::SharedOutput | Mode::SameSat => total_postage,
         },
       });
@@ -438,7 +455,7 @@ impl Plan {
 
         reveal_outputs.push(TxOut {
           script_pubkey: reveal_change.into(),
-          value: TARGET_POSTAGE.to_sat(),
+          value: TARGET_POSTAGE,
         });
 
         vout = Some(output);
@@ -483,14 +500,15 @@ impl Plan {
       runestone = Some(inner);
 
       ensure!(
-        self.no_limit || script_pubkey.len() <= 82,
-        "runestone greater than maximum OP_RETURN size: {} > 82",
-        script_pubkey.len()
+        self.no_limit || script_pubkey.len() <= MAX_STANDARD_OP_RETURN_SIZE,
+        "runestone greater than maximum OP_RETURN size: {} > {}",
+        script_pubkey.len(),
+        MAX_STANDARD_OP_RETURN_SIZE,
       );
 
       reveal_outputs.push(TxOut {
         script_pubkey,
-        value: 0,
+        value: Amount::from_sat(0),
       });
 
       rune = Some((destination, etching.rune, vout));
@@ -515,7 +533,7 @@ impl Plan {
     let mut target_value = reveal_fee;
 
     if self.mode != Mode::SatPoints {
-      target_value += Amount::from_sat(total_postage);
+      target_value += total_postage;
     }
 
     if premine > 0 {
@@ -544,7 +562,7 @@ impl Plan {
       .expect("should find sat commit/inscription output");
 
     reveal_inputs[commit_input] = OutPoint {
-      txid: unsigned_commit_tx.txid(),
+      txid: unsigned_commit_tx.compute_txid(),
       vout: vout.try_into().unwrap(),
     };
 
@@ -560,7 +578,7 @@ impl Plan {
 
     for output in reveal_tx.output.iter() {
       ensure!(
-        output.value >= output.script_pubkey.dust_value().to_sat(),
+        output.value >= output.script_pubkey.minimal_non_dust(),
         "commit transaction output would be dust"
       );
     }
@@ -590,8 +608,8 @@ impl Plan {
       )
       .expect("signature hash should compute");
 
-    let sig = secp256k1.sign_schnorr(
-      &secp256k1::Message::from_slice(sighash.as_ref())
+    let signature = secp256k1.sign_schnorr(
+      &secp256k1::Message::from_digest_slice(sighash.as_ref())
         .expect("should be cryptographically secure hash"),
       &key_pair,
     );
@@ -602,8 +620,8 @@ impl Plan {
 
     witness.push(
       Signature {
-        sig,
-        hash_ty: TapSighashType::Default,
+        signature,
+        sighash_type: TapSighashType::Default,
       }
       .to_vec(),
     );
@@ -655,7 +673,7 @@ impl Plan {
     let rune = rune.map(|(destination, rune, vout)| RuneInfo {
       destination: destination.map(|destination| uncheck(&destination)),
       location: vout.map(|vout| OutPoint {
-        txid: reveal_tx.txid(),
+        txid: reveal_tx.compute_txid(),
         vout,
       }),
       rune,
@@ -671,37 +689,40 @@ impl Plan {
     })
   }
 
-  // #[allow(dead_code)]
-  // fn backup_recovery_key(wallet: &Wallet, recovery_key_pair: TweakedKeyPair) -> Result {
-  //   let recovery_private_key = PrivateKey::new(
-  //     recovery_key_pair.to_inner().secret_key(),
-  //     wallet.chain().network(),
-  //   );
-  //
-  //   let info = wallet
-  //     .bitcoin_client()
-  //     .get_descriptor_info(&format!("rawtr({})", recovery_private_key.to_wif()))?;
-  //
-  //   let response = wallet
-  //     .bitcoin_client()
-  //     .import_descriptors(ImportDescriptors {
-  //       descriptor: format!("rawtr({})#{}", recovery_private_key.to_wif(), info.checksum),
-  //       timestamp: Timestamp::Now,
-  //       active: Some(false),
-  //       range: None,
-  //       next_index: None,
-  //       internal: Some(false),
-  //       label: Some("commit tx recovery key".to_string()),
-  //     })?;
-  //
-  //   for result in response {
-  //     if !result.success {
-  //       return Err(anyhow!("commit tx recovery key import failed"));
-  //     }
-  //   }
-  //
-  //   Ok(())
-  // }
+  fn backup_recovery_key(wallet: &Wallet, recovery_key_pair: TweakedKeypair) -> Result {
+    let recovery_private_key = PrivateKey::new(
+      recovery_key_pair.to_inner().secret_key(),
+      wallet.chain().network(),
+    );
+
+    let info = wallet
+      .bitcoin_client()
+      .get_descriptor_info(&format!("rawtr({})", recovery_private_key.to_wif()))?;
+
+    let response = wallet
+      .bitcoin_client()
+      .import_descriptors(ImportDescriptors {
+        descriptor: format!(
+          "rawtr({})#{}",
+          recovery_private_key.to_wif(),
+          info.checksum.unwrap_or_default()
+        ),
+        timestamp: Timestamp::Now,
+        active: Some(false),
+        range: None,
+        next_index: None,
+        internal: Some(false),
+        label: Some("commit tx recovery key".to_string()),
+      })?;
+
+    for result in response {
+      if !result.success {
+        return Err(anyhow!("commit tx recovery key import failed"));
+      }
+    }
+
+    Ok(())
+  }
 
   fn build_reveal_transaction(
     commit_input_index: usize,
@@ -728,7 +749,7 @@ impl Plan {
         .collect(),
       output,
       lock_time: LockTime::ZERO,
-      version: 2,
+      version: Version(2),
     };
 
     let fee = {
@@ -759,8 +780,9 @@ impl Plan {
     tx.input
       .iter()
       .map(|txin| utxos.get(&txin.previous_output).unwrap().value)
-      .sum::<u64>()
-      .checked_sub(tx.output.iter().map(|txout| txout.value).sum::<u64>())
+      .sum::<Amount>()
+      .checked_sub(tx.output.iter().map(|txout| txout.value).sum::<Amount>())
       .unwrap()
+      .to_sat()
   }
 }

@@ -1,0 +1,603 @@
+--- /dev/null
++++ b/build.rs
+@@ -0,0 +1,3 @@
++fn main() {
++    println!("cargo:rustc-check-cfg=cfg(kani)");
++}
+--- a/src/amount.rs
++++ b/src/amount.rs
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: CC0-1.0
+ 
+-//! Bitcoin amounts.
++//! Litecoin amounts.
+ //!
+ //! This module mainly introduces the [Amount] and [SignedAmount] types.
+ //! We refer to the documentation on the types for more information.
+@@ -25,12 +25,12 @@
+ /// # use core::str::FromStr;
+ /// # use bitcoin_units::Amount;
+ ///
+-/// assert_eq!(Amount::from_str("1 BTC").unwrap(), Amount::from_sat(100_000_000));
+-/// assert_eq!(Amount::from_str("1 cBTC").unwrap(), Amount::from_sat(1_000_000));
+-/// assert_eq!(Amount::from_str("1 mBTC").unwrap(), Amount::from_sat(100_000));
+-/// assert_eq!(Amount::from_str("1 uBTC").unwrap(), Amount::from_sat(100));
+-/// assert_eq!(Amount::from_str("10 nBTC").unwrap(), Amount::from_sat(1));
+-/// assert_eq!(Amount::from_str("10000 pBTC").unwrap(), Amount::from_sat(1));
++/// assert_eq!(Amount::from_str("1 LTC").unwrap(), Amount::from_sat(100_000_000));
++/// assert_eq!(Amount::from_str("1 cLTC").unwrap(), Amount::from_sat(1_000_000));
++/// assert_eq!(Amount::from_str("1 mLTC").unwrap(), Amount::from_sat(100_000));
++/// assert_eq!(Amount::from_str("1 uLTC").unwrap(), Amount::from_sat(100));
++/// assert_eq!(Amount::from_str("10 nLTC").unwrap(), Amount::from_sat(1));
++/// assert_eq!(Amount::from_str("10000 pLTC").unwrap(), Amount::from_sat(1));
+ /// assert_eq!(Amount::from_str("1 bit").unwrap(), Amount::from_sat(100));
+ /// assert_eq!(Amount::from_str("1 sat").unwrap(), Amount::from_sat(1));
+ /// assert_eq!(Amount::from_str("1000 msats").unwrap(), Amount::from_sat(1));
+@@ -38,17 +38,17 @@
+ #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
+ #[non_exhaustive]
+ pub enum Denomination {
+-    /// BTC
++    /// LTC
+     Bitcoin,
+-    /// cBTC
++    /// cLTC
+     CentiBitcoin,
+-    /// mBTC
++    /// mLTC
+     MilliBitcoin,
+-    /// uBTC
++    /// uLTC
+     MicroBitcoin,
+-    /// nBTC
++    /// nLTC
+     NanoBitcoin,
+-    /// pBTC
++    /// pLTC
+     PicoBitcoin,
+     /// bits
+     Bit,
+@@ -83,12 +83,12 @@
+     /// Returns stringly representation of this
+     fn as_str(self) -> &'static str {
+         match self {
+-            Denomination::Bitcoin => "BTC",
+-            Denomination::CentiBitcoin => "cBTC",
+-            Denomination::MilliBitcoin => "mBTC",
+-            Denomination::MicroBitcoin => "uBTC",
+-            Denomination::NanoBitcoin => "nBTC",
+-            Denomination::PicoBitcoin => "pBTC",
++            Denomination::Bitcoin => "LTC",
++            Denomination::CentiBitcoin => "cLTC",
++            Denomination::MilliBitcoin => "mLTC",
++            Denomination::MicroBitcoin => "uLTC",
++            Denomination::NanoBitcoin => "nLTC",
++            Denomination::PicoBitcoin => "pLTC",
+             Denomination::Bit => "bits",
+             Denomination::Satoshi => "satoshi",
+             Denomination::MilliSatoshi => "msat",
+@@ -98,12 +98,12 @@
+     /// The different str forms of denominations that are recognized.
+     fn forms(s: &str) -> Option<Self> {
+         match s {
+-            "BTC" | "btc" => Some(Denomination::Bitcoin),
+-            "cBTC" | "cbtc" => Some(Denomination::CentiBitcoin),
+-            "mBTC" | "mbtc" => Some(Denomination::MilliBitcoin),
+-            "uBTC" | "ubtc" => Some(Denomination::MicroBitcoin),
+-            "nBTC" | "nbtc" => Some(Denomination::NanoBitcoin),
+-            "pBTC" | "pbtc" => Some(Denomination::PicoBitcoin),
++            "LTC" | "ltc" => Some(Denomination::Bitcoin),
++            "cLTC" | "cltc" => Some(Denomination::CentiBitcoin),
++            "mLTC" | "mltc" => Some(Denomination::MilliBitcoin),
++            "uLTC" | "ultc" => Some(Denomination::MicroBitcoin),
++            "nLTC" | "nltc" => Some(Denomination::NanoBitcoin),
++            "pLTC" | "pltc" => Some(Denomination::PicoBitcoin),
+             "bit" | "bits" | "BIT" | "BITS" => Some(Denomination::Bit),
+             "SATOSHI" | "satoshi" | "SATOSHIS" | "satoshis" | "SAT" | "sat" | "SATS" | "sats" =>
+                 Some(Denomination::Satoshi),
+@@ -116,7 +116,7 @@
+ /// These form are ambigous and could have many meanings.  For example, M could denote Mega or Milli.
+ /// If any of these forms are used, an error type PossiblyConfusingDenomination is returned.
+ const CONFUSING_FORMS: [&str; 9] =
+-    ["Msat", "Msats", "MSAT", "MSATS", "MSat", "MSats", "MBTC", "Mbtc", "PBTC"];
++    ["Msat", "Msats", "MSAT", "MSATS", "MSat", "MSats", "MLTC", "Mltc", "PLTC"];
+ 
+ impl fmt::Display for Denomination {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result { f.write_str(self.as_str()) }
+@@ -128,7 +128,7 @@
+     /// Convert from a str to Denomination.
+     ///
+     /// Any combination of upper and/or lower case, excluding uppercase of SI(m, u, n, p) is considered valid.
+-    /// - Singular: BTC, mBTC, uBTC, nBTC, pBTC
++    /// - Singular: LTC, mLTC, uLTC, nLTC, pLTC
+     /// - Plural or singular: sat, satoshi, bit, msat
+     ///
+     /// Due to ambiguity between mega and milli, pico and peta we prohibit usage of leading capital 'M', 'P'.
+@@ -483,7 +483,7 @@
+ 
+ impl fmt::Display for UnknownDenominationError {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+-        self.0.unknown_variant("bitcoin denomination", f)
++        self.0.unknown_variant("litecoin denomination", f)
+     }
+ }
+ 
+@@ -499,7 +499,7 @@
+ 
+ impl fmt::Display for PossiblyConfusingDenominationError {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+-        write!(f, "{}: possibly confusing denomination - we intentionally do not support 'M' and 'P' so as to not confuse mega/milli and peta/pico", self.0.display_cannot_parse("bitcoin denomination"))
++        write!(f, "{}: possibly confusing denomination - we intentionally do not support 'M' and 'P' so as to not confuse mega/milli and peta/pico", self.0.display_cannot_parse("litecoin denomination"))
+     }
+ }
+ 
+@@ -836,7 +836,7 @@
+ 
+ /// Amount
+ ///
+-/// The [Amount] type can be used to express Bitcoin amounts that support
++/// The [Amount] type can be used to express Litecoin amounts that support
+ /// arithmetic and conversion to various denominations.
+ ///
+ ///
+@@ -860,10 +860,10 @@
+     pub const ZERO: Amount = Amount(0);
+     /// Exactly one satoshi.
+     pub const ONE_SAT: Amount = Amount(1);
+-    /// Exactly one bitcoin.
++    /// Exactly one litecoin.
+     pub const ONE_BTC: Amount = Self::from_int_btc(1);
+     /// The maximum value allowed as an amount. Useful for sanity checking.
+-    pub const MAX_MONEY: Amount = Self::from_int_btc(21_000_000);
++    pub const MAX_MONEY: Amount = Self::from_int_btc(84_000_000);
+     /// The minimum value of an amount.
+     pub const MIN: Amount = Amount::ZERO;
+     /// The maximum value of an amount.
+@@ -877,19 +877,19 @@
+     /// Gets the number of satoshis in this [`Amount`].
+     pub fn to_sat(self) -> u64 { self.0 }
+ 
+-    /// Convert from a value expressing bitcoins to an [Amount].
++    /// Convert from a value expressing litecoins to an [Amount].
+     #[cfg(feature = "alloc")]
+     pub fn from_btc(btc: f64) -> Result<Amount, ParseAmountError> {
+         Amount::from_float_in(btc, Denomination::Bitcoin)
+     }
+ 
+-    /// Convert from a value expressing integer values of bitcoins to an [Amount]
++    /// Convert from a value expressing integer values of litecoins to an [Amount]
+     /// in const context.
+     ///
+     /// ## Panics
+     ///
+     /// The function panics if the argument multiplied by the number of sats
+-    /// per bitcoin overflows a u64 type.
++    /// per litecoin overflows a u64 type.
+     pub const fn from_int_btc(btc: u64) -> Amount {
+         match btc.checked_mul(100_000_000) {
+             Some(amount) => Amount::from_sat(amount),
+@@ -934,7 +934,7 @@
+         f64::from_str(&self.to_string_in(denom)).unwrap()
+     }
+ 
+-    /// Express this [`Amount`] as a floating-point value in Bitcoin.
++    /// Express this [`Amount`] as a floating-point value in Litecoin.
+     ///
+     /// Please be aware of the risk of using floating-point numbers.
+     ///
+@@ -973,7 +973,7 @@
+ 
+     /// Create an object that implements [`fmt::Display`] dynamically selecting denomination.
+     ///
+-    /// This will use BTC for values greater than or equal to 1 BTC and satoshis otherwise. To
++    /// This will use LTC for values greater than or equal to 1 LTC and satoshis otherwise. To
+     /// avoid confusion the denomination is always shown.
+     pub fn display_dynamic(self) -> Display {
+         Display {
+@@ -1073,7 +1073,7 @@
+ }
+ 
+ // No one should depend on a binding contract for Display for this type.
+-// Just using Bitcoin denominated string.
++// Just using Litecoin denominated string.
+ impl fmt::Display for Amount {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+         let satoshis = self.to_sat();
+@@ -1171,7 +1171,7 @@
+ ///
+ /// * Ability to select denomination
+ /// * Show or hide denomination
+-/// * Dynamically-selected denomination - show in sats if less than 1 BTC.
++/// * Dynamically-selected denomination - show in sats if less than 1 LTC.
+ ///
+ /// However this can still be combined with `fmt::Formatter` options to precisely control zeros,
+ /// padding, alignment... The formatting works like floats from `core` but note that precision will
+@@ -1226,7 +1226,7 @@
+ 
+ /// SignedAmount
+ ///
+-/// The [SignedAmount] type can be used to express Bitcoin amounts that support
++/// The [SignedAmount] type can be used to express Litecoin amounts that support
+ /// arithmetic and conversion to various denominations.
+ ///
+ ///
+@@ -1246,10 +1246,10 @@
+     pub const ZERO: SignedAmount = SignedAmount(0);
+     /// Exactly one satoshi.
+     pub const ONE_SAT: SignedAmount = SignedAmount(1);
+-    /// Exactly one bitcoin.
++    /// Exactly one litecoin.
+     pub const ONE_BTC: SignedAmount = SignedAmount(100_000_000);
+     /// The maximum value allowed as an amount. Useful for sanity checking.
+-    pub const MAX_MONEY: SignedAmount = SignedAmount(21_000_000 * 100_000_000);
++    pub const MAX_MONEY: SignedAmount = SignedAmount(84_000_000 * 100_000_000);
+     /// The minimum value of an amount.
+     pub const MIN: SignedAmount = SignedAmount(i64::MIN);
+     /// The maximum value of an amount.
+@@ -1261,7 +1261,7 @@
+     /// Gets the number of satoshis in this [`SignedAmount`].
+     pub fn to_sat(self) -> i64 { self.0 }
+ 
+-    /// Convert from a value expressing bitcoins to an [SignedAmount].
++    /// Convert from a value expressing litecoins to an [SignedAmount].
+     #[cfg(feature = "alloc")]
+     pub fn from_btc(btc: f64) -> Result<SignedAmount, ParseAmountError> {
+         SignedAmount::from_float_in(btc, Denomination::Bitcoin)
+@@ -1301,7 +1301,7 @@
+         f64::from_str(&self.to_string_in(denom)).unwrap()
+     }
+ 
+-    /// Express this [`SignedAmount`] as a floating-point value in Bitcoin.
++    /// Express this [`SignedAmount`] as a floating-point value in Litecoin.
+     ///
+     /// Equivalent to `to_float_in(Denomination::Bitcoin)`.
+     ///
+@@ -1335,7 +1335,7 @@
+ 
+     /// Create an object that implements [`fmt::Display`] dynamically selecting denomination.
+     ///
+-    /// This will use BTC for values greater than or equal to 1 BTC and satoshis otherwise. To
++    /// This will use LTC for values greater than or equal to 1 LTC and satoshis otherwise. To
+     /// avoid confusion the denomination is always shown.
+     pub fn display_dynamic(self) -> Display {
+         Display {
+@@ -1473,7 +1473,7 @@
+ }
+ 
+ // No one should depend on a binding contract for Display for this type.
+-// Just using Bitcoin denominated string.
++// Just using Litecoin denominated string.
+ impl fmt::Display for SignedAmount {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+         self.fmt_value_in(f, Denomination::Bitcoin)?;
+@@ -1813,7 +1813,7 @@
+ 
+     #[cfg(feature = "alloc")]
+     pub mod as_btc {
+-        //! Serialize and deserialize [`Amount`](crate::Amount) as JSON numbers denominated in BTC.
++        //! Serialize and deserialize [`Amount`](crate::Amount) as JSON numbers denominated in LTC.
+         //! Use with `#[serde(with = "amount::serde::as_btc")]`.
+ 
+         use serde::{Deserializer, Serializer};
+@@ -1830,7 +1830,7 @@
+         }
+ 
+         pub mod opt {
+-            //! Serialize and deserialize `Option<Amount>` as JSON numbers denominated in BTC.
++            //! Serialize and deserialize `Option<Amount>` as JSON numbers denominated in LTC.
+             //! Use with `#[serde(default, with = "amount::serde::as_btc::opt")]`.
+ 
+             use core::fmt;
+@@ -2016,7 +2016,7 @@
+     #[test]
+     #[cfg(feature = "alloc")]
+     fn from_str_zero() {
+-        let denoms = ["BTC", "mBTC", "uBTC", "nBTC", "pBTC", "bits", "sats", "msats"];
++        let denoms = ["LTC", "mLTC", "uLTC", "nLTC", "pLTC", "bits", "sats", "msats"];
+         for denom in denoms {
+             for v in &["0", "000"] {
+                 let s = format!("{} {}", v, denom);
+@@ -2194,7 +2194,7 @@
+     }
+ 
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn parsing() {
+         use super::ParseAmountError as E;
+         let btc = Denomination::Bitcoin;
+@@ -2297,16 +2297,16 @@
+         assert_eq!(Amount::ONE_SAT.to_string_in(D::Bitcoin), "0.00000001");
+         assert_eq!(SignedAmount::from_sat(-42).to_string_in(D::Bitcoin), "-0.00000042");
+ 
+-        assert_eq!(Amount::ONE_BTC.to_string_with_denomination(D::Bitcoin), "1 BTC");
++        assert_eq!(Amount::ONE_BTC.to_string_with_denomination(D::Bitcoin), "1 LTC");
+         assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::MilliSatoshi), "1000 msat");
+         assert_eq!(
+             SignedAmount::ONE_BTC.to_string_with_denomination(D::Satoshi),
+             "100000000 satoshi"
+         );
+-        assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::Bitcoin), "0.00000001 BTC");
++        assert_eq!(Amount::ONE_SAT.to_string_with_denomination(D::Bitcoin), "0.00000001 LTC");
+         assert_eq!(
+             SignedAmount::from_sat(-42).to_string_with_denomination(D::Bitcoin),
+-            "-0.00000042 BTC"
++            "-0.00000042 LTC"
+         );
+     }
+ 
+@@ -2464,7 +2464,7 @@
+     }
+ 
+     check_format_non_negative_show_denom! {
+-        Bitcoin, " BTC";
++        Bitcoin, " LTC";
+         btc_check_fmt_non_negative_show_denom_0, 1, "{:14.1}", "0.00000001";
+         btc_check_fmt_non_negative_show_denom_1, 1, "{:14.8}", "0.00000001";
+         btc_check_fmt_non_negative_show_denom_2, 1, "{:15}", " 0.00000001";
+@@ -2476,7 +2476,7 @@
+     }
+ 
+     check_format_non_negative_show_denom! {
+-        Bitcoin, " BTC ";
++        Bitcoin, " LTC ";
+         btc_check_fmt_non_negative_show_denom_align_0, 1, "{:<15}", "0.00000001";
+         btc_check_fmt_non_negative_show_denom_align_1, 1, "{:^15}", "0.00000001";
+         btc_check_fmt_non_negative_show_denom_align_2, 1, "{:^16}", " 0.00000001";
+@@ -2510,14 +2510,14 @@
+     }
+ 
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn from_str() {
+         use ParseDenominationError::*;
+ 
+         use super::ParseAmountError as E;
+ 
+         assert_eq!(
+-            Amount::from_str("x BTC"),
++            Amount::from_str("x LTC"),
+             Err(InvalidCharacterError { invalid_char: 'x', position: 0 }.into())
+         );
+         assert_eq!(
+@@ -2525,16 +2525,16 @@
+             Err(Unknown(UnknownDenominationError("xBTC".into())).into()),
+         );
+         assert_eq!(
+-            Amount::from_str("5 BTC BTC"),
+-            Err(Unknown(UnknownDenominationError("BTC BTC".into())).into()),
+-        );
+-        assert_eq!(
+-            Amount::from_str("5BTC BTC"),
+-            Err(E::from(InvalidCharacterError { invalid_char: 'B', position: 1 }).into())
+-        );
+-        assert_eq!(
+-            Amount::from_str("5 5 BTC"),
+-            Err(Unknown(UnknownDenominationError("5 BTC".into())).into()),
++            Amount::from_str("5 LTC LTC"),
++            Err(Unknown(UnknownDenominationError("LTC LTC".into())).into()),
++        );
++        assert_eq!(
++            Amount::from_str("5LTC LTC"),
++            Err(E::from(InvalidCharacterError { invalid_char: 'L', position: 1 }).into())
++        );
++        assert_eq!(
++            Amount::from_str("5 5 LTC"),
++            Err(Unknown(UnknownDenominationError("5 LTC".into())).into()),
+         );
+ 
+         #[track_caller]
+@@ -2565,20 +2565,20 @@
+ 
+         case("5 BCH", Err(Unknown(UnknownDenominationError("BCH".into()))));
+ 
+-        case("-1 BTC", Err(OutOfRangeError::negative()));
+-        case("-0.0 BTC", Err(OutOfRangeError::negative()));
+-        case("0.123456789 BTC", Err(TooPreciseError { position: 10 }));
++        case("-1 LTC", Err(OutOfRangeError::negative()));
++        case("-0.0 LTC", Err(OutOfRangeError::negative()));
++        case("0.123456789 LTC", Err(TooPreciseError { position: 10 }));
+         scase("-0.1 satoshi", Err(TooPreciseError { position: 3 }));
+-        case("0.123456 mBTC", Err(TooPreciseError { position: 7 }));
++        case("0.123456 mLTC", Err(TooPreciseError { position: 7 }));
+         scase("-1.001 bits", Err(TooPreciseError { position: 5 }));
+-        scase("-200000000000 BTC", Err(OutOfRangeError::too_small()));
++        scase("-200000000000 LTC", Err(OutOfRangeError::too_small()));
+         case("18446744073709551616 sat", Err(OutOfRangeError::too_big(false)));
+ 
+         ok_case(".5 bits", Amount::from_sat(50));
+         ok_scase("-.5 bits", SignedAmount::from_sat(-50));
+-        ok_case("0.00253583 BTC", Amount::from_sat(253583));
++        ok_case("0.00253583 LTC", Amount::from_sat(253583));
+         ok_scase("-5 satoshi", SignedAmount::from_sat(-5));
+-        ok_case("0.10000000 BTC", Amount::from_sat(100_000_00));
++        ok_case("0.10000000 LTC", Amount::from_sat(100_000_00));
+         ok_scase("-100 bits", SignedAmount::from_sat(-10_000));
+         #[cfg(feature = "alloc")]
+         ok_scase(&format!("{} SAT", i64::MIN), SignedAmount::from_sat(i64::MIN));
+@@ -2586,7 +2586,7 @@
+ 
+     #[cfg(feature = "alloc")]
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn to_from_string_in() {
+         use super::Denomination as D;
+         let ua_str = Amount::from_str_in;
+@@ -2616,8 +2616,8 @@
+         assert_eq!(ua_str(&ua_sat(0).to_string_in(D::Satoshi), D::Satoshi), Ok(ua_sat(0)));
+         assert_eq!(ua_str(&ua_sat(500).to_string_in(D::Bitcoin), D::Bitcoin), Ok(ua_sat(500)));
+         assert_eq!(
+-            ua_str(&ua_sat(21_000_000).to_string_in(D::Bit), D::Bit),
+-            Ok(ua_sat(21_000_000))
++            ua_str(&ua_sat(84_000_000).to_string_in(D::Bit), D::Bit),
++            Ok(ua_sat(84_000_000))
+         );
+         assert_eq!(
+             ua_str(&ua_sat(1).to_string_in(D::MicroBitcoin), D::MicroBitcoin),
+@@ -2690,12 +2690,12 @@
+         assert_eq!(Amount::from_str(&denom(amt, D::PicoBitcoin)), Ok(amt));
+ 
+         assert_eq!(
+-            Amount::from_str("42 satoshi BTC"),
+-            Err(Unknown(UnknownDenominationError("satoshi BTC".into())).into()),
+-        );
+-        assert_eq!(
+-            SignedAmount::from_str("-42 satoshi BTC"),
+-            Err(Unknown(UnknownDenominationError("satoshi BTC".into())).into()),
++            Amount::from_str("42 satoshi LTC"),
++            Err(Unknown(UnknownDenominationError("satoshi LTC".into())).into()),
++        );
++        assert_eq!(
++            SignedAmount::from_str("-42 satoshi LTC"),
++            Err(Unknown(UnknownDenominationError("satoshi LTC".into())).into()),
+         );
+     }
+ 
+@@ -2726,7 +2726,7 @@
+     #[cfg(feature = "serde")]
+     #[cfg(feature = "alloc")]
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn serde_as_btc() {
+         use serde_json;
+ 
+@@ -2739,12 +2739,12 @@
+         }
+ 
+         let orig = T {
+-            amt: Amount::from_sat(21_000_000__000_000_01),
+-            samt: SignedAmount::from_sat(-21_000_000__000_000_01),
++            amt: Amount::from_sat(84_000_000__000_000_01),
++            samt: SignedAmount::from_sat(-84_000_000__000_000_01),
+         };
+ 
+-        let json = "{\"amt\": 21000000.00000001, \
+-                    \"samt\": -21000000.00000001}";
++        let json = "{\"amt\": 84000000.00000001, \
++                    \"samt\": -84000000.00000001}";
+         let t: T = serde_json::from_str(json).unwrap();
+         assert_eq!(t, orig);
+ 
+@@ -2765,7 +2765,7 @@
+     #[cfg(feature = "serde")]
+     #[cfg(feature = "alloc")]
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn serde_as_btc_opt() {
+         use serde_json;
+ 
+@@ -2807,7 +2807,7 @@
+     #[cfg(feature = "serde")]
+     #[cfg(feature = "alloc")]
+     #[test]
+-    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per bitcoin.
++    #[allow(clippy::inconsistent_digit_grouping)] // Group to show 100,000,000 sats per litecoin.
+     fn serde_as_sat_opt() {
+         use serde_json;
+ 
+@@ -2900,8 +2900,8 @@
+     fn denomination_string_acceptable_forms() {
+         // Non-exhaustive list of valid forms.
+         let valid = [
+-            "BTC", "btc", "mBTC", "mbtc", "uBTC", "ubtc", "SATOSHI", "satoshi", "SATOSHIS",
+-            "satoshis", "SAT", "sat", "SATS", "sats", "bit", "bits", "nBTC", "pBTC",
++            "LTC", "ltc", "mLTC", "mltc", "uLTC", "ultc", "SATOSHI", "satoshi", "SATOSHIS",
++            "satoshis", "SAT", "sat", "SATS", "sats", "bit", "bits", "nLTC", "pLTC",
+         ];
+         for denom in valid.iter() {
+             assert!(Denomination::from_str(denom).is_ok());
+@@ -2910,7 +2910,7 @@
+ 
+     #[test]
+     fn disallow_confusing_forms() {
+-        let confusing = ["Msat", "Msats", "MSAT", "MSATS", "MSat", "MSats", "MBTC", "Mbtc", "PBTC"];
++        let confusing = ["Msat", "Msats", "MSAT", "MSATS", "MSat", "MSats", "MLTC", "Mltc", "PLTC"];
+         for denom in confusing.iter() {
+             match Denomination::from_str(denom) {
+                 Ok(_) => panic!("from_str should error for {}", denom),
+@@ -2923,7 +2923,7 @@
+     #[test]
+     fn disallow_unknown_denomination() {
+         // Non-exhaustive list of unknown forms.
+-        let unknown = ["NBTC", "UBTC", "ABC", "abc", "cBtC", "Sat", "Sats"];
++        let unknown = ["NLTC", "ULTC", "ABC", "abc", "cBtC", "Sat", "Sats"];
+         for denom in unknown.iter() {
+             match Denomination::from_str(denom) {
+                 Ok(_) => panic!("from_str should error for {}", denom),
+@@ -2936,22 +2936,22 @@
+     #[test]
+     #[cfg(feature = "alloc")]
+     fn trailing_zeros_for_amount() {
+-        assert_eq!(format!("{}", Amount::ONE_SAT), "0.00000001 BTC");
+-        assert_eq!(format!("{}", Amount::ONE_BTC), "1 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(1)), "0.00000001 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(10)), "0.00000010 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(10)), "0.0000001 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(100)), "0.000001 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(1000)), "0.00001 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(10_000)), "0.0001 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(100_000)), "0.001 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(1_000_000)), "0.01 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(10_000_000)), "0.10 BTC");
+-        assert_eq!(format!("{:.2}", Amount::from_sat(100_000_000)), "1.00 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(100_000_000)), "1 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(40_000_000_000)), "400 BTC");
+-        assert_eq!(format!("{:.10}", Amount::from_sat(100_000_000)), "1.0000000000 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(400_000_000_000_010)), "4000000.00000010 BTC");
+-        assert_eq!(format!("{}", Amount::from_sat(400_000_000_000_000)), "4000000 BTC");
+-    }
+-}
++        assert_eq!(format!("{}", Amount::ONE_SAT), "0.00000001 LTC");
++        assert_eq!(format!("{}", Amount::ONE_BTC), "1 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(1)), "0.00000001 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(10)), "0.00000010 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(10)), "0.0000001 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(100)), "0.000001 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(1000)), "0.00001 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(10_000)), "0.0001 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(100_000)), "0.001 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(1_000_000)), "0.01 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(10_000_000)), "0.10 LTC");
++        assert_eq!(format!("{:.2}", Amount::from_sat(100_000_000)), "1.00 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(100_000_000)), "1 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(40_000_000_000)), "400 LTC");
++        assert_eq!(format!("{:.10}", Amount::from_sat(100_000_000)), "1.0000000000 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(400_000_000_000_010)), "4000000.00000010 LTC");
++        assert_eq!(format!("{}", Amount::from_sat(400_000_000_000_000)), "4000000 LTC");
++    }
++}
+--- a/src/locktime/absolute.rs
++++ b/src/locktime/absolute.rs
+@@ -132,7 +132,7 @@
+     pub const MIN: Self = Time(LOCK_TIME_THRESHOLD);
+ 
+     /// The maximum absolute block time (Sun Feb 07 2106 06:28:15 GMT+0000).
+-    pub const MAX: Self = Time(u32::max_value());
++    pub const MAX: Self = Time(u32::MAX);
+ 
+     /// Creates a `Time` from a hex string.
+     ///
+--- a/src/locktime/relative.rs
++++ b/src/locktime/relative.rs
+@@ -20,7 +20,7 @@
+     pub const MIN: Self = Self::ZERO;
+ 
+     /// The maximum relative block height.
+-    pub const MAX: Self = Height(u16::max_value());
++    pub const MAX: Self = Height(u16::MAX);
+ 
+     /// Create a [`Height`] using a count of blocks.
+     #[inline]
+@@ -62,7 +62,7 @@
+     pub const MIN: Self = Time::ZERO;
+ 
+     /// The maximum relative block time (33,554,432 seconds or approx 388 days).
+-    pub const MAX: Self = Time(u16::max_value());
++    pub const MAX: Self = Time(u16::MAX);
+ 
+     /// Create a [`Time`] using time intervals where each interval is equivalent to 512 seconds.
+     ///

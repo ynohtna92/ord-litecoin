@@ -4,52 +4,52 @@ const SERVERS: &[(&str, &str, &str)] = &[
   (
     "regtest.ordinals.net",
     "/content/41bf99a297ca79d181160a91fc0efc8a71170ee24b87783c9c11b0fcbe23615fi0",
-    "https://regtest.ordinals.com/content/",
+    "https://regtest.ordinalslite.com/content/",
   ),
   (
-    "regtest.ordinals.com",
+    "regtest.ordinalslite.com",
     "/content/41bf99a297ca79d181160a91fc0efc8a71170ee24b87783c9c11b0fcbe23615fi0",
-    "https://regtest.ordinals.com/content/",
+    "https://regtest.ordinalslite.com/content/",
   ),
   (
     "signet.ordinals.net",
     "/content/7e1bc3b56b872aaf4d1aaf1565fac72182313c9142b207f9398afe263e234135i0",
-    "https://signet.ordinals.com/content/",
+    "https://signet.ordinalslite.com/content/",
   ),
   (
-    "signet.ordinals.com",
+    "signet.ordinalslite.com",
     "/content/7e1bc3b56b872aaf4d1aaf1565fac72182313c9142b207f9398afe263e234135i0",
-    "https://signet.ordinals.com/content/",
+    "https://signet.ordinalslite.com/content/",
   ),
   (
     "testnet.ordinals.net",
     "/content/0a1b4e4acf89686e4d012561014041bffd57a62254486f24cb5b0a216c04f102i0",
-    "https://testnet.ordinals.com/content/",
+    "https://testnet.ordinalslite.com/content/",
   ),
   (
-    "testnet.ordinals.com",
+    "testnet.ordinalslite.com",
     "/content/0a1b4e4acf89686e4d012561014041bffd57a62254486f24cb5b0a216c04f102i0",
-    "https://testnet.ordinals.com/content/",
+    "https://testnet.ordinalslite.com/content/",
   ),
   (
     "alpha.ordinals.net",
     "/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0",
-    "https://ordinals.com/content/",
+    "https://ordinalslite.com/content/",
   ),
   (
     "bravo.ordinals.net",
     "/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0",
-    "https://ordinals.com/content/",
+    "https://ordinalslite.com/content/",
   ),
   (
     "charlie.ordinals.net",
     "/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0",
-    "https://ordinals.com/content/",
+    "https://ordinalslite.com/content/",
   ),
   (
-    "ordinals.com",
+    "ordinalslite.com",
     "/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0",
-    "https://ordinals.com/content/",
+    "https://ordinalslite.com/content/",
   ),
 ];
 

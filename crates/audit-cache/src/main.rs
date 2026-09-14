@@ -52,7 +52,7 @@ fn main() {
 
   for (endpoint, expected_status_code, _expected_cache_status, _expected_cache_control) in ENDPOINTS
   {
-    let response = get(format!("https://ordinals.com{endpoint}")).unwrap();
+    let response = get(format!("https://ordinalslite.com{endpoint}")).unwrap();
 
     assert_eq!(response.status(), *expected_status_code);
 
@@ -66,7 +66,7 @@ fn main() {
   for (endpoint, expected_status_code, expected_cache_status, expected_cache_control) in ENDPOINTS {
     eprint!("GET {endpoint}");
 
-    let response = get(format!("https://ordinals.com{endpoint}")).unwrap();
+    let response = get(format!("https://ordinalslite.com{endpoint}")).unwrap();
 
     let status_code = response.status();
 

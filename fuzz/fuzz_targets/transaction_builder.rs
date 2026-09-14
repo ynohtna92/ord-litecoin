@@ -34,7 +34,7 @@ fuzz_target!(|input: Input| {
   let mut inscriptions = BTreeMap::new();
   inscriptions.insert(satpoint, vec![inscription_id]);
 
-  let address = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+  let address = "ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9"
     .parse::<Address<NetworkUnchecked>>()
     .unwrap()
     .assume_checked();
@@ -42,22 +42,22 @@ fuzz_target!(|input: Input| {
   amounts.insert(
     outpoint,
     TxOut {
-      value: 50_000,
+      value: Amount::from_sat(50_000),
       script_pubkey: address.script_pubkey(),
     },
   );
 
-  let recipient = "bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6"
+  let recipient = "ltc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyszdggkl"
     .parse::<Address<NetworkUnchecked>>()
     .unwrap()
     .assume_checked();
 
   let change = [
-    "bc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqxrdu9k"
+    "ltc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qq98rvln"
       .parse::<Address<NetworkUnchecked>>()
       .unwrap()
       .assume_checked(),
-    "bc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qqxrdu9k"
+    "ltc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qq98rvln"
       .parse::<Address<NetworkUnchecked>>()
       .unwrap()
       .assume_checked(),

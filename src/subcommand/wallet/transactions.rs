@@ -17,17 +17,12 @@ impl Transactions {
     let client = wallet.bitcoin_client();
 
     let mut output = Vec::new();
-
     for tx in client.list_transactions(
       None,
       Some(self.limit.unwrap_or(u16::MAX).into()),
       None,
       None,
     )? {
-      if tx.detail.vout.is_none() {
-        // MWEB transactions do not have a vout
-        continue;
-      }
       output.push(Output {
         transaction: tx.info.txid,
         confirmations: tx.info.confirmations,

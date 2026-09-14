@@ -19,7 +19,7 @@ impl Receive {
       addresses.push(
         wallet
           .bitcoin_client()
-          .get_new_address(None, Some(bitcoincore_rpc::json::AddressType::Bech32))?,
+          .get_new_address(None, Some(wallet.address_type()))?,
       );
     }
 

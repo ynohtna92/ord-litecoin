@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""Recreate Litecoin dependencies from checksum-pinned crates and local patches."""
+
+import argparse
+import hashlib
+import os
+from pathlib import Path, PurePosixPath
+import shutil
+import subprocess
+import sys
+import tarfile
+import tempfile
+import urllib.request
+
+
+CRATES = (
+    ("bitcoin", "0.32.3", "0032b0e8ead7074cda7fc4f034409607e3f03a6f71d66ade8a307f79b4d99e73"),
+    ("bitcoin-units", "0.1.2", "5285c8bcaa25876d07f37e3d30c303f2609179716e11d688f51e8f1fe70063e2"),
+    ("bitcoincore-rpc-json", "0.19.0", "d8909583c5fab98508e80ef73e5592a651c954993dc6b7739963257d19f0e71a"),
+)
+
+
+def archive_for(cache, name, version, checksum, offline):
+    filename = f"{name}-{version}.crate"
+    archive = cache / filename
+    if not archive.exists():
+        if offline:
+            raise RuntimeError(f"{filename} is not cached; rerun without --offline")
+        url = f"https://static.crates.io/crates/{name}/{filename}"
+        print(f"Downloading {filename}", flush=True)
+        with tempfile.TemporaryDirectory(dir=cache) as temporary:
+            download = Path(temporary) / filename
+            with urllib.request.urlopen(url, timeout=60) as response:
+                download.write_bytes(response.read())
+            verify_checksum(download, checksum)
+            os.replace(download, archive)
+    verify_checksum(archive, checksum)
+    return archive
+
+
+def verify_checksum(path, expected):
+    if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+        raise RuntimeError(f"checksum mismatch: {path}; remove this cached archive and retry")
+
+
+def extract(archive, destination, prefix):
+    destination.mkdir()
+    with tarfile.open(archive) as package:
+        for member in package.getmembers():
+            path = PurePosixPath(member.name)
+            if path.is_absolute() or ".." in path.parts or not path.parts or path.parts[0] != prefix:
+                raise RuntimeError(f"unexpected archive path: {member.name}")
+            target = destination.joinpath(*path.parts[1:])
+            if member.isdir():
+                target.mkdir(parents=True, exist_ok=True)
+            elif member.isfile():
+                target.parent.mkdir(parents=True, exist_ok=True)
+                with package.extractfile(member) as source:
+                    target.write_bytes(source.read())
+                target.chmod(member.mode & 0o777)
+            else:
+                raise RuntimeError(f"unexpected archive entry: {member.name}")
+
+
+def contents(directory):
+    return {
+        path.relative_to(directory): path.read_bytes()
+        for path in directory.rglob("*")
+        if path.is_file()
+    }
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--offline", action="store_true", help="use cached crate archives only")
+    args = parser.parse_args()
+    root = Path(__file__).resolve().parent.parent
+    vendor = root / "vendor"
+    cache = root / "target" / "vendor-cache"
+    if vendor.is_symlink() or vendor.resolve() != vendor:
+        raise RuntimeError("vendor must be a real directory inside this checkout")
+    vendor.mkdir(exist_ok=True)
+    cache.mkdir(parents=True, exist_ok=True)
+
+    # Prepare every crate before replacing any existing generated dependency.
+    with tempfile.TemporaryDirectory(prefix=".prepare-", dir=vendor) as temporary:
+        prepared = []
+        for name, version, checksum in CRATES:
+            archive = archive_for(cache, name, version, checksum, args.offline)
+            source = Path(temporary) / name
+            extract(archive, source, f"{name}-{version}")
+            subprocess.run(
+                ["git", "-c", "core.autocrlf=false", "apply", "--whitespace=nowarn",
+                 "--directory=" + source.relative_to(root).as_posix(),
+                 str(root / "patches" / f"{name}.patch")],
+                cwd=root, check=True,
+            )
+            prepared.append((name, version, source))
+
+        for name, version, source in prepared:
+            destination = vendor / name
+            # Check the resolved deletion target before replacing generated files.
+            if destination.is_symlink() or destination.resolve() != vendor / name:
+                raise RuntimeError(f"refusing to replace a redirected vendor directory: {destination}")
+            if destination.exists() and contents(destination) == contents(source):
+                print(f"{name} {version} ready (unchanged)")
+                continue
+            if destination.exists():
+                shutil.rmtree(destination)
+            source.rename(destination)
+            print(f"{name} {version} ready")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (OSError, RuntimeError, subprocess.CalledProcessError, tarfile.TarError) as error:
+        sys.exit(f"error: {error}")

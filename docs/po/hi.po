@@ -111,8 +111,8 @@ msgstr ""
 
 #: src/introduction.md:8
 msgid ""
-"Satoshis, not bitcoin, are the atomic, native currency of the Bitcoin "
-"network. One bitcoin can be sub-divided into 100,000,000 satoshis, but no "
+"Satoshis, not litecoin, are the atomic, native currency of the Litecoin "
+"network. One litecoin can be sub-divided into 100,000,000 satoshis, but no "
 "further."
 msgstr ""
 "सातोशी, बिटकॉइन नहीं है, लेकिन यह बिटकॉइन नेटवर्क का न्‍यूनतम अंश और मूल मुद्रा है। "
@@ -121,8 +121,8 @@ msgstr ""
 
 #: src/introduction.md:11
 msgid ""
-"Ordinal theory does not require a sidechain or token aside from Bitcoin, and "
-"can be used without any changes to the Bitcoin network. It works right now."
+"Ordinal theory does not require a sidechain or token aside from Litecoin, and "
+"can be used without any changes to the Litecoin network. It works right now."
 msgstr ""
 "ऑर्डिनल थ्‍यौरी में बिटकॉइन को छोड़कर किसी साइडचेन या टोकन की आवश्यकता नहीं होती है, और "
 "इसका उपयोग बिना बिटकॉइन नेटवर्क में बदलाव के किया जा सकता है। वर्तमान में यह प्रचलन में है।"
@@ -138,9 +138,9 @@ msgstr ""
 #: src/introduction.md:17
 msgid ""
 "Individual satoshis can be inscribed with arbitrary content, creating unique "
-"Bitcoin-native digital artifacts that can be held in Bitcoin wallets and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Litecoin-native digital artifacts that can be held in Litecoin wallets and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "प्रत्‍येक सातोशी को स्‍वेच्छित विषय-वस्‍तु के साथ इंस्‍क्राइब (उत्‍कीर्ण) किया जा सकता है, इसे अनूठी "
 "बिटकॉइन-मूल डिजिटल अभिलेखों में निर्मित किया जाता है, जिन्हें आप अपने बिटकॉइन वॉलेट में संजोकर रख सकते हैं और "
@@ -184,12 +184,12 @@ msgid "Links"
 msgstr "लिंक्‍स"
 
 #: src/introduction.md:38
-msgid "[GitHub](https://github.com/ordinals/ord/)"
-msgstr "[गिटहब](https://github.com/ordinals/ord/)"
+msgid "[GitHub](https://github.com/ynohtna92/ord-litecoin/)"
+msgstr "[गिटहब](https://github.com/ynohtna92/ord-litecoin/)"
 
 #: src/introduction.md:39
-msgid "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
-msgstr "[बीआईपी](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
+msgstr "[बीआईपी](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 
 #: src/introduction.md:40
 msgid "[Discord](https://discord.gg/ordinals)"
@@ -204,12 +204,12 @@ msgid "[Open Ordinals Institute X](https://x.com/ordinalsorg)"
 msgstr "[ओपन ऑर्डिनल्स इंस्टिट्यूट एक्स](https://x.com/ordinalsorg)"
 
 #: src/introduction.md:43
-msgid "[Mainnet Block Explorer](https://ordinals.com)"
-msgstr "[मेननेट ब्लॉक एक्सप्लोरर](https://ordinals.com)"
+msgid "[Mainnet Block Explorer](https://ordinalslite.com)"
+msgstr "[मेननेट ब्लॉक एक्सप्लोरर](https://ordinalslite.com)"
 
 #: src/introduction.md:44
-msgid "[Signet Block Explorer](https://signet.ordinals.com)"
-msgstr "[सिग्नेट ब्लॉक एक्सप्लोरर](https://signet.ordinals.com)"
+msgid "[Signet Block Explorer](https://ordinalslite.com)"
+msgstr "[सिग्नेट ब्लॉक एक्सप्लोरर](https://ordinalslite.com)"
 
 #: src/introduction.md:46
 msgid "Videos"
@@ -217,7 +217,7 @@ msgstr "वीडियो"
 
 #: src/introduction.md:49
 msgid ""
-"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Bitcoin]"
+"[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Litecoin]"
 "(https://www.youtube.com/watch?v=rSS0O2KQpsI)"
 msgstr ""
 "[ऑर्डिनल थ्यौरी स्पष्ट: सतोशि क्रमांक और बिटकॉइन पर एनएफटी]"
@@ -233,7 +233,7 @@ msgstr ""
 
 #: src/introduction.md:51
 msgid ""
-"[Ordinal Art: Mint Your own NFTs on Bitcoin w/ @rodarmor](https://www."
+"[Ordinal Art: Mint Your own NFTs on Litecoin w/ @rodarmor](https://www."
 "youtube.com/watch?v=j5V33kV3iqo)"
 msgstr ""
 "[ऑर्डिनल कला: अपने एनएफटी बिटकॉइन पर मुद्रित करें w/ @rodarmor] (https://www."
@@ -247,7 +247,7 @@ msgstr "आर्डिनल थ्‍यौरी (क्रमसूचक �
 msgid ""
 "Ordinals are a numbering scheme for satoshis that allows tracking and "
 "transferring individual sats. These numbers are called [ordinal numbers]"
-"(https://ordinals.com). Satoshis are numbered in the order in which they're "
+"(https://ordinalslite.com). Satoshis are numbered in the order in which they're "
 "mined, and transferred from transaction inputs to transaction outputs first-"
 "in-first-out. Both the numbering scheme and the transfer scheme rely on "
 "_order_, the numbering scheme on the _order_ in which satoshis are mined, "
@@ -256,7 +256,7 @@ msgid ""
 msgstr ""
 "ऑर्डिनल्स सातोशी के लिए एक संख्‍याकरण योजना है, जो प्रत्‍येक सैट को ट्रैक और "
 "स्थानांतरित करने में सक्षम करती है। इन संख्याओं को आर्डिनल (क्रमसूचक) संख्याएँ कहा जाता है।"
-"(https://ordinals.com) सातोशी को माइन (खनन) के क्रम में क्रमबद्ध किया जाता है, "
+"(https://ordinalslite.com) सातोशी को माइन (खनन) के क्रम में क्रमबद्ध किया जाता है, "
 "और लेन-देन इनपुट से लेन-देन आउटपुट में फर्स्ट-इन-फर्स्ट-आउट (फीफो) स्थानांतरित कर दिया जाता है। "
 "नंबरिंग स्कीम और ट्रांसफर स्कीम दोनों _क्रम_ पर निर्भर करती हैं। नंबरिंग स्कीम सातोशी खनन "
 "के _क्रम_ पर निर्भर करती है, जबकि ट्रांसफर स्कीम लेनदेन इनपुट और आउटपुट के _क्रम_ पर निर्भर करती है। "
@@ -264,16 +264,16 @@ msgstr ""
 
 #: src/overview.md:13
 msgid ""
-"Technical details are available in [the BIP](https://github.com/ordinals/ord/"
+"Technical details are available in [the BIP](https://github.com/ynohtna92/ord-litecoin/"
 "blob/master/bip.mediawiki)."
 msgstr ""
-"इनके तकनीकी विवरण बीआईपी में उपलब्ध हैं। [the BIP](https://github.com/ordinals/ord/"
+"इनके तकनीकी विवरण बीआईपी में उपलब्ध हैं। [the BIP](https://github.com/ynohtna92/ord-litecoin/"
 "blob/master/bip.mediawiki)."
 
 #: src/overview.md:16
 msgid ""
 "Ordinal theory does not require a separate token, another blockchain, or any "
-"changes to Bitcoin. It works right now."
+"changes to Litecoin. It works right now."
 msgstr ""
 "आर्डिनल थ्‍यौरी के लिए अलग से टोकन, अन्‍य ब्लॉकचेन या "
 "बिटकॉइन में किसी भी बदलाव करने की आवश्यकता नहीं होती है। यह तुरन्‍त काम करता है। "
@@ -284,49 +284,49 @@ msgstr "आर्डिनल (क्रमसूचक) संख्याओ�
 
 #: src/overview.md:21
 msgid ""
-"_Integer notation_: [`2099994106992659`](https://ordinals.com/"
+"_Integer notation_: [`2099994106992659`](https://ordinalslite.com/"
 "sat/2099994106992659) The ordinal number, assigned according to the order in "
 "which the satoshi was mined."
 msgstr ""
-"_पूर्णांक अंकन_:[`2099994106992659`](https://ordinals.com/sat/2099994106992659) "
+"_पूर्णांक अंकन_:[`2099994106992659`](https://ordinalslite.com/sat/2099994106992659) "
 "आर्डिनल (क्रमसूचक) संख्या को उस क्रम के अनुसार नियत किया जाता है "
 "जिस क्रम में सातोशी को माइन (खनन) किया गया था।"
 
 #: src/overview.md:26
 msgid ""
-"_Decimal notation_: [`3891094.16797`](https://ordinals.com/"
+"_Decimal notation_: [`3891094.16797`](https://ordinalslite.com/"
 "sat/3891094.16797) The first number is the block height in which the satoshi "
 "was mined, the second the offset of the satoshi within the block."
 msgstr ""
-"_दशमलव अंकन_: [`3891094.16797`](https://ordinals.com/sat/3891094.16797) पहला नंबर "
+"_दशमलव अंकन_: [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) पहला नंबर "
 "ब्लॉक की ऊंचाई होती है जिसमें सातोशी को माइन (खनन) किया गया था, "
 "दूसरा ब्लॉक के भीतर सातोशी का ऑफसेट (समायोजन) है।"
 
 #: src/overview.md:31
 msgid ""
-"_Degree notation_: [`3°111094′214″16797‴`](https://ordinals.com/"
+"_Degree notation_: [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). We'll get to that in "
 "a moment."
 msgstr ""
-"_डिग्री संकेतन_: [`3°111094′214″16797‴`](https://ordinals.com/"
+"_डिग्री संकेतन_: [`3°111094′214″16797‴`](https://ordinalslite.com/"
 "sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). हम शीघ्र उसे हासिल कर लेंगे। "
 
 #: src/overview.md:35
 msgid ""
-"_Percentile notation_: [`99.99971949060254%`](https://ordinals.com/"
-"sat/99.99971949060254%25) . The satoshi's position in Bitcoin's supply, "
+"_Percentile notation_: [`99.99971949060254%`](https://ordinalslite.com/"
+"sat/99.99971949060254%25) . The satoshi's position in Litecoin's supply, "
 "expressed as a percentage."
 msgstr ""
-"_प्रतिशत अंकन_: [`99.99971949060254%`](https://ordinals.com/"
+"_प्रतिशत अंकन_: [`99.99971949060254%`](https://ordinalslite.com/"
 "sat/99.99971949060254%25) . बिटकॉइन की आपूर्ति में सातोशी की स्थिति "
 "को प्रतिशत के रूप में व्यक्त किया गया है।"
 
 #: src/overview.md:39
 msgid ""
-"_Name_: [`satoshi`](https://ordinals.com/sat/satoshi). An encoding of the "
+"_Name_: [`satoshi`](https://ordinalslite.com/sat/satoshi). An encoding of the "
 "ordinal number using the characters `a` through `z`."
 msgstr ""
-"_नाम_: [`satoshi`](https://ordinals.com/sat/satoshi). सातोशी आर्डिनल (क्रमसूचक) संख्याओं "
+"_नाम_: [`satoshi`](https://ordinalslite.com/sat/satoshi). सातोशी आर्डिनल (क्रमसूचक) संख्याओं "
 "को A से Z तक वर्णों का उपयोग करके एन्कोड किया जाता है।"
 
 #: src/overview.md:42
@@ -342,7 +342,7 @@ msgstr ""
 msgid ""
 "Ordinals is an open-source project, developed [on GitHub](https://github.com/"
 "ordinals/ord). The project consists of a BIP describing the ordinal scheme, "
-"an index that communicates with a Bitcoin Core node to track the location of "
+"an index that communicates with a Litecoin Core node to track the location of "
 "all satoshis, a wallet that allows making ordinal-aware transactions, a "
 "block explorer for interactive exploration of the blockchain, functionality "
 "for inscribing satoshis with digital artifacts, and this manual."
@@ -372,7 +372,7 @@ msgstr ""
 
 #: src/overview.md:59
 msgid ""
-"Bitcoin has periodic events, some frequent, some more uncommon, and these "
+"Litecoin has periodic events, some frequent, some more uncommon, and these "
 "naturally lend themselves to a system of rarity. These periodic events are:"
 msgstr ""
 "बिटकॉइन में समय-समय पर घटनाएं घटित होती रहती हैं, उनमें से कुछ गैर-मामूली हैं, "
@@ -388,7 +388,7 @@ msgstr "_ब्लॉक्‍स_: अब से लेकर एक निश�
 #: src/overview.md:65
 msgid ""
 "_Difficulty adjustments_: Every 2016 blocks, or approximately every two "
-"weeks, the Bitcoin network responds to changes in hashrate by adjusting the "
+"weeks, the Litecoin network responds to changes in hashrate by adjusting the "
 "difficulty target which blocks must meet in order to be accepted."
 msgstr ""
 "_समायोजन करने में कठिनाई_: प्रत्येक 2016 ब्लॉक्‍स, या लगभग हर दो सप्ताह में, "
@@ -694,7 +694,7 @@ msgstr "`प्रसिद्ध`: 0"
 #: src/overview.md:192
 msgid ""
 "At the moment, even uncommon satoshis are quite rare. As of this writing, "
-"745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in "
+"745,855 uncommon satoshis have been mined - one per 25.6 litecoin in "
 "circulation."
 msgstr ""
 "फिलहाल, यहां तक कि गैर-मामूली सातोशी भी काफी दुर्लभ हैं। इस लेख के समय, "
@@ -756,7 +756,7 @@ msgstr ""
 
 #: src/overview.md:224
 msgid ""
-"Satoshis can be inscribed with arbitrary content, creating Bitcoin-native "
+"Satoshis can be inscribed with arbitrary content, creating Litecoin-native "
 "digital artifacts. Inscribing is done by sending the satoshi to be inscribed "
 "in a transaction that reveals the inscription content on-chain. This content "
 "is then inextricably linked to that satoshi, turning it into an immutable "
@@ -810,7 +810,7 @@ msgstr ""
 #: src/overview.md:247
 msgid ""
 "In another sense though, ordinals were in fact created by Satoshi Nakamoto "
-"in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, "
+"in 2009 when he mined the Litecoin genesis block. In this sense, ordinals, "
 "and especially early ordinals, are certainly of historical interest."
 msgstr ""
 "हालाँकि, दूसरे अर्थ में, ऑर्डिनल्स का सृजन वास्तव में सातोशी नाकामोटो द्वारा " 
@@ -830,7 +830,7 @@ msgstr ""
 #: src/overview.md:255
 msgid ""
 "On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake "
-"to Bitcoin to the Bitcoin Talk forum](https://bitcointalk.org/index.php?"
+"to Litecoin to the Litecoin Talk forum](https://bitcointalk.org/index.php?"
 "topic=102355.0). This wasn't an asset scheme, but did use the ordinal "
 "algorithm, and was implemented but never deployed."
 msgstr ""
@@ -856,7 +856,7 @@ msgstr ""
 msgid ""
 "These independent inventions of ordinals indicate in some way that ordinals "
 "were discovered, or rediscovered, and not invented. The ordinals are an "
-"inevitability of the mathematics of Bitcoin, stemming not from their modern "
+"inevitability of the mathematics of Litecoin, stemming not from their modern "
 "documentation, but from their ancient genesis. They are the culmination of a "
 "sequence of events set in motion with the mining of the first block, so many "
 "years ago."
@@ -924,7 +924,7 @@ msgid ""
 "because nobody can own it."
 msgstr ""
 "डिजिटल अभिलेखों के मालिक हो सकते हैं। कोई संख्या डिजिटल अभिलेख नहीं हो सकती, " 
-क्योंकि इसका स्वामी कोई नहीं हो सकता।"
+"क्योंकि इसका स्वामी कोई नहीं हो सकता।"
 
 #: src/digital-artifacts.md:27
 msgid ""
@@ -971,7 +971,7 @@ msgstr ""
 
 #: src/inscriptions.md:4
 msgid ""
-"Inscriptions inscribe sats with arbitrary content, creating bitcoin-native "
+"Inscriptions inscribe sats with arbitrary content, creating litecoin-native "
 "digital artifacts, more commonly known as NFTs. Inscriptions do not require "
 "a sidechain or separate token."
 msgstr ""
@@ -981,9 +981,9 @@ msgstr ""
 
 #: src/inscriptions.md:8
 msgid ""
-"These inscribed sats can then be transferred using bitcoin transactions, "
-"sent to bitcoin addresses, and held in bitcoin UTXOs. These transactions, "
-"addresses, and UTXOs are normal bitcoin transactions, addresses, and UTXOS "
+"These inscribed sats can then be transferred using litecoin transactions, "
+"sent to litecoin addresses, and held in litecoin UTXOs. These transactions, "
+"addresses, and UTXOs are normal litecoin transactions, addresses, and UTXOS "
 "in all respects, with the exception that in order to send individual sats, "
 "transactions must control the order and value of inputs and outputs "
 "according to ordinal theory."
@@ -1331,7 +1331,7 @@ msgstr ""
 
 #: src/inscriptions/provenance.md:24
 msgid ""
-"_NB_ The bytes of a bitcoin transaction ID are reversed in their text "
+"_NB_ The bytes of a litecoin transaction ID are reversed in their text "
 "representation, so the serialized transaction ID will be in the opposite "
 "order."
 msgstr ""
@@ -1456,7 +1456,7 @@ msgid ""
 msgstr ""
 "[सैंडबॉक्सिंग](../inscriptions.md#sandboxing) का एक महत्वपूर्ण अपवाद "
 "रिकर्सन (प्रतिवर्तन) है: `ord`'s `/ content` के अंतिम बिंदु तक पहुंच की "
-"अनुमति देता है, जिससे `/content/<INSCRIPTION_ID>` पर अनुरोध भेजकर अन्य इंस्‍क्रि‍प्‍शंस 
+"अनुमति देता है, जिससे `/content/<INSCRIPTION_ID>` पर अनुरोध भेजकर अन्य इंस्‍क्रि‍प्‍शंस "
 "(डिजिटल अभिलेखों) की विषय-वस्‍तु तक संपर्क करने की अनुमति मिलती है।"
 
 
@@ -1525,7 +1525,7 @@ msgstr "ऑर्डिनल थ्‍यौरी क्या है?"
 #: src/faq.md:7
 msgid ""
 "Ordinal theory is a protocol for assigning serial numbers to satoshis, the "
-"smallest subdivision of a bitcoin, and tracking those satoshis as they are "
+"smallest subdivision of a litecoin, and tracking those satoshis as they are "
 "spent by transactions."
 msgstr ""
 "ऑर्डिनल थ्‍यौरी एक प्रोटोकॉल है जिसके अधीन बिटकॉइन के अंश के सबसे छोटे भाग को सातोशी में क्रम "
@@ -1534,7 +1534,7 @@ msgstr ""
 #: src/faq.md:11
 msgid ""
 "These serial numbers are large numbers, like this 804766073970493. Every "
-"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a bitcoin, has an ordinal number."
+"satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a litecoin, has an ordinal number."
 msgstr ""
 "ये क्रम संख्‍या बड़ी संख्याएँ होती हैं, जैसे 804766073970493। प्रत्येक सातोशी, जो एक बिटकॉइन "
 "का ¹⁄₁₀₀₀₀₀₀₀₀ भाग है, उसमें क्रमसूचक संख्या निहित होती हैं।"
@@ -1542,7 +1542,7 @@ msgstr ""
 #: src/faq.md:14
 msgid ""
 "Does ordinal theory require a side chain, a separate token, or changes to "
-"Bitcoin?"
+"Litecoin?"
 msgstr ""
 "क्या ऑर्डिनल थ्‍यौरी के लिए साइड चेन, अलग टोकन या बिटकॉइन में बदलाव करने की आवश्यकता " 
 "होती है?"
@@ -1550,7 +1550,7 @@ msgstr ""
 #: src/faq.md:17
 msgid ""
 "Nope! Ordinal theory works right now, without a side chain, and the only "
-"token needed is bitcoin itself."
+"token needed is litecoin itself."
 msgstr ""
 "बिलकुल नहीं! वर्तमान समय में, आर्डिनल थ्‍यौरी (क्रमसूचक सिद्धांत) साइड चेन के बगैर काम करती है, और "
 "इसके लिए सिर्फ बिटकॉइन टोकन ही जरूरी होता है।"
@@ -1571,7 +1571,7 @@ msgstr ""
 #: src/faq.md:27
 msgid ""
 "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary "
-"content to individual satoshis, turning them into bitcoin-native digital "
+"content to individual satoshis, turning them into litecoin-native digital "
 "artifacts."
 msgstr ""
 "ऑर्डिनल थ्‍यौरी इंस्‍क्रि‍प्‍शंस (डिजिटल अभिलेख) को भी सक्षम बनाता है, जो स्‍वेच्छित संदेशों को "
@@ -1727,7 +1727,7 @@ msgid ""
 "this:"
 msgstr ""
 "इसलिए वे शुल्‍क के रूप में ब्‍लॉक का खनन करने वाले माइनर (खनिक) के पास जाते हैं। "
-"बीआईपी [The BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) " 
+"बीआईपी [The BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki) "
 "में विवरण दिए गये हैं, लेकिन संक्षेप में, लेनदेन द्वारा किए गये भुगतान शुल्‍क सिक्‍का आधारित लेनदेन के अतिरिक्त "
 "इनपुट के रूप में उपचारित किये जाएंगे, और इस तरह क्रमबद्ध किये जाएंगे जिस क्रम में ब्लॉक में उनके संबंधित "
 "लेनदेन के क्रम दिये गये हैं। ब्लॉक का कॉइनबेस लेनदेन इस तरह दिख सकता है:"
@@ -1744,13 +1744,13 @@ msgid "Where can I find the nitty-gritty details?"
 msgstr "मैं कहां से विस्तृत विवरण प्राप्‍त कर सकता हूं?"
 
 #: src/faq.md:92
-msgid "[The BIP!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
-msgstr "[बीआईपी!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[The BIP!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
+msgstr "[बीआईपी!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 
 #: src/faq.md:94
 msgid ""
 "Why are sat inscriptions called \"digital artifacts\" instead of \"NFTs\"?"
-msgstr "सैट इंस्‍क्रि‍प्‍शंस को क्‍यों "एनएफटी" के बदले "डिजिटल अभिलेख" कहा जाता है?"
+msgstr "सैट इंस्‍क्रि‍प्‍शंस को क्‍यों \"एनएफटी\" के बदले \"डिजिटल अभिलेख\" कहा जाता है?"
 
 #: src/faq.md:97
 msgid ""
@@ -1887,7 +1887,7 @@ msgstr ""
 
 #: src/faq.md:153
 msgid ""
-"Inscriptions, on the other hand, depend on the Bitcoin blockchain, which is "
+"Inscriptions, on the other hand, depend on the Litecoin blockchain, which is "
 "relatively simple and conservative, and which introduces changes via "
 "backwards-compatible soft forks."
 msgstr ""
@@ -1900,7 +1900,7 @@ msgstr "_इंस्‍क्रि‍प्‍शंस (डिजिटल �
 
 #: src/faq.md:159
 msgid ""
-"Inscriptions inherit Bitcoin's transaction model, which allow a user to see "
+"Inscriptions inherit Litecoin's transaction model, which allow a user to see "
 "exactly which inscriptions are being transferred by a transaction before "
 "they sign it. Inscriptions can be offered for sale using partially signed "
 "transactions, which don't require allowing a third party, such as an "
@@ -1932,7 +1932,7 @@ msgstr "_इंस्‍क्रि‍प्‍शंस (डिजिटल �
 
 #: src/faq.md:173
 msgid ""
-"Inscriptions require bitcoin to mint, transfer, and store. This seems like a "
+"Inscriptions require litecoin to mint, transfer, and store. This seems like a "
 "downside on the surface, but the raison d'etre of digital artifacts is to be "
 "scarce and thus valuable."
 msgstr ""
@@ -1985,9 +1985,9 @@ msgstr "_इंस्‍क्रि‍प्‍शंस (डिजिटल �
 
 #: src/faq.md:196
 msgid ""
-"Bitcoin's market capitalization and liquidity are greater than Ethereum's by "
+"Litecoin's market capitalization and liquidity are greater than Ethereum's by "
 "a large margin. Much of this liquidity is not available to Ethereum NFTs, "
-"since many Bitcoiners prefer not to interact with the Ethereum ecosystem due "
+"since many Litecoin users prefer not to interact with the Ethereum ecosystem due "
 "to concerns related to simplicity, security, and decentralization."
 msgstr ""
 "बिटकॉइन का बाजारी पूंजीकरण और तरलता एथेरियम से काफी अधिक है। इस तरलता का अधिकांश भाग "
@@ -1996,7 +1996,7 @@ msgstr ""
 
 #: src/faq.md:201
 msgid ""
-"Such Bitcoiners may be more interested in inscriptions than Ethereum NFTs, "
+"Such Litecoin users may be more interested in inscriptions than Ethereum NFTs, "
 "unlocking new classes of collector."
 msgstr ""
 "ऐसे बिटकॉन उपयोगकर्ता, एथेरियम एनएफटी की तुलना में इंस्‍क्रि‍प्‍शंस (डिजिटल अभिलेख) में अधिक "
@@ -2026,7 +2026,7 @@ msgstr "RGB (आरजीबी) और Taro (टैरो) संपत्त�
 
 #: src/faq.md:214
 msgid ""
-"RGB and Taro are both second-layer asset protocols built on Bitcoin. "
+"RGB and Taro are both second-layer asset protocols built on Litecoin. "
 "Compared to inscriptions, they are much more complicated, but much more "
 "featureful."
 msgstr ""
@@ -2074,8 +2074,8 @@ msgstr "प्रतिपक्ष संपत्तियां?"
 #: src/faq.md:233
 msgid ""
 "Counterparty has its own token, XCP, which is required for some "
-"functionality, which makes most bitcoiners regard it as an altcoin, and not "
-"an extension or second layer for bitcoin."
+"functionality, which makes most Litecoin users regard it as an altcoin, and not "
+"an extension or second layer for litecoin."
 msgstr ""
 "प्रतिपक्ष के अपने स्‍वयं के टोकन, XCP (एक्ससीपी) हैं, जो कुछ कार्यक्षमता के लिए अत्‍यंत आवश्यक हैं, जिससे "
 "अधिकांश बिटकॉइनर्स इसे एक आल्टकॉइन के रूप में मानते हैं, न कि बिटकॉइन का विस्‍तार/प्रसार या दूसरी "
@@ -2099,7 +2099,7 @@ msgstr "कलाकारों के लिए"
 
 #: src/faq.md:245
 msgid ""
-"_Inscriptions are on Bitcoin._ Bitcoin is the digital currency with the "
+"_Inscriptions are on Litecoin._ Litecoin is the digital currency with the "
 "highest status and greatest chance of long-term survival. If you want to "
 "guarantee that your art survives into the future, there is no better way to "
 "publish it than as inscriptions."
@@ -2112,7 +2112,7 @@ msgstr ""
 
 #: src/faq.md:250
 msgid ""
-"_Cheaper on-chain storage._ At $20,000 per BTC and the minimum relay fee of "
+"_Cheaper on-chain storage._ At $20,000 per LTC and the minimum relay fee of "
 "1 satoshi per vbyte, publishing inscription content costs $50 per 1 million "
 "bytes."
 msgstr ""
@@ -2138,7 +2138,7 @@ msgstr "_इंस्‍क्रि‍प्‍शंस सरल हैं।
 #: src/faq.md:261
 msgid ""
 "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and "
-"appealing to bitcoin holders, unlocking an entirely new class of collector."
+"appealing to litecoin holders, unlocking an entirely new class of collector."
 msgstr ""
 "_इंस्‍क्रि‍प्‍शंस नई लिक्विडिटी/तरलता के मार्ग प्रशस्‍त करती हैं।_ बिटकॉइन धारकों के लिए इंस्‍क्रि‍प्‍शंस अधिक "
 "सुलभ और आकर्षक हैं, जो पूरी तरह नई श्रेणी के संग्रहकों के लिए लेनदेन करने के नये रास्‍ते खोल देती हैं।"
@@ -2190,23 +2190,23 @@ msgstr ""
 
 #: src/faq.md:284
 msgid ""
-"_Inscriptions are on Bitcoin._ You can verify the location and properties of "
-"inscriptions easily with Bitcoin full node that you control."
+"_Inscriptions are on Litecoin._ You can verify the location and properties of "
+"inscriptions easily with Litecoin full node that you control."
 msgstr ""
 "_इंस्‍क्रि‍प्‍शंस बिटकॉइन पर सुलभ हैं।_ आप अपने नियंत्रण वाले बिटकॉइन पूर्ण नोड के साथ इंस्‍क्रि‍प्‍शंस के स्थान "
 "और गुणों को आसानी से सत्यापित कर सकते हैं।"
 
 #: src/faq.md:287
-msgid "Bitcoiners"
+msgid "Litecoin users"
 msgstr "बिटकॉइनर्स"
 
 #: src/faq.md:289
 msgid ""
 "Let me begin this section by saying: the most important thing that the "
-"Bitcoin network does is decentralize money. All other use-cases are "
+"Litecoin network does is decentralize money. All other use-cases are "
 "secondary, including ordinal theory. The developers of ordinal theory "
 "understand and acknowledge this, and believe that ordinal theory helps, at "
-"least in a small way, Bitcoin's primary mission."
+"least in a small way, Litecoin's primary mission."
 msgstr ""
 "आईये अब मैं इस अनुभाग को यह संबोधित कर शुरू करता हूं: बिटकॉइन नेटवर्क सबसे महत्वपूर्ण काम "
 "पैसे का विकेंद्रीकरण करना है। आर्डिनल थ्‍यौ‍री (क्रमसूचक सिद्धांत) सहित अन्य सभी उपयोग के मामलों "
@@ -2231,7 +2231,7 @@ msgstr ""
 
 #: src/faq.md:302
 msgid ""
-"Bitcoin provides an amazing platform for creating and collecting digital "
+"Litecoin provides an amazing platform for creating and collecting digital "
 "artifacts in a secure, decentralized way, that protects users and artists in "
 "the same way that it provides an amazing platform for sending and receiving "
 "value, and for all the same reasons."
@@ -2242,9 +2242,9 @@ msgstr ""
 
 #: src/faq.md:307
 msgid ""
-"Ordinals and inscriptions increase demand for Bitcoin block space, which "
-"increase Bitcoin's security budget, which is vital for safeguarding "
-"Bitcoin's transition to a fee-dependent security model, as the block subsidy "
+"Ordinals and inscriptions increase demand for Litecoin block space, which "
+"increase Litecoin's security budget, which is vital for safeguarding "
+"Litecoin's transition to a fee-dependent security model, as the block subsidy "
 "is halved into insignificance."
 msgstr ""
 "ऑर्डिनल्स और इंस्‍क्रि‍प्‍शंस बिटकॉइन ब्लॉक स्पेस की मांग में इजाफा करते हैं, जिससे बिटकॉइन "
@@ -2255,17 +2255,17 @@ msgstr ""
 msgid ""
 "Inscription content is stored on-chain, and thus the demand for block space "
 "for use in inscriptions is unlimited. This creates a buyer of last resort "
-"for _all_ Bitcoin block space. This will help support a robust fee market, "
-"which ensures that Bitcoin remains secure."
+"for _all_ Litecoin block space. This will help support a robust fee market, "
+"which ensures that Litecoin remains secure."
 msgstr ""
 "इंस्‍क्रि‍प्‍शंस की विषय-वस्‍तु को ऑन-चेन संग्रहीत किया जाता है, और इस प्रकार इंस्‍क्रि‍प्‍शंस में उपयोग के लिए ब्लॉक स्‍पेस " 
-"की मांग असीमित है। यह _सभी_ बिटकॉइन ब्लॉक स्पेस के लिए खरीदार के पास अंतिम उपाय बन जाता है। 
+"की मांग असीमित है। यह _सभी_ बिटकॉइन ब्लॉक स्पेस के लिए खरीदार के पास अंतिम उपाय बन जाता है। "
 "इससे एक मजबूत शुल्क बाजार का समर्थन करने में मदद मिलेगी, "
 "जो सुनिश्चित करता है कि बिटकॉइन सुरक्षित बने रहें।"
 
 #: src/faq.md:317
 msgid ""
-"Inscriptions also counter the narrative that Bitcoin cannot be extended or "
+"Inscriptions also counter the narrative that Litecoin cannot be extended or "
 "used for new use-cases. If you follow projects like DLCs, Fedimint, "
 "Lightning, Taro, and RGB, you know that this narrative is false, but "
 "inscriptions provide a counter argument which is easy to understand, and "
@@ -2281,7 +2281,7 @@ msgstr ""
 msgid ""
 "If inscriptions prove, as the authors hope, to be highly sought after "
 "digital artifacts with a rich history, they will serve as a powerful hook "
-"for Bitcoin adoption: come for the fun, rich art, stay for the decentralized "
+"for Litecoin adoption: come for the fun, rich art, stay for the decentralized "
 "digital money."
 msgstr ""
 "यदि लेखकों की आशा के अनुरूप इंस्‍क्रि‍प्‍शंस समृद्ध इतिहास के साथ डिजिटल अभिलेखों की अत्यधिक मांग "
@@ -2293,10 +2293,10 @@ msgstr ""
 msgid ""
 "Inscriptions are an extremely benign source of demand for block space. "
 "Unlike, for example, stablecoins, which potentially give large stablecoin "
-"issuers influence over the future of Bitcoin development, or DeFi, which "
+"issuers influence over the future of Litecoin development, or DeFi, which "
 "might centralize mining by introducing opportunities for MEV, digital art "
-"and collectables on Bitcoin, are unlikely to produce individual entities "
-"with enough power to corrupt Bitcoin. Art is decentralized."
+"and collectables on Litecoin, are unlikely to produce individual entities "
+"with enough power to corrupt Litecoin. Art is decentralized."
 msgstr ""
 "इंस्‍क्रि‍प्‍शंस ब्लॉक स्‍पेस मांग का एक अत्‍यधिक अनुकूल स्रोत हैं। इसके विपरीत, उदाहरण के लिए, "
 "स्‍टेबलकॉईन (स्थिर सिक्के), बिटकॉइन भविष्य के विकास या डीएफआई पर संभावित रूप से बिटकॉइन दिग्‍गज स्‍टेबलकॉईन " 
@@ -2306,7 +2306,7 @@ msgstr ""
 
 #: src/faq.md:334
 msgid ""
-"Inscription users and service providers are incentivized to run Bitcoin full "
+"Inscription users and service providers are incentivized to run Litecoin full "
 "nodes, to publish and track inscriptions, and thus throw their economic "
 "weight behind the honest chain."
 msgstr ""
@@ -2316,8 +2316,8 @@ msgstr ""
 
 #: src/faq.md:338
 msgid ""
-"Ordinal theory and inscriptions do not meaningfully affect Bitcoin's "
-"fungibility. Bitcoin users can ignore both and be unaffected."
+"Ordinal theory and inscriptions do not meaningfully affect Litecoin's "
+"fungibility. Litecoin users can ignore both and be unaffected."
 msgstr ""
 "ऑर्डिनल्स थ्‍यौरी (क्रमसूचक सिद्धांत) और इंस्‍क्रि‍प्‍शंस (डिजिटल अभिलेख) बिटकॉइन की परिवर्तनशीलता "
 "को सार्थक रूप से प्रभावित नहीं करते। बिटकॉइन उपयोगकर्ता दोनों को अनदेखा कर सकते हैं और इससे अप्रभावित "
@@ -2325,7 +2325,7 @@ msgstr ""
 
 #: src/faq.md:341
 msgid ""
-"We hope that ordinal theory strengthens and enriches bitcoin, and gives it "
+"We hope that ordinal theory strengthens and enriches litecoin, and gives it "
 "another dimension of appeal and functionality, enabling it more effectively "
 "serve its primary use case as humanity's decentralized store of value."
 msgstr ""
@@ -2581,10 +2581,10 @@ msgstr ""
 #: src/donate.md:17
 msgid ""
 "Donations received will go towards funding maintenance and development of "
-"`ord`, as well as hosting costs for [ordinals.com](https://ordinals.com)."
+"`ord`, as well as hosting costs for [ordinalslite.com](https://ordinalslite.com)."
 msgstr ""
 "प्राप्त किए गये दान का उपयोग `ऑर्डिनल्स` (क्रमसूचक) के रखरखाव और विकास के वित्त-पोषण के साथ-साथ "
-"[ordinals.com](https://ordinals.com) की होस्टिंग लागत में किया जाएगा।"
+"[ordinalslite.com](https://ordinalslite.com) की होस्टिंग लागत में किया जाएगा।"
 
 #: src/donate.md:20
 msgid "Thank you for donating!"
@@ -2609,12 +2609,12 @@ msgstr "ऑर्डिनल्स एक्सप्लोरर"
 #: src/guides/explorer.md:4
 msgid ""
 "The `ord` binary includes a block explorer. We host a instance of the block "
-"explorer on mainnet at [ordinals.com](https://ordinals.com), and on signet "
-"at [signet.ordinals.com](https://signet.ordinals.com)."
+"explorer on mainnet at [ordinalslite.com](https://ordinalslite.com), and on signet "
+"at [signet.ordinalslite.com](https://ordinalslite.com)."
 msgstr ""
 "`ऑर्ड` बाइनरी में एक ब्‍लॉक एक्‍सप्‍लोरर शामिल हैं। हम ब्लॉक एक्सप्लोरर के उदाहरण मेननेट के "
-"[ordinals.com](https://ordinals.com), और [signet.ordinals.com]"
-"(https://signet.ordinals.com) पर होस्ट करते हैं।"
+"[ordinalslite.com](https://ordinalslite.com), और [signet.ordinalslite.com]"
+"(https://ordinalslite.com) पर होस्ट करते हैं।"
 
 #: src/guides/explorer.md:8
 msgid "Running The Explorer"
@@ -2663,7 +2663,7 @@ msgstr "ब्लॉक्‍स हैश के माध्‍यम से �
 #: src/guides/explorer.md:30
 msgid ""
 "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
 msgstr ""
 
@@ -2681,7 +2681,7 @@ msgstr ""
 #: src/guides/explorer.md:37
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
 msgstr ""
 
@@ -2700,7 +2700,7 @@ msgstr ""
 #: src/guides/explorer.md:44
 msgid ""
 "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://"
-"ordinals.com/"
+"ordinalslite.com/"
 "search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
 msgstr ""
 
@@ -2710,13 +2710,13 @@ msgstr "सैट्स"
 
 #: src/guides/explorer.md:48
 msgid ""
-"Sats can be searched by integer, their position within the entire bitcoin "
+"Sats can be searched by integer, their position within the entire litecoin "
 "supply:"
 msgstr ""
 "सैट्स इंटेगर (पूर्णांक) द्वारा खोजे जा सकते हैं, संपूर्ण बिटकॉइन आपूर्ति के भीतर उनकी स्थिति में:"
 
 #: src/guides/explorer.md:51
-msgid "[2099994106992659](https://ordinals.com/search/2099994106992659)"
+msgid "[2099994106992659](https://ordinalslite.com/search/2099994106992659)"
 msgstr ""
 
 #: src/guides/explorer.md:53
@@ -2724,7 +2724,7 @@ msgid "By decimal, their block and offset within that block:"
 msgstr "दशमलव द्वारा द्वारा खोजे जा सकते हैं, उनके ब्लॉक और उस ब्लॉक के भीतर ऑफसेट (प्रतिसंतुलित) कर:"
 
 #: src/guides/explorer.md:55
-msgid "[481824.0](https://ordinals.com/search/481824.0)"
+msgid "[481824.0](https://ordinalslite.com/search/481824.0)"
 msgstr ""
 
 #: src/guides/explorer.md:57
@@ -2736,7 +2736,7 @@ msgstr ""
 "भीतर ऑफसेट (प्रतिसंतुलित) कर:"
 
 #: src/guides/explorer.md:60
-msgid "[1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)"
+msgid "[1°0′0″0‴](https://ordinalslite.com/search/1°0′0″0‴)"
 msgstr ""
 
 #: src/guides/explorer.md:62
@@ -2745,19 +2745,19 @@ msgid ""
 msgstr "नाम द्वारा, \"a\" से \"z\" उनके मूल 26 अक्षरों के प्रतिनिधित्व का उपयोग करके:"
 
 #: src/guides/explorer.md:64
-msgid "[ahistorical](https://ordinals.com/search/ahistorical)"
-msgstr "[अनैतिहासिक](https://ordinals.com/search/ahistorical)"
+msgid "[ahistorical](https://ordinalslite.com/search/ahistorical)"
+msgstr "[अनैतिहासिक](https://ordinalslite.com/search/ahistorical)"
 
 #: src/guides/explorer.md:66
 msgid ""
-"Or by percentile, the percentage of bitcoin's supply that has been or will "
+"Or by percentile, the percentage of litecoin's supply that has been or will "
 "have been issued when they are mined:"
 msgstr ""
 "या प्रतिशतक द्वारा, बिटकॉइन खनन के समय जारी किये गये या जारी की जाने वाली बिटकॉइन की आपूर्ति के "
 "अनुरूप की जाएगी:"
 
 #: src/guides/explorer.md:69
-msgid "[100%](https://ordinals.com/search/100%)"
+msgid "[100%](https://ordinalslite.com/search/100%)"
 msgstr ""
 
 #: src/guides/inscriptions.md:1
@@ -2766,10 +2766,10 @@ msgstr "ऑर्डिनल्स्‍स इंस्‍क्रि‍प�
 
 #: src/guides/inscriptions.md:4
 msgid ""
-"Individual sats can be inscribed with arbitrary content, creating Bitcoin-"
-"native digital artifacts that can be held in a Bitcoin wallet and "
-"transferred using Bitcoin transactions. Inscriptions are as durable, "
-"immutable, secure, and decentralized as Bitcoin itself."
+"Individual sats can be inscribed with arbitrary content, creating Litecoin-"
+"native digital artifacts that can be held in a Litecoin wallet and "
+"transferred using Litecoin transactions. Inscriptions are as durable, "
+"immutable, secure, and decentralized as Litecoin itself."
 msgstr ""
 "व्‍यक्तिगत सैट्स को स्‍वेच्छित विषय-वस्‍तु के साथ उत्‍कीर्ण किया जा सकता है, जो बिटकॉइन-मूल डिजिटल "
 "अभिलेखों का सृजन किया जा सकता है जिन्हें बिटकॉइन वॉलेट में सहेजा जा सकता है और बिटकॉइन लेनदेन "
@@ -2778,8 +2778,8 @@ msgstr ""
 
 #: src/guides/inscriptions.md:9
 msgid ""
-"Working with inscriptions requires a Bitcoin full node, to give you a view "
-"of the current state of the Bitcoin blockchain, and a wallet that can create "
+"Working with inscriptions requires a Litecoin full node, to give you a view "
+"of the current state of the Litecoin blockchain, and a wallet that can create "
 "inscriptions and perform sat control when constructing transactions to send "
 "inscriptions to another wallet."
 msgstr ""
@@ -2790,8 +2790,8 @@ msgstr ""
 
 #: src/guides/inscriptions.md:14
 msgid ""
-"Bitcoin Core provides both a Bitcoin full node and wallet. However, the "
-"Bitcoin Core wallet cannot create inscriptions and does not perform sat "
+"Litecoin Core provides both a Litecoin full node and wallet. However, the "
+"Litecoin Core wallet cannot create inscriptions and does not perform sat "
 "control."
 msgstr ""
 "बिटकॉइन कोर में बिटकॉइन पूर्ण नोड और वॉलेट दोनों प्रदान किए जाते हैं। हालाँकि, बिटकॉइन कोर "
@@ -2799,11 +2799,11 @@ msgstr ""
 
 #: src/guides/inscriptions.md:17
 msgid ""
-"This requires [`ord`](https://github.com/ordinals/ord), the ordinal utility. "
+"This requires [`ord`](https://github.com/ynohtna92/ord-litecoin), the ordinal utility. "
 "`ord` doesn't implement its own wallet, so `ord wallet` subcommands interact "
-"with Bitcoin Core wallets."
+"with Litecoin Core wallets."
 msgstr ""
-"इसके लिए [`ऑर्ड`](https://github.com/ordinals/ord), यूटिलिटी की आवश्यकता होती है। "
+"इसके लिए [`ऑर्ड`](https://github.com/ynohtna92/ord-litecoin), यूटिलिटी की आवश्यकता होती है। "
 "`ऑर्ड` अपने स्वयं के वॉलेट अमल में नहीं लाते हैं, इसीलिए `ऑर्ड वॉलेट` के उप-अनुदेश बिटकॉइन कोर वॉलेट के "
 "साथ समन्‍वय करते हैं।"
 
@@ -2812,15 +2812,15 @@ msgid "This guide covers:"
 msgstr "इस मार्गदर्शक निर्देशों में निम्‍नलिखित शामिल हैं:"
 
 #: src/guides/inscriptions.md:23 src/guides/inscriptions.md:39
-msgid "Installing Bitcoin Core"
+msgid "Installing Litecoin Core"
 msgstr "बिटकॉइन कोर इंस्‍टाल करना"
 
 #: src/guides/inscriptions.md:24
-msgid "Syncing the Bitcoin blockchain"
+msgid "Syncing the Litecoin blockchain"
 msgstr "बिटकॉइन ब्लॉकचेन सिंक करना"
 
 #: src/guides/inscriptions.md:25
-msgid "Creating a Bitcoin Core wallet"
+msgid "Creating a Litecoin Core wallet"
 msgstr "बिटकॉइन कोर वॉलेट का सृजन करना"
 
 #: src/guides/inscriptions.md:26
@@ -2847,51 +2847,51 @@ msgstr "मदद प्राप्त करें"
 msgid ""
 "If you get stuck, try asking for help on the [Ordinals Discord Server]"
 "(https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant "
-"[issues](https://github.com/ordinals/ord/issues) and [discussions](https://"
+"[issues](https://github.com/ynohtna92/ord-litecoin/issues) and [discussions](https://"
 "github.com/ordinals/ord/discussions)."
 msgstr ""
 "यदि आप कहीं फंस जाते हैं, तब आप [Ordinals Discord Server]"
 "(https://discord.com/invite/87cjuz4FYg), पर मदद के लिए संपर्क करने का प्रयास करें, "
-"या प्रासंगिक [मुद्दों](https://github.com/ordinals/ord/issues) और [चर्चाओं](https://" 
+"या प्रासंगिक [मुद्दों](https://github.com/ynohtna92/ord-litecoin/issues) और [चर्चाओं](https://"
 "github.com/ordinals/ord/discussions) के लिए GitHub पर संबंधित अवरोध के बारे में पता लगाएं।"
 
 #: src/guides/inscriptions.md:42
 msgid ""
-"Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) "
-"on the [download page](https://bitcoincore.org/en/download/)."
+"Litecoin Core is available from [litecoin.org](https://litecoin.org/) "
+"on the [download page](https://litecoin.org/)."
 msgstr ""
-"बिटकॉइन कोर [bitcoincore.org](https://bitcoincore.org/) के डाउनलोड पृष्‍ठ (https://"
+"बिटकॉइन कोर [litecoin.org](https://litecoin.org/) के डाउनलोड पृष्‍ठ (https://"
 "bitcoincore.org/en/download/) पर उपलब्ध हैं।"
 
 #: src/guides/inscriptions.md:45
-msgid "Making inscriptions requires Bitcoin Core 24 or newer."
+msgid "Making inscriptions requires Litecoin Core 24 or newer."
 msgstr "डिजिटल अभिलेख बनाने के लिए बिटकॉइन कोर 24 या उसका नया संस्‍करण आवश्यक है।"
 
 #: src/guides/inscriptions.md:47
 msgid ""
-"This guide does not cover installing Bitcoin Core in detail. Once Bitcoin "
-"Core is installed, you should be able to run `bitcoind -version` "
+"This guide does not cover installing Litecoin Core in detail. Once Litecoin "
+"Core is installed, you should be able to run `litecoind -version` "
 "successfully from the command line."
 msgstr ""
 "यह मार्गदर्शक निर्देश बिटकॉइन कोर इंस्‍टाल करने के विस्तृत विवरण समावेश नहीं करते। एक बार जब "
-"बिटकॉइन कोर इंस्‍टाल हो जाता है, आप कमांड लाइन से bitcoind-संस्‍करण को सफलतापूर्वक संचालित "
+"बिटकॉइन कोर इंस्‍टाल हो जाता है, आप कमांड लाइन से litecoind-संस्‍करण को सफलतापूर्वक संचालित "
 "करने में सक्षम हो जाएंगे।"
 
 #: src/guides/inscriptions.md:51
-msgid "Configuring Bitcoin Core"
+msgid "Configuring Litecoin Core"
 msgstr "बिटकॉइन कोर कॉन्फ़िगर (समरूप) करना"
 
 #: src/guides/inscriptions.md:54
-msgid "`ord` requires Bitcoin Core's transaction index."
+msgid "`ord` requires Litecoin Core's transaction index."
 msgstr "`ऑर्ड` को बिटकॉइन कोर लेनदेन सूचकांक की आवश्यकता होती है।"
 
 #: src/guides/inscriptions.md:56
 msgid ""
-"To configure your Bitcoin Core node to maintain a transaction index, add the "
-"following to your `bitcoin.conf`:"
+"To configure your Litecoin Core node to maintain a transaction index, add the "
+"following to your `litecoin.conf`:"
 msgstr ""
 "लेन-देन सूचकांक के अनुरक्षण के लिए अपने बिटकॉइन कोर नोड को कॉन्फ़िगर करने के लिए, निम्नलिखित को "
-"अपने `bitcoin.conf` में जोड़ें:"
+"अपने `litecoin.conf` में जोड़ें:"
 
 #: src/guides/inscriptions.md:59 src/guides/sat-hunting.md:30
 msgid ""
@@ -2901,18 +2901,18 @@ msgid ""
 msgstr ""
 
 #: src/guides/inscriptions.md:63
-msgid "Or, run `bitcoind` with `-txindex`:"
-msgstr "या, `bitcoind` के साथ `-txindex` बिटकॉइन संचालित करें:"
+msgid "Or, run `litecoind` with `-txindex`:"
+msgstr "या, `litecoind` के साथ `-txindex` बिटकॉइन संचालित करें:"
 
 #: src/guides/inscriptions.md:65 src/guides/inscriptions.md:74
 msgid ""
 "```\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/inscriptions.md:69
-msgid "Syncing the Bitcoin Blockchain"
+msgid "Syncing the Litecoin Blockchain"
 msgstr "बिटकॉइन ब्लॉकचेन सिंक करना"
 
 #: src/guides/inscriptions.md:72
@@ -2926,20 +2926,20 @@ msgstr "…और `getblockcount` तक इसे चालू रहने द
 #: src/guides/inscriptions.md:80
 msgid ""
 "```\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
 #: src/guides/inscriptions.md:84
 msgid ""
 "agrees with the block count on a block explorer like [the mempool.space "
-"block explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so "
-"you should leave `bitcoind` running in the background when you're using "
+"block explorer](https://litecoinspace.org/). `ord` interacts with `litecoind`, so "
+"you should leave `litecoind` running in the background when you're using "
 "`ord`."
 msgstr ""
-"[the mempool.space block explorer](https://mempool.space/) "
-"ब्लॉक एक्सप्लोरर जैसे ब्लॉक एक्सप्लोरर पर ब्लॉक गणना से सहमत है। `ऑर्ड` `bitcoind` " 
-"के साथ समन्‍वय करता है, इसलिए जब आप ऑर्ड का उपयोग कर रहे हों तो आपको `bitcoind` "
+"[the litecoinspace.org block explorer](https://litecoinspace.org/) "
+"ब्लॉक एक्सप्लोरर जैसे ब्लॉक एक्सप्लोरर पर ब्लॉक गणना से सहमत है। `ऑर्ड` `litecoind` "
+"के साथ समन्‍वय करता है, इसलिए जब आप ऑर्ड का उपयोग कर रहे हों तो आपको `litecoind` "
 "को पृष्ठभूमि में चालू रहने देना चाहिए।"
 
 #: src/guides/inscriptions.md:88
@@ -2950,11 +2950,11 @@ msgstr "`ऑर्ड` इंस्‍टाल करना"
 msgid ""
 "The `ord` utility is written in Rust and can be built from [source](https://"
 "github.com/ordinals/ord). Pre-built binaries are available on the [releases "
-"page](https://github.com/ordinals/ord/releases)."
+"page](https://github.com/ynohtna92/ord-litecoin/releases)."
 msgstr ""
-"`ऑर्ड` यूटिलिटी रस्ट में लिखी जाती है और इसे [सोर्स](https://github.com/ordinals/ord) "
+"`ऑर्ड` यूटिलिटी रस्ट में लिखी जाती है और इसे [सोर्स](https://github.com/ynohtna92/ord-litecoin) "
 "से बनाया जा सकता है। पूर्व-निर्मित बाइनेरी रिलीज़ पृष्ठ [releases "
-"page](https://github.com/ordinals/ord/releases) पर उपलब्ध हैं।"
+"page](https://github.com/ynohtna92/ord-litecoin/releases) पर उपलब्ध हैं।"
 
 
 #: src/guides/inscriptions.md:95
@@ -2965,7 +2965,7 @@ msgstr ""
 #: src/guides/inscriptions.md:97
 msgid ""
 "```sh\n"
-"curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash "
+"curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash "
 "-s\n"
 "```"
 msgstr ""
@@ -2986,19 +2986,19 @@ msgid "Which prints out `ord`'s version number."
 msgstr "जिसमें `ऑर्ड`—संस्करण नंबर प्रिंट होता है।"
 
 #: src/guides/inscriptions.md:109
-msgid "Creating a Bitcoin Core Wallet"
+msgid "Creating a Litecoin Core Wallet"
 msgstr "बिटकॉइन कोर वॉलेट का सृजन करें"
 
 #: src/guides/inscriptions.md:112
 msgid ""
-"`ord` uses Bitcoin Core to manage private keys, sign transactions, and "
-"broadcast transactions to the Bitcoin network."
+"`ord` uses Litecoin Core to manage private keys, sign transactions, and "
+"broadcast transactions to the Litecoin network."
 msgstr ""
 "`ऑर्ड` निजी कुंजी संचालित करने, लेनदेन पर हस्ताक्षर करने और बिटकॉइन नेटवर्क पर लेनदेन प्रसारित करने के "
 "लिए बिटकॉइन कोर का उपयोग करता है।"
 
 #: src/guides/inscriptions.md:115
-msgid "To create a Bitcoin Core wallet named `ord` for use with `ord`, run:"
+msgid "To create a Litecoin Core wallet named `ord` for use with `ord`, run:"
 msgstr "`ऑर्ड` के साथ उपयोग के लिए ऑर्ड नामक बिटकॉइन कोर वॉलेट का सृजन करने के लिए, निम्‍न संचालित करें:"
 
 #: src/guides/inscriptions.md:117
@@ -3014,7 +3014,7 @@ msgstr "सैट्स प्राप्त करें"
 
 #: src/guides/inscriptions.md:124
 msgid ""
-"Inscriptions are made on individual sats, using normal Bitcoin transactions "
+"Inscriptions are made on individual sats, using normal Litecoin transactions "
 "that pay fees in sats, so your wallet will need some sats."
 msgstr ""
 "इंस्‍क्रीप्‍शंस (डिजिटल अभिलेख) सामान्य बिटकॉइन लेनदेन का उपयोग करके अलग-अलग सैट्स पर बनाए "
@@ -3090,7 +3090,7 @@ msgstr ""
 #: src/guides/inscriptions.md:157
 msgid ""
 "Inscription transactions must be less than 400,000 weight units, or they "
-"will not be relayed by Bitcoin Core. One byte of inscription content costs "
+"will not be relayed by Litecoin Core. One byte of inscription content costs "
 "one weight unit. Since an inscription transaction includes not just the "
 "inscription content, limit inscription content to less than 400,000 weight "
 "units. 390,000 weight units should be safe."
@@ -3143,11 +3143,11 @@ msgstr ""
 #: src/guides/inscriptions.md:182
 msgid ""
 "Wait for the reveal transaction to be mined. You can check the status of the "
-"commit and reveal transactions using  [the mempool.space block explorer]"
-"(https://mempool.space/)."
+"commit and reveal transactions using  [the litecoinspace.org block explorer]"
+"(https://litecoinspace.org/)."
 msgstr ""
-"प्रकट लेन-देन के खनन होने की प्रतीक्षा करें। आप [the mempool.space block explorer]"
-"(https://mempool.space/) का उपयोग करके प्रतिबद्धता स्थिति की जांच और लेनदेन का खुलासा कर "
+"प्रकट लेन-देन के खनन होने की प्रतीक्षा करें। आप [the litecoinspace.org block explorer]"
+"(https://litecoinspace.org/) का उपयोग करके प्रतिबद्धता स्थिति की जांच और लेनदेन का खुलासा कर "
 "सकते हैं।"
 
 #: src/guides/inscriptions.md:186
@@ -3168,11 +3168,11 @@ msgstr ""
 
 #: src/guides/inscriptions.md:193
 msgid ""
-"And when you visit [the ordinals explorer](https://ordinals.com/) at "
-"`ordinals.com/inscription/INSCRIPTION_ID`."
+"And when you visit [the ordinals explorer](https://ordinalslite.com/) at "
+"`ordinalslite.com/inscription/INSCRIPTION_ID`."
 msgstr ""
-"और जब आप [the ordinals explorer](https://ordinals.com/) पर "
-"`ordinals.com/inscription/INSCRIPTION_ID` देखते हैं।"
+"और जब आप [the ordinals explorer](https://ordinalslite.com/) पर "
+"`ordinalslite.com/inscription/INSCRIPTION_ID` देखते हैं।"
 
 #: src/guides/inscriptions.md:196
 msgid "Sending Inscriptions"
@@ -3233,7 +3233,7 @@ msgstr ""
 msgid ""
 "_This guide is out of date. Since it was written, the `ord` binary was "
 "changed to only build the full satoshi index when the `--index-sats` flag is "
-"supplied. Additionally, `ord` now has a built-in wallet that wraps a Bitcoin "
+"supplied. Additionally, `ord` now has a built-in wallet that wraps a Litecoin "
 "Core wallet. See `ord wallet --help`._"
 msgstr ""
 "_यह मार्गदर्शिका पुरानी हो गई है। जब से इसे लिखा गया है, `ऑर्ड` बाइनरी को `--index-sats` फ्लैग आपूर्ति "
@@ -3267,7 +3267,7 @@ msgstr "आरंभ करने से पहले आपको कुछ क
 
 #: src/guides/sat-hunting.md:20
 msgid ""
-"First, you'll need a synced Bitcoin Core node with a transaction index. To "
+"First, you'll need a synced Litecoin Core node with a transaction index. To "
 "turn on transaction indexing, pass `-txindex` on the command-line:"
 msgstr ""
 "सबसे पहले, आपको लेनदेन सूचकांक के साथ सिंक किए बिटकॉइन कोर नोड की आवश्यकता होगी। "
@@ -3276,17 +3276,17 @@ msgstr ""
 #: src/guides/sat-hunting.md:23
 msgid ""
 "```sh\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src/guides/sat-hunting.md:27
 msgid ""
-"Or put the following in your [Bitcoin configuration file](https://github.com/"
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+"Or put the following in your [Litecoin configuration file](https://github.com/"
+"litecoin/litecoin/blob/master/doc/litecoin-conf.md#configuration-file-path):"
 msgstr ""
 "या अपनी [बिटकॉइन कॉन्फ़िगरेशन फ़ाइल](https://github.com/" 
-"bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path) "
+"litecoin/litecoin/blob/master/doc/litecoin-conf.md#configuration-file-path) "
 "में निम्नलिखित दर्ज करें:"
 
 #: src/guides/sat-hunting.md:34
@@ -3300,7 +3300,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:37
 msgid ""
 "```sh\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
@@ -3310,13 +3310,13 @@ msgstr ""
 "दूसरा, आपको एक सिंक किए गए ऑर्ड इंडेक्स की आवश्यकता होगी।"
 
 #: src/guides/sat-hunting.md:43
-msgid "Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/)."
+msgid "Get a copy of `ord` from [the repo](https://github.com/ynohtna92/ord-litecoin/)."
 msgstr ""
-"[रेपो](https://github.com/ordinals/ord/) से `ऑर्ड` की एक प्रति प्राप्त करें।"
+"[रेपो](https://github.com/ynohtna92/ord-litecoin/) से `ऑर्ड` की एक प्रति प्राप्त करें।"
 
 #: src/guides/sat-hunting.md:45
 msgid ""
-"Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node "
+"Run `RUST_LOG=info ord index`. It should connect to your litecoin core node "
 "and start indexing."
 msgstr ""
 "`RUST_LOG=जानकारी ऑर्ड इंडेक्स` क्रियाशील करें। यह आपके बिटकॉइन कोर नोड से जुड़ना चाहिए और "
@@ -3338,14 +3338,14 @@ msgstr ""
 "दुर्लभ ऑर्डिनल्स्‍स (क्रमसूचक) के लिए खोज"
 
 #: src/guides/sat-hunting.md:55
-msgid "Searching for Rare Ordinals in a Bitcoin Core Wallet"
+msgid "Searching for Rare Ordinals in a Litecoin Core Wallet"
 msgstr ""
 "बिटकॉइन कोर वॉलेट में दुर्लभ ऑर्डिनल्स्‍स (क्रमसूचक) के लिए खोज"
 
 #: src/guides/sat-hunting.md:57
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your "
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"searching for rare ordinals in a Litecoin Core wallet is Easy. Assuming your "
 "wallet is named `foo`:"
 msgstr ""
 "`ऑर्ड वॉलेट` कमांड बिटकॉइन कोर के आरपीसी एपीआई के चारों ओर सिर्फ एक आवरण है, इसलिए बिटकॉइन "
@@ -3359,7 +3359,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:63
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo\n"
+"litecoin-cli loadwallet foo\n"
 "```"
 msgstr ""
 
@@ -3377,15 +3377,15 @@ msgid ""
 msgstr ""
 
 #: src/guides/sat-hunting.md:73
-msgid "Searching for Rare Ordinals in a Non-Bitcoin Core Wallet"
+msgid "Searching for Rare Ordinals in a Non-Litecoin Core Wallet"
 msgstr ""
 "गैर-बिटकॉइन कोर वॉलेट में दुर्लभ ऑर्डिनल्स की खोज करें"
 
 #: src/guides/sat-hunting.md:75
 msgid ""
-"The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so "
-"to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to "
-"import your wallet's descriptors into Bitcoin Core."
+"The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so "
+"to search for rare ordinals in a non-Litecoin Core wallet, you'll need to "
+"import your wallet's descriptors into Litecoin Core."
 msgstr ""
 "`ऑर्ड वॉलेट` कमांड बिटकॉइन कोर के आरपीसी एपीआई के इर्द-गिर्द रैप्‍ड हैं, इसलिए गैर-बिटकॉइन कोर वॉलेट "
 "में दुर्लभ ऑर्डिनल्स की खोज करने के लिए, आपको अपने वॉलेट के डिस्क्रिप्टर को बिटकॉइन कोर में इंपोर्ट "
@@ -3393,15 +3393,15 @@ msgstr ""
 
 #: src/guides/sat-hunting.md:79
 msgid ""
-"[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors."
+"[Descriptors](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors."
 "md) describe the ways that wallets generate private keys and public keys."
 msgstr ""
-"[डिस्क्रिप्टर्स](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) " 
+"[डिस्क्रिप्टर्स](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md) "
 "उन तरीकों का वर्णन करते हैं जिनसे वॉलेट निजी कुंजी और सार्वजनिक कुंजी का सृजन करते हैं।"
 
 #: src/guides/sat-hunting.md:82
 msgid ""
-"You should only import descriptors into Bitcoin Core for your wallet's "
+"You should only import descriptors into Litecoin Core for your wallet's "
 "public keys, not its private keys."
 msgstr ""
 "केवल वॉलेट की सार्वजनिक कुंजी के लिए आपको अपने बिटकॉइन कोर में डिस्क्रिप्टर इंपोर्ट करना चाहिए, "
@@ -3447,7 +3447,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:100
 msgid ""
 "```sh\n"
-"bitcoin-cli createwallet foo-watch-only true true\n"
+"litecoin-cli createwallet foo-watch-only true true\n"
 "```"
 msgstr ""
 
@@ -3464,7 +3464,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:108 src/guides/sat-hunting.md:199
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo-watch-only\n"
+"litecoin-cli loadwallet foo-watch-only\n"
 "```"
 msgstr ""
 
@@ -3476,7 +3476,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:114
 msgid ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"litecoin-cli importdescriptors \\\n"
 "  '[{ \"desc\": "
 "\"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)#tpnxnxax\", \"timestamp\":0 }]'\n"
@@ -3487,11 +3487,11 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of `\"timestamp\"` instead of "
-"`0`. This will reduce the time it takes for Bitcoin Core to search for your "
+"`0`. This will reduce the time it takes for Litecoin Core to search for your "
 "wallet's UTXOs."
 msgstr ""
 "यदि आप यूनिक्स टाइमस्टैम्प से अवगत हैं जब आपके वॉलेट ने पहली बार लेनदेन प्राप्त करना शुरू "
-"किया था, तब आप इसका उपयोग 0 के बजाय "टाइमस्टैम्प" के मूल्य के लिए कर सकते हैं। इससे "
+"किया था, तब आप इसका उपयोग 0 के बजाय \"टाइमस्टैम्प\" के मूल्य के लिए कर सकते हैं। इससे "
 "बिटकॉइन कोर को आपके वॉलेट के यूटीएक्सओ की खोज करने में लगने वाला समय कम हो जाएगा।"
 
 #: src/guides/sat-hunting.md:124 src/guides/sat-hunting.md:225
@@ -3502,7 +3502,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:126 src/guides/sat-hunting.md:227
 msgid ""
 "```sh\n"
-"bitcoin-cli getwalletinfo\n"
+"litecoin-cli getwalletinfo\n"
 "```"
 msgstr ""
 
@@ -3521,8 +3521,8 @@ msgstr ""
 msgid ""
 "Some descriptors describe multiple paths in one descriptor using angle "
 "brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by "
-"Bitcoin Core, so you'll first need to convert them into multiple "
-"descriptors, and then import those multiple descriptors into Bitcoin Core."
+"Litecoin Core, so you'll first need to convert them into multiple "
+"descriptors, and then import those multiple descriptors into Litecoin Core."
 msgstr ""
 "कुछ डिस्क्रिप्टर कोण कोष्ठक का उपयोग करके एक डिस्क्रिप्टर में एक से अधिक पथों का उल्‍लेख करते हैं, "
 "उदाहरण के लिए, `<0;1>` मल्टी-पथ डिस्क्रिप्टर को वर्तमान में बिटकॉइन कोर द्वारा समर्थन नहीं दिया गया है, " 
@@ -3578,7 +3578,7 @@ msgstr ""
 #: src/guides/sat-hunting.md:165
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/"
 "*)'\n"
 "```"
@@ -3606,7 +3606,7 @@ msgstr "और परिवर्तन पता डिस्क्रिप्
 #: src/guides/sat-hunting.md:182
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/"
 "*)'\n"
 "```"
@@ -3633,14 +3633,14 @@ msgstr "वह वॉलेट लोड करें जिसमें आप 
 
 #: src/guides/sat-hunting.md:203
 msgid ""
-"Now import the descriptors, with the correct checksums, into Bitcoin Core."
+"Now import the descriptors, with the correct checksums, into Litecoin Core."
 msgstr ""
 "अब बिटकॉइन कोर में सही चेकसम के साथ डिस्क्रिप्टर को इंपोर्ट करें।"
 
 #: src/guides/sat-hunting.md:205
 msgid ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"litecoin-cli \\\n"
 " importdescriptors \\\n"
 " '[\n"
 "   {\n"
@@ -3663,7 +3663,7 @@ msgstr ""
 msgid ""
 "If you know the Unix timestamp when your wallet first started receive "
 "transactions, you may use it for the value of the `\"timestamp\"` fields "
-"instead of `0`. This will reduce the time it takes for Bitcoin Core to "
+"instead of `0`. This will reduce the time it takes for Litecoin Core to "
 "search for your wallet's UTXOs."
 msgstr ""
 "यदि आप यूनिक्स टाइमस्टैम्प से अवगत हैं जब आपके वॉलेट ने पहली बार लेनदेन प्राप्त करना शुरू किया था, "
@@ -3688,7 +3688,7 @@ msgstr "ऑर्डिनल्‍स (क्रमसूचक संख्‍
 #: src/guides/sat-hunting.md:246
 msgid ""
 "The `ord` wallet supports transferring specific satoshis. You can also use "
-"`bitcoin-cli` commands `createrawtransaction`, "
+"`litecoin-cli` commands `createrawtransaction`, "
 "`signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is "
 "complex and outside the scope of this guide."
 msgstr ""
@@ -3698,11 +3698,11 @@ msgstr ""
 
 #: src/guides/collecting.md:4
 msgid ""
-"Currently, [ord](https://github.com/ordinals/ord/) is the only wallet "
+"Currently, [ord](https://github.com/ynohtna92/ord-litecoin/) is the only wallet "
 "supporting sat-control and sat-selection, which are required to safely store "
 "and send rare sats and inscriptions, hereafter ordinals."
 msgstr ""
-"वर्तमान में, [ऑर्ड](https://github.com/ordinals/ord/) सैट-कंट्रोल और सैट-सलेक्‍शन का समर्थन "
+"वर्तमान में, [ऑर्ड](https://github.com/ynohtna92/ord-litecoin/) सैट-कंट्रोल और सैट-सलेक्‍शन का समर्थन "
 "करने वाला एकमात्र वॉलेट है, जो दुर्लभ सैट्स और इंस्‍क्रीप्‍शंसm(एतदद्वारा ऑर्डिनल्‍स कहा गया है) को सुरक्षित रूप "
 "से संग्रहीत करने और प्रेषित करने के लिए आवश्यक हैं।"
 
@@ -3712,15 +3712,15 @@ msgid ""
 "if you are careful, it is possible to safely store, and in some cases send, "
 "ordinals with other wallets."
 msgstr ""
-ऑर्डिनल्स को प्रेषित, प्राप्त और संग्रहीत करने के लिए ऑर्ड अनुशंसित तरीका है, लेकिन यदि आप चौकस रहते हैं, "
-तो ऑर्डिनल्स को अन्य वॉलेट के साथ सुरक्षित रूप से संग्रहीत करना और कुछ मामलों में प्रेषित करना संभव है।"
+"ऑर्डिनल्स को प्रेषित, प्राप्त और संग्रहीत करने के लिए ऑर्ड अनुशंसित तरीका है, लेकिन यदि आप चौकस रहते हैं, "
+"तो ऑर्डिनल्स को अन्य वॉलेट के साथ सुरक्षित रूप से संग्रहीत करना और कुछ मामलों में प्रेषित करना संभव है।"
 
 #: src/guides/collecting.md:12
 msgid ""
 "As a general note, receiving ordinals in an unsupported wallet is not "
-"dangerous. Ordinals can be sent to any bitcoin address, and are safe as long "
+"dangerous. Ordinals can be sent to any litecoin address, and are safe as long "
 "as the UTXO that contains them is not spent. However, if that wallet is then "
-"used to send bitcoin, it may select the UTXO containing the ordinal as an "
+"used to send litecoin, it may select the UTXO containing the ordinal as an "
 "input, and send the inscription or spend it to fees."
 msgstr ""
 "एक सामान्य टिप्‍पणी के रूप में, ऐसा वॉलेट जिसका समर्थन नहीं किया जाता उसमें ऑर्डिनल्स प्राप्त करना "
@@ -3741,7 +3741,7 @@ msgstr ""
 #: src/guides/collecting.md:21
 msgid ""
 "Please note that if you follow this guide, you should not use the wallet you "
-"create to send BTC, unless you perform manual coin-selection to avoid "
+"create to send LTC, unless you perform manual coin-selection to avoid "
 "sending ordinals."
 msgstr ""
 "कृपया ध्यान दें कि यदि आप इस मार्गदर्शिका का अनुसरण करते हैं, तब आपको बीटीसी भेजने के लिए अपने "
@@ -3946,7 +3946,7 @@ msgid ""
 "need to wait for it to be mined into a bitcoin block before it is fully "
 "received."
 msgstr ""
-"शुरूआत में इस लेन-देन की स्थिति \"अपुष्टीकृत\" हो सकती है, और आपको इसे पूरी तरह से प्राप्त होने से पहले 
+"शुरूआत में इस लेन-देन की स्थिति \"अपुष्टीकृत\" हो सकती है, और आपको इसे पूरी तरह से प्राप्त होने से पहले "
 "बिटकॉइन ब्लॉक में इसके खनन होने की प्रतीक्षा करनी होगी।"
 
 #: src/guides/collecting/sparrow-wallet.md:63
@@ -3972,12 +3972,12 @@ msgid ""
 "inscription by heading over to the `UTXOs` tab, finding the UTXO you want to "
 "check, right-clicking on the `Output` and selecting `Copy Transaction "
 "Output`. This transaction output id can then be pasted into the [ordinals."
-"com](https://ordinals.com) search."
+"com](https://ordinalslite.com) search."
 msgstr ""
 "एक बार जब लेन-देन की पुष्टि हो जाती है, आप इंस्‍क्रीप्‍शंस (डिजिटल अभिलेख) को प्रमाणीकरण और देखने "
 "के लिए `UTXOs` टैब पर जाकर, जिस यूटीएक्सओ की जांच करना चाहते हैं, आप Output और `Copy "
-"Transaction Output` पर राइट क्लिक करें। इस लेनदेन आउटपुट आईडी को फिर [ordinals.com]" 
-"(https://ordinals.com) खोज में पेस्‍ट किया जा सकता है।"
+"Transaction Output` पर राइट क्लिक करें। इस लेनदेन आउटपुट आईडी को फिर [ordinalslite.com]"
+"(https://ordinalslite.com) खोज में पेस्‍ट किया जा सकता है।"
 
 #: src/guides/collecting/sparrow-wallet.md:72
 msgid "Freezing UTXO's"
@@ -4197,9 +4197,9 @@ msgstr ""
 msgid ""
 "To do this, you can follow the [Validating / Viewing Received Inscriptions]"
 "(./sparrow-wallet.md#validating--viewing-received-inscriptions) described "
-"above to find the inscription page for your inscription on ordinals.com"
+"above to find the inscription page for your inscription on ordinalslite.com"
 msgstr ""
-"इसे करने के लिए, आप ordinals.com पर ऊपर उल्लिखित [Validating / Viewing Received"
+"इसे करने के लिए, आप ordinalslite.com पर ऊपर उल्लिखित [Validating / Viewing Received"
 "Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) "
 "का अनुसरण करके अपने इंस्‍क्रीप्‍शंस (डिजिटल अभिलेखों) के लिए पृष्ठ खोज सकते हैं।"
 
@@ -4345,8 +4345,8 @@ msgid ""
 "transaction."
 msgstr ""
 "आपको एक उचित लेनदेन शुल्क निर्धारित करना चाहिए, स्पैरो आमतौर पर उचित शुल्क की अनुशंसा करेगा, "
-लेकिन लेनदेन प्रेषित करने के लिए अनुशंसित शुल्क दर क्या होगा इसकी जांच करने के लिए आप "
-[mempool.space](https://mempool.space) पर देख सकते हैं।"
+"लेकिन लेनदेन प्रेषित करने के लिए अनुशंसित शुल्क दर क्या होगा इसकी जांच करने के लिए आप "
+"[mempool.space](https://mempool.space) पर देख सकते हैं।"
 
 #: src/guides/collecting/sparrow-wallet.md:151
 msgid ""
@@ -4416,10 +4416,10 @@ msgstr ""
 #: src/guides/collecting/sparrow-wallet.md:171
 msgid ""
 "Once the transaction has confirmed you can check the inscription page on "
-"[ordinals.com](https://ordinals.com) to validate that it has moved to the "
+"[ordinalslite.com](https://ordinalslite.com) to validate that it has moved to the "
 "new output location and address."
 msgstr ""
-"जब लेनदेन की पुष्टि हो गई है, तो आप [ordinals.com](https://ordinals.com) पर इंस्क्रिप्शन "
+"जब लेनदेन की पुष्टि हो गई है, तो आप [ordinalslite.com](https://ordinalslite.com) पर इंस्क्रिप्शन "
 "पृष्ठ की जाँच कर सकते हैं ताकि यह नए आउटपुट स्थान और पते पर स्थानांतरित हुआ है।"
 
 #: src/guides/collecting/sparrow-wallet.md:173
@@ -4439,7 +4439,7 @@ msgid ""
 "head into the `Preferences`\\-> `Server` settings, and click `Edit Existing "
 "Connection`."
 msgstr ""
-"सुनिश्चित करें कि आपका वॉलेट बिटकॉइन नोड से जुड़ा हुआ है। इसे प्रमाणित  करने के लिए, 
+"सुनिश्चित करें कि आपका वॉलेट बिटकॉइन नोड से जुड़ा हुआ है। इसे प्रमाणित  करने के लिए, "
 "`Preferences-> Server` सेटिंग्स पर जाएँ, और `Edit Existing Connection` पर क्लिक करें।"
 
 
@@ -4462,13 +4462,13 @@ msgstr ""
 #: src/guides/testing.md:4
 msgid ""
 "Ord can be tested using the following flags to specify the test network. For "
-"more information on running Bitcoin Core for testing, see [Bitcoin's "
+"more information on running Litecoin Core for testing, see [Litecoin's "
 "developer documentation](https://developer.bitcoin.org/examples/testing."
 "html)."
 msgstr ""
 "परीक्षण नेटवर्क को निर्दिष्ट करने के लिए ऑर्ड का परीक्षण निम्नलिखित फ़्लैग का उपयोग करके किया जा "
 "सकता है। परीक्षण के लिए बिटकॉइन कोर संचालित करने के बारे में अधिक जानकारी के लिए, बिटकॉइन के "
-"डेवलपर दस्तावेज़ देखें। [Bitcoin's developer documentation](https://developer.bitcoin.org"
+"डेवलपर दस्तावेज़ देखें। [Litecoin's developer documentation](https://developer.bitcoin.org"
 "/examples/testing.html)."
 
 #: src/guides/testing.md:7
@@ -4517,13 +4517,13 @@ msgstr ""
 "Regtest के लिए ब्लॉकचेन या इंडेक्सिंग ऑर्ड डाउनलोड करने की आवश्यकता नहीं है।"
 
 #: src/guides/testing.md:21
-msgid "Run bitcoind in regtest with:"
-msgstr "Regtest में bitcoind के साथ संचालित करें:"
+msgid "Run litecoind in regtest with:"
+msgstr "Regtest में litecoind के साथ संचालित करें:"
 
 #: src/guides/testing.md:22
 msgid ""
 "```\n"
-"bitcoind -regtest -txindex\n"
+"litecoind -regtest -txindex\n"
 "```"
 msgstr ""
 
@@ -4556,7 +4556,7 @@ msgstr "इसके साथ 101 ब्‍लॉक (कॉइनबेस क
 #: src/guides/testing.md:34
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 101 <receive address>\n"
+"litecoin-cli generatetoaddress 101 <receive address>\n"
 "```"
 msgstr ""
 
@@ -4578,7 +4578,7 @@ msgstr "इंस्‍क्रीप्‍शन (डिजिटल अभि
 #: src/guides/testing.md:42
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 1 <receive address>\n"
+"litecoin-cli generatetoaddress 1 <receive address>\n"
 "```"
 msgstr ""
 
@@ -4647,7 +4647,7 @@ msgstr ""
 #: src/guides/testing.md:70
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 6 <receive address>\n"
+"litecoin-cli generatetoaddress 6 <receive address>\n"
 "ord -r server\n"
 "```"
 msgstr ""
@@ -4732,19 +4732,19 @@ msgstr ""
 "`ऑर्ड` को कॉन्फिग फ़ाइल में परिवर्तन लोड करने के लिए पुनः आरंभ करना चाहिए।"
 
 #: src/guides/moderation.md:37
-msgid "`ordinals.com`"
+msgid "`ordinalslite.com`"
 msgstr ""
 
 #: src/guides/moderation.md:40
 msgid ""
-"The `ordinals.com` instances use `systemd` to run the `ord server` service, "
+"The `ordinalslite.com` instances use `systemd` to run the `ord server` service, "
 "which is called `ord`, with a config file located at `/var/lib/ord/ord.yaml`."
 msgstr ""
 "`Ordinals.com` घटनाएं `ord server` सेवा संचालित करने के लिए `/var/lib/ord/ord.yaml` "
 "पर स्थित कॉन्फिगर फ़ाइल के साथ `systemd` का उपयोग करते हैं, जिन्‍हें ऑर्ड कहते हैं।" 
 
 #: src/guides/moderation.md:43
-msgid "To hide an inscription on `ordinals.com`:"
+msgid "To hide an inscription on `ordinalslite.com`:"
 msgstr "`Ordinals.com` पर एक इंस्‍क्रीप्‍शंस (डिजिटल अभिलेख) छिपाना:"
 
 #: src/guides/moderation.md:45
@@ -4928,11 +4928,11 @@ msgid ""
 msgstr "सबमिशन पते पर एक सैट प्रेषित करें जिसकी ऑर्डिनल (क्रमसूचक) संख्या शून्य के साथ समाप्त होती है:"
 
 #: src/bounty/0.md:9
-msgid "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
+msgid "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
 msgstr ""
 
 #: src/bounty/0.md:11
-msgid "❌: [1857578125803251](https://ordinals.com/ordinal/1857578125803251)"
+msgid "❌: [1857578125803251](https://ordinalslite.com/ordinal/1857578125803251)"
 msgstr ""
 
 #: src/bounty/0.md:13
@@ -5026,11 +5026,11 @@ msgid " sat to the submission address:"
 msgstr " सैट प्रेषित करें:"
 
 #: src/bounty/2.md:9
-msgid "✅: [347100000000000](https://ordinals.com/sat/347100000000000)"
+msgid "✅: [347100000000000](https://ordinalslite.com/sat/347100000000000)"
 msgstr ""
 
 #: src/bounty/2.md:11
-msgid "❌: [6685000001337](https://ordinals.com/sat/6685000001337)"
+msgid "❌: [6685000001337](https://ordinalslite.com/sat/6685000001337)"
 msgstr ""
 
 #: src/bounty/2.md:13

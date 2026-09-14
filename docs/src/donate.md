@@ -15,6 +15,6 @@ Both addresses are in a 2 of 4 multisig wallet with keys held by
 [ordinally](https://twitter.com/veryordinally).
 
 Donations received will go towards funding maintenance and development of `ord`,
-as well as hosting costs for [ordinals.com](https://ordinals.com).
+as well as hosting costs for [ordinalslite.com](https://ordinalslite.com).
 
 Thank you for donating!

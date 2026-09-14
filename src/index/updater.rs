@@ -24,7 +24,7 @@ impl From<Block> for BlockData {
         .txdata
         .into_iter()
         .map(|transaction| {
-          let txid = transaction.txid();
+          let txid = transaction.compute_txid();
           (transaction, txid)
         })
         .collect(),
@@ -40,7 +40,7 @@ pub(crate) struct Updater<'index> {
   pub(super) sat_ranges_since_flush: u64,
 }
 
-impl<'index> Updater<'index> {
+impl Updater<'_> {
   pub(crate) fn update_index(&mut self, mut wtx: WriteTransaction) -> Result {
     let start = Instant::now();
     let starting_height = u32::try_from(self.index.client.get_block_count()?).unwrap() + 1;
@@ -202,7 +202,7 @@ impl<'index> Updater<'index> {
           option
             .map(|hash| {
               if height >= first_index_height {
-                Ok(client.get_block(&hash)?)
+                Ok(crate::core_compat::get_block(client, &hash)?)
               } else {
                 Ok(Block {
                   header: client.get_block_header(&hash)?,
@@ -246,7 +246,7 @@ impl<'index> Updater<'index> {
 
     let (txout_sender, txout_receiver) = broadcast::channel::<TxOut>(CHANNEL_BUFFER_SIZE);
 
-    // Default rpcworkqueue in bitcoind is 16, meaning more than 16 concurrent requests will be rejected.
+    // Default rpcworkqueue in litecoind is 16, meaning more than 16 concurrent requests will be rejected.
     // Since we are already requesting blocks on a separate thread, and we don't want to break if anything
     // else runs a request, we keep this to 12.
     let parallel_requests: usize = index.settings.bitcoin_rpc_limit().try_into().unwrap();
@@ -570,7 +570,7 @@ impl<'index> Updater<'index> {
               })?;
 
               let mut entry = UtxoEntryBuf::new();
-              entry.push_value(txout.value, self.index);
+              entry.push_value(txout.value.to_sat(), self.index);
               if self.index.index_addresses {
                 entry.push_script_pubkey(txout.script_pubkey.as_bytes(), self.index);
               }
@@ -625,7 +625,7 @@ impl<'index> Updater<'index> {
         input_sat_ranges = None;
 
         for (vout, txout) in tx.output.iter().enumerate() {
-          output_utxo_entries[vout].push_value(txout.value, self.index);
+          output_utxo_entries[vout].push_value(txout.value.to_sat(), self.index);
         }
       }
 
@@ -758,7 +758,7 @@ impl<'index> Updater<'index> {
         txid,
       };
 
-      let mut remaining = output.value;
+      let mut remaining = output.value.to_sat();
       while remaining > 0 {
         let range = pending_input_sat_range.take().unwrap_or_else(|| {
           SatRange::load(
@@ -775,7 +775,7 @@ impl<'index> Updater<'index> {
             &range.0,
             &SatPoint {
               outpoint,
-              offset: output.value - remaining,
+              offset: output.value.to_sat() - remaining,
             }
             .store(),
           )?;

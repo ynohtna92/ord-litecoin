@@ -15,9 +15,9 @@ debug = 1
 
 [dependencies]
 arbitrary = { version = "1", features = ["derive"] }
-bitcoin = { version = "0.30.1", features = ["rand"] }
+bitcoin = { path = "../vendor/bitcoin", features = ["rand"] }
 libfuzzer-sys = "0.4"
-ord = { path = ".." }
+ord = { package = "ord-litecoin", path = ".." }
 ordinals = { path = "../crates/ordinals" }
 
 [[bin]]
@@ -43,3 +43,8 @@ name = "varint-decode"
 path = "fuzz_targets/varint_decode.rs"
 test = false
 doc = false
+
+[patch.crates-io]
+bitcoin = { path = "../vendor/bitcoin" }
+bitcoin-units = { path = "../vendor/bitcoin-units" }
+bitcoincore-rpc-json = { path = "../vendor/bitcoincore-rpc-json" }

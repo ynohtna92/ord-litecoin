@@ -158,19 +158,15 @@ impl File {
 
         txout.value
       } else {
-        self
-          .postage
-          .map(Amount::from_sat)
-          .unwrap_or(TARGET_POSTAGE)
-          .to_sat()
+        self.postage.map(Amount::from_sat).unwrap_or(TARGET_POSTAGE)
       };
 
-      pointer += postage;
+      pointer += postage.to_sat();
 
       if self.mode == Mode::SameSat && i > 0 {
         continue;
       } else {
-        postages.push(Amount::from_sat(postage));
+        postages.push(postage);
       }
     }
 
@@ -387,8 +383,8 @@ inscriptions:
             amount: "100.00".parse().unwrap(),
             cap: 90,
             height: Some(batch::Range {
-              start: Some(840000),
-              end: Some(850000),
+              start: Some(3360000),
+              end: Some(3400000),
             }),
             offset: Some(batch::Range {
               start: Some(1000),
@@ -406,7 +402,7 @@ inscriptions:
                 .unwrap()
             ),
             destination: Some(
-              "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
+              "ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9"
                 .parse()
                 .unwrap()
             ),
@@ -434,7 +430,7 @@ inscriptions:
           batch::Entry {
             file: Some("tulip.png".into()),
             destination: Some(
-              "bc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyspfxcv6"
+              "ltc1pdqrcrxa8vx6gy75mfdfj84puhxffh4fq46h3gkp6jxdd0vjcsdyszdggkl"
                 .parse()
                 .unwrap()
             ),

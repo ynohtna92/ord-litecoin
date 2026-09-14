@@ -10,7 +10,6 @@ pub(crate) use {
   home::HomeHtml,
   iframe::Iframe,
   input::InputHtml,
-  inscription::InscriptionHtml,
   inscriptions::InscriptionsHtml,
   inscriptions_block::InscriptionsBlockHtml,
   metadata::MetadataHtml,
@@ -25,8 +24,8 @@ pub(crate) use {
 };
 
 pub use {
-  blocks::BlocksHtml, rune::RuneHtml, runes::RunesHtml, status::StatusHtml,
-  transaction::TransactionHtml,
+  blocks::BlocksHtml, inscription::InscriptionHtml, rune::RuneHtml, runes::RunesHtml,
+  status::StatusHtml, transaction::TransactionHtml,
 };
 
 pub mod address;
@@ -53,7 +52,7 @@ pub mod status;
 pub mod transaction;
 
 #[derive(Boilerplate)]
-pub(crate) struct PageHtml<T: PageContent> {
+pub struct PageHtml<T: PageContent> {
   content: T,
   config: Arc<ServerConfig>,
 }
@@ -62,7 +61,7 @@ impl<T> PageHtml<T>
 where
   T: PageContent,
 {
-  pub(crate) fn new(content: T, config: Arc<ServerConfig>) -> Self {
+  pub fn new(content: T, config: Arc<ServerConfig>) -> Self {
     Self { content, config }
   }
 
@@ -70,7 +69,7 @@ where
     if let Some(domain) = &self.config.domain {
       format!("https://{domain}/static/favicon.png")
     } else {
-      "https://ordinals.com/static/favicon.png".into()
+      "https://ordinalslite.com/static/favicon.png".into()
     }
   }
 
@@ -83,7 +82,7 @@ where
   }
 }
 
-pub(crate) trait PageContent: Display + 'static {
+pub trait PageContent: Display + 'static {
   fn title(&self) -> String;
 
   fn page(self, server_config: Arc<ServerConfig>) -> PageHtml<Self>
@@ -117,8 +116,8 @@ mod tests {
     assert_regex_match!(
       Foo.page(Arc::new(ServerConfig {
         chain: Chain::Mainnet,
-        csp_origin: Some("https://signet.ordinals.com".into()),
-        domain: Some("signet.ordinals.com".into()),
+        csp_origin: Some("https://signet.ordinalslite.com".into()),
+        domain: Some("signet.ordinalslite.com".into()),
         index_sats: true,
         ..default()
       }),),
@@ -129,7 +128,7 @@ mod tests {
     <meta name=format-detection content='telephone=no'>
     <meta name=viewport content='width=device-width,initial-scale=1.0'>
     <meta property=og:title content='Foo'>
-    <meta property=og:image content='https://signet.ordinals.com/static/favicon.png'>
+    <meta property=og:image content='https://signet.ordinalslite.com/static/favicon.png'>
     <meta property=twitter:card content=summary>
     <title>Foo</title>
     <link rel=alternate href=/feed.xml type=application/rss\+xml title='Inscription Feed'>
@@ -137,7 +136,7 @@ mod tests {
     <link rel=icon href=/static/favicon.svg>
     <link rel=stylesheet href=/static/index.css>
     <link rel=stylesheet href=/static/modern-normalize.css>
-    <script src=/static/index.js defer></script>
+    <script src=/static/index.js></script>
   </head>
   <body>
   <header>

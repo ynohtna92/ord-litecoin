@@ -41,7 +41,7 @@ pub struct UtxoEntry {
 }
 
 impl UtxoEntry {
-  pub fn parse(&self, index: &Index) -> ParsedUtxoEntry {
+  pub fn parse(&self, index: &Index) -> ParsedUtxoEntry<'_> {
     let sats;
     let mut script_pubkey = None;
     let mut inscriptions = None;
@@ -91,8 +91,14 @@ impl UtxoEntry {
 }
 
 impl redb::Value for &UtxoEntry {
-  type SelfType<'a> = &'a UtxoEntry where Self: 'a;
-  type AsBytes<'a> = &'a [u8] where Self: 'a;
+  type SelfType<'a>
+    = &'a UtxoEntry
+  where
+    Self: 'a;
+  type AsBytes<'a>
+    = &'a [u8]
+  where
+    Self: 'a;
 
   fn fixed_width() -> Option<usize> {
     None
@@ -114,7 +120,7 @@ impl redb::Value for &UtxoEntry {
   }
 
   fn type_name() -> TypeName {
-    TypeName::new("&ord::index::utxo_entry::UtxoValue")
+    TypeName::new("ord::UtxoEntry")
   }
 }
 

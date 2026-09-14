@@ -66,7 +66,7 @@ To track the status of your transaction you can right-click on it,  select `Copy
 
 ![](images/validating_viewing_02.png)
 
-Once the transaction has confirmed, you can validate and view your inscription by heading over to the `UTXOs` tab, finding the UTXO you want to check, right-clicking on the `Output` and selecting `Copy Transaction Output`. This transaction output id can then be pasted into the [ordinals.com](https://ordinals.com) search.
+Once the transaction has confirmed, you can validate and view your inscription by heading over to the `UTXOs` tab, finding the UTXO you want to check, right-clicking on the `Output` and selecting `Copy Transaction Output`. This transaction output id can then be pasted into the [ordinalslite.com](https://ordinalslite.com) search.
 
 
 ## Freezing UTXO's
@@ -115,7 +115,7 @@ Like we have previously described inscriptions are inscribed onto sats, and sats
 
 When inspecting your inscription before sending the main thing you will want to check is which satoshi in the UTXO your inscription is inscribed on.
 
-To do this, you can follow the [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) described above to find the inscription page for your inscription on ordinals.com
+To do this, you can follow the [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) described above to find the inscription page for your inscription on ordinalslite.com
 
 There you will find some metadata about your inscription which looks like the following:
 
@@ -168,7 +168,7 @@ And then actually you get very very last chance to check everything before hitti
 
 If you want to track the status of your transaction you can copy the `Transaction Id (Txid)` and paste that into [mempool.space](https://mempool.space)
 
-Once the transaction has confirmed you can check the inscription page on [ordinals.com](https://ordinals.com) to validate that it has moved to the new output location and address.
+Once the transaction has confirmed you can check the inscription page on [ordinalslite.com](https://ordinalslite.com) to validate that it has moved to the new output location and address.
 
 ## Troubleshooting
 

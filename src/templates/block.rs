@@ -58,8 +58,8 @@ mod tests {
       "
         <h1>Block 0</h1>
         <dl>
-          <dt>hash</dt><dd class=monospace>[[:xdigit:]]{64}</dd>
-          <dt>target</dt><dd class=monospace>[[:xdigit:]]{64}</dd>
+          <dt>hash</dt><dd class=collapse>[[:xdigit:]]{64}</dd>
+          <dt>target</dt><dd class=collapse>[[:xdigit:]]{64}</dd>
           <dt>timestamp</dt><dd><time>2011-10-07 07:31:05 UTC</time></dd>
           <dt>size</dt><dd>280</dd>
           <dt>weight</dt><dd>1120</dd>
@@ -73,8 +73,8 @@ mod tests {
         <div class=thumbnails>
         </div>
         <h2>1 Transaction</h2>
-        <ul class=monospace>
-          <li><a href=/tx/[[:xdigit:]]{64}>[[:xdigit:]]{64}</a></li>
+        <ul>
+          <li><a class=collapse href=/tx/[[:xdigit:]]{64}>[[:xdigit:]]{64}</a></li>
         </ul>
       "
       .unindent()

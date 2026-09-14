@@ -27,7 +27,7 @@ impl FromStr for Outgoing {
   fn from_str(input: &str) -> Result<Self, Self::Err> {
     lazy_static! {
       static ref AMOUNT: Regex = Regex::new(
-        r"(?x)
+        r"(?ix)
         ^
         (
           \d+
@@ -37,7 +37,7 @@ impl FromStr for Outgoing {
           \d+\.\d+
         )
         \ ?
-        (bit|btc|cbtc|mbtc|msat|nbtc|pbtc|sat|satoshi|ubtc)
+        (bit|ltc|cltc|mltc|msat|nltc|pltc|sat|satoshi|ultc)
         (s)?
         $
         "
@@ -131,10 +131,11 @@ mod tests {
       ),
     );
 
-    case("0 btc", Outgoing::Amount("0 btc".parse().unwrap()));
-    case("0btc", Outgoing::Amount("0 btc".parse().unwrap()));
-    case("0.0btc", Outgoing::Amount("0 btc".parse().unwrap()));
-    case(".0btc", Outgoing::Amount("0 btc".parse().unwrap()));
+    case("0 ltc", Outgoing::Amount("0 ltc".parse().unwrap()));
+    case("1 LTC", Outgoing::Amount(Amount::from_sat(COIN_VALUE)));
+    case("0ltc", Outgoing::Amount("0 ltc".parse().unwrap()));
+    case("0.0ltc", Outgoing::Amount("0 ltc".parse().unwrap()));
+    case(".0ltc", Outgoing::Amount("0 ltc".parse().unwrap()));
 
     case(
       "0  : XYZ",
@@ -214,8 +215,11 @@ mod tests {
       ),
     );
 
-    case("0 btc", Outgoing::Amount("0 btc".parse().unwrap()));
-    case("1.2 btc", Outgoing::Amount("1.2 btc".parse().unwrap()));
+    case("0 ltc", Outgoing::Amount("0 ltc".parse().unwrap()));
+    case(
+      "1.20000000 ltc",
+      Outgoing::Amount("1.2 ltc".parse().unwrap()),
+    );
 
     case(
       "0:XY•Z",
@@ -271,8 +275,8 @@ mod tests {
     );
 
     case(
-      "3 btc",
-      "\"3 btc\"",
+      "3 ltc",
+      "\"3 ltc\"",
       Outgoing::Amount(Amount::from_sat(3 * COIN_VALUE)),
     );
 

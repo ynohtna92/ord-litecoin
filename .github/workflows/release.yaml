@@ -27,7 +27,7 @@ jobs:
           os: macos-latest
           target_rustflags: ''
         - target: x86_64-pc-windows-msvc
-          os: windows-latest
+          os: windows-2022
           target_rustflags: ''
         - target: x86_64-unknown-linux-gnu
           os: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
       with:
         override: true
         target: ${{ matrix.target }}
-        toolchain: stable
+        toolchain: 1.89.0
 
     - name: Install Linux Dependencies
       if: ${{ matrix.os == 'ubuntu-latest' }}
@@ -54,10 +54,10 @@ jobs:
     - name: Release Type
       id: release-type
       run: |
-        if [[ ${{ github.ref }} =~ ^refs/tags/[0-9]+[.][0-9]+[.][0-9]+$ ]]; then
-            echo ::set-output name=value::release
+        if [[ ${{ github.ref }} =~ ^refs/tags/[0-9]+[.][0-9]+[.][0-9]+(-litecoin)?$ ]]; then
+            echo value=release >> $GITHUB_OUTPUT
         else
-            echo ::set-output name=value::prerelease
+            echo value=prerelease >> $GITHUB_OUTPUT
         fi
 
     - name: Package

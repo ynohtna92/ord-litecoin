@@ -21,7 +21,7 @@ To create a child inscription C with parent inscription P:
   binary inscription ID of P, serialized as the 32-byte `TXID`, followed by the
   four-byte little-endian `INDEX`, with trailing zeroes omitted.
 
-_NB_ The bytes of a bitcoin transaction ID are reversed in their text
+_NB_ The bytes of a litecoin transaction ID are reversed in their text
 representation, so the serialized transaction ID will be in the opposite order.
 
 ### Example

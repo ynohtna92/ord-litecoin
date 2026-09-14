@@ -101,11 +101,11 @@ msgid "This handbook is a guide to ordinal theory. Ordinal theory concerns itsel
 msgstr "مقدمة هذا الكتيب هو دليل لنظرية ordinal. تعنى بتحديد بالساتوشي، حيث تمنحها هويات فردية وتسمح لها بالتتبع والإرسال، وتمنحها معنى."
 
 #: src\introduction.md:8
-msgid "Satoshis, not bitcoin, are the atomic, native currency of the Bitcoin network. One bitcoin can be sub-divided into 100,000,000 satoshis, but no further."
+msgid "Satoshis, not litecoin, are the atomic, native currency of the Litecoin network. One litecoin can be sub-divided into 100,000,000 satoshis, but no further."
 msgstr "الساتوشي، وليس البيتكوين، هي العملة الذرية والأصلية لشبكة البيتكوين. يمكن تقسيم البيتكوين إلى 100,000,000 ساتوشي، ولكن لا يمكن تقسيم الساتوشي إلى مقاييس أصغر."
 
 #: src\introduction.md:11
-msgid "Ordinal theory does not require a sidechain or token aside from Bitcoin, and can be used without any changes to the Bitcoin network. It works right now."
+msgid "Ordinal theory does not require a sidechain or token aside from Litecoin, and can be used without any changes to the Litecoin network. It works right now."
 msgstr "نظرية الترتيب الترتيبيّ لا تحتاج إلى سلسلة فرعية أو رمز بديل إلى جانب البيتكوين، ويمكن استخدامها دون أي تغيير في شبكة البيتكوين. وهي تعمل الآن."
 
 #: src\introduction.md:14
@@ -114,7 +114,7 @@ msgstr "نظرية ordinal تُضفي قيمة عملانية على السات�
 
 #: src\introduction.md:17
 msgid ""
-"Individual satoshis can be inscribed with arbitrary content, creating unique Bitcoin-native digital artifacts that can be held in Bitcoin wallets and transferred using Bitcoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Bitcoin "
+"Individual satoshis can be inscribed with arbitrary content, creating unique Litecoin-native digital artifacts that can be held in Litecoin wallets and transferred using Litecoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Litecoin "
 "itself."
 msgstr "يمكن أن يتم نقش الساتوشي الفردي بمحتوى تعسفي، مما يخلق قطعًا فريدة من الأصول الرقمية الأصلية للبيتكوين يمكن الاحتفاظ بها في محافظ البيتكوين او نقلها باستخدام معاملات البيتكوين. الإنسكريبشين متينة وثابتة وآمنة ومركزية تمامًا كالبيتكوين نفسه."
 
@@ -139,11 +139,11 @@ msgid "Links"
 msgstr "روابط"
 
 #: src\introduction.md:38
-msgid "[GitHub](https://github.com/ordinals/ord/)"
+msgid "[GitHub](https://github.com/ynohtna92/ord-litecoin/)"
 msgstr ""
 
 #: src\introduction.md:39
-msgid "[BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 msgstr ""
 
 #: src\introduction.md:40
@@ -159,11 +159,11 @@ msgid "[Open Ordinals Institute X](https://x.com/ordinalsorg)"
 msgstr ""
 
 #: src\introduction.md:43
-msgid "[Mainnet Block Explorer](https://ordinals.com)"
+msgid "[Mainnet Block Explorer](https://ordinalslite.com)"
 msgstr ""
 
 #: src\introduction.md:44
-msgid "[Signet Block Explorer](https://signet.ordinals.com)"
+msgid "[Signet Block Explorer](https://ordinalslite.com)"
 msgstr ""
 
 #: src\introduction.md:46
@@ -171,7 +171,7 @@ msgid "Videos"
 msgstr "فيديوهات"
 
 #: src\introduction.md:49
-msgid "[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Bitcoin](https://www.youtube.com/watch?v=rSS0O2KQpsI)"
+msgid "[Ordinal Theory Explained: Satoshi Serial Numbers and NFTs on Litecoin](https://www.youtube.com/watch?v=rSS0O2KQpsI)"
 msgstr ""
 
 #: src\introduction.md:50
@@ -179,7 +179,7 @@ msgid "[Ordinals Workshop with Rodarmor](https://www.youtube.com/watch?v=MC_haVa
 msgstr ""
 
 #: src\introduction.md:51
-msgid "[Ordinal Art: Mint Your own NFTs on Bitcoin w/ @rodarmor](https://www.youtube.com/watch?v=j5V33kV3iqo)"
+msgid "[Ordinal Art: Mint Your own NFTs on Litecoin w/ @rodarmor](https://www.youtube.com/watch?v=j5V33kV3iqo)"
 msgstr ""
 
 #: src\overview.md:1
@@ -188,20 +188,20 @@ msgstr "لمحة عامة عن نظرية أوردينالس"
 
 #: src\overview.md:4
 msgid ""
-"Ordinals are a numbering scheme for satoshis that allows tracking and transferring individual sats. These numbers are called [ordinal numbers](https://ordinals.com). Satoshis are numbered in the order in which they're mined, and transferred from transaction inputs to "
+"Ordinals are a numbering scheme for satoshis that allows tracking and transferring individual sats. These numbers are called [ordinal numbers](https://ordinalslite.com). Satoshis are numbered in the order in which they're mined, and transferred from transaction inputs to "
 "transaction outputs first-in-first-out. Both the numbering scheme and the transfer scheme rely on _order_, the numbering scheme on the _order_ in which satoshis are mined, and the transfer scheme on the _order_ of transaction inputs and outputs. Thus the name, "
 "_ordinals_."
 msgstr ""
-"الأوردينال هي نظام ترقيم للساتوشيات يسمح بتتبع ونقل الساتوشيات الفردية. يُطلق على هذه الأرقام اسم [أرقام ترتيبية](https://ordinals.com). يتم ترقيم الساتوشيات بحسب الترتيب الذي تم فيه تعدينها، ويتم نقلها من مداخل الصفقات \n"
+"الأوردينال هي نظام ترقيم للساتوشيات يسمح بتتبع ونقل الساتوشيات الفردية. يُطلق على هذه الأرقام اسم [أرقام ترتيبية](https://ordinalslite.com). يتم ترقيم الساتوشيات بحسب الترتيب الذي تم فيه تعدينها، ويتم نقلها من مداخل الصفقات \n"
 "إلى مخارج الصفقات بالترتيب الذي دخلت به أولاً. كل من نظام الترقيم ونظام النقل يعتمد على الترتيب، حيث يعتمد نظام الترقيم على الترتيب الذي تم به تعدين الساتوشيات، ويعتمد نظام النقل على ترتيب مداخل ومخارج الصفقات. وبالتالي يطلق عليها اسم \n"
 "_ordinals_."
 
 #: src\overview.md:13
-msgid "Technical details are available in [the BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)."
-msgstr "التفاصيل التقنية متاحة في [the BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki)."
+msgid "Technical details are available in [the BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)."
+msgstr "التفاصيل التقنية متاحة في [the BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)."
 
 #: src\overview.md:16
-msgid "Ordinal theory does not require a separate token, another blockchain, or any changes to Bitcoin. It works right now."
+msgid "Ordinal theory does not require a separate token, another blockchain, or any changes to Litecoin. It works right now."
 msgstr "نظريه أوردينال لا تحتاج عملة مميزة منفصلة أو بلوكشين أخرى أو أي تغييرات في بيتكوين .فهي تعمل الآن."
 
 #: src\overview.md:19
@@ -209,24 +209,24 @@ msgid "Ordinal numbers have a few different representations:"
 msgstr "أرقام أوردينال لها عدة تمثيلات مختلفة:"
 
 #: src\overview.md:21
-msgid "_Integer notation_: [`2099994106992659`](https://ordinals.com/sat/2099994106992659) The ordinal number, assigned according to the order in which the satoshi was mined."
-msgstr "تمثيل العدد الصحيح: [`2099994106992659`](https://ordinals.com/sat/2099994106992659) هو عدد ترتيبي، يتم تعيينه وفقا للترتيب الذي تم به تعدين الساتوشي."
+msgid "_Integer notation_: [`2099994106992659`](https://ordinalslite.com/sat/2099994106992659) The ordinal number, assigned according to the order in which the satoshi was mined."
+msgstr "تمثيل العدد الصحيح: [`2099994106992659`](https://ordinalslite.com/sat/2099994106992659) هو عدد ترتيبي، يتم تعيينه وفقا للترتيب الذي تم به تعدين الساتوشي."
 
 #: src\overview.md:26
-msgid "_Decimal notation_: [`3891094.16797`](https://ordinals.com/sat/3891094.16797) The first number is the block height in which the satoshi was mined, the second the offset of the satoshi within the block."
-msgstr "تمثيل العدد العشري: [`3891094.16797`](https://ordinals.com/sat/3891094.16797) الرقم الأول هو ارتفاع البلوك (block) التي تم بها تعدين الساتوشي، والرقم الثاني هو الانحراف للساتوشي داخل البلوك."
+msgid "_Decimal notation_: [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) The first number is the block height in which the satoshi was mined, the second the offset of the satoshi within the block."
+msgstr "تمثيل العدد العشري: [`3891094.16797`](https://ordinalslite.com/sat/3891094.16797) الرقم الأول هو ارتفاع البلوك (block) التي تم بها تعدين الساتوشي، والرقم الثاني هو الانحراف للساتوشي داخل البلوك."
 
 #: src\overview.md:31
-msgid "_Degree notation_: [`3°111094′214″16797‴`](https://ordinals.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). We'll get to that in a moment."
-msgstr "تمثيل الزاوية: [`3°111094′214″16797‴`](https://ordinals.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4) سنصل لذلك لاحقا."
+msgid "_Degree notation_: [`3°111094′214″16797‴`](https://ordinalslite.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4). We'll get to that in a moment."
+msgstr "تمثيل الزاوية: [`3°111094′214″16797‴`](https://ordinalslite.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4) سنصل لذلك لاحقا."
 
 #: src\overview.md:35
-msgid "_Percentile notation_: [`99.99971949060254%`](https://ordinals.com/sat/99.99971949060254%25) . The satoshi's position in Bitcoin's supply, expressed as a percentage."
-msgstr "تمثيل النسبة المئوية: [`99.99971949060254%`](https://ordinals.com/sat/99.99971949060254%25) موضع الساتوشي في إمدادات بيتكوين، ويعبر عنه كنسبة مئوية."
+msgid "_Percentile notation_: [`99.99971949060254%`](https://ordinalslite.com/sat/99.99971949060254%25) . The satoshi's position in Litecoin's supply, expressed as a percentage."
+msgstr "تمثيل النسبة المئوية: [`99.99971949060254%`](https://ordinalslite.com/sat/99.99971949060254%25) موضع الساتوشي في إمدادات بيتكوين، ويعبر عنه كنسبة مئوية."
 
 #: src\overview.md:39
-msgid "_Name_: [`satoshi`](https://ordinals.com/sat/satoshi). An encoding of the ordinal number using the characters `a` through `z`."
-msgstr "الاسم: [`satoshi`](https://ordinals.com/sat/satoshi) . ترميز للرقم الترتيبي باستخدام الأحرف من `a` إلى `z`."
+msgid "_Name_: [`satoshi`](https://ordinalslite.com/sat/satoshi). An encoding of the ordinal number using the characters `a` through `z`."
+msgstr "الاسم: [`satoshi`](https://ordinalslite.com/sat/satoshi) . ترميز للرقم الترتيبي باستخدام الأحرف من `a` إلى `z`."
 
 #: src\overview.md:42
 msgid "Arbitrary assets, such as NFTs, security tokens, accounts, or stablecoins can be attached to satoshis using ordinal numbers as stable identifiers."
@@ -234,10 +234,10 @@ msgstr "يمكن ربط الأصول المختلفة، مثل NFTs والعمل
 
 #: src\overview.md:45
 msgid ""
-"Ordinals is an open-source project, developed [on GitHub](https://github.com/ordinals/ord). The project consists of a BIP describing the ordinal scheme, an index that communicates with a Bitcoin Core node to track the location of all satoshis, a wallet that allows "
+"Ordinals is an open-source project, developed [on GitHub](https://github.com/ynohtna92/ord-litecoin). The project consists of a BIP describing the ordinal scheme, an index that communicates with a Litecoin Core node to track the location of all satoshis, a wallet that allows "
 "making ordinal-aware transactions, a block explorer for interactive exploration of the blockchain, functionality for inscribing satoshis with digital artifacts, and this manual."
 msgstr ""
-"أوردينالس هو مشروع مفتوح المصدر، تم تطويره على منصة [on GitHub](https://github.com/ordinals/ord). يتكون المشروع من BIP الذي يصف لنظام أوردينال، وفهرس يتواصل مع Bitcoin Core node لتتبع موقع جميع الساتوشيات، ومحفظة تسمح بإجراء صفقات ترتيبية ordinal-aware ، ومتصفح كتل "
+"أوردينالس هو مشروع مفتوح المصدر، تم تطويره على منصة [on GitHub](https://github.com/ynohtna92/ord-litecoin). يتكون المشروع من BIP الذي يصف لنظام أوردينال، وفهرس يتواصل مع Litecoin Core node لتتبع موقع جميع الساتوشيات، ومحفظة تسمح بإجراء صفقات ترتيبية ordinal-aware ، ومتصفح كتل "
 "لاستكشاف التفاعلي ل البلوكشين، ووظيفته تسجيل معاملات الساتوشيات بالقطع الرقمية، وهذا الدليل."
 
 #: src\overview.md:52
@@ -249,7 +249,7 @@ msgid "Humans are collectors, and since satoshis can now be tracked and transfer
 msgstr "البشر هم مجمعون، وبما أن الساتوشيات يمكن تتبعها وإرسالها الآن، سترغب الناس بشكل طبيعي في جمعهم. الجميع يمكن أن يحدد أي من الساتوشيات هي نادرة ومرغوب فيها، ولكن هناك بعض التلميحات..."
 
 #: src\overview.md:59
-msgid "Bitcoin has periodic events, some frequent, some more uncommon, and these naturally lend themselves to a system of rarity. These periodic events are:"
+msgid "Litecoin has periodic events, some frequent, some more uncommon, and these naturally lend themselves to a system of rarity. These periodic events are:"
 msgstr "بيتكوين لديها أحداث دورية، بعضها متكرر وبعضها أقل انتظامًا، وهذه الأحداث تميل بشكل طبيعي إلى نظام ندرة. هذه الأحداث الدورية هي:"
 
 #: src\overview.md:62
@@ -257,7 +257,7 @@ msgid "_Blocks_: A new block is mined approximately every 10 minutes, from now u
 msgstr "_بلوكس_: يتم تعدين بلوك جديد تقريبًا كل 10 دقائق، من الآن وحتى نهاية الزمان."
 
 #: src\overview.md:65
-msgid "_Difficulty adjustments_: Every 2016 blocks, or approximately every two weeks, the Bitcoin network responds to changes in hashrate by adjusting the difficulty target which blocks must meet in order to be accepted."
+msgid "_Difficulty adjustments_: Every 2016 blocks, or approximately every two weeks, the Litecoin network responds to changes in hashrate by adjusting the difficulty target which blocks must meet in order to be accepted."
 msgstr "_تعديلات الصعوبة_: كل 2016 بلوك ، أو تقريبًا كل أسبوعين، يستجيب شبكة بيتكوين للتغيرات في معدل الهاش بضبط هدف الصعوبة الذي يجب أن تلبيه البلوكس حتى يتم قبولها."
 
 #: src\overview.md:69
@@ -478,7 +478,7 @@ msgid "`legendary`: 0"
 msgstr "`أسطوري`: 0"
 
 #: src\overview.md:192
-msgid "At the moment, even uncommon satoshis are quite rare. As of this writing, 745,855 uncommon satoshis have been mined - one per 25.6 bitcoin in circulation."
+msgid "At the moment, even uncommon satoshis are quite rare. As of this writing, 745,855 uncommon satoshis have been mined - one per 25.6 litecoin in circulation."
 msgstr "في الوقت الحالي، حتى الساتوشي غير الشائع نادر جدًا. اعتبارًا من هذه الكتابة، تم استخراج 745855 ساتوشي غير شائع - واحد لكل 25.6 بيتكوين متداول."
 
 #: src\overview.md:196
@@ -511,7 +511,7 @@ msgstr "تُعرف هذه الساتوشيات بـ \"الأنواع الناد�
 
 #: src\overview.md:224
 msgid ""
-"Satoshis can be inscribed with arbitrary content, creating Bitcoin-native digital artifacts. Inscribing is done by sending the satoshi to be inscribed in a transaction that reveals the inscription content on-chain. This content is then inextricably linked to that "
+"Satoshis can be inscribed with arbitrary content, creating Litecoin-native digital artifacts. Inscribing is done by sending the satoshi to be inscribed in a transaction that reveals the inscription content on-chain. This content is then inextricably linked to that "
 "satoshi, turning it into an immutable digital artifact that can be tracked, transferred, hoarded, bought, sold, lost, and rediscovered."
 msgstr ""
 "يمكن تحديد الساتوشيات بمحتوى تقني بما يخلق القطع الفنية الرقمية الأصلية digital artifacts للبيتكوين. يتم ذلك من خلال إرسال الساتوشي المراد الكتابة عليه في عملية تداول تكشف عن محتوى الكتابة على الشبكة. يتم ربط هذا المحتوى بشكل لا يمكن فصله بالساتوشي، مما يحوله إلى قطعة "
@@ -534,7 +534,7 @@ msgid "Whether or not ordinals are of interest to NFT archaeologists is an open 
 msgstr "سواء كانت أوردينال مثيرة لاهتمام علماء الآثار لـ NFTs او لا فهو سؤال مفتوح! من ناحية، تم إنشاء أوردينالس في أوائل عام 2022، عندما تم تحديد مواصفاتها. من هذا المعنى، فهي ليست ذات أهمية تاريخية."
 
 #: src\overview.md:247
-msgid "In another sense though, ordinals were in fact created by Satoshi Nakamoto in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, and especially early ordinals, are certainly of historical interest."
+msgid "In another sense though, ordinals were in fact created by Satoshi Nakamoto in 2009 when he mined the Litecoin genesis block. In this sense, ordinals, and especially early ordinals, are certainly of historical interest."
 msgstr "من ناحية أخرى، تم إنشاء أوردينالس في الواقع من قبل ساتوشي ناكاموتو في عام 2009 عندما قام بتعدين genesis block للبيتكوين. من هذا المعنى، تكون أوردينالس ، وخصوصا المبكرة، من ذوي الاهتمام التاريخي بالتأكيد."
 
 #: src\overview.md:251
@@ -543,8 +543,8 @@ msgstr "العديد من نظريات أوردينالس تفضل الرأي ا
 
 #: src\overview.md:255
 msgid ""
-"On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake to Bitcoin to the Bitcoin Talk forum](https://bitcointalk.org/index.php?topic=102355.0). This wasn't an asset scheme, but did use the ordinal algorithm, and was implemented but never deployed."
-msgstr "في 21 أغسطس 2012، قام تشارلي لي [بنشر اقتراح لإضافة إثبات حصة إلى بيتكوين](https://bitcointalk.org/index.php?topic=102355.0) على موقع Bitcoin Talk. لم يكن هذا مخطط له، ولكنه استخدم خوارزمية ordinal ، وتم تنفيذها ولكن لم يتم نشرها."
+"On August 21st, 2012, Charlie Lee [posted a proposal to add proof-of-stake to Litecoin to the Litecoin Talk forum](https://bitcointalk.org/index.php?topic=102355.0). This wasn't an asset scheme, but did use the ordinal algorithm, and was implemented but never deployed."
+msgstr "في 21 أغسطس 2012، قام تشارلي لي [بنشر اقتراح لإضافة إثبات حصة إلى بيتكوين](https://bitcointalk.org/index.php?topic=102355.0) على موقع Litecoin Talk. لم يكن هذا مخطط له، ولكنه استخدم خوارزمية ordinal ، وتم تنفيذها ولكن لم يتم نشرها."
 
 #: src\overview.md:261
 msgid "On October 8th, 2012, jl2012 [posted a scheme to the same forum](https://bitcointalk.org/index.php?topic=117224.0) which uses decimal notation and has all the important properties of ordinals. The scheme was discussed but never implemented."
@@ -552,7 +552,7 @@ msgstr "في 8 أكتوبر 2012، قام jl2012 بنشر [خطة على نفس 
 
 #: src\overview.md:266
 msgid ""
-"These independent inventions of ordinals indicate in some way that ordinals were discovered, or rediscovered, and not invented. The ordinals are an inevitability of the mathematics of Bitcoin, stemming not from their modern documentation, but from their ancient genesis. "
+"These independent inventions of ordinals indicate in some way that ordinals were discovered, or rediscovered, and not invented. The ordinals are an inevitability of the mathematics of Litecoin, stemming not from their modern documentation, but from their ancient genesis. "
 "They are the culmination of a sequence of events set in motion with the mining of the first block, so many years ago."
 msgstr ""
 "هذه الاختراعات المستقلة ل أوردينال تشير بطريقة ما إلى أن تم اكتشافها أو اكتشافها مرة أخرى، وليس اختراعها. إن أوردينال نتيجة حتمية لرياضيات البيتكوين، وذلك لا يعود إلى وثائقها الحديثة، ولكن من نشأتهم القديمة. إنها ذروة تسلسل من الأحداث التي تم تشغيلها مع البلوك الأول، "
@@ -611,12 +611,12 @@ msgid "The definition of a digital artifact is intended to reflect what NFTs _sh
 msgstr "تعريف التحف الرقمية يهدف إلى اثبات ما يجب أن يكون ال NFTs، وفي بعض الأحيان ما هي عليه، والتحف هي _دائمًا_ كذلك بالطبيعة التامة."
 
 #: src\inscriptions.md:4
-msgid "Inscriptions inscribe sats with arbitrary content, creating bitcoin-native digital artifacts, more commonly known as NFTs. Inscriptions do not require a sidechain or separate token."
+msgid "Inscriptions inscribe sats with arbitrary content, creating litecoin-native digital artifacts, more commonly known as NFTs. Inscriptions do not require a sidechain or separate token."
 msgstr "الأنسكريبشين توصف الساتوشي بمحتوى تعسفي، مما يخلق محتويات رقمية digital artifacts منشأة في البيتكوين، والمعروفة عادة باسم NFTs. وهي لا تحتاج إلى شبكه جانبية أو عملات منفصله."
 
 #: src\inscriptions.md:8
 msgid ""
-"These inscribed sats can then be transferred using bitcoin transactions, sent to bitcoin addresses, and held in bitcoin UTXOs. These transactions, addresses, and UTXOs are normal bitcoin transactions, addresses, and UTXOS in all respects, with the exception that in "
+"These inscribed sats can then be transferred using litecoin transactions, sent to litecoin addresses, and held in litecoin UTXOs. These transactions, addresses, and UTXOs are normal litecoin transactions, addresses, and UTXOS in all respects, with the exception that in "
 "order to send individual sats, transactions must control the order and value of inputs and outputs according to ordinal theory."
 msgstr ""
 "هذه الساتوشي يمكن ارسالها عن طريق شبكه بيتكوين والاحتفاظ بها في محافظ البيتكوين على شكل UTXOs (مخرجات المعاملات الغير مُنفقة) في البيتكوين. هذه الصفقات والعناوين ومخرجات الصفقات هي عمليات وعناوين ومخرجات صفقات بيتكوين عادية بكل معنى الكلمة، باستثناء أنه من أجل إرسال "
@@ -855,19 +855,19 @@ msgid "What is ordinal theory?"
 msgstr "ما هي نظرية أوردينال؟"
 
 #: src\faq.md:7
-msgid "Ordinal theory is a protocol for assigning serial numbers to satoshis, the smallest subdivision of a bitcoin, and tracking those satoshis as they are spent by transactions."
+msgid "Ordinal theory is a protocol for assigning serial numbers to satoshis, the smallest subdivision of a litecoin, and tracking those satoshis as they are spent by transactions."
 msgstr "نظرية أوردينال هي بروتوكول لتخصيص أرقام تسلسلية للساتوشي، وهي أصغر وحدة فرعية من البيتكوين، ويمكن تتبع تلك الساتوشي أثناء استعمالها من خلال المعاملات."
 
 #: src\faq.md:11
-msgid "These serial numbers are large numbers, like this 804766073970493. Every satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a bitcoin, has an ordinal number."
+msgid "These serial numbers are large numbers, like this 804766073970493. Every satoshi, which is ¹⁄₁₀₀₀₀₀₀₀₀ of a litecoin, has an ordinal number."
 msgstr "تلك الأرقام التسلسلية هي أرقام كبيرة، مثل هذا الرقم 804766073970493. كل ساتوشي، والذي هو واحد من أصل مليون من بيتكوين واحد، لديه رقم ترتيبي."
 
 #: src\faq.md:14
-msgid "Does ordinal theory require a side chain, a separate token, or changes to Bitcoin?"
+msgid "Does ordinal theory require a side chain, a separate token, or changes to Litecoin?"
 msgstr "هل تتطلب نظرية أوردينال شبكه فرعية (Sidechain) أو عمله منفصله (Token)، أو تغييرات في البيتكوين؟"
 
 #: src\faq.md:17
-msgid "Nope! Ordinal theory works right now, without a side chain, and the only token needed is bitcoin itself."
+msgid "Nope! Ordinal theory works right now, without a side chain, and the only token needed is litecoin itself."
 msgstr "لا! نظرية أوردينال تعمل حاليًا دون الحاجة إلى شبكه فرعية أو عمله منفصله، والعملة الوحيدة المطلوبة هي بيتكوين نفسه."
 
 #: src\faq.md:20
@@ -879,7 +879,7 @@ msgid "Collecting, trading, and scheming. Ordinal theory assigns identities to i
 msgstr "لجمع وتداول والتخطيطات. تعني إعطاء هويه للساتوشيات الفردية Assign identities to individual satoshis، وتسمح لها بأن تتمتع بإمكانية التتبع والتداول بشكل فردي، وذلك لأغراض الفضول والقيمة النقدية."
 
 #: src\faq.md:27
-msgid "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary content to individual satoshis, turning them into bitcoin-native digital artifacts."
+msgid "Ordinal theory also enables inscriptions, a protocol for attaching arbitrary content to individual satoshis, turning them into litecoin-native digital artifacts."
 msgstr "تمكّن نظرية أوردينال أيضًا من الإنسكريبشين، وهو بروتوكول يتيح لربط محتوى تعسفي بالساتوشيس الفردية، مما يحولها إلى فنون رقمية (digital artifacts) من نوع بيتكوين الأصلي."
 
 #: src\faq.md:31
@@ -980,10 +980,10 @@ msgstr ""
 
 #: src\faq.md:80
 msgid ""
-"So they go to the miner who mined the block as fees. [The BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) has the details, but in short, fees paid by transactions are treated as extra inputs to the coinbase transaction, and are ordered how their "
+"So they go to the miner who mined the block as fees. [The BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki) has the details, but in short, fees paid by transactions are treated as extra inputs to the coinbase transaction, and are ordered how their "
 "corresponding transactions are ordered in the block. The coinbase transaction of the block might look like this:"
 msgstr ""
-"لذا سيذهبون إلى عائد العامل الذي قام بتعدين الكتلة كرسوم.[The BIP](https://github.com/ordinals/ord/blob/master/bip.mediawiki) المعيار المعني به هنا يمتلك التفاصيل، لكن بشكل موجز، يتم التعامل مع الرسوم التي يتم دفعها من خلال المعاملات على أنها مداخل إضافية لمعاملة العملة "
+"لذا سيذهبون إلى عائد العامل الذي قام بتعدين الكتلة كرسوم.[The BIP](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki) المعيار المعني به هنا يمتلك التفاصيل، لكن بشكل موجز، يتم التعامل مع الرسوم التي يتم دفعها من خلال المعاملات على أنها مداخل إضافية لمعاملة العملة "
 "الأساسية، وتتم ترتيبها بناءً على ترتيب معاملاتها المقابلة في الكتلة. قد يبدو معامل العملة الأساسية في البلوك كما يلي:"
 
 #: src\faq.md:87
@@ -998,7 +998,7 @@ msgid "Where can I find the nitty-gritty details?"
 msgstr "أين يمكنني العثور على تفاصيل البنية الدقيقة؟"
 
 #: src\faq.md:92
-msgid "[The BIP!](https://github.com/ordinals/ord/blob/master/bip.mediawiki)"
+msgid "[The BIP!](https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki)"
 msgstr ""
 
 #: src\faq.md:94
@@ -1076,7 +1076,7 @@ msgid "Ethereum NFTs depend on the Ethereum network and virtual machine, which a
 msgstr "إيثيريوم NFT تعتمد على شبكة إيثيريوم والجهاز الظاهري للماكينات (EVM)، والتي هي معقدة للغاية ومتغيرة باستمرار، والتي تقوم بإدخال التغييرات من خلال تشعبات صعبة غير متوافقة مع الإصدارات السابقة."
 
 #: src\faq.md:153
-msgid "Inscriptions, on the other hand, depend on the Bitcoin blockchain, which is relatively simple and conservative, and which introduces changes via backwards-compatible soft forks."
+msgid "Inscriptions, on the other hand, depend on the Litecoin blockchain, which is relatively simple and conservative, and which introduces changes via backwards-compatible soft forks."
 msgstr "على الجانب الآخر، تعتمد الإنسكريبشين على شبكه البيتكوين، والتي تعتبر بسيطة ومحافظة، والتي تدخل التغييرات من خلال تفرعات ناعمة متوافقة مع الإصدارات السابقة."
 
 #: src\faq.md:157
@@ -1085,7 +1085,7 @@ msgstr "_الإنسكريبشين أكثر أمان_"
 
 #: src\faq.md:159
 msgid ""
-"Inscriptions inherit Bitcoin's transaction model, which allow a user to see exactly which inscriptions are being transferred by a transaction before they sign it. Inscriptions can be offered for sale using partially signed transactions, which don't require allowing a "
+"Inscriptions inherit Litecoin's transaction model, which allow a user to see exactly which inscriptions are being transferred by a transaction before they sign it. Inscriptions can be offered for sale using partially signed transactions, which don't require allowing a "
 "third party, such as an exchange or marketplace, to transfer them on the user's behalf."
 msgstr "الإنسكريبشين ترث نموذج المعاملات الخاص بيتكوين، الذي يتيح للمستخدم رؤية الإنسكريبشين التي يتم نقلها بالمعاملة قبل أن يوقعوها. يمكن عرضها للبيع باستخدام معاملات موقعة جزئيًا، التي لا تتطلب من المستخدم السماح لجهة ثالثة، مثل البورصة أو سوق، بنقلها نيابة عن المستخدم."
 
@@ -1102,7 +1102,7 @@ msgid "_Inscriptions are scarcer._"
 msgstr "_الإنسكريبشين أكثر ندره_"
 
 #: src\faq.md:173
-msgid "Inscriptions require bitcoin to mint, transfer, and store. This seems like a downside on the surface, but the raison d'etre of digital artifacts is to be scarce and thus valuable."
+msgid "Inscriptions require litecoin to mint, transfer, and store. This seems like a downside on the surface, but the raison d'etre of digital artifacts is to be scarce and thus valuable."
 msgstr "الإنسكريبشين تتطلب بيتكوين للضبط والنقل والتخزين. قد يبدو ذلك سلبيا من الخارج، ولكن الهدف الأساسي من digital artifacts هو أن تكون نادرة وبالتالي قيمة."
 
 #: src\faq.md:177
@@ -1129,12 +1129,12 @@ msgstr "_الإنسكريبشين تفتح أسواقًا جديدة._"
 
 #: src\faq.md:196
 msgid ""
-"Bitcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Bitcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, "
+"Litecoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Litecoin users prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, "
 "security, and decentralization."
 msgstr "رأس المال السوقي والسيولة للبيتكوين أكبر بكثير من إيثيريوم بفارق كبير. والكثير من هذه السيولة غير متاحة لـ NFTs في إيثيريوم، حيث يفضل كثيرون من مالكي بيتكوين عدم التفاعل مع بيئة إيثيريوم بسبب مخاوف تتعلق بالبساطة والأمان واللامركزية."
 
 #: src\faq.md:201
-msgid "Such Bitcoiners may be more interested in inscriptions than Ethereum NFTs, unlocking new classes of collector."
+msgid "Such Litecoin users may be more interested in inscriptions than Ethereum NFTs, unlocking new classes of collector."
 msgstr "قد يكون هؤلاء المالكون أكثر اهتمامًا بال قد يكون هؤلاء المالكون أكثر اهتمامًا ب الإنسكريبشين مقارنةً بـ NFTs في إيثيريوم، مما يفتح أصنافًا جديدة من المجمعين. مقارنةً بـ NFTs في إيثيريوم، مما يفتح أصنافًا جديدة من المجمعين."
 
 #: src\faq.md:204
@@ -1154,7 +1154,7 @@ msgid "RGB and Taro assets?"
 msgstr "أصول RGB و Taro ؟"
 
 #: src\faq.md:214
-msgid "RGB and Taro are both second-layer asset protocols built on Bitcoin. Compared to inscriptions, they are much more complicated, but much more featureful."
+msgid "RGB and Taro are both second-layer asset protocols built on Litecoin. Compared to inscriptions, they are much more complicated, but much more featureful."
 msgstr "ال RGB وTaro هما بروتوكولين للأصول من الطبقة الثانية تم بناؤهما على بيتكوين. بالمقارنة مع ال inscriptions، فإنهما أكثر تعقيدًا بكثير، ولكنهما يتمتعان بميزات أكثر."
 
 #: src\faq.md:217
@@ -1175,7 +1175,7 @@ msgid "Counterparty assets?"
 msgstr "أصول Counterparty؟"
 
 #: src\faq.md:233
-msgid "Counterparty has its own token, XCP, which is required for some functionality, which makes most bitcoiners regard it as an altcoin, and not an extension or second layer for bitcoin."
+msgid "Counterparty has its own token, XCP, which is required for some functionality, which makes most Litecoin users regard it as an altcoin, and not an extension or second layer for litecoin."
 msgstr "كاونتربارتي Counterparty لديها عملتها الخاصة، XCP، والتي تُطلب لبعض الوظائف، مما يجعل معظم مالكي بيتكوين يعتبرونها عملة رقمية بديلة وليست تمديدًا أو طبقة ثانية للبيتكوين."
 
 #: src\faq.md:237
@@ -1191,11 +1191,11 @@ msgid "Artists"
 msgstr "الفنانين"
 
 #: src\faq.md:245
-msgid "_Inscriptions are on Bitcoin._ Bitcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions."
+msgid "_Inscriptions are on Litecoin._ Litecoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions."
 msgstr "_الإنسكريبشين هي على بيتكوين_ بيتكوين هو العملة الرقمية ذات المكانة الأعلى ومن اعلى الفرص للبقاء على المدى الطويل. إذا كنت ترغب في ضمان بقاء فنك في المستقبل، فلا توجد طريقة أفضل لنشره إلا من خلال الإنسكريبشين."
 
 #: src\faq.md:250
-msgid "_Cheaper on-chain storage._ At $20,000 per BTC and the minimum relay fee of 1 satoshi per vbyte, publishing inscription content costs $50 per 1 million bytes."
+msgid "_Cheaper on-chain storage._ At $20,000 per LTC and the minimum relay fee of 1 satoshi per vbyte, publishing inscription content costs $50 per 1 million bytes."
 msgstr "_تخزين أرخص على الشبكة._ اذا افترضنا سعر البيتكوين عشرون الف دولار بتكلفه الرسوم تبلغ واحد ساتوشي لكل vbyte، يكلف نشر محتوى الإنسكريبشين خمسون دولار لكل مليون بايت."
 
 #: src\faq.md:254
@@ -1207,7 +1207,7 @@ msgid "_Inscriptions are simple._ Inscriptions do not require writing or underst
 msgstr "_الإنسكريبشين بسيطة._ وهي لا تتطلب كتابة أو فهم عقود ذكية."
 
 #: src\faq.md:261
-msgid "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and appealing to bitcoin holders, unlocking an entirely new class of collector."
+msgid "_Inscriptions unlock new liquidity._ Inscriptions are more accessible and appealing to litecoin holders, unlocking an entirely new class of collector."
 msgstr "_الإنسكريبشين تحرر سيولة الجديدة._ وسهلة الوصول لمالكي عمله بيتكوين، مما يفتح فئة جديده تمامًا من المجمعين."
 
 #: src\faq.md:264
@@ -1233,17 +1233,17 @@ msgid "_Inscriptions are simple, clear, and have no surprises._ They are always 
 msgstr "الإنسكريبشين بسيطة، واضحة، ولا تحمل مفاجآت. غير قابلة للتغيير وعلى الشبكة، دون الحاجة إلى الاطلاع على العقود الذكية بشكل خاص."
 
 #: src\faq.md:284
-msgid "_Inscriptions are on Bitcoin._ You can verify the location and properties of inscriptions easily with Bitcoin full node that you control."
+msgid "_Inscriptions are on Litecoin._ You can verify the location and properties of inscriptions easily with Litecoin full node that you control."
 msgstr "الإنسكريبشين على البيتكوين ذاته . يمكنك التحقق من الموقع والخصائص بسهولة باستخدام بيتكوين نود الكامل التي تتحكم بها."
 
 #: src\faq.md:287
-msgid "Bitcoiners"
+msgid "Litecoin users"
 msgstr "البيتكوينير"
 
 #: src\faq.md:289
 msgid ""
-"Let me begin this section by saying: the most important thing that the Bitcoin network does is decentralize money. All other use-cases are secondary, including ordinal theory. The developers of ordinal theory understand and acknowledge this, and believe that ordinal "
-"theory helps, at least in a small way, Bitcoin's primary mission."
+"Let me begin this section by saying: the most important thing that the Litecoin network does is decentralize money. All other use-cases are secondary, including ordinal theory. The developers of ordinal theory understand and acknowledge this, and believe that ordinal "
+"theory helps, at least in a small way, Litecoin's primary mission."
 msgstr "لنبدأ هذا القسم بالقول: أهم شيء تقوم به شبكة بيتكوين هو اللامركزية للأموال. جميع الاستخدامات الأخرى هي ثانوية، بما في ذلك نظرية أوردينال. يفهم مطورو نظرية أوردينال ويقرون بذلك، ويعتقدون أن نظرية أوردينال تساعد، على الأقل بشكل طفيف، في مهمة بيتكوين الرئيسية."
 
 #: src\faq.md:295
@@ -1255,48 +1255,48 @@ msgstr ""
 "حتى التجارة والأموال، التي هي أيضًا تقنيات قديمة."
 
 #: src\faq.md:302
-msgid "Bitcoin provides an amazing platform for creating and collecting digital artifacts in a secure, decentralized way, that protects users and artists in the same way that it provides an amazing platform for sending and receiving value, and for all the same reasons."
+msgid "Litecoin provides an amazing platform for creating and collecting digital artifacts in a secure, decentralized way, that protects users and artists in the same way that it provides an amazing platform for sending and receiving value, and for all the same reasons."
 msgstr "تقدم بيتكوين منصة رائعة لإنشاء وجمع الآثار الرقمية بطريقة آمنة ولامركزية، تحمي المستخدمين والفنانين بنفس الطريقة التي تقدم بها منصة رائعة لإرسال واستقبال القيمة، وبالأسباب نفسها."
 
 #: src\faq.md:307
-msgid "Ordinals and inscriptions increase demand for Bitcoin block space, which increase Bitcoin's security budget, which is vital for safeguarding Bitcoin's transition to a fee-dependent security model, as the block subsidy is halved into insignificance."
+msgid "Ordinals and inscriptions increase demand for Litecoin block space, which increase Litecoin's security budget, which is vital for safeguarding Litecoin's transition to a fee-dependent security model, as the block subsidy is halved into insignificance."
 msgstr "تزيد نظرية أوردينال والآثار الرقمية من الطلب على مساحة  البلوكس في بيتكوين، مما يزيد من ميزانية الأمان للبيتكوين، وهو أمر حيوي لحماية انتقال بيتكوين إلى نموذج أمان يعتمد على الرسوم، حيث يتم تقليص مكافأة البلوك إلى الأذى."
 
 #: src\faq.md:312
 msgid ""
-"Inscription content is stored on-chain, and thus the demand for block space for use in inscriptions is unlimited. This creates a buyer of last resort for _all_ Bitcoin block space. This will help support a robust fee market, which ensures that Bitcoin remains secure."
+"Inscription content is stored on-chain, and thus the demand for block space for use in inscriptions is unlimited. This creates a buyer of last resort for _all_ Litecoin block space. This will help support a robust fee market, which ensures that Litecoin remains secure."
 msgstr "محتوى الرسوم الرقمية الإنسكريبشين يُخزن على السلسلة / الشبكة ذاتها، وبالتالي فإن الطلب على مساحة البلوك لا حدود له. هذا يخلق مشتريًا من آخر فرصة لمساحة البلوكس على البيتكوين. سيساعد ذلك في دعم السوق بشكل عام ، الذي يضمن أن البيتكوين سيبقى آمنًا."
 
 #: src\faq.md:317
 msgid ""
-"Inscriptions also counter the narrative that Bitcoin cannot be extended or used for new use-cases. If you follow projects like DLCs, Fedimint, Lightning, Taro, and RGB, you know that this narrative is false, but inscriptions provide a counter argument which is easy to "
+"Inscriptions also counter the narrative that Litecoin cannot be extended or used for new use-cases. If you follow projects like DLCs, Fedimint, Lightning, Taro, and RGB, you know that this narrative is false, but inscriptions provide a counter argument which is easy to "
 "understand, and which targets a popular and proven use case, NFTs, which makes it highly legible."
 msgstr ""
 "الإنسكريبشين تبرهن أيضًا على السيناريو الذي يُفترض أنه لا يمكن للبيتكوين تمديدها أو استخدامها لحالات جديدة . إذا تابعت مشاريع مثل DLCs و Fedimint و Lightning و Taro و RGB، فستعرف أن هذا السيناريو غير صحيح، ولكن الإنسكريبشين تقدم حجة مضادة تكون سهلة الفهم، والتي تستهدف "
 "حالات استخدام شائعة ومثبتة، NFTs، والتي تجعلها سهلة الفهم."
 
 #: src\faq.md:323
-msgid "If inscriptions prove, as the authors hope, to be highly sought after digital artifacts with a rich history, they will serve as a powerful hook for Bitcoin adoption: come for the fun, rich art, stay for the decentralized digital money."
+msgid "If inscriptions prove, as the authors hope, to be highly sought after digital artifacts with a rich history, they will serve as a powerful hook for Litecoin adoption: come for the fun, rich art, stay for the decentralized digital money."
 msgstr "إذا ثبت أن الإنسكريبشين كما نأمل ، كي تكون بشكل كبير ولها تاريخ غني، ستكون سلاحًا قويًا لتبني بيتكوين: تأتي من أجل المتعة والفن الغني، وتبقى للنقود الرقمية المتميزة."
 
 #: src\faq.md:327
 msgid ""
-"Inscriptions are an extremely benign source of demand for block space. Unlike, for example, stablecoins, which potentially give large stablecoin issuers influence over the future of Bitcoin development, or DeFi, which might centralize mining by introducing opportunities "
-"for MEV, digital art and collectables on Bitcoin, are unlikely to produce individual entities with enough power to corrupt Bitcoin. Art is decentralized."
+"Inscriptions are an extremely benign source of demand for block space. Unlike, for example, stablecoins, which potentially give large stablecoin issuers influence over the future of Litecoin development, or DeFi, which might centralize mining by introducing opportunities "
+"for MEV, digital art and collectables on Litecoin, are unlikely to produce individual entities with enough power to corrupt Litecoin. Art is decentralized."
 msgstr ""
 "الإنسكريبشين هي مصدر طلب عالي للمساحات في البلوكس بشكل سلمي للغاية. وعلى عكس العملات المستقرة في سبيل المثال، التي قد تمنح المصدرين الكبار لعملات المستقرة نفوذًا على مستقبل تطوير بيتكوين، أو DeFi، التي قد تركز التعدين من خلال تقديم فرص للربح من الفرص، فإن الفن وجمع "
 "المجمعات على بيتكوين غير مرجح أن تنتج كيانات فردية لديها قوة كافية لتفسير بيتكوين. الفن هو لامركزي."
 
 #: src\faq.md:334
-msgid "Inscription users and service providers are incentivized to run Bitcoin full nodes, to publish and track inscriptions, and thus throw their economic weight behind the honest chain."
+msgid "Inscription users and service providers are incentivized to run Litecoin full nodes, to publish and track inscriptions, and thus throw their economic weight behind the honest chain."
 msgstr "المستخدمين ومقدمي الخدمات من الإنسكريبشين متحفزون لتشغيل النود الكامل للبيتكوين، للنشر والتتبع ، وبالتالي إلقاء ثقلها الاقتصادي وراء الشبكة الصادقة."
 
 #: src\faq.md:338
-msgid "Ordinal theory and inscriptions do not meaningfully affect Bitcoin's fungibility. Bitcoin users can ignore both and be unaffected."
+msgid "Ordinal theory and inscriptions do not meaningfully affect Litecoin's fungibility. Litecoin users can ignore both and be unaffected."
 msgstr "نظرية أوردينال والرسوم الرقمية الإنسكريبشين لا تؤثر بشكل كبير على تماثل البيتكوين. يمكن لمستخدمي عمله البيتكوين تجاهل كليهما ولا يتأثرون بهما."
 
 #: src\faq.md:341
-msgid "We hope that ordinal theory strengthens and enriches bitcoin, and gives it another dimension of appeal and functionality, enabling it more effectively serve its primary use case as humanity's decentralized store of value."
+msgid "We hope that ordinal theory strengthens and enriches litecoin, and gives it another dimension of appeal and functionality, enabling it more effectively serve its primary use case as humanity's decentralized store of value."
 msgstr "نأمل أن تقوي نظرية أوردينال وتثري بيتكوين، وتضيف لها بعدًا آخر من الجاذبية والوظائف، مما يمكنها  تحقيق مهمتها الأساسية كمتجر قيمة لامركزي للبشرية بشكل أكثر فعالية."
 
 #: src\contributing.md:1
@@ -1452,8 +1452,8 @@ msgstr ""
 "كلا العنوانين موجودين في محفظة متعددة التوقيع 2 من 4، ويتم الاحتفاظ بهذه المفاتيح بواسطة [raphjaph](https://twitter.com/raphjaph) و [erin](https://twitter.com/realizingerin) و [rodarmor](https://twitter.com/rodarmor) و [ordinally](https://twitter.com/veryordinally)."
 
 #: src\donate.md:17
-msgid "Donations received will go towards funding maintenance and development of `ord`, as well as hosting costs for [ordinals.com](https://ordinals.com)."
-msgstr "سيتم استخدام التبرعات المستلمة لتمويل صيانة وتطوير `ord`، بالإضافة إلى تكاليف موقع [ordinals.com](https://ordinals.com)."
+msgid "Donations received will go towards funding maintenance and development of `ord`, as well as hosting costs for [ordinalslite.com](https://ordinalslite.com)."
+msgstr "سيتم استخدام التبرعات المستلمة لتمويل صيانة وتطوير `ord`، بالإضافة إلى تكاليف موقع [ordinalslite.com](https://ordinalslite.com)."
 
 #: src\donate.md:20
 msgid "Thank you for donating!"
@@ -1472,7 +1472,7 @@ msgid "Ordinal Explorer"
 msgstr "متصفح أوردينال"
 
 #: src\guides/explorer.md:4
-msgid "The `ord` binary includes a block explorer. We host a instance of the block explorer on mainnet at [ordinals.com](https://ordinals.com), and on signet at [signet.ordinals.com](https://signet.ordinals.com)."
+msgid "The `ord` binary includes a block explorer. We host a instance of the block explorer on mainnet at [ordinalslite.com](https://ordinalslite.com), and on signet at [signet.ordinalslite.com](https://ordinalslite.com)."
 msgstr "يتضمن البرنامج الثنائي للأورد إكسبلورر كتل. نحن نستضيف مثيلًا من إكسبلورر الكتل على الشبكة الرئيسية على موقع [أوردينالs.com](https://أوردينالs.com/)، وعلى شبكة الاختبار signet على موقع [signet.أوردينالs.com](https://signet.أوردينالs.com/)."
 
 #: src\guides/explorer.md:8
@@ -1520,7 +1520,7 @@ msgid "Blocks can be searched by hash, for example, the genesis block:"
 msgstr "يمكن البحث عن البلوكس عبر الهاش، على سبيل المثال، block genesis :"
 
 #: src\guides/explorer.md:30
-msgid "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://ordinals.com/search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
+msgid "[000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f](https://ordinalslite.com/search/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f)"
 msgstr ""
 
 #: src\guides/explorer.md:32
@@ -1532,7 +1532,7 @@ msgid "Transactions can be searched by hash, for example, the genesis block coin
 msgstr "يمكن البحث عن المعاملات عبر الهاش، على سبيل المثال، معاملة العملات النقدية في block genesis :"
 
 #: src\guides/explorer.md:37
-msgid "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
+msgid "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b](https://ordinalslite.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b)"
 msgstr ""
 
 #: src\guides/explorer.md:39
@@ -1544,7 +1544,7 @@ msgid "Transaction outputs can searched by outpoint, for example, the only outpu
 msgstr "البحث عن مخرجات المعاملات عبر نقطة الإخراج Outputs، على سبيل المثال، الناتج الوحيد لمعاملة العملات النقدية في block genesis :"
 
 #: src\guides/explorer.md:44
-msgid "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://ordinals.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
+msgid "[4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0](https://ordinalslite.com/search/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0)"
 msgstr ""
 
 #: src\guides/explorer.md:46
@@ -1552,11 +1552,11 @@ msgid "Sats"
 msgstr "الساتس"
 
 #: src\guides/explorer.md:48
-msgid "Sats can be searched by integer, their position within the entire bitcoin supply:"
+msgid "Sats can be searched by integer, their position within the entire litecoin supply:"
 msgstr "يمكن البحث عن الساتس (Sats) عبر العدد الصحيح، وموقعها ضمن إجمالي إمدادات البيتكوين:"
 
 #: src\guides/explorer.md:51
-msgid "[2099994106992659](https://ordinals.com/search/2099994106992659)"
+msgid "[2099994106992659](https://ordinalslite.com/search/2099994106992659)"
 msgstr ""
 
 #: src\guides/explorer.md:53
@@ -1564,7 +1564,7 @@ msgid "By decimal, their block and offset within that block:"
 msgstr "بالعشري، وموقعها في البلوك والإزاحة ضمن ذلك البلوك:"
 
 #: src\guides/explorer.md:55
-msgid "[481824.0](https://ordinals.com/search/481824.0)"
+msgid "[481824.0](https://ordinalslite.com/search/481824.0)"
 msgstr ""
 
 #: src\guides/explorer.md:57
@@ -1572,7 +1572,7 @@ msgid "By degree, their cycle, blocks since the last halving, blocks since the l
 msgstr "بالزاوية، والدورة، بلوكس منذ آخر تقسيم و بلوكس منذ آخر تعديل للصعوبة، والإزاحة ضمن البلوك:"
 
 #: src\guides/explorer.md:60
-msgid "[1°0′0″0‴](https://ordinals.com/search/1°0′0″0‴)"
+msgid "[1°0′0″0‴](https://ordinalslite.com/search/1°0′0″0‴)"
 msgstr ""
 
 #: src\guides/explorer.md:62
@@ -1580,15 +1580,15 @@ msgid "By name, their base 26 representation using the letters \"a\" through \"z
 msgstr "بالاسم، والتمثيل الأساسي الـ 26 باستخدام الأحرف \"a\" حتى \"z\":"
 
 #: src\guides/explorer.md:64
-msgid "[ahistorical](https://ordinals.com/search/ahistorical)"
+msgid "[ahistorical](https://ordinalslite.com/search/ahistorical)"
 msgstr ""
 
 #: src\guides/explorer.md:66
-msgid "Or by percentile, the percentage of bitcoin's supply that has been or will have been issued when they are mined:"
+msgid "Or by percentile, the percentage of litecoin's supply that has been or will have been issued when they are mined:"
 msgstr "أو بالنسبة المئوية، نسبة إمداد بيتكوين التي تم إصدارها أو سيتم إصدارها عندما يتم تعدينها:"
 
 #: src\guides/explorer.md:69
-msgid "[100%](https://ordinals.com/search/100%)"
+msgid "[100%](https://ordinalslite.com/search/100%)"
 msgstr ""
 
 #: src\guides/wallet.md:1
@@ -1596,36 +1596,36 @@ msgid "Ordinal Inscription Guide"
 msgstr "دليل صناعه الأوردينال"
 
 #: src\guides/wallet.md:4
-msgid "Individual sats can be inscribed with arbitrary content, creating Bitcoin-native digital artifacts that can be held in a Bitcoin wallet and transferred using Bitcoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Bitcoin itself."
+msgid "Individual sats can be inscribed with arbitrary content, creating Litecoin-native digital artifacts that can be held in a Litecoin wallet and transferred using Litecoin transactions. Inscriptions are as durable, immutable, secure, and decentralized as Litecoin itself."
 msgstr "يمكن أن تُرسم العملات الفردية بمحتوى تعسفي، مما يُنشئ قطع فنية رقمية متناسبة مع بيتكوين يمكن الاحتفاظ بها في محفظة بيتكوين ونقلها باستخدام المعاملات المالية في بيتكوين. إن النقوش متينة وثابتة وآمنة ولامركزية تمامًا مثل بيتكوين نفسه."
 
 #: src\guides/wallet.md:9
-msgid "Working with inscriptions requires a Bitcoin full node, to give you a view of the current state of the Bitcoin blockchain, and a wallet that can create inscriptions and perform sat control when constructing transactions to send inscriptions to another wallet."
+msgid "Working with inscriptions requires a Litecoin full node, to give you a view of the current state of the Litecoin blockchain, and a wallet that can create inscriptions and perform sat control when constructing transactions to send inscriptions to another wallet."
 msgstr "العمل مع الأنسكريبشين يتطلب وجود نود بيتكوين كاملة لمنحك نظرة على الحالة الحالية لسلسلة كتل بيتكوين، ومحفظة قادرة على إنشاء الأنسكريبشين وأداء التحكم في العملات عند بناء المعاملات لإرسالها إلى محفظة أخرى."
 
 #: src\guides/wallet.md:14
-msgid "Bitcoin Core provides both a Bitcoin full node and wallet. However, the Bitcoin Core wallet cannot create inscriptions and does not perform sat control."
-msgstr "توفر Bitcoin Core كل من نود بيتكوين كاملة ومحفظة. ومع ذلك، لا يمكن لمحفظة Bitcoin Core إنشاء النقوش ولا تؤدي إلى التحكم في العملات."
+msgid "Litecoin Core provides both a Litecoin full node and wallet. However, the Litecoin Core wallet cannot create inscriptions and does not perform sat control."
+msgstr "توفر Litecoin Core كل من نود بيتكوين كاملة ومحفظة. ومع ذلك، لا يمكن لمحفظة Litecoin Core إنشاء النقوش ولا تؤدي إلى التحكم في العملات."
 
 #: src\guides/wallet.md:17
-msgid "This requires [`ord`](https://github.com/ordinals/ord), the ordinal utility. `ord` doesn't implement its own wallet, so `ord wallet` subcommands interact with Bitcoin Core wallets."
-msgstr "هذا يتطلب [`ord`](https://github.com/ordinals/ord), وهو أداة ترتيبية. أورد لا تنفذ محفظة خاصة بها، لذا تفاعل أوامر محفظة أورد مع محافظ Bitcoin Core."
+msgid "This requires [`ord`](https://github.com/ynohtna92/ord-litecoin), the ordinal utility. `ord` doesn't implement its own wallet, so `ord wallet` subcommands interact with Litecoin Core wallets."
+msgstr "هذا يتطلب [`ord`](https://github.com/ynohtna92/ord-litecoin), وهو أداة ترتيبية. أورد لا تنفذ محفظة خاصة بها، لذا تفاعل أوامر محفظة أورد مع محافظ Litecoin Core."
 
 #: src\guides/wallet.md:21
 msgid "This guide covers:"
 msgstr "تشمل هذه الدليل الفقرات التالية:"
 
 #: src\guides/wallet.md:23 src\guides/wallet.md:39
-msgid "Installing Bitcoin Core"
-msgstr "تثبيت Bitcoin Core"
+msgid "Installing Litecoin Core"
+msgstr "تثبيت Litecoin Core"
 
 #: src\guides/wallet.md:24
-msgid "Syncing the Bitcoin blockchain"
-msgstr "مزامنة Bitcoin blockchain"
+msgid "Syncing the Litecoin blockchain"
+msgstr "مزامنة Litecoin blockchain"
 
 #: src\guides/wallet.md:25
-msgid "Creating a Bitcoin Core wallet"
-msgstr " إنشاء محفظة Bitcoin Core"
+msgid "Creating a Litecoin Core wallet"
+msgstr " إنشاء محفظة Litecoin Core"
 
 #: src\guides/wallet.md:26
 msgid "Using `ord wallet receive` to receive sats"
@@ -1648,32 +1648,32 @@ msgid "Getting Help"
 msgstr "الحصول على المساعدة"
 
 #: src\guides/wallet.md:34
-msgid "If you get stuck, try asking for help on the [Ordinals Discord Server](https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant [issues](https://github.com/ordinals/ord/issues) and [discussions](https://github.com/ordinals/ord/discussions)."
-msgstr "إذا واجهتك مشكلة، جرب أن تطلب المساعدة على [الديسكورد](https://discord.com/invite/87cjuz4FYg) ، أو تفقد موقع[issues](https://github.com/ordinals/ord/issues) [discussions](https://github.com/ordinals/ord/discussions) GitHub للقضايا والمناقشات ذات الصلة."
+msgid "If you get stuck, try asking for help on the [Ordinals Discord Server](https://discord.com/invite/87cjuz4FYg), or checking GitHub for relevant [issues](https://github.com/ynohtna92/ord-litecoin/issues) and [discussions](https://github.com/ynohtna92/ord-litecoin/discussions)."
+msgstr "إذا واجهتك مشكلة، جرب أن تطلب المساعدة على [الديسكورد](https://discord.com/invite/87cjuz4FYg) ، أو تفقد موقع[issues](https://github.com/ynohtna92/ord-litecoin/issues) [discussions](https://github.com/ynohtna92/ord-litecoin/discussions) GitHub للقضايا والمناقشات ذات الصلة."
 
 #: src\guides/wallet.md:42
-msgid "Bitcoin Core is available from [bitcoincore.org](https://bitcoincore.org/) on the [download page](https://bitcoincore.org/en/download/)."
-msgstr "يتوفر Bitcoin Core من موقع [bitcoincore.org](https://bitcoincore.org/) على [صفحه التحميل](https://bitcoincore.org/en/download/)."
+msgid "Litecoin Core is available from [litecoin.org](https://litecoin.org/) on the [download page](https://litecoin.org/)."
+msgstr "يتوفر Litecoin Core من موقع [litecoin.org](https://litecoin.org/) على [صفحه التحميل](https://litecoin.org/)."
 
 #: src\guides/wallet.md:45
-msgid "Making inscriptions requires Bitcoin Core 24 or newer."
-msgstr "إن إجراء الإنسكريبشين يتطلب Bitcoin Core 24 أو الإصدارات الأحدث."
+msgid "Making inscriptions requires Litecoin Core 24 or newer."
+msgstr "إن إجراء الإنسكريبشين يتطلب Litecoin Core 24 أو الإصدارات الأحدث."
 
 #: src\guides/wallet.md:47
-msgid "This guide does not cover installing Bitcoin Core in detail. Once Bitcoin Core is installed, you should be able to run `bitcoind -version` successfully from the command line."
-msgstr "لا يتضمن هذا الدليل تفاصيل تثبيت Bitcoin Core بالتفصيل. بمجرد تثبيت Bitcoin Core، يجب أن تتمكن من تشغيل bitcoind -version بنجاح من أوامر الجهاز."
+msgid "This guide does not cover installing Litecoin Core in detail. Once Litecoin Core is installed, you should be able to run `litecoind -version` successfully from the command line."
+msgstr "لا يتضمن هذا الدليل تفاصيل تثبيت Litecoin Core بالتفصيل. بمجرد تثبيت Litecoin Core، يجب أن تتمكن من تشغيل litecoind -version بنجاح من أوامر الجهاز."
 
 #: src\guides/wallet.md:51
-msgid "Configuring Bitcoin Core"
-msgstr "تهيئة Bitcoin Core"
+msgid "Configuring Litecoin Core"
+msgstr "تهيئة Litecoin Core"
 
 #: src\guides/wallet.md:54
-msgid "`ord` requires Bitcoin Core's transaction index."
-msgstr "تتطلب `ord` فهرس المعاملات الخاص بـ Bitcoin Core."
+msgid "`ord` requires Litecoin Core's transaction index."
+msgstr "تتطلب `ord` فهرس المعاملات الخاص بـ Litecoin Core."
 
 #: src\guides/wallet.md:56
-msgid "To configure your Bitcoin Core node to maintain a transaction index, add the following to your `bitcoin.conf`:"
-msgstr "لتهيئة نود Bitcoin Core الخاص بك للحفاظ على فهرس المعاملات، أضف ما يلي إلى ملف bitcoin.conf الخاص بك:"
+msgid "To configure your Litecoin Core node to maintain a transaction index, add the following to your `litecoin.conf`:"
+msgstr "لتهيئة نود Litecoin Core الخاص بك للحفاظ على فهرس المعاملات، أضف ما يلي إلى ملف litecoin.conf الخاص بك:"
 
 #: src\guides/wallet.md:59 src\guides/sat-hunting.md:30
 msgid ""
@@ -1683,18 +1683,18 @@ msgid ""
 msgstr ""
 
 #: src\guides/wallet.md:63
-msgid "Or, run `bitcoind` with `-txindex`:"
+msgid "Or, run `litecoind` with `-txindex`:"
 msgstr ""
 
 #: src\guides/wallet.md:65 src\guides/wallet.md:74
 msgid ""
 "```\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src\guides/wallet.md:69
-msgid "Syncing the Bitcoin Blockchain"
+msgid "Syncing the Litecoin Blockchain"
 msgstr "مزامنة شبكه البيتكوين"
 
 #: src\guides/wallet.md:72
@@ -1708,21 +1708,21 @@ msgstr "...واتركها تعمل حتى يتم استدعاء الأمر `getb
 #: src\guides/wallet.md:80
 msgid ""
 "```\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
 #: src\guides/wallet.md:84
-msgid "agrees with the block count on a block explorer like [the mempool.space block explorer](https://mempool.space/). `ord` interacts with `bitcoind`, so you should leave `bitcoind` running in the background when you're using `ord`."
-msgstr "يتم قبول عدد البلوكات من خلال المتصفح مثل [the mempool.space block explorer](https://mempool.space/).ال `ord` يتفاعل مع `bitcoind` لذالك يجب أن تبقي النود فعال بلخلفيه عند استعمالك له."
+msgid "agrees with the block count on a block explorer like [the litecoinspace.org block explorer](https://litecoinspace.org/). `ord` interacts with `litecoind`, so you should leave `litecoind` running in the background when you're using `ord`."
+msgstr "يتم قبول عدد البلوكات من خلال المتصفح مثل [the litecoinspace.org block explorer](https://litecoinspace.org/).ال `ord` يتفاعل مع `litecoind` لذالك يجب أن تبقي النود فعال بلخلفيه عند استعمالك له."
 
 #: src\guides/wallet.md:88
 msgid "Installing `ord`"
 msgstr "تحميل برنامج أورد `ord`"
 
 #: src\guides/wallet.md:91
-msgid "The `ord` utility is written in Rust and can be built from [source](https://github.com/ordinals/ord). Pre-built binaries are available on the [releases page](https://github.com/ordinals/ord/releases)."
-msgstr "أدوات `ord` مكتوبه بلغه الداست ويمكن بنائها من[المصدر](https://github.com/ordinals/ord).الثنائيات المبنية مسبقًا متوفرة على [صفحه الإصدار](https://github.com/ordinals/ord/releases)."
+msgid "The `ord` utility is written in Rust and can be built from [source](https://github.com/ynohtna92/ord-litecoin). Pre-built binaries are available on the [releases page](https://github.com/ynohtna92/ord-litecoin/releases)."
+msgstr "أدوات `ord` مكتوبه بلغه الداست ويمكن بنائها من[المصدر](https://github.com/ynohtna92/ord-litecoin).الثنائيات المبنية مسبقًا متوفرة على [صفحه الإصدار](https://github.com/ynohtna92/ord-litecoin/releases)."
 
 #: src\guides/wallet.md:95
 msgid "You can install the latest pre-built binary from the command line with:"
@@ -1731,7 +1731,7 @@ msgstr "يمكنك تحميل الثنائيات المبنية مسبقًا ب�
 #: src\guides/wallet.md:97
 msgid ""
 "```sh\n"
-"curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s\n"
+"curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s\n"
 "```"
 msgstr ""
 
@@ -1751,16 +1751,16 @@ msgid "Which prints out `ord`'s version number."
 msgstr "والذي يشير الى الإصدار `ord` الحالي."
 
 #: src\guides/wallet.md:109
-msgid "Creating a Bitcoin Core Wallet"
+msgid "Creating a Litecoin Core Wallet"
 msgstr "إنشاء محفظة بيتكوين كور"
 
 #: src\guides/wallet.md:112
-msgid "`ord` uses Bitcoin Core to manage private keys, sign transactions, and broadcast transactions to the Bitcoin network."
+msgid "`ord` uses Litecoin Core to manage private keys, sign transactions, and broadcast transactions to the Litecoin network."
 msgstr "أورد `ord` يستخدم بيتكوين كور ليدير المفاتيح الخاصة وتواقيع المعاملات وإرسالها الى شبكه البيتكوين."
 
 #: src\guides/wallet.md:115
-msgid "To create a Bitcoin Core wallet named `ord` for use with `ord`, run:"
-msgstr "لإنشاء محفظة Bitcoin Core تحمل اسم `ord` واستخدامها, اعطي الأمر:"
+msgid "To create a Litecoin Core wallet named `ord` for use with `ord`, run:"
+msgstr "لإنشاء محفظة Litecoin Core تحمل اسم `ord` واستخدامها, اعطي الأمر:"
 
 #: src\guides/wallet.md:117
 msgid ""
@@ -1774,7 +1774,7 @@ msgid "Receiving Sats"
 msgstr "استقبال الساتس"
 
 #: src\guides/wallet.md:124
-msgid "Inscriptions are made on individual sats, using normal Bitcoin transactions that pay fees in sats, so your wallet will need some sats."
+msgid "Inscriptions are made on individual sats, using normal Litecoin transactions that pay fees in sats, so your wallet will need some sats."
 msgstr "يتم إنشاء الأنسكريبشين على الساتوشيات فردية باستخدام معاملات بيتكوين العادية التي تدفع الرسوم بوحدات الساتوشي، لذا ستحتاج محفظتك إلى بعض الساتوشيات."
 
 #: src\guides/wallet.md:127
@@ -1825,7 +1825,7 @@ msgstr "يتم تضمين محتوى الإنسكريبشين في شهادات 
 
 #: src\guides/wallet.md:157
 msgid ""
-"Inscription transactions must be less than 400,000 weight units, or they will not be relayed by Bitcoin Core. One byte of inscription content costs one weight unit. Since an inscription transaction includes not just the inscription content, limit inscription content to "
+"Inscription transactions must be less than 400,000 weight units, or they will not be relayed by Litecoin Core. One byte of inscription content costs one weight unit. Since an inscription transaction includes not just the inscription content, limit inscription content to "
 "less than 400,000 weight units. 390,000 weight units should be safe."
 msgstr ""
 "يجب أن تكون المعاملات أقل من 400,000 وحدة وزنية، وإلا فلن يتم نقلها بواسطة بيتكوين كور. بايت واحد من المحتوى يكلف وحدة وزنية واحدة. نظرًا لأن المعاملات لا تشمل فقط المحتوى ، يجب تقييد محتوى الإنسكريبشين لأقل من 400,000 وحدة وزنية. 390,000 وحدة وزنية يجب أن تكون آمنة "
@@ -1857,8 +1857,8 @@ msgid "The commit transaction commits to a tapscript containing the content of t
 msgstr "تُؤكد معاملة الالتزام على tapscript يحتوي على محتوى الإنسكريبشين، وتقوم معاملة الكشف بإنفاق من هذا الـ tapscript، مكشفةً المحتوى على الشبكة وتسجيله على أول ساتوشي في المدخل الذي يحتوي على الـ tapscript المقابل."
 
 #: src\guides/wallet.md:182
-msgid "Wait for the reveal transaction to be mined. You can check the status of the commit and reveal transactions using  [the mempool.space block explorer](https://mempool.space/)."
-msgstr "إنتظر حتى يتم تعدين المعاملة. يمكنك التحقق منها من خلال[the mempool.space block explorer](https://mempool.space/)."
+msgid "Wait for the reveal transaction to be mined. You can check the status of the commit and reveal transactions using  [the litecoinspace.org block explorer](https://litecoinspace.org/)."
+msgstr "إنتظر حتى يتم تعدين المعاملة. يمكنك التحقق منها من خلال[the litecoinspace.org block explorer](https://litecoinspace.org/)."
 
 #: src\guides/wallet.md:186
 msgid "Once the reveal transaction has been mined, the inscription ID should be printed when you run:"
@@ -1872,8 +1872,8 @@ msgid ""
 msgstr ""
 
 #: src\guides/wallet.md:193
-msgid "And when you visit [the ordinals explorer](https://ordinals.com/) at `ordinals.com/inscription/INSCRIPTION_ID`."
-msgstr "وعند زيارتك [the ordinals explorer](https://ordinals.com/) على `ordinals.com/inscription/INSCRIPTION_ID`."
+msgid "And when you visit [the ordinals explorer](https://ordinalslite.com/) at `ordinalslite.com/inscription/INSCRIPTION_ID`."
+msgstr "وعند زيارتك [the ordinals explorer](https://ordinalslite.com/) على `ordinalslite.com/inscription/INSCRIPTION_ID`."
 
 #: src\guides/wallet.md:196
 msgid "Sending Inscriptions"
@@ -1926,7 +1926,7 @@ msgid "Once the send transaction confirms, you can can confirm receipt by runnin
 msgstr "بمجرد تأكيد المعاملة المرسلة، يمكن للمستلم تأكيد الاستلام عن طريق الأمر :"
 
 #: src\guides/sat-hunting.md:4
-msgid "_This guide is out of date. Since it was written, the `ord` binary was changed to only build the full satoshi index when the `--index-sats` flag is supplied. Additionally, `ord` now has a built-in wallet that wraps a Bitcoin Core wallet. See `ord wallet --help`._"
+msgid "_This guide is out of date. Since it was written, the `ord` binary was changed to only build the full satoshi index when the `--index-sats` flag is supplied. Additionally, `ord` now has a built-in wallet that wraps a Litecoin Core wallet. See `ord wallet --help`._"
 msgstr "هذا الدليل غير محدّث. منذ كتابته، تم تغيير البرنامج `ord` الثنائي لبناء فهرس الساتوشي الكامل فقط عندما يتم توفير `ord` ,`--index-sats` الآن يحتوي على محفظة مدمجة تلتف حول محفظة بيتكوين الأساسية. راجع `ord wallet --help`._"
 
 #: src\guides/sat-hunting.md:9
@@ -1946,19 +1946,19 @@ msgid "There are a few things you'll need before you start."
 msgstr "قبل البدء ستحتاج الى بعض الأشياء."
 
 #: src\guides/sat-hunting.md:20
-msgid "First, you'll need a synced Bitcoin Core node with a transaction index. To turn on transaction indexing, pass `-txindex` on the command-line:"
+msgid "First, you'll need a synced Litecoin Core node with a transaction index. To turn on transaction indexing, pass `-txindex` on the command-line:"
 msgstr "أولا, ستحتاج الى بيتكوين نود مزامن بالكامل. لبدأ تحميل المعاملات اعطي الأمر `txindex-`على سطر الأوامر:"
 
 #: src\guides/sat-hunting.md:23
 msgid ""
 "```sh\n"
-"bitcoind -txindex\n"
+"litecoind -txindex\n"
 "```"
 msgstr ""
 
 #: src\guides/sat-hunting.md:27
-msgid "Or put the following in your [Bitcoin configuration file](https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
-msgstr "أو استخدم [Bitcoin configuration file] و (https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+msgid "Or put the following in your [Litecoin configuration file](https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
+msgstr "أو استخدم [Litecoin configuration file] و (https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):"
 
 #: src\guides/sat-hunting.md:34
 msgid "Launch it and wait for it to catch up to the chain tip, at which point the following command should print out the current block height:"
@@ -1967,7 +1967,7 @@ msgstr "قم بتشغيله وانتظر حتى يلحق بنهاية السلس
 #: src\guides/sat-hunting.md:37
 msgid ""
 "```sh\n"
-"bitcoin-cli getblockcount\n"
+"litecoin-cli getblockcount\n"
 "```"
 msgstr ""
 
@@ -1976,12 +1976,12 @@ msgid "Second, you'll need a synced `ord` index."
 msgstr "ثانيا, ستحتاج لفهرسة `ord`."
 
 #: src\guides/sat-hunting.md:43
-msgid "Get a copy of `ord` from [the repo](https://github.com/ordinals/ord/)."
-msgstr "إحصل على نسخه من `ord` من خلال [the repo](https://github.com/ordinals/ord/)."
+msgid "Get a copy of `ord` from [the repo](https://github.com/ynohtna92/ord-litecoin/)."
+msgstr "إحصل على نسخه من `ord` من خلال [the repo](https://github.com/ynohtna92/ord-litecoin/)."
 
 #: src\guides/sat-hunting.md:45
-msgid "Run `RUST_LOG=info ord index`. It should connect to your bitcoin core node and start indexing."
-msgstr "قم بتشغيل الأمر `RUST_LOG=info ord index`. يجب أن يتصل بنود Bitcoin Core الخاص بك ويبدأ عملية الفهرسة."
+msgid "Run `RUST_LOG=info ord index`. It should connect to your litecoin core node and start indexing."
+msgstr "قم بتشغيل الأمر `RUST_LOG=info ord index`. يجب أن يتصل بنود Litecoin Core الخاص بك ويبدأ عملية الفهرسة."
 
 #: src\guides/sat-hunting.md:48
 msgid "Wait for it to finish indexing."
@@ -1996,12 +1996,12 @@ msgid "Searching for Rare Ordinals"
 msgstr "البحث عن أوردينالس نادرة"
 
 #: src\guides/sat-hunting.md:55
-msgid "Searching for Rare Ordinals in a Bitcoin Core Wallet"
-msgstr "البحث عن أوردينال النادرة في محفظة Bitcoin Core"
+msgid "Searching for Rare Ordinals in a Litecoin Core Wallet"
+msgstr "البحث عن أوردينال النادرة في محفظة Litecoin Core"
 
 #: src\guides/sat-hunting.md:57
-msgid "The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so searching for rare ordinals in a Bitcoin Core wallet is Easy. Assuming your wallet is named `foo`:"
-msgstr "أمر `ord wallet` هو مجرد ملف تغليفي حول واجهة برمجة تطبيقات Bitcoin Core's RPC API، لذا البحث عن الإنسكريبشين النادرة في محفظة Bitcoin Core يعتبر سهلاً. افترض أن اسم محفظتك هو `foo`:"
+msgid "The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so searching for rare ordinals in a Litecoin Core wallet is Easy. Assuming your wallet is named `foo`:"
+msgstr "أمر `ord wallet` هو مجرد ملف تغليفي حول واجهة برمجة تطبيقات Litecoin Core's RPC API، لذا البحث عن الإنسكريبشين النادرة في محفظة Litecoin Core يعتبر سهلاً. افترض أن اسم محفظتك هو `foo`:"
 
 #: src\guides/sat-hunting.md:61
 msgid "Load your wallet:"
@@ -2010,7 +2010,7 @@ msgstr "قم بتحميل محفظتك:"
 #: src\guides/sat-hunting.md:63
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo\n"
+"litecoin-cli loadwallet foo\n"
 "```"
 msgstr ""
 
@@ -2026,19 +2026,19 @@ msgid ""
 msgstr ""
 
 #: src\guides/sat-hunting.md:73
-msgid "Searching for Rare Ordinals in a Non-Bitcoin Core Wallet"
+msgid "Searching for Rare Ordinals in a Non-Litecoin Core Wallet"
 msgstr "البحث عن العلامات النادرة في محفظة غير تابعة لبيتكوين كور"
 
 #: src\guides/sat-hunting.md:75
-msgid "The `ord wallet` command is just a wrapper around Bitcoin Core's RPC API, so to search for rare ordinals in a non-Bitcoin Core wallet, you'll need to import your wallet's descriptors into Bitcoin Core."
+msgid "The `ord wallet` command is just a wrapper around Litecoin Core's RPC API, so to search for rare ordinals in a non-Litecoin Core wallet, you'll need to import your wallet's descriptors into Litecoin Core."
 msgstr "أمر `ord wallet` هو مجرد غلاف حول واجهة برمجة التطبيقات (RPC) لبيتكوين كور. لذا، إذا كنت ترغب في البحث عن العلامات النادرة في محفظة غير تابعة لبيتكوين كور، ستحتاج إلى استيراد مسارات محفظتك إلى بيتكوين كور."
 
 #: src\guides/sat-hunting.md:79
-msgid "[Descriptors](https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md) describe the ways that wallets generate private keys and public keys."
+msgid "[Descriptors](https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md) describe the ways that wallets generate private keys and public keys."
 msgstr ""
 
 #: src\guides/sat-hunting.md:82
-msgid "You should only import descriptors into Bitcoin Core for your wallet's public keys, not its private keys."
+msgid "You should only import descriptors into Litecoin Core for your wallet's public keys, not its private keys."
 msgstr "يجب عليك استيراد الوصفات فقط في بيتكوين كور للمفاتيح العامة لمحفظتك، وليس لمفاتيحها الخاصة."
 
 #: src\guides/sat-hunting.md:85
@@ -2067,7 +2067,7 @@ msgstr "أنشئ محفظة رصدية باسم `foo-watch-only`:"
 #: src\guides/sat-hunting.md:100
 msgid ""
 "```sh\n"
-"bitcoin-cli createwallet foo-watch-only true true\n"
+"litecoin-cli createwallet foo-watch-only true true\n"
 "```"
 msgstr ""
 
@@ -2082,7 +2082,7 @@ msgstr "قم بتحميل محفظة \"foo-watch-only\" باستخدام الأ�
 #: src\guides/sat-hunting.md:108 src\guides/sat-hunting.md:199
 msgid ""
 "```sh\n"
-"bitcoin-cli loadwallet foo-watch-only\n"
+"litecoin-cli loadwallet foo-watch-only\n"
 "```"
 msgstr ""
 
@@ -2093,14 +2093,14 @@ msgstr "قم بتحميل واجهات محفظتك إلى المحفظة \"foo-
 #: src\guides/sat-hunting.md:114
 msgid ""
 "```sh\n"
-"bitcoin-cli importdescriptors \\\n"
+"litecoin-cli importdescriptors \\\n"
 "  '[{ \"desc\": \"wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax\", \"timestamp\":0 }]'\n"
 "```"
 msgstr ""
 
 #: src\guides/sat-hunting.md:119
-msgid "If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `\"timestamp\"` instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs."
-msgstr "إذا كنت تعرف الطابع الزمني لنظام Unix عندما بدأت محفظتك في استقبال المعاملات لأول مرة، فيمكنك استخدامه كقيمة لـ \"timestamp\" بدلاً من 0. سيساعد ذلك في تقليل الوقت اللازم لبحث Bitcoin Core عن UTXOs في محفظتك."
+msgid "If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of `\"timestamp\"` instead of `0`. This will reduce the time it takes for Litecoin Core to search for your wallet's UTXOs."
+msgstr "إذا كنت تعرف الطابع الزمني لنظام Unix عندما بدأت محفظتك في استقبال المعاملات لأول مرة، فيمكنك استخدامه كقيمة لـ \"timestamp\" بدلاً من 0. سيساعد ذلك في تقليل الوقت اللازم لبحث Litecoin Core عن UTXOs في محفظتك."
 
 #: src\guides/sat-hunting.md:124 src\guides/sat-hunting.md:225
 msgid "Check that everything worked:"
@@ -2109,7 +2109,7 @@ msgstr "تحقق مما إذا كان كل شيء عمل بشكل صحيح:"
 #: src\guides/sat-hunting.md:126 src\guides/sat-hunting.md:227
 msgid ""
 "```sh\n"
-"bitcoin-cli getwalletinfo\n"
+"litecoin-cli getwalletinfo\n"
 "```"
 msgstr ""
 
@@ -2123,9 +2123,9 @@ msgstr "البحث عن الأوردينال النادرة في محفظة تص
 
 #: src\guides/sat-hunting.md:138
 msgid ""
-"Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by Bitcoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into "
-"Bitcoin Core."
-msgstr "بعض الوصوف تصف مسارات متعددة في وصف واحد باستخدام الزوايا الزوجية، مثل `<0;1>`. الوصوف متعددة المسارات لا تزال غير مدعومة بواسطة Bitcoin Core حتى الآن، لذا ستحتاج أولاً إلى تحويلها إلى وصوف متعددة، ثم استيراد تلك الوصوف المتعددة إلى Bitcoin Core."
+"Some descriptors describe multiple paths in one descriptor using angle brackets, e.g., `<0;1>`. Multi-path descriptors are not yet supported by Litecoin Core, so you'll first need to convert them into multiple descriptors, and then import those multiple descriptors into "
+"Litecoin Core."
+msgstr "بعض الوصوف تصف مسارات متعددة في وصف واحد باستخدام الزوايا الزوجية، مثل `<0;1>`. الوصوف متعددة المسارات لا تزال غير مدعومة بواسطة Litecoin Core حتى الآن، لذا ستحتاج أولاً إلى تحويلها إلى وصوف متعددة، ثم استيراد تلك الوصوف المتعددة إلى Litecoin Core."
 
 #: src\guides/sat-hunting.md:143
 msgid "First get the multi-path descriptor from your wallet. It will look something like this:"
@@ -2167,7 +2167,7 @@ msgstr "احصل على وادرِ الفحص لوصف عنوان الاستلا
 #: src\guides/sat-hunting.md:165
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'\n"
 "```"
 msgstr ""
@@ -2192,7 +2192,7 @@ msgstr "وكذلك لوصف عنوان التغيير، في هذه الحالة
 #: src\guides/sat-hunting.md:182
 msgid ""
 "```sh\n"
-"bitcoin-cli getdescriptorinfo \\\n"
+"litecoin-cli getdescriptorinfo \\\n"
 "  'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'\n"
 "```"
 msgstr ""
@@ -2215,13 +2215,13 @@ msgid "Load the wallet you want to import the descriptors into:"
 msgstr "قم بتحميل المحفظة التي تريد استيراد الوصفات إليها:"
 
 #: src\guides/sat-hunting.md:203
-msgid "Now import the descriptors, with the correct checksums, into Bitcoin Core."
-msgstr "الآن قم ب استيراد الوصفات، مع التحقق الصحيح، إلى Bitcoin Core."
+msgid "Now import the descriptors, with the correct checksums, into Litecoin Core."
+msgstr "الآن قم ب استيراد الوصفات، مع التحقق الصحيح، إلى Litecoin Core."
 
 #: src\guides/sat-hunting.md:205
 msgid ""
 "```sh\n"
-"bitcoin-cli \\\n"
+"litecoin-cli \\\n"
 " importdescriptors \\\n"
 " '[\n"
 "   {\n"
@@ -2237,8 +2237,8 @@ msgid ""
 msgstr ""
 
 #: src\guides/sat-hunting.md:220
-msgid "If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the `\"timestamp\"` fields instead of `0`. This will reduce the time it takes for Bitcoin Core to search for your wallet's UTXOs."
-msgstr "إذا كنت تعرف الطابع الزمني (Unix timestamp) الذي بدأت فيه محفظتك استقبال المعاملات، يمكنك استخدامه كقيمة في حقول `\"timestamp\"` بدلاً من القيمة `0`. سيساعد ذلك في تقليل الوقت الذي يحتاجه Bitcoin Core للبحث عن UTXOs الخاصة بمحفظتك."
+msgid "If you know the Unix timestamp when your wallet first started receive transactions, you may use it for the value of the `\"timestamp\"` fields instead of `0`. This will reduce the time it takes for Litecoin Core to search for your wallet's UTXOs."
+msgstr "إذا كنت تعرف الطابع الزمني (Unix timestamp) الذي بدأت فيه محفظتك استقبال المعاملات، يمكنك استخدامه كقيمة في حقول `\"timestamp\"` بدلاً من القيمة `0`. سيساعد ذلك في تقليل الوقت الذي يحتاجه Litecoin Core للبحث عن UTXOs الخاصة بمحفظتك."
 
 #: src\guides/sat-hunting.md:237
 msgid "Exporting Descriptors"
@@ -2253,12 +2253,12 @@ msgid "Transferring Ordinals"
 msgstr "إرسال الأوردينالس"
 
 #: src\guides/sat-hunting.md:246
-msgid "The `ord` wallet supports transferring specific satoshis. You can also use `bitcoin-cli` commands `createrawtransaction`, `signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is complex and outside the scope of this guide."
-msgstr "محفظة `ord` تدعم نقل الساتوشيات الخاصة. يمكنك أيضًا استخدام أوامر `bitcoin-cli` مثل `createrawtransaction` و `signrawtransactionwithwallet` و `sendrawtransaction` للقيام بذلك، وكيفية القيام بذلك هو معقد وخارج نطاق هذا الدليل."
+msgid "The `ord` wallet supports transferring specific satoshis. You can also use `litecoin-cli` commands `createrawtransaction`, `signrawtransactionwithwallet`, and `sendrawtransaction`, how to do so is complex and outside the scope of this guide."
+msgstr "محفظة `ord` تدعم نقل الساتوشيات الخاصة. يمكنك أيضًا استخدام أوامر `litecoin-cli` مثل `createrawtransaction` و `signrawtransactionwithwallet` و `sendrawtransaction` للقيام بذلك، وكيفية القيام بذلك هو معقد وخارج نطاق هذا الدليل."
 
 #: src\guides/collecting.md:4
-msgid "Currently, [ord](https://github.com/ordinals/ord/) is the only wallet supporting sat-control and sat-selection, which are required to safely store and send rare sats and inscriptions, hereafter ordinals."
-msgstr "حالياً، يعتبر [ord](https://github.com/ordinals/ord/) هو المحفظة الوحيدة التي تدعم التحكم في الساتوشيات واختيارها، واللذين يُعتبران ضروريين لتخزين وإرسال الساتوشيات والأشياء الرقمية النادرة بأمان، والتي ستُعرف فيما بعد بـ أوردينال."
+msgid "Currently, [ord](https://github.com/ynohtna92/ord-litecoin/) is the only wallet supporting sat-control and sat-selection, which are required to safely store and send rare sats and inscriptions, hereafter ordinals."
+msgstr "حالياً، يعتبر [ord](https://github.com/ynohtna92/ord-litecoin/) هو المحفظة الوحيدة التي تدعم التحكم في الساتوشيات واختيارها، واللذين يُعتبران ضروريين لتخزين وإرسال الساتوشيات والأشياء الرقمية النادرة بأمان، والتي ستُعرف فيما بعد بـ أوردينال."
 
 #: src\guides/collecting.md:8
 msgid "The recommended way to send, receive, and store ordinals is with `ord`, but if you are careful, it is possible to safely store, and in some cases send, ordinals with other wallets."
@@ -2266,7 +2266,7 @@ msgstr "الطريقة الموصي بها لإرسال واستقبال وتخ�
 
 #: src\guides/collecting.md:12
 msgid ""
-"As a general note, receiving ordinals in an unsupported wallet is not dangerous. Ordinals can be sent to any bitcoin address, and are safe as long as the UTXO that contains them is not spent. However, if that wallet is then used to send bitcoin, it may select the UTXO "
+"As a general note, receiving ordinals in an unsupported wallet is not dangerous. Ordinals can be sent to any litecoin address, and are safe as long as the UTXO that contains them is not spent. However, if that wallet is then used to send litecoin, it may select the UTXO "
 "containing the ordinal as an input, and send the inscription or spend it to fees."
 msgstr ""
 "كملاحظة عامة، استقبال أوردينال في محفظة غير مدعومة ليس خطيرًا. يمكن إرسال أوردينال إلى أي عنوان بيتكوين، وهم آمنين طالما أن الإخراج الذي يحتوي عليهم لم يتم إنفاقه. ومع ذلك، إذا تم استخدام تلك المحفظة لإرسال بيتكوين، قد تختار المحفظة الإخراج الذي يحتوي على الـأوردينال "
@@ -2277,8 +2277,8 @@ msgid "A [guide](./collecting/sparrow-wallet.md) to creating an `ord`\\-compatib
 msgstr "يتوفر [guide](./collecting/sparrow-wallet.md) لإنشاء محفظة متوافقة مع `ord` باستخدام محفظة [Sparrow Wallet](https://sparrowwallet.com/) في هذا الدليل."
 
 #: src\guides/collecting.md:21
-msgid "Please note that if you follow this guide, you should not use the wallet you create to send BTC, unless you perform manual coin-selection to avoid sending ordinals."
-msgstr "يرجى ملاحظة أنه إذا قمت باتباع هذا الدليل، يجب عليك عدم استخدام المحفظة التي تنشئها لإرسال BTC، إلا إذا قمت بإجراء اختيار يدوي للعملات لتجنب إرسال الأوردينال."
+msgid "Please note that if you follow this guide, you should not use the wallet you create to send LTC, unless you perform manual coin-selection to avoid sending ordinals."
+msgstr "يرجى ملاحظة أنه إذا قمت باتباع هذا الدليل، يجب عليك عدم استخدام المحفظة التي تنشئها لإرسال LTC، إلا إذا قمت بإجراء اختيار يدوي للعملات لتجنب إرسال الأوردينال."
 
 #: src\guides/collecting/sparrow-wallet.md:1
 msgid "Collecting Inscriptions and Ordinals with Sparrow Wallet"
@@ -2421,10 +2421,10 @@ msgstr ""
 #: src\guides/collecting/sparrow-wallet.md:69
 msgid ""
 "Once the transaction has confirmed, you can validate and view your inscription by heading over to the `UTXOs` tab, finding the UTXO you want to check, right-clicking on the `Output` and selecting `Copy Transaction Output`. This transaction output id can then be pasted "
-"into the [ordinals.com](https://ordinals.com) search."
+"into the [ordinalslite.com](https://ordinalslite.com) search."
 msgstr ""
-"بمجرد تأكيد الصفقة، يمكنك التحقق وعرض النقش الخاص بك عن طريق الانتقال إلى علامة `UTXOs`، والبحث عنUTXO التي ترغب في التحقق منها، ثم النقر بزر الماوس الأيمن على`Output` واختيار `Copy Transaction Output`. يمكن لكتلة الإخراج هذه أن تُلصق في محرك البحث على موقع [ordinals.com]"
-"(https://ordinals.com)."
+"بمجرد تأكيد الصفقة، يمكنك التحقق وعرض النقش الخاص بك عن طريق الانتقال إلى علامة `UTXOs`، والبحث عنUTXO التي ترغب في التحقق منها، ثم النقر بزر الماوس الأيمن على`Output` واختيار `Copy Transaction Output`. يمكن لكتلة الإخراج هذه أن تُلصق في محرك البحث على موقع [ordinalslite.com]"
+"(https://ordinalslite.com)."
 
 #: src\guides/collecting/sparrow-wallet.md:72
 msgid "Freezing UTXO's"
@@ -2543,8 +2543,8 @@ msgid "When inspecting your inscription before sending the main thing you will w
 msgstr "عند فحص تسجيلك قبل إرساله، سترغب في التحقق أساسًا من الساتوشي الذي تم تسجيله في UTXO الخاص بك."
 
 #: src\guides/collecting/sparrow-wallet.md:118
-msgid "To do this, you can follow the [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) described above to find the inscription page for your inscription on ordinals.com"
-msgstr "للقيام بذلك، يمكنك اتباع الخطوات الموجودة في [التحقق / عرض التسجيلات المستلمة] [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) الموجودة أعلاه للعثور على صفحة التسجيل الخاصة بتسجيلك على موقع ordinals.com"
+msgid "To do this, you can follow the [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) described above to find the inscription page for your inscription on ordinalslite.com"
+msgstr "للقيام بذلك، يمكنك اتباع الخطوات الموجودة في [التحقق / عرض التسجيلات المستلمة] [Validating / Viewing Received Inscriptions](./sparrow-wallet.md#validating--viewing-received-inscriptions) الموجودة أعلاه للعثور على صفحة التسجيل الخاصة بتسجيلك على موقع ordinalslite.com"
 
 #: src\guides/collecting/sparrow-wallet.md:120
 msgid "There you will find some metadata about your inscription which looks like the following:"
@@ -2659,8 +2659,8 @@ msgid "If you want to track the status of your transaction you can copy the `Tra
 msgstr "إذا كنت ترغب في تتبع حالة الصفقة، يمكنك نسخ معرف الصفقة `Transaction Id (Txid)` ولصقه في [mempool.space](https://mempool.space)"
 
 #: src\guides/collecting/sparrow-wallet.md:171
-msgid "Once the transaction has confirmed you can check the inscription page on [ordinals.com](https://ordinals.com) to validate that it has moved to the new output location and address."
-msgstr "بمجرد تأكيد الصفقة، يمكنك التحقق من صفحة الإنسكريبشين على موقع [أوردينال](https://ordinals.com) للتحقق من أنها انتقلت إلى الموقع والعنوان الجديدين."
+msgid "Once the transaction has confirmed you can check the inscription page on [ordinalslite.com](https://ordinalslite.com) to validate that it has moved to the new output location and address."
+msgstr "بمجرد تأكيد الصفقة، يمكنك التحقق من صفحة الإنسكريبشين على موقع [أوردينال](https://ordinalslite.com) للتحقق من أنها انتقلت إلى الموقع والعنوان الجديدين."
 
 #: src\guides/collecting/sparrow-wallet.md:173
 msgid "Troubleshooting"
@@ -2687,8 +2687,8 @@ msgid "![](images/troubleshooting_02.png)"
 msgstr ""
 
 #: src\guides/testing.md:4
-msgid "Ord can be tested using the following flags to specify the test network. For more information on running Bitcoin Core for testing, see [Bitcoin's developer documentation](https://developer.bitcoin.org/examples/testing.html)."
-msgstr "يمكن اختبار Ord باستخدام الأعلام التالية لتحديد شبكة الاختبار. لمزيد من المعلومات حول تشغيل Bitcoin Core لأغراض الاختبار، انظر [Bitcoin's developer documentation](https://developer.bitcoin.org/examples/testing.html)."
+msgid "Ord can be tested using the following flags to specify the test network. For more information on running Litecoin Core for testing, see [Litecoin's developer documentation](https://github.com/litecoin-project/litecoin/tree/master/doc)."
+msgstr "يمكن اختبار Ord باستخدام الأعلام التالية لتحديد شبكة الاختبار. لمزيد من المعلومات حول تشغيل Litecoin Core لأغراض الاختبار، انظر [Litecoin's developer documentation](https://github.com/litecoin-project/litecoin/tree/master/doc)."
 
 #: src\guides/testing.md:7
 msgid "Most `ord` commands in [inscriptions](wallet.md) and [explorer](explorer.md) can be run with the following network flags:"
@@ -2735,13 +2735,13 @@ msgid "Example"
 msgstr "مثال"
 
 #: src\guides/testing.md:21
-msgid "Run bitcoind in regtest with:"
-msgstr "تشغيل `bitcoind` في وضع الاختبار المحلي باستخدام الأمر:"
+msgid "Run litecoind in regtest with:"
+msgstr "تشغيل `litecoind` في وضع الاختبار المحلي باستخدام الأمر:"
 
 #: src\guides/testing.md:22
 msgid ""
 "```\n"
-"bitcoind -regtest -txindex\n"
+"litecoind -regtest -txindex\n"
 "```"
 msgstr ""
 
@@ -2774,7 +2774,7 @@ msgstr "إبدا بتعدين البلوكس باستخدام الأمر:"
 #: src\guides/testing.md:34
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 101 <receive address>\n"
+"litecoin-cli generatetoaddress 101 <receive address>\n"
 "```"
 msgstr ""
 
@@ -2796,7 +2796,7 @@ msgstr "عدن الإنسكريبشين باستخدام الأمر:"
 #: src\guides/testing.md:42
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 1 <receive address>\n"
+"litecoin-cli generatetoaddress 1 <receive address>\n"
 "```"
 msgstr ""
 
@@ -2852,7 +2852,7 @@ msgstr "أخيرًا، ستحتاج إلى تعدين بعض الكتل وبدء
 #: src\guides/testing.md:70
 msgid ""
 "```\n"
-"bitcoin-cli generatetoaddress 6 <receive address>\n"
+"litecoin-cli generatetoaddress 6 <receive address>\n"
 "ord -r server\n"
 "```"
 msgstr ""
@@ -2906,16 +2906,16 @@ msgid "`ord` must be restarted in to load changes to the config file."
 msgstr "يجب إعادة تشغيل `ord` لتحميل التغييرات."
 
 #: src\guides/moderation.md:37
-msgid "`ordinals.com`"
+msgid "`ordinalslite.com`"
 msgstr ""
 
 #: src\guides/moderation.md:40
-msgid "The `ordinals.com` instances use `systemd` to run the `ord server` service, which is called `ord`, with a config file located at `/var/lib/ord/ord.yaml`."
-msgstr "تستخدم `ordinals.com` لتشغيل خدمة `ord server`، والتي تسمى `ord`، باستخدام ملف تكوين يقع في المسار `var/lib/ord/ord.yaml/`."
+msgid "The `ordinalslite.com` instances use `systemd` to run the `ord server` service, which is called `ord`, with a config file located at `/var/lib/ord/ord.yaml`."
+msgstr "تستخدم `ordinalslite.com` لتشغيل خدمة `ord server`، والتي تسمى `ord`، باستخدام ملف تكوين يقع في المسار `var/lib/ord/ord.yaml/`."
 
 #: src\guides/moderation.md:43
-msgid "To hide an inscription on `ordinals.com`:"
-msgstr "لإخفاء إنسكريبشين على `ordinals.com`:"
+msgid "To hide an inscription on `ordinalslite.com`:"
+msgstr "لإخفاء إنسكريبشين على `ordinalslite.com`:"
 
 #: src\guides/moderation.md:45
 msgid "SSH into the server"
@@ -3050,11 +3050,11 @@ msgid "Send a sat whose ordinal number ends with a zero to the submission addres
 msgstr "أرسل ساتوشي الذي يحمل رقم ترتيبي ينتهي بصفر إلى عنوان التقديم:"
 
 #: src\bounty/0.md:9
-msgid "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
-msgstr "✅: [1857578125803250](https://ordinals.com/ordinal/1857578125803250)"
+msgid "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
+msgstr "✅: [1857578125803250](https://ordinalslite.com/ordinal/1857578125803250)"
 
 #: src\bounty/0.md:11
-msgid "❌: [1857578125803251](https://ordinals.com/ordinal/1857578125803251)"
+msgid "❌: [1857578125803251](https://ordinalslite.com/ordinal/1857578125803251)"
 msgstr ""
 
 #: src\bounty/0.md:13
@@ -3126,11 +3126,11 @@ msgid " sat to the submission address:"
 msgstr ""
 
 #: src\bounty/2.md:9
-msgid "✅: [347100000000000](https://ordinals.com/sat/347100000000000)"
+msgid "✅: [347100000000000](https://ordinalslite.com/sat/347100000000000)"
 msgstr ""
 
 #: src\bounty/2.md:11
-msgid "❌: [6685000001337](https://ordinals.com/sat/6685000001337)"
+msgid "❌: [6685000001337](https://ordinalslite.com/sat/6685000001337)"
 msgstr ""
 
 #: src\bounty/2.md:13

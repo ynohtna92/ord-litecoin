@@ -1,0 +1,78 @@
+--- a/LICENSE
++++ b/LICENSE
+@@ -119,4 +119,3 @@
+  d. Affirmer understands and acknowledges that Creative Commons is not a
+     party to this document and has no duty or obligation with respect to
+     this CC0 or use of the Work.
+-
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -675,7 +675,7 @@
+     #[serde(with = "bitcoin::amount::serde::as_btc")]
+     pub amount: SignedAmount,
+     pub label: Option<String>,
+-    pub vout: u32,
++    pub vout: Option<u32>,
+     #[serde(default, with = "bitcoin::amount::serde::as_btc::opt")]
+     pub fee: Option<SignedAmount>,
+     pub abandoned: Option<bool>,
+@@ -776,20 +776,20 @@
+ #[serde(rename_all = "camelCase")]
+ pub struct ListUnspentResultEntry {
+     pub txid: bitcoin::Txid,
+-    pub vout: u32,
++    pub vout: Option<u32>,
+     pub address: Option<Address<NetworkUnchecked>>,
+     pub label: Option<String>,
+     pub redeem_script: Option<ScriptBuf>,
+     pub witness_script: Option<ScriptBuf>,
+-    pub script_pub_key: ScriptBuf,
++    pub script_pub_key: Option<ScriptBuf>,
+     #[serde(with = "bitcoin::amount::serde::as_btc")]
+     pub amount: Amount,
+     pub confirmations: u32,
+     pub spendable: bool,
+-    pub solvable: bool,
++    pub solvable: Option<bool>,
+     #[serde(rename = "desc")]
+     pub descriptor: Option<String>,
+-    pub safe: bool,
++    pub safe: Option<bool>,
+ }
+ 
+ #[derive(Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
+@@ -915,6 +915,8 @@
+     Witness_v0_ScriptHash,
+     Witness_v1_Taproot,
+     Witness_Unknown,
++    Witness_Mweb_Pegin,
++    Witness_Mweb_Hogaddr,
+ }
+ 
+ #[derive(Clone, PartialEq, Eq, Debug, Deserialize, Serialize)]
+@@ -1017,6 +1019,7 @@
+ pub struct GetBlockchainInfoResult {
+     /// Current network name as defined in BIP70 (main, test, signet, regtest)
+     #[serde(deserialize_with = "deserialize_bip70_network")]
++    #[serde(serialize_with = "serialize_bip70_network")]
+     pub chain: Network,
+     /// The current number of blocks processed in the server
+     pub blocks: u64,
+@@ -2190,9 +2193,16 @@
+     Ok(Some(res))
+ }
+ 
++fn serialize_bip70_network<S>(network: &Network, serializer: S) -> Result<S::Ok, S::Error>
++where
++    S: serde::Serializer,
++{
++    serializer.serialize_str(network.to_core_arg())
++}
++
+ /// deserialize_bip70_network deserializes a Bitcoin Core network according to BIP70
+ /// The accepted input variants are: {"main", "test", "signet", "regtest"}
+-fn deserialize_bip70_network<'de, D>(deserializer: D) -> Result<Network, D::Error> 
++fn deserialize_bip70_network<'de, D>(deserializer: D) -> Result<Network, D::Error>
+ where
+     D: serde::Deserializer<'de>,
+ {

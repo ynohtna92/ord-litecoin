@@ -18,11 +18,10 @@ impl Entry for Header {
   }
 
   fn store(self) -> Self::Value {
-    let mut buffer = Cursor::new([0; 80]);
+    let mut buffer = [0; 80];
     let len = self
-      .consensus_encode(&mut buffer)
+      .consensus_encode(&mut buffer.as_mut_slice())
       .expect("in-memory writers don't error");
-    let buffer = buffer.into_inner();
     debug_assert_eq!(len, buffer.len());
     buffer
   }
@@ -422,7 +421,7 @@ impl Entry for OutPoint {
   type Value = OutPointValue;
 
   fn load(value: Self::Value) -> Self {
-    Decodable::consensus_decode(&mut Cursor::new(value)).unwrap()
+    Decodable::consensus_decode(&mut bitcoin::io::Cursor::new(value)).unwrap()
   }
 
   fn store(self) -> Self::Value {
@@ -438,7 +437,7 @@ impl Entry for SatPoint {
   type Value = SatPointValue;
 
   fn load(value: Self::Value) -> Self {
-    Decodable::consensus_decode(&mut Cursor::new(value)).unwrap()
+    Decodable::consensus_decode(&mut bitcoin::io::Cursor::new(value)).unwrap()
   }
 
   fn store(self) -> Self::Value {
@@ -470,7 +469,7 @@ impl Entry for SatRange {
   fn store(self) -> Self::Value {
     let base = self.0;
     let delta = self.1 - self.0;
-    let n = u128::from(base) | u128::from(delta) << 51;
+    let n = u128::from(base) | (u128::from(delta) << 51);
     n.to_le_bytes()[0..11].try_into().unwrap()
   }
 }

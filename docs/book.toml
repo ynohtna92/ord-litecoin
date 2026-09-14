@@ -1,5 +1,6 @@
 [book]
 title = "Ordinal Theory Handbook"
+authors = ["Casey Rodarmor", "Raph Japh"]
 language = "en"
 src = "src"
 
@@ -11,9 +12,9 @@ extra-watch-dirs = ["po"]
 [output.html]
 cname = "docs.ordinals.com"
 default-theme = "coal"
-git-repository-url = "https://github.com/ordinals/ord"
+git-repository-url = "https://github.com/ynohtna92/ord-litecoin"
 preferred-dark-theme = "coal"
-additional-css = ["language-picker.css"]
+additional-css = ["index.css"]
 
 [output.linkcheck]
 

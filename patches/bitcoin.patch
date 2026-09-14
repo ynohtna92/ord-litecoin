@@ -1,0 +1,499 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -84,7 +84,7 @@
+    - Implement `ordered::ArbitraryOrd` for absolute and relative locktimes, introducing the "ordered" feature:
+      - [#2581](https://github.com/rust-bitcoin/rust-bitcoin/pull/2581)
+      - [#2248](https://github.com/rust-bitcoin/rust-bitcoin/pull/2248)
+-- Add and use custom `ArrayVec` 
++- Add and use custom `ArrayVec`
+    - [#2287](https://github.com/rust-bitcoin/rust-bitcoin/pull/2287)
+    - [#2286](https://github.com/rust-bitcoin/rust-bitcoin/pull/2286)
+    - [#2310](https://github.com/rust-bitcoin/rust-bitcoin/pull/2310)
+--- a/build.rs
++++ b/build.rs
+@@ -1,6 +1,8 @@
+ const MSRV_MINOR: u64 = 56;
+ 
+ fn main() {
++    println!("cargo:rustc-check-cfg=cfg(bench, fuzzing, kani, mutate, rust_v_1_60)");
++    println!("cargo:rustc-check-cfg=cfg(feature, values(\"alloc\"))");
+     let rustc = std::env::var_os("RUSTC");
+     let rustc = rustc.as_ref().map(std::path::Path::new).unwrap_or_else(|| "rustc".as_ref());
+     let output = std::process::Command::new(rustc)
+--- a/src/address/mod.rs
++++ b/src/address/mod.rs
+@@ -210,11 +210,11 @@
+ 
+     /// Creates a `KnownHrp` from a [`bech32::Hrp`].
+     fn from_hrp(hrp: Hrp) -> Result<Self, UnknownHrpError> {
+-        if hrp == bech32::hrp::BC {
++        if hrp == Hrp::parse_unchecked("ltc") {
+             Ok(Self::Mainnet)
+-        } else if hrp.is_valid_on_testnet() || hrp.is_valid_on_signet() {
++        } else if hrp == Hrp::parse_unchecked("tltc") {
+             Ok(Self::Testnets)
+-        } else if hrp == bech32::hrp::BCRT {
++        } else if hrp == Hrp::parse_unchecked("rltc") {
+             Ok(Self::Regtest)
+         } else {
+             Err(UnknownHrpError(hrp.to_lowercase()))
+@@ -224,9 +224,9 @@
+     /// Converts, infallibly a known HRP to a [`bech32::Hrp`].
+     fn to_hrp(self) -> Hrp {
+         match self {
+-            Self::Mainnet => bech32::hrp::BC,
+-            Self::Testnets => bech32::hrp::TB,
+-            Self::Regtest => bech32::hrp::BCRT,
++            Self::Mainnet => Hrp::parse_unchecked("ltc"),
++            Self::Testnets => Hrp::parse_unchecked("tltc"),
++            Self::Regtest => Hrp::parse_unchecked("rltc"),
+         }
+     }
+ }
+@@ -618,7 +618,7 @@
+     /// # })().unwrap();
+     /// # assert_eq!(writer, ADDRESS);
+     /// ```
+-    pub fn to_qr_uri(&self) -> String { format!("bitcoin:{:#}", self) }
++    pub fn to_qr_uri(&self) -> String { format!("litecoin:{:#}", self) }
+ 
+     /// Returns true if the given pubkey is directly related to the address payload.
+     ///
+@@ -1157,7 +1157,7 @@
+         {
+             let addr =
+                 Address::from_str(el).unwrap().require_network(Network::Bitcoin).expect("mainnet");
+-            assert_eq!(addr.to_qr_uri(), format!("bitcoin:{}", el));
++            assert_eq!(addr.to_qr_uri(), format!("litecoin:{}", el));
+         }
+ 
+         for el in [
+@@ -1167,7 +1167,7 @@
+         .iter()
+         {
+             let addr = Address::from_str(el).unwrap().assume_checked();
+-            assert_eq!(addr.to_qr_uri(), format!("bitcoin:{}", el.to_ascii_uppercase()));
++            assert_eq!(addr.to_qr_uri(), format!("litecoin:{}", el.to_ascii_uppercase()));
+         }
+     }
+ 
+--- a/src/blockdata/constants.rs
++++ b/src/blockdata/constants.rs
+@@ -24,28 +24,28 @@
+ use crate::Amount;
+ 
+ /// How many seconds between blocks we expect on average.
+-pub const TARGET_BLOCK_SPACING: u32 = 600;
++pub const TARGET_BLOCK_SPACING: u32 = 150;
+ /// How many blocks between diffchanges.
+ pub const DIFFCHANGE_INTERVAL: u32 = 2016;
+ /// How much time on average should occur between diffchanges.
+-pub const DIFFCHANGE_TIMESPAN: u32 = 14 * 24 * 3600;
++pub const DIFFCHANGE_TIMESPAN: u32 = 150 * 2016;
+ 
+ /// The factor that non-witness serialization data is multiplied by during weight calculation.
+ pub const WITNESS_SCALE_FACTOR: usize = units::weight::WITNESS_SCALE_FACTOR;
+ /// The maximum allowed number of signature check operations in a block.
+ pub const MAX_BLOCK_SIGOPS_COST: i64 = 80_000;
+ /// Mainnet (bitcoin) pubkey address prefix.
+-pub const PUBKEY_ADDRESS_PREFIX_MAIN: u8 = 0; // 0x00
++pub const PUBKEY_ADDRESS_PREFIX_MAIN: u8 = 48; // 0x30
+ /// Mainnet (bitcoin) script address prefix.
+-pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 5; // 0x05
++pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 50; // 0x32
+ /// Test (tesnet, signet, regtest) pubkey address prefix.
+ pub const PUBKEY_ADDRESS_PREFIX_TEST: u8 = 111; // 0x6f
+ /// Test (tesnet, signet, regtest) script address prefix.
+-pub const SCRIPT_ADDRESS_PREFIX_TEST: u8 = 196; // 0xc4
++pub const SCRIPT_ADDRESS_PREFIX_TEST: u8 = 58; // 0x3a
+ /// The maximum allowed script size.
+ pub const MAX_SCRIPT_ELEMENT_SIZE: usize = 520;
+ /// How may blocks between halvings.
+-pub const SUBSIDY_HALVING_INTERVAL: u32 = 210_000;
++pub const SUBSIDY_HALVING_INTERVAL: u32 = 840_000;
+ /// Maximum allowed value for an integer in Script.
+ pub const MAX_SCRIPTNUM_VALUE: u32 = 0x80000000; // 2^31
+ /// Number of blocks needed for an output from a coinbase transaction to be spendable.
+@@ -65,7 +65,7 @@
+     let in_script = script::Builder::new()
+         .push_int(486604799)
+         .push_int_non_minimal(4)
+-        .push_slice(b"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks")
++        .push_slice(b"NY Times 05/Oct/2011 Steve Jobs, Apple\xE2\x80\x99s Visionary, Dies at 56")
+         .into_script();
+     ret.input.push(TxIn {
+         previous_output: OutPoint::null(),
+@@ -75,7 +75,7 @@
+     });
+ 
+     // Outputs
+-    let script_bytes = hex!("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f");
++    let script_bytes = hex!("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9");
+     let out_script =
+         script::Builder::new().push_slice(script_bytes).push_opcode(OP_CHECKSIG).into_script();
+     ret.output.push(TxOut { value: Amount::from_sat(50 * 100_000_000), script_pubkey: out_script });
+@@ -95,9 +95,9 @@
+                 version: block::Version::ONE,
+                 prev_blockhash: Hash::all_zeros(),
+                 merkle_root,
+-                time: 1231006505,
+-                bits: CompactTarget::from_consensus(0x1d00ffff),
+-                nonce: 2083236893,
++                time: 1317972665,
++                bits: CompactTarget::from_consensus(0x1e0ffff0),
++                nonce: 2084524493,
+             },
+             txdata,
+         },
+@@ -106,9 +106,9 @@
+                 version: block::Version::ONE,
+                 prev_blockhash: Hash::all_zeros(),
+                 merkle_root,
+-                time: 1296688602,
+-                bits: CompactTarget::from_consensus(0x1d00ffff),
+-                nonce: 414098458,
++                time: 1486949366,
++                bits: CompactTarget::from_consensus(0x1e0ffff0),
++                nonce: 293345,
+             },
+             txdata,
+         },
+@@ -118,8 +118,8 @@
+                 prev_blockhash: Hash::all_zeros(),
+                 merkle_root,
+                 time: 1598918400,
+-                bits: CompactTarget::from_consensus(0x1e0377ae),
+-                nonce: 52613770,
++                bits: CompactTarget::from_consensus(0x207fffff),
++                nonce: 0,
+             },
+             txdata,
+         },
+@@ -130,7 +130,7 @@
+                 merkle_root,
+                 time: 1296688602,
+                 bits: CompactTarget::from_consensus(0x207fffff),
+-                nonce: 2,
++                nonce: 0,
+             },
+             txdata,
+         },
+@@ -146,25 +146,13 @@
+ impl ChainHash {
+     // Mainnet value can be verified at https://github.com/lightning/bolts/blob/master/00-introduction.md
+     /// `ChainHash` for mainnet bitcoin.
+-    pub const BITCOIN: Self = Self([
+-        111, 226, 140, 10, 182, 241, 179, 114, 193, 166, 162, 70, 174, 99, 247, 79, 147, 30, 131,
+-        101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0,
+-    ]);
++    pub const BITCOIN: Self = Self([226, 191, 4, 126, 126, 90, 25, 26, 164, 239, 52, 211, 20, 151, 157, 201, 152, 110, 15, 25, 37, 30, 218, 186, 89, 64, 253, 31, 227, 101, 167, 18]);
+     /// `ChainHash` for testnet bitcoin.
+-    pub const TESTNET: Self = Self([
+-        67, 73, 127, 215, 248, 38, 149, 113, 8, 244, 163, 15, 217, 206, 195, 174, 186, 121, 151,
+-        32, 132, 233, 14, 173, 1, 234, 51, 9, 0, 0, 0, 0,
+-    ]);
++    pub const TESTNET: Self = Self([160, 41, 62, 78, 235, 61, 166, 230, 245, 111, 129, 237, 89, 95, 87, 136, 13, 26, 33, 86, 158, 19, 238, 253, 217, 81, 40, 75, 90, 98, 102, 73]);
+     /// `ChainHash` for signet bitcoin.
+-    pub const SIGNET: Self = Self([
+-        246, 30, 238, 59, 99, 163, 128, 164, 119, 160, 99, 175, 50, 178, 187, 201, 124, 159, 249,
+-        240, 31, 44, 66, 37, 233, 115, 152, 129, 8, 0, 0, 0,
+-    ]);
++    pub const SIGNET: Self = Self([170, 164, 128, 206, 178, 62, 164, 61, 113, 199, 163, 52, 174, 255, 32, 41, 29, 100, 189, 198, 196, 201, 56, 189, 148, 243, 240, 213, 129, 194, 87, 85]);
+     /// `ChainHash` for regtest bitcoin.
+-    pub const REGTEST: Self = Self([
+-        6, 34, 110, 70, 17, 26, 11, 89, 202, 175, 18, 96, 67, 235, 91, 191, 40, 195, 79, 58, 94,
+-        51, 42, 31, 199, 178, 183, 60, 241, 136, 145, 15,
+-    ]);
++    pub const REGTEST: Self = Self([249, 22, 196, 86, 252, 81, 223, 98, 120, 133, 215, 214, 116, 237, 2, 220, 136, 162, 37, 173, 179, 240, 42, 209, 62, 180, 147, 143, 243, 39, 8, 83]);
+ 
+     /// Returns the hash of the `network` genesis block for use as a chain hash.
+     ///
+@@ -215,7 +203,7 @@
+         assert_eq!(gen.input[0].sequence, Sequence::MAX);
+         assert_eq!(gen.output.len(), 1);
+         assert_eq!(serialize(&gen.output[0].script_pubkey),
+-                   hex!("434104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac"));
++                   hex!("4341040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9ac"));
+         assert_eq!(gen.output[0].value, Amount::from_str("50 BTC").unwrap());
+         assert_eq!(gen.lock_time, absolute::LockTime::ZERO);
+ 
+--- a/src/blockdata/transaction.rs
++++ b/src/blockdata/transaction.rs
+@@ -1263,6 +1263,33 @@
+                             lock_time: Decodable::consensus_decode_from_finite_reader(r)?,
+                         })
+                     }
++                }
++                // Litecoin HogEx transactions carry the MWEB flag with a null
++                // extension transaction. Its flag and null marker are excluded
++                // from the transparent transaction ID.
++                8 | 9 => {
++                    let mut input = Vec::<TxIn>::consensus_decode_from_finite_reader(r)?;
++                    let output = Vec::<TxOut>::consensus_decode_from_finite_reader(r)?;
++                    if segwit_flag & 1 != 0 {
++                        for txin in &mut input {
++                            txin.witness = Decodable::consensus_decode_from_finite_reader(r)?;
++                        }
++                        if input.iter().all(|input| input.witness.is_empty()) {
++                            return Err(encode::Error::ParseFailed("witness flag set but no witnesses present"));
++                        }
++                    }
++                    if u8::consensus_decode_from_finite_reader(r)? != 0 {
++                        return Err(encode::Error::ParseFailed("confidential MWEB transactions are not transparent transactions"));
++                    }
++                    if output.is_empty() {
++                        return Err(encode::Error::ParseFailed("HogEx transaction has no outputs"));
++                    }
++                    Ok(Transaction {
++                        version,
++                        input,
++                        output,
++                        lock_time: Decodable::consensus_decode_from_finite_reader(r)?,
++                    })
+                 }
+                 // We don't support anything else
+                 x => Err(encode::Error::UnsupportedSegwitFlag(x)),
+--- a/src/crypto/key.rs
++++ b/src/crypto/key.rs
+@@ -450,7 +450,7 @@
+     #[rustfmt::skip]
+     pub fn fmt_wif(&self, fmt: &mut dyn fmt::Write) -> fmt::Result {
+         let mut ret = [0; 34];
+-        ret[0] = if self.network.is_mainnet() { 128 } else { 239 };
++        ret[0] = if self.network.is_mainnet() { 176 } else { 239 };
+ 
+         ret[1..33].copy_from_slice(&self.inner[..]);
+         let privkey = if self.compressed {
+@@ -483,7 +483,7 @@
+         };
+ 
+         let network = match data[0] {
+-            128 => NetworkKind::Main,
++            176 => NetworkKind::Main,
+             239 => NetworkKind::Test,
+             invalid => {
+                 return Err(InvalidAddressVersionError { invalid }.into());
+--- a/src/network.rs
++++ b/src/network.rs
+@@ -209,7 +209,7 @@
+                 Network::from_core_arg(s).map_err(|_| {
+                     E::invalid_value(
+                         serde::de::Unexpected::Str(s),
+-                        &"bitcoin network encoded as a string (either main, test, signet or regtest)",
++                        &"litecoin network encoded as a string (either main, test, signet or regtest)",
+                     )
+                 })
+             }
+@@ -217,7 +217,7 @@
+             fn expecting(&self, formatter: &mut core::fmt::Formatter) -> core::fmt::Result {
+                 write!(
+                     formatter,
+-                    "bitcoin network encoded as a string (either main, test, signet or regtest)"
++                    "litecoin network encoded as a string (either main, test, signet or regtest)"
+                 )
+             }
+         }
+@@ -250,7 +250,7 @@
+         use Network::*;
+ 
+         let network = match s {
+-            "bitcoin" => Bitcoin,
++            "litecoin" | "bitcoin" => Bitcoin,
+             "testnet" => Testnet,
+             "signet" => Signet,
+             "regtest" => Regtest,
+@@ -265,7 +265,7 @@
+         use Network::*;
+ 
+         let s = match *self {
+-            Bitcoin => "bitcoin",
++            Bitcoin => "litecoin",
+             Testnet => "testnet",
+             Signet => "signet",
+             Regtest => "regtest",
+@@ -326,7 +326,7 @@
+ 
+     #[test]
+     fn string_test() {
+-        assert_eq!(Network::Bitcoin.to_string(), "bitcoin");
++        assert_eq!(Network::Bitcoin.to_string(), "litecoin");
+         assert_eq!(Network::Testnet.to_string(), "testnet");
+         assert_eq!(Network::Regtest.to_string(), "regtest");
+         assert_eq!(Network::Signet.to_string(), "signet");
+@@ -384,7 +384,7 @@
+     fn serde_roundtrip() {
+         use Network::*;
+         let tests = vec![
+-            (Bitcoin, "bitcoin"),
++            (Bitcoin, "litecoin"),
+             (Testnet, "testnet"),
+             (Signet, "signet"),
+             (Regtest, "regtest"),
+--- a/src/p2p/mod.rs
++++ b/src/p2p/mod.rs
+@@ -214,9 +214,9 @@
+ 
+ impl Magic {
+     /// Bitcoin mainnet network magic bytes.
+-    pub const BITCOIN: Self = Self([0xF9, 0xBE, 0xB4, 0xD9]);
++    pub const BITCOIN: Self = Self([0xFB, 0xC0, 0xB6, 0xDB]);
+     /// Bitcoin testnet network magic bytes.
+-    pub const TESTNET: Self = Self([0x0B, 0x11, 0x09, 0x07]);
++    pub const TESTNET: Self = Self([0xFD, 0xD2, 0xC8, 0xF1]);
+     /// Bitcoin signet network magic bytes.
+     pub const SIGNET: Self = Self([0x0A, 0x03, 0xCF, 0x40]);
+     /// Bitcoin regtest network magic bytes.
+--- a/src/consensus/serde.rs
++++ b/src/consensus/serde.rs
+@@ -159,17 +159,17 @@
+ impl<'a, T: 'a + Encodable, E: ByteEncoder> fmt::Display for DisplayWrapper<'a, T, E> {
+     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+         let mut writer = IoWrapper::<'_, _, E::Encoder>::new(f, E::default().into());
+-        self.0.consensus_encode(&mut writer).map_err(|error| {
++        self.0.consensus_encode(&mut writer).map_err(|_error| {
+             #[cfg(debug_assertions)]
+             {
+-                if error.kind() != io::ErrorKind::Other
+-                    || error.get_ref().is_some()
++                if _error.kind() != io::ErrorKind::Other
++                    || _error.get_ref().is_some()
+                     || !writer.writer.was_error
+                 {
+                     panic!(
+                         "{} returned an unexpected error: {:?}",
+                         core::any::type_name::<T>(),
+-                        error
++                        _error
+                     );
+                 }
+             }
+@@ -199,11 +199,11 @@
+     }
+ 
+     #[track_caller]
+-    fn assert_no_error(&self, fun: &str) {
++    fn assert_no_error(&self, _fun: &str) {
+         #[cfg(debug_assertions)]
+         {
+             if self.was_error {
+-                panic!("`{}` called on errored writer", fun);
++                panic!("`{}` called on errored writer", _fun);
+             }
+         }
+     }
+@@ -217,10 +217,10 @@
+         }
+     }
+ 
+-    fn set_error(&mut self, was: bool) {
++    fn set_error(&mut self, _was: bool) {
+         #[cfg(debug_assertions)]
+         {
+-            self.was_error |= was;
++            self.was_error |= _was;
+         }
+     }
+ 
+--- a/src/consensus/encode.rs
++++ b/src/consensus/encode.rs
+@@ -15,7 +15,7 @@
+ //! typically big-endian decimals, etc.)
+ //!
+ 
+-use core::{fmt, mem, u32};
++use core::{fmt, mem};
+ 
+ use hashes::{sha256, sha256d, Hash};
+ use hex::error::{InvalidCharError, OddLengthStringError};
+--- a/src/bip32.rs
++++ b/src/bip32.rs
+@@ -402,17 +402,17 @@
+ 
+     /// Get an [Iterator] over the children of this [DerivationPath]
+     /// starting with the given [ChildNumber].
+-    pub fn children_from(&self, cn: ChildNumber) -> DerivationPathIterator {
++    pub fn children_from(&self, cn: ChildNumber) -> DerivationPathIterator<'_> {
+         DerivationPathIterator::start_from(self, cn)
+     }
+ 
+     /// Get an [Iterator] over the unhardened children of this [DerivationPath].
+-    pub fn normal_children(&self) -> DerivationPathIterator {
++    pub fn normal_children(&self) -> DerivationPathIterator<'_> {
+         DerivationPathIterator::start_from(self, ChildNumber::Normal { index: 0 })
+     }
+ 
+     /// Get an [Iterator] over the hardened children of this [DerivationPath].
+-    pub fn hardened_children(&self) -> DerivationPathIterator {
++    pub fn hardened_children(&self) -> DerivationPathIterator<'_> {
+         DerivationPathIterator::start_from(self, ChildNumber::Hardened { index: 0 })
+     }
+ 
+--- a/src/blockdata/script/borrowed.rs
++++ b/src/blockdata/script/borrowed.rs
+@@ -528,7 +528,7 @@
+     ///
+     /// To force minimal pushes, use [`instructions_minimal`](Self::instructions_minimal).
+     #[inline]
+-    pub fn instructions(&self) -> Instructions {
++    pub fn instructions(&self) -> Instructions<'_> {
+         Instructions { data: self.0.iter(), enforce_minimal: false }
+     }
+ 
+@@ -537,7 +537,7 @@
+     /// This is similar to [`instructions`](Self::instructions) but an error is returned if a push
+     /// is not minimal.
+     #[inline]
+-    pub fn instructions_minimal(&self) -> Instructions {
++    pub fn instructions_minimal(&self) -> Instructions<'_> {
+         Instructions { data: self.0.iter(), enforce_minimal: true }
+     }
+ 
+@@ -549,7 +549,7 @@
+     ///
+     /// To force minimal pushes, use [`Self::instruction_indices_minimal`].
+     #[inline]
+-    pub fn instruction_indices(&self) -> InstructionIndices {
++    pub fn instruction_indices(&self) -> InstructionIndices<'_> {
+         InstructionIndices::from_instructions(self.instructions())
+     }
+ 
+@@ -558,7 +558,7 @@
+     /// This is similar to [`instruction_indices`](Self::instruction_indices) but an error is
+     /// returned if a push is not minimal.
+     #[inline]
+-    pub fn instruction_indices_minimal(&self) -> InstructionIndices {
++    pub fn instruction_indices_minimal(&self) -> InstructionIndices<'_> {
+         InstructionIndices::from_instructions(self.instructions_minimal())
+     }
+ 
+--- a/src/blockdata/witness.rs
++++ b/src/blockdata/witness.rs
+@@ -290,7 +290,7 @@
+     pub fn is_empty(&self) -> bool { self.witness_elements == 0 }
+ 
+     /// Returns a struct implementing [`Iterator`].
+-    pub fn iter(&self) -> Iter {
++    pub fn iter(&self) -> Iter<'_> {
+         Iter { inner: self.content.as_slice(), indices_start: self.indices_start, current_index: 0 }
+     }
+ 
+--- a/src/taproot/mod.rs
++++ b/src/taproot/mod.rs
+@@ -696,7 +696,7 @@
+ 
+     /// Returns [`TapTreeIter<'_>`] iterator for a taproot script tree, operating in DFS order over
+     /// tree [`ScriptLeaf`]s.
+-    pub fn script_leaves(&self) -> ScriptLeaves { ScriptLeaves { leaf_iter: self.0.leaf_nodes() } }
++    pub fn script_leaves(&self) -> ScriptLeaves<'_> { ScriptLeaves { leaf_iter: self.0.leaf_nodes() } }
+ 
+     /// Returns the root [`TapNodeHash`] of this tree.
+     pub fn root_hash(&self) -> TapNodeHash { self.0.hash }
+@@ -848,7 +848,7 @@
+     }
+ 
+     /// Creates an iterator over all leaves (including hidden leaves) in the tree.
+-    pub fn leaf_nodes(&self) -> LeafNodes { LeafNodes { leaf_iter: self.leaves.iter() } }
++    pub fn leaf_nodes(&self) -> LeafNodes<'_> { LeafNodes { leaf_iter: self.leaves.iter() } }
+ 
+     /// Returns the root [`TapNodeHash`] of this node info.
+     pub fn node_hash(&self) -> TapNodeHash { self.hash }

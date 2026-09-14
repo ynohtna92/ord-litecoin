@@ -32,6 +32,7 @@ fn run() {
   }
 
   child.kill().unwrap();
+  child.wait().unwrap();
 }
 
 #[test]
@@ -44,7 +45,7 @@ fn address_page_shows_outputs_and_sat_balance() {
 
   let address = "ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9";
 
-  let send = CommandBuilder::new(format!("wallet send --fee-rate 13.3 {address} 2btc"))
+  let send = CommandBuilder::new(format!("wallet send --fee-rate 13.3 {address} 2ltc"))
     .core(&core)
     .ord(&ord)
     .run_and_deserialize_output::<Send>();
@@ -54,7 +55,7 @@ fn address_page_shows_outputs_and_sat_balance() {
   ord.assert_response_regex(
     format!("/address/{address}"),
     format!(
-      ".*<h1>Address {address}</h1>.*<dd>200000000</dd>.*<a class=monospace href=/output/{}.*",
+      ".*<h1>Address {address}</h1>.*<dd>200000000</dd>.*<a class=collapse href=/output/{}.*",
       OutPoint {
         txid: send.txid,
         vout: 0
@@ -73,7 +74,7 @@ fn address_page_shows_single_rune() {
 
   etch(&core, &ord, Rune(RUNE));
 
-  let address = "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw";
+  let address = "rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls";
 
   CommandBuilder::new(format!(
     "--chain regtest --index-runes wallet send --fee-rate 1 {address} 1000:{}",
@@ -103,7 +104,7 @@ fn address_page_shows_multiple_runes() {
   etch(&core, &ord, Rune(RUNE));
   etch(&core, &ord, Rune(RUNE + 1));
 
-  let address = "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw";
+  let address = "rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls";
 
   CommandBuilder::new(format!(
     "--chain regtest --index-runes wallet send --fee-rate 1 {address} 1000:{}",
@@ -147,7 +148,7 @@ fn address_page_shows_aggregated_runes_balance() {
 
   etch(&core, &ord, Rune(RUNE));
 
-  let address = "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw";
+  let address = "rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls";
 
   CommandBuilder::new(format!(
     "--chain regtest --index-runes wallet send --fee-rate 1 {address} 250:{}",
@@ -187,7 +188,7 @@ fn address_page_shows_aggregated_inscriptions() {
 
   let (inscription_id_1, _reveal) = inscribe(&core, &ord);
 
-  let address = "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw";
+  let address = "rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls";
 
   CommandBuilder::new(format!(
     "--chain regtest --index-runes wallet send --fee-rate 1 {address} {inscription_id_1}",
@@ -248,9 +249,9 @@ fn inscription_page() {
 .*<iframe .* src=/preview/{inscription}></iframe>.*
 <dl>
   <dt>id</dt>
-  <dd class=monospace>{inscription}</dd>
+  <dd class=collapse>{inscription}</dd>
   <dt>address</dt>
-  <dd class=monospace><a href=/address/ltc1.*>ltc1.*</a></dd>
+  <dd><a class=collapse href=/address/ltc1.*>ltc1.*</a></dd>
   <dt>value</dt>
   <dd>10000</dd>
   <dt>preview</dt>
@@ -268,15 +269,15 @@ fn inscription_page() {
   <dt>fee</dt>
   <dd>138</dd>
   <dt>reveal transaction</dt>
-  <dd><a class=monospace href=/tx/{reveal}>{reveal}</a></dd>
+  <dd><a class=collapse href=/tx/{reveal}>{reveal}</a></dd>
   <dt>location</dt>
-  <dd><a class=monospace href=/satpoint/{reveal}:0:0>{reveal}:0:0</a></dd>
+  <dd><a class=collapse href=/satpoint/{reveal}:0:0>{reveal}:0:0</a></dd>
   <dt>output</dt>
-  <dd><a class=monospace href=/output/{reveal}:0>{reveal}:0</a></dd>
+  <dd><a class=collapse href=/output/{reveal}:0>{reveal}:0</a></dd>
   <dt>offset</dt>
   <dd>0</dd>
   <dt>ethereum teleburn address</dt>
-  <dd>{ethereum_teleburn_address}</dd>
+  <dd class=collapse>{ethereum_teleburn_address}</dd>
 </dl>.*",
     ),
   );
@@ -362,7 +363,7 @@ fn inscription_page_after_send() {
   ord.assert_response_regex(
     format!("/inscription/{inscription}"),
     format!(
-      r".*<h1>Inscription 0</h1>.*<dt>location</dt>\s*<dd><a class=monospace href=/satpoint/{reveal}:0:0>{reveal}:0:0</a></dd>.*",
+      r".*<h1>Inscription 0</h1>.*<dt>location</dt>\s*<dd><a class=collapse href=/satpoint/{reveal}:0:0>{reveal}:0:0</a></dd>.*",
     ),
   );
 
@@ -380,7 +381,7 @@ fn inscription_page_after_send() {
   ord.assert_response_regex(
     format!("/inscription/{inscription}"),
     format!(
-      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd class=monospace><a href=/address/ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu>ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu</a></dd>.*<dt>location</dt>\s*<dd><a class=monospace href=/satpoint/{txid}:0:0>{txid}:0:0</a></dd>.*",
+      r".*<h1>Inscription 0</h1>.*<dt>address</dt>\s*<dd><a class=collapse href=/address/ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu>ltc1qcqgs2pps4u4yedfyl5pysdjjncs8et5u0vraeu</a></dd>.*<dt>location</dt>\s*<dd><a class=collapse href=/satpoint/{txid}:0:0>{txid}:0:0</a></dd>.*",
     ),
   )
 }
@@ -675,7 +676,7 @@ fn inscription_transactions_are_stored_with_transaction_index() {
 
   let (_inscription, reveal) = inscribe(&core, &ord);
 
-  let coinbase = core.tx(1, 0).txid();
+  let coinbase = core.tx(1, 0).compute_txid();
 
   assert_eq!(
     ord.request(format!("/tx/{reveal}")).status(),
@@ -738,6 +739,7 @@ fn run_no_sync() {
   }
 
   child.kill().unwrap();
+  child.wait().unwrap();
 
   let builder = CommandBuilder::new(format!(
     "server --no-sync --address 127.0.0.1 --http-port {port}",
@@ -767,6 +769,7 @@ fn run_no_sync() {
   }
 
   child.kill().unwrap();
+  child.wait().unwrap();
 }
 
 #[test]
@@ -811,6 +814,7 @@ fn authentication() {
   assert_eq!(response.status(), 200);
 
   child.kill().unwrap();
+  child.wait().unwrap();
 }
 
 #[cfg(unix)]

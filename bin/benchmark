@@ -10,6 +10,12 @@ HEIGHT_LIMIT=$2
 
 cp $INDEX_SNAPSHOT tmp/benchmark/index.redb
 
+if command -v python > /dev/null; then
+  python bin/prepare-vendor
+else
+  python3 bin/prepare-vendor
+fi
+
 cargo build --release
 
-time ./target/release/ord --datadir tmp/benchmark --height-limit $HEIGHT_LIMIT index
+time ./target/release/ord --datadir tmp/benchmark --height-limit $HEIGHT_LIMIT index update

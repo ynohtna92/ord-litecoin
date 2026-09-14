@@ -1,7 +1,7 @@
 Runes
 =====
 
-Runes allow Bitcoin transactions to etch, mint, and transfer Bitcoin-native
+Runes allow Litecoin transactions to etch, mint, and transfer Litecoin-native
 digital commodities.
 
 Whereas every inscription is unique, every unit of a rune is the same. They are
@@ -10,7 +10,7 @@ interchangeable tokens, fit for a variety of purposes.
 Runestones
 ----------
 
-Rune protocol messages, called runestones, are stored in Bitcoin transaction
+Rune protocol messages, called runestones, are stored in Litecoin transaction
 outputs.
 
 A runestone output's script pubkey begins with an `OP_RETURN`, followed by

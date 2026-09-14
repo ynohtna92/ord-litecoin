@@ -3,9 +3,9 @@ Teleburning
 
 Teleburn addresses can be used to burn assets on other blockchains, leaving
 behind in the smoking rubble a sort of forwarding address pointing to an
-inscription on Bitcoin.
+inscription on Litecoin.
 
-Teleburning an asset means something like, "I'm out. Find me on Bitcoin."
+Teleburning an asset means something like, "I'm out. Find me on Litecoin."
 
 Teleburn addresses are derived from inscription IDs. They have no corresponding
 private key, so assets sent to a teleburn address are burned. Currently, only
@@ -25,7 +25,7 @@ Example
 
 The ENS domain name [rodarmor.eth](https://app.ens.domains/rodarmor.eth), was
 teleburned to [inscription
-zero](https://ordinals.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0).
+zero](https://ordinalslite.com/inscription/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0).
 
 The inscription ID of inscription zero is
 `6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0`.

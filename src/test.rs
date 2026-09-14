@@ -2,17 +2,21 @@ pub(crate) use {
   super::*,
   bitcoin::{
     blockdata::script::{PushBytes, PushBytesBuf},
-    constants::COIN_VALUE,
     opcodes, WPubkeyHash,
   },
   mockcore::TransactionTemplate,
+  ordinals::COIN_VALUE,
   pretty_assertions::assert_eq as pretty_assert_eq,
   std::iter,
   tempfile::TempDir,
   unindent::Unindent,
 };
 
-pub(crate) fn txid(n: u64) -> Txid {
+pub(crate) fn rune_id(tx: u32) -> RuneId {
+  RuneId { block: 1, tx }
+}
+
+pub(crate) fn txid(n: u32) -> Txid {
   let hex = format!("{n:x}");
 
   if hex.is_empty() || hex.len() > 1 {
@@ -22,30 +26,45 @@ pub(crate) fn txid(n: u64) -> Txid {
   hex.repeat(64).parse().unwrap()
 }
 
-pub(crate) fn outpoint(n: u64) -> OutPoint {
-  format!("{}:{}", txid(n), n).parse().unwrap()
-}
-
-pub(crate) fn satpoint(n: u64, offset: u64) -> SatPoint {
-  SatPoint {
-    outpoint: outpoint(n),
-    offset,
+pub(crate) fn outpoint(n: u32) -> OutPoint {
+  OutPoint {
+    txid: txid(n),
+    vout: n,
   }
 }
 
-pub(crate) fn address() -> Address {
-  "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4"
-    .parse::<Address<NetworkUnchecked>>()
-    .unwrap()
-    .assume_checked()
+pub(crate) fn satpoint(n: u32, offset: u64) -> SatPoint {
+  SatPoint {
+    offset,
+    outpoint: outpoint(n),
+  }
+}
+
+pub(crate) fn address(n: u32) -> Address {
+  match n {
+    0 => "ltc1qw508d6qejxtdg4y5r3zarvary0c5xw7kgmn4n9",
+    1 => "ltc1qhl452zcq3ng5kzajzkx9jnzncml9tnsk4jl7g2",
+    2 => "ltc1qqqcjq9jydx79rywltc38g5qfrjq485a8z4pj3w",
+    3 => "ltc1qcq2uv5nk6hec6kvag3wyevp6574qmsm95ygzq6",
+    4 => "ltc1qukgekwq8e68ay0mewdrvg0d3cfuc094akkeg74",
+    5 => "ltc1qtdjs8tgkaja5ddxs0j7rn52uqfdtqa53lqpr7g",
+    6 => "ltc1qd3ex6kwlc5ett55hgsnk94y8q2zhdyxyycxkw0",
+    7 => "ltc1q8dcv8r903evljd87mcg0hq8lphclch7pfzy7km",
+    8 => "ltc1q9j6xvm3td447ygnhfra5tfkpkcupwe994zfn2s",
+    9 => "ltc1qlyrhjzvxdzmvxe2mnr37p68vkl5fysyhdadr6l",
+    _ => panic!(),
+  }
+  .parse::<Address<NetworkUnchecked>>()
+  .unwrap()
+  .assume_checked()
 }
 
 pub(crate) fn recipient() -> ScriptBuf {
-  recipient_as_address().script_pubkey()
+  recipient_address().script_pubkey()
 }
 
-pub(crate) fn recipient_as_address() -> Address {
-  "tb1q6en7qjxgw4ev8xwx94pzdry6a6ky7wlfeqzunz"
+pub(crate) fn recipient_address() -> Address {
+  "tltc1q6en7qjxgw4ev8xwx94pzdry6a6ky7wlfqgqzrt"
     .parse::<Address<NetworkUnchecked>>()
     .unwrap()
     .assume_checked()
@@ -53,10 +72,10 @@ pub(crate) fn recipient_as_address() -> Address {
 
 pub(crate) fn change(n: u64) -> Address {
   match n {
-    0 => "tb1qjsv26lap3ffssj6hfy8mzn0lg5vte6a42j75ww",
-    1 => "tb1qakxxzv9n7706kc3xdcycrtfv8cqv62hnwexc0l",
-    2 => "tb1qxz9yk0td0yye009gt6ayn7jthz5p07a75luryg",
-    3 => "tb1qe62s57n77pfhlw2vtqlhm87dwj75l6fguavjjq",
+    0 => "tltc1qjsv26lap3ffssj6hfy8mzn0lg5vte6a4n6u278",
+    1 => "tltc1qakxxzv9n7706kc3xdcycrtfv8cqv62hnh3yxlk",
+    2 => "tltc1qxz9yk0td0yye009gt6ayn7jthz5p07a7dh7a5p",
+    3 => "tltc1qe62s57n77pfhlw2vtqlhm87dwj75l6fg94wvzf",
     _ => panic!(),
   }
   .parse::<Address<NetworkUnchecked>>()
@@ -75,7 +94,7 @@ pub(crate) fn tx_in(previous_output: OutPoint) -> TxIn {
 
 pub(crate) fn tx_out(value: u64, address: Address) -> TxOut {
   TxOut {
-    value,
+    value: Amount::from_sat(value),
     script_pubkey: address.script_pubkey(),
   }
 }
@@ -132,7 +151,7 @@ pub(crate) fn envelope(payload: &[&[u8]]) -> Witness {
 
 pub(crate) fn default_address(chain: Chain) -> Address {
   Address::from_script(
-    &ScriptBuf::new_v0_p2wpkh(&WPubkeyHash::all_zeros()),
+    &ScriptBuf::new_p2wpkh(&WPubkeyHash::all_zeros()),
     chain.network(),
   )
   .unwrap()

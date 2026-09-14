@@ -255,7 +255,7 @@ fn minting_rune_and_then_sending_works() {
   );
 
   CommandBuilder::new(format!(
-    "--regtest --index-runes wallet send bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw 5:{} --fee-rate 1",
+    "--regtest --index-runes wallet send rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls 5:{} --fee-rate 1",
     Rune(RUNE)
   ))
   .core(&core)
@@ -305,7 +305,7 @@ fn minting_rune_with_destination() {
     },
   );
 
-  let destination: Address<NetworkUnchecked> = "bcrt1qs758ursh4q9z627kt3pp5yysm78ddny6txaqgw"
+  let destination: Address<NetworkUnchecked> = "rltc1qs758ursh4q9z627kt3pp5yysm78ddny64t8fls"
     .parse()
     .unwrap();
 
@@ -329,7 +329,7 @@ fn minting_rune_with_destination() {
 
   assert_eq!(
     core.mempool()[0].output[1].script_pubkey,
-    destination.payload.script_pubkey()
+    destination.assume_checked_ref().script_pubkey()
   );
 
   core.mine_blocks(1);

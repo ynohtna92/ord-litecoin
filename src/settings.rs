@@ -74,7 +74,7 @@ impl Settings {
     };
 
     let config = if let Some(config_path) = config_path {
-      serde_yaml::from_reader(fs::File::open(&config_path).context(anyhow!(
+      serde_yaml::from_reader(File::open(&config_path).context(anyhow!(
         "failed to open config file `{}`",
         config_path.display()
       ))?)
@@ -306,11 +306,11 @@ impl Settings {
         if cfg!(target_os = "linux") {
           dirs::home_dir()
             .ok_or_else(|| anyhow!("failed to get cookie file path: could not get home dir"))?
-            .join(".bitcoin")
+            .join(".litecoin")
         } else {
           dirs::data_dir()
             .ok_or_else(|| anyhow!("failed to get cookie file path: could not get data dir"))?
-            .join("Bitcoin")
+            .join("Litecoin")
         }
       }
     };
@@ -429,9 +429,9 @@ impl Settings {
     let rpc_chain = loop {
       match client.get_blockchain_info() {
         Ok(blockchain_info) => {
-          break match blockchain_info.chain.as_str() {
-            "main" => Chain::Mainnet,
-            "test" => Chain::Testnet,
+          break match blockchain_info.chain.to_string().as_str() {
+            "litecoin" | "bitcoin" => Chain::Mainnet,
+            "testnet" => Chain::Testnet,
             "regtest" => Chain::Regtest,
             "signet" => Chain::Signet,
             other => bail!("Litecoin RPC server on unknown chain: {other}"),
@@ -739,11 +739,11 @@ mod tests {
     println!("{}", cookie_file);
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/.cookie"
+      "/.litecoin/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\.cookie"
+      r"\Litecoin\.cookie"
     } else {
-      "/Bitcoin/.cookie"
+      "/Litecoin/.cookie"
     }))
   }
 
@@ -756,12 +756,23 @@ mod tests {
       .to_string();
 
     assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
-      "/.bitcoin/signet/.cookie"
+      "/.litecoin/signet/.cookie"
     } else if cfg!(windows) {
-      r"\Bitcoin\signet\.cookie"
+      r"\Litecoin\signet\.cookie"
     } else {
-      "/Bitcoin/signet/.cookie"
+      "/Litecoin/signet/.cookie"
     }));
+  }
+
+  #[test]
+  fn testnet_cookie_uses_litecoin_network_directory() {
+    let cookie = parse(&["--testnet", "--litecoin-data-dir=foo"])
+      .cookie_file()
+      .unwrap();
+    assert_eq!(
+      cookie,
+      PathBuf::from("foo").join("testnet4").join(".cookie")
+    );
   }
 
   #[test]
@@ -846,17 +857,17 @@ mod tests {
     check_network_alias(
       "test",
       if cfg!(windows) {
-        r"ord\testnet3"
+        r"ord\testnet4"
       } else {
-        "ord/testnet3"
+        "ord/testnet4"
       },
     );
     check_network_alias(
       "testnet",
       if cfg!(windows) {
-        r"ord\testnet3"
+        r"ord\testnet4"
       } else {
-        "ord/testnet3"
+        "ord/testnet4"
       },
     );
   }
@@ -996,7 +1007,7 @@ mod tests {
 
   #[test]
   fn example_config_file_is_valid() {
-    let _: Settings = serde_yaml::from_reader(fs::File::open("ord.yaml").unwrap()).unwrap();
+    let _: Settings = serde_yaml::from_reader(File::open("ord.yaml").unwrap()).unwrap();
   }
 
   #[test]

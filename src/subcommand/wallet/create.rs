@@ -7,7 +7,6 @@ use {
 pub struct Output {
   pub mnemonic: Mnemonic,
   pub passphrase: Option<String>,
-  pub message: String,
 }
 
 #[derive(Debug, Parser)]
@@ -22,25 +21,39 @@ pub(crate) struct Create {
 
 impl Create {
   pub(crate) fn run(self, name: String, settings: &Settings) -> SubcommandResult {
+    let client = Wallet::check_version(settings.bitcoin_rpc_client(None)?)?;
+    if !crate::core_compat::CoreVersion::get(&client)?.descriptors() {
+      ensure!(
+        self.passphrase.is_empty(),
+        "mnemonic passphrases require Litecoin Core 24.0.0 or newer"
+      );
+      client.create_wallet(&name, None, Some(false), None, None)?;
+      #[derive(Serialize)]
+      struct LegacyOutput {
+        wallet: String,
+        backup: &'static str,
+      }
+      return Ok(Some(Box::new(LegacyOutput {
+        wallet: name,
+        backup: "Back up wallet.dat with Litecoin Core. This legacy wallet has no mnemonic backup.",
+      })));
+    }
+
     let mut entropy = [0; 16];
     rand::thread_rng().fill_bytes(&mut entropy);
 
     let mnemonic = Mnemonic::from_entropy(&entropy)?;
 
-    Wallet::initialize(name, settings, mnemonic.to_seed(&self.passphrase))?;
-
-    let mut warn = String::new();
-    if !self.passphrase.is_empty() {
-      warn += "Passphrase is not used in wallet creation as descriptor wallets are not supported.";
-    }
-    warn += "Ord wallet created! The mnemonic above is not used as descriptor wallets are not \
-      supported in Litecoincore!!!! Please make a backup of the \
-      wallet.dat file and store it in a safe place.";
+    Wallet::initialize(
+      name,
+      settings,
+      mnemonic.to_seed(&self.passphrase),
+      bitcoincore_rpc::json::Timestamp::Now,
+    )?;
 
     Ok(Some(Box::new(Output {
       mnemonic,
       passphrase: Some(self.passphrase),
-      message: warn,
     })))
   }
 }

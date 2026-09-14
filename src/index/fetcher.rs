@@ -42,7 +42,7 @@ impl Fetcher {
 
     let (user, password) = settings.bitcoin_credentials()?.get_user_pass()?;
     let auth = format!("{}:{}", user.unwrap(), password.unwrap());
-    let auth = format!("Basic {}", &base64_encode(auth.as_bytes()));
+    let auth = format!("Basic {}", base64_encode(auth.as_bytes()));
     Ok(Fetcher { client, url, auth })
   }
 
@@ -98,7 +98,7 @@ impl Fetcher {
     }
 
     // Results from batched JSON-RPC requests can come back in any order, so we must sort them by id
-    results.sort_by(|a, b| a.id.cmp(&b.id));
+    results.sort_by_key(|result| result.id);
 
     let txs = results
       .into_iter()

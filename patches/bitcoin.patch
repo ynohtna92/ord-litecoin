@@ -1,6 +1,6 @@
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
-@@ -118,7 +118,7 @@
+@@ -170,7 +170,7 @@
     - Implement `ordered::ArbitraryOrd` for absolute and relative locktimes, introducing the "ordered" feature:
       - [#2581](https://github.com/rust-bitcoin/rust-bitcoin/pull/2581)
       - [#2248](https://github.com/rust-bitcoin/rust-bitcoin/pull/2248)
@@ -79,7 +79,7 @@
  
 --- a/src/blockdata/constants.rs
 +++ b/src/blockdata/constants.rs
-@@ -23,28 +23,28 @@
+@@ -22,28 +22,28 @@
  use crate::Amount;
  
  /// How many seconds between blocks we expect on average.
@@ -114,7 +114,7 @@
  /// Maximum allowed value for an integer in Script.
  pub const MAX_SCRIPTNUM_VALUE: u32 = 0x80000000; // 2^31
  /// Number of blocks needed for an output from a coinbase transaction to be spendable.
-@@ -55,17 +55,7 @@
+@@ -54,17 +54,7 @@
  // ref: https://blockstream.info/tx/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b?expand
  // Note output script includes a leading 0x41 and trailing 0xac (added below using the `script::Builder`).
  #[rustfmt::skip]
@@ -133,7 +133,7 @@
  
  #[rustfmt::skip]
  const TESTNET4_GENESIS_OUTPUT_PK: [u8; 33] = [0x00; 33];
-@@ -95,7 +85,7 @@
+@@ -94,7 +84,7 @@
                  script::Builder::new()
                  .push_int(486604799)
                  .push_int_non_minimal(4)
@@ -142,7 +142,7 @@
                  .into_script(),
                  script::Builder::new().push_slice(GENESIS_OUTPUT_PK).push_opcode(OP_CHECKSIG).into_script(),
              ),
-@@ -127,9 +117,9 @@
+@@ -126,9 +116,9 @@
                  version: block::Version::ONE,
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
@@ -155,7 +155,7 @@
              },
              txdata,
          },
-@@ -138,9 +128,9 @@
+@@ -137,9 +127,9 @@
                  version: block::Version::ONE,
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
@@ -168,7 +168,7 @@
              },
              txdata,
          },
-@@ -161,8 +151,8 @@
+@@ -160,8 +150,8 @@
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
                  time: 1598918400,
@@ -179,7 +179,7 @@
              },
              txdata,
          },
-@@ -173,7 +163,7 @@
+@@ -172,7 +162,7 @@
                  merkle_root,
                  time: 1296688602,
                  bits: CompactTarget::from_consensus(0x207fffff),
@@ -188,7 +188,7 @@
              },
              txdata,
          },
-@@ -189,36 +179,21 @@
+@@ -188,36 +178,21 @@
  impl ChainHash {
      // Mainnet value can be verified at https://github.com/lightning/bolts/blob/master/00-introduction.md
      /// `ChainHash` for mainnet bitcoin.
@@ -230,7 +230,7 @@
  
      /// Returns the hash of the `network` genesis block for use as a chain hash.
      ///
-@@ -278,7 +253,7 @@
+@@ -277,7 +252,7 @@
          assert_eq!(gen.input[0].sequence, Sequence::MAX);
          assert_eq!(gen.output.len(), 1);
          assert_eq!(serialize(&gen.output[0].script_pubkey),
@@ -241,7 +241,7 @@
  
 --- a/src/blockdata/transaction.rs
 +++ b/src/blockdata/transaction.rs
-@@ -1284,6 +1284,33 @@
+@@ -1687,6 +1687,33 @@
                              lock_time: Decodable::consensus_decode_from_finite_reader(r)?,
                          })
                      }
@@ -297,7 +297,7 @@
                  return Err(InvalidAddressVersionError { invalid }.into());
 --- a/src/network.rs
 +++ b/src/network.rs
-@@ -200,7 +200,7 @@
+@@ -199,7 +199,7 @@
      /// This is useful for displaying the network type as a string.
      const fn as_display_str(self) -> &'static str {
          match self {
@@ -306,7 +306,7 @@
              Network::Testnet => "testnet",
              Network::Testnet4 => "testnet4",
              Network::Signet => "signet",
-@@ -236,7 +236,7 @@
+@@ -235,7 +235,7 @@
                  Network::from_core_arg(s).map_err(|_| {
                      E::invalid_value(
                          serde::de::Unexpected::Str(s),
@@ -315,7 +315,7 @@
                      )
                  })
              }
-@@ -244,7 +244,7 @@
+@@ -243,7 +243,7 @@
              fn expecting(&self, formatter: &mut core::fmt::Formatter) -> core::fmt::Result {
                  write!(
                      formatter,
@@ -324,7 +324,7 @@
                  )
              }
          }
-@@ -275,7 +275,7 @@
+@@ -274,7 +274,7 @@
      #[inline]
      fn from_str(s: &str) -> Result<Self, Self::Err> {
          match s {
@@ -333,7 +333,7 @@
              // For user-side compatibility, testnet3 is retained as testnet
              "testnet" => Ok(Network::Testnet),
              "testnet4" => Ok(Network::Testnet4),
-@@ -347,7 +347,7 @@
+@@ -346,7 +346,7 @@
  
      #[test]
      fn string_test() {
@@ -342,7 +342,7 @@
          assert_eq!(Network::Testnet.to_string(), "testnet");
          assert_eq!(Network::Testnet4.to_string(), "testnet4");
          assert_eq!(Network::Regtest.to_string(), "regtest");
-@@ -407,7 +407,7 @@
+@@ -406,7 +406,7 @@
      fn serde_roundtrip() {
          use Network::*;
          let tests = vec![
@@ -353,7 +353,7 @@
              (Signet, "signet"),
 --- a/src/p2p/mod.rs
 +++ b/src/p2p/mod.rs
-@@ -214,12 +214,12 @@
+@@ -280,12 +280,12 @@
  
  impl Magic {
      /// Bitcoin mainnet network magic bytes.

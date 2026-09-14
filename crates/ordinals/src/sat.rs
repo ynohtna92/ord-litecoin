@@ -1,8 +1,22 @@
-use {super::*, std::num::ParseFloatError};
+use super::*;
 
 #[derive(Copy, Clone, Eq, PartialEq, Debug, Display, Ord, PartialOrd, Deserialize, Serialize)]
 #[serde(transparent)]
 pub struct Sat(pub u64);
+
+fn proof_of_work_hash(header: Header) -> BlockHash {
+  // Litecoin uses Scrypt for proof of work, while its block ID remains SHA256d.
+  let bytes = bitcoin::consensus::serialize(&header);
+  let mut hash = [0; 32];
+  scrypt::scrypt(
+    &bytes,
+    &bytes,
+    &scrypt::Params::new(10, 1, 1, 32).unwrap(),
+    &mut hash,
+  )
+  .unwrap();
+  BlockHash::from_byte_array(hash)
+}
 
 impl Sat {
   pub const LAST: Self = Self(Self::SUPPLY - 1);
@@ -19,6 +33,32 @@ impl Sat {
   pub fn height(self) -> Height {
     self.epoch().starting_height()
       + u32::try_from(self.epoch_position() / self.epoch().subsidy()).unwrap()
+  }
+
+  pub fn luck(self, block: Header) -> Option<u8> {
+    fn leading_zeros(hash: BlockHash) -> Option<u8> {
+      let mut zeros = 0;
+
+      for byte in hash.to_byte_array().into_iter().rev() {
+        zeros += byte.leading_zeros();
+
+        if byte != 0 {
+          break;
+        }
+      }
+
+      zeros.try_into().ok()
+    }
+
+    if self.common() {
+      return None;
+    }
+
+    let target = BlockHash::from_raw_hash(Hash::from_byte_array(block.target().to_le_bytes()));
+
+    let hash = proof_of_work_hash(block);
+
+    leading_zeros(hash)?.checked_sub(leading_zeros(target)?)
   }
 
   pub fn cycle(self) -> u32 {
@@ -840,6 +880,30 @@ mod tests {
     assert!(Charm::Palindrome.is_set(Sat(0).charms()));
     assert!(!Charm::Palindrome.is_set(Sat(10).charms()));
     assert!(Charm::Palindrome.is_set(Sat(11).charms()));
+  }
+
+  #[test]
+  fn luck() {
+    let genesis = bitcoin::constants::genesis_block(Network::Bitcoin).header;
+    assert_eq!(Sat(0).luck(genesis), Some(1));
+    assert_eq!(Sat(1).luck(genesis), None);
+  }
+
+  #[test]
+  fn litecoin_proof_of_work() {
+    for (network, expected) in [
+      (
+        Network::Bitcoin,
+        "0000050c34a64b415b6b15b37f2216634b5b1669cb9a2e38d76f7213b0671e00",
+      ),
+      (
+        Network::Regtest,
+        "5adbca3495032eb0f2344f78ad238a3abb56d335b1680f5c289276e0d25a3479",
+      ),
+    ] {
+      let header = bitcoin::constants::genesis_block(network).header;
+      assert_eq!(proof_of_work_hash(header).to_string(), expected);
+    }
   }
 
   #[test]

@@ -53,7 +53,7 @@ mod utxo_entry;
 #[cfg(test)]
 pub(crate) mod testing;
 
-const SCHEMA_VERSION: u64 = 34;
+const SCHEMA_VERSION: u64 = 35;
 
 define_multimap_table! { LATEST_CHILD_SEQUENCE_NUMBER_TO_COLLECTION_SEQUENCE_NUMBER, u32, u32 }
 define_multimap_table! { SAT_TO_SEQUENCE_NUMBER, u64, u32 }
@@ -1197,6 +1197,20 @@ impl Index {
 
   pub fn block_header(&self, hash: BlockHash) -> Result<Option<Header>> {
     self.client.get_block_header(&hash).into_option()
+  }
+
+  pub fn block_header_at_height(&self, height: Height) -> Result<Option<Header>> {
+    let height = height.n();
+
+    let rtx = self.database.begin_read()?;
+
+    let height_to_block_header = rtx.open_table(HEIGHT_TO_BLOCK_HEADER)?;
+
+    let Some(guard) = height_to_block_header.get(height)? else {
+      return Ok(None);
+    };
+
+    Ok(Some(Header::load(*guard.value())))
   }
 
   pub fn block_header_info(&self, hash: BlockHash) -> Result<Option<GetBlockHeaderResult>> {

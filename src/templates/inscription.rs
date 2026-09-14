@@ -23,6 +23,16 @@ pub struct InscriptionHtml {
 }
 
 impl PageContent for InscriptionHtml {
+  fn og_image_path(&self) -> Option<String> {
+    const SUPPORTED: &[&str] = &["image/gif", "image/jpeg", "image/png", "image/webp"];
+
+    if SUPPORTED.contains(&self.inscription.content_type()?) {
+      Some(format!("/content/{}", self.id))
+    } else {
+      None
+    }
+  }
+
   fn title(&self) -> String {
     format!("Inscription {}", self.number)
   }
@@ -48,6 +58,29 @@ impl InscriptionHtml {
 #[cfg(test)]
 mod tests {
   use super::*;
+
+  #[test]
+  fn og_image_path_only_set_for_supported_image_types() {
+    #[track_caller]
+    fn case(content_type: &str, supported: bool) {
+      assert_eq!(
+        InscriptionHtml {
+          inscription: inscription(content_type, "foo"),
+          id: inscription_id(1),
+          ..default()
+        }
+        .og_image_path(),
+        supported.then(|| format!("/content/{}", inscription_id(1))),
+      );
+    }
+
+    case("image/gif", true);
+    case("image/jpeg", true);
+    case("image/png", true);
+    case("image/webp", true);
+
+    case("image/avif", false);
+  }
 
   #[test]
   fn without_sat_nav_links_or_output() {

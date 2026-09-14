@@ -46,7 +46,8 @@ fn verify_with_transaction() {
   let tx = bip322::sign_full_encoded(
     "ltc1q9vza2e8x573nczrlzms0wvx3gsqjx7vag5vzh0",
     "Hello World",
-    "T9KX5zCugGdXizZsfv9st3xy98jRF53XdQt2WDrZ1mZUcQxUSprs",
+    &["T9KX5zCugGdXizZsfv9st3xy98jRF53XdQt2WDrZ1mZUcQxUSprs"],
+    None,
   )
   .unwrap();
 

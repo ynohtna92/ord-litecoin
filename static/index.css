@@ -76,6 +76,7 @@ nav {
 nav > :first-child {
   color: var(--light-fg);
   font-weight: bold;
+  text-decoration: none;
 }
 
 nav a.active {
@@ -293,6 +294,10 @@ a.mythic {
 .tabs > *:last-child {
   flex: 1;
   text-align: left;
+}
+
+.turbo {
+  text-shadow: 0 0 10px white;
 }
 
 .icon {

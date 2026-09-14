@@ -14,7 +14,7 @@ import urllib.request
 
 
 CRATES = (
-    ("bitcoin", "0.32.3", "0032b0e8ead7074cda7fc4f034409607e3f03a6f71d66ade8a307f79b4d99e73"),
+    ("bitcoin", "0.32.5", "ce6bc65742dea50536e35ad42492b234c27904a27f0abdcbce605015cb4ea026"),
     ("bitcoin-units", "0.1.2", "5285c8bcaa25876d07f37e3d30c303f2609179716e11d688f51e8f1fe70063e2"),
     ("bitcoincore-rpc-json", "0.19.0", "d8909583c5fab98508e80ef73e5592a651c954993dc6b7739963257d19f0e71a"),
 )

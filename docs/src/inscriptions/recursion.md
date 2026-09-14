@@ -45,7 +45,7 @@ The content of the inscription with `<INSCRIPTION_ID>`.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0 > skull.jpg
 ```
 
@@ -129,7 +129,7 @@ Block info. `<QUERY>` may be a block height or block hash.
 ### Example (blockheight)
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/blockinfo/0
 ```
 
@@ -175,7 +175,7 @@ curl -s -H "Accept: application/json" \
 ### Example (blockhash)
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/blockinfo/0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5
 ```
 
@@ -257,7 +257,7 @@ The first 100 child inscription ids.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0
 ```
 
@@ -384,7 +384,7 @@ The set of 100 child inscription ids on `<PAGE>`.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/9
 ```
 
@@ -511,7 +511,7 @@ Details of the first 100 child inscriptions.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/inscriptions
 ```
 
@@ -1836,7 +1836,7 @@ Details of the set of 100 child inscriptions on &lt;PAGE&gt;.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/inscriptions/9
 ```
 
@@ -3176,7 +3176,7 @@ Information about an inscription.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/inscriptions/13130e4b299ed361f2a734f6433844ef0f0211cd504e0ca8f4d4ab20f51b8127i0
 ```
 
@@ -3214,7 +3214,7 @@ JSON string containing the hex-encoded CBOR metadata.
 
 ### Example
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/metadata/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0
 ```
 
@@ -3236,7 +3236,7 @@ The first 100 parent inscription ids.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/parents/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0
 ```
 
@@ -3264,7 +3264,7 @@ The set of 100 parent inscription ids on `<PAGE>`.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/parents/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0/9
 ```
 
@@ -3290,7 +3290,7 @@ The first 100 inscription ids on a sat. Requires index with `--index-sats` flag.
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/sat/153899938226999
 ```
 
@@ -3321,7 +3321,7 @@ The set of 100 inscription ids on `<PAGE>`. Requires index with `--index-sats` f
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/sat/1499676120331756/1
 ```
 
@@ -3354,18 +3354,129 @@ curl -s -H "Accept: application/json" \
 
 ### Description
 
-The inscription id at `<INDEX>` of all inscriptions on a sat. `<INDEX>` may be a negative number to index from the back. `0` being the first and `-1` being the most recent for example. Requires index with `--index-sats` flag.
+The inscription id at `<INDEX>` of all inscriptions on a sat. `<INDEX>` may be
+a negative number to index from the back. `0` being the first and `-1` being
+the most recent for example. Requires index with `--index-sats` flag.
 
 ### Example
 
 ```bash
-curl -s -H "Accept: application/json" \
+curl -s \
   http://0.0.0.0:80/r/sat/153899938226999/at/-1
 ```
 
 ```json
 {
   "id": "488c32e4dfcdc0fa376c2c2af2d572a12f4d33d3245689d1a9f74167f1e14678i0"
+}
+```
+</details>
+
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;/content</b></code>
+  </summary>
+
+### Description
+
+The content of the inscription at `<INDEX>` on a sat. `<INDEX>` may be a
+negative number to index from the back. `0` being the first and `-1` being the
+most recent. Requires index with `--index-sats` flag.
+
+### Example
+
+Fetch the content of the most recently created inscription on sat 289488340427831.
+
+```bash
+curl -s \
+  http://0.0.0.0:80/r/sat/289488340427831/at/-1/content
+```
+
+```
+Hello, world!
+```
+
+</details>
+
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/tx/&lt;TRANSACTION_ID&gt;</b></code>
+  </summary>
+
+### Description
+
+Get hex-encoded transaction with `<TRANSACTION_ID>`. In the event of a future
+change to Litecoin that changes transaction serialization in a
+backwards-incompatible fashion, such as SegWit, this endpoint is guaranteed to
+remain backwards compatible.
+
+### Example
+
+```bash
+curl -s http://0.0.0.0:80/r/tx/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fa
+```
+
+```json
+"0100000000010183572872dcb32bee57003d53c2b8dbb5bc5819ff6478052599911f7778d1c7bd0000000000fdffffff011027000000000000225120e41e0cba05c6ac797cf543ff9a6c619a91a53813e59146d1e32ea89747b111a603407aa50d93d6fc01265fd52d3edc93af4e009ccc1a704ce1b5cb8ede1412a5df31eba587d080b3dc903ceb9002ed9d921aad323fd44d7b4dc2a1ad2ea12d4360424d20c7a3a38df198a4fcde7d5dac5819ed19ff4d25bb893c9511f8e1f51d59326effac0063036f7264010118746578742f706c61696e3b636861727365743d7574662d3800077072696d65730a6821c1c7a3a38df198a4fcde7d5dac5819ed19ff4d25bb893c9511f8e1f51d59326eff00000000"
+```
+</details>
+
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/utxo/&lt;OUTPOINT&gt;</b></code>
+  </summary>
+
+### Description
+
+Get assets held by an unspent transaction output.
+
+### Examples
+
+Unspent transaction output with server without any indices:
+
+```bash
+curl -s \
+  http://0.0.0.0:80/r/utxo/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0
+```
+
+```json
+{
+  "inscriptions": null,
+  "runes": null,
+  "sat_ranges": null,
+  "value": 5000000000
+}
+```
+
+With rune, inscription, and sat index:
+
+```bash
+curl -s \
+  http://0.0.0.0:80/r/utxo/626860df36c1047194866c6812f04c15ab84f3690e7cc06fd600c841f1943e05:0
+```
+
+```json
+{
+  "inscriptions": [
+    "6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0"
+  ],
+  "runes": {
+    "UNCOMMON•GOODS": {
+      "amount": 6845,
+      "divisibility": 0,
+      "symbol": "⧉"
+    }
+  },
+  "sat_ranges": [
+    [
+      1905800627509113,
+      1905800627509443
+    ]
+  ],
+  "value": 330
 }
 ```
 </details>

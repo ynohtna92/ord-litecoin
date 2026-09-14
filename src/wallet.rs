@@ -1,7 +1,6 @@
 use {
   super::*,
   crate::core_compat::CoreVersion,
-  base64::{self, Engine},
   batch::ParentInfo,
   bitcoin::{
     bip32::{ChildNumber, DerivationPath, Xpriv},
@@ -16,7 +15,6 @@ use {
   log::log_enabled,
   miniscript::descriptor::{DescriptorSecretKey, DescriptorXKey, Wildcard},
   redb::{Database, DatabaseError, ReadableTable, RepairSession, StorageError, TableDefinition},
-  reqwest::header,
   std::sync::Once,
   transaction_builder::TransactionBuilder,
 };
@@ -77,7 +75,6 @@ pub(crate) struct Wallet {
   bitcoin_client: Client,
   database: Database,
   uses_descriptors: bool,
-  has_inscription_index: bool,
   has_rune_index: bool,
   has_sat_index: bool,
   rpc_url: Url,
@@ -183,7 +180,7 @@ impl Wallet {
       .utxos()
       .keys()
       .filter(|utxo| inscriptions.contains(utxo))
-      .chain(self.get_runic_outputs()?.iter())
+      .chain(self.get_runic_outputs()?.unwrap_or_default().iter())
       .cloned()
       .filter(|utxo| !locked.contains(utxo))
       .collect::<Vec<OutPoint>>();
@@ -203,6 +200,24 @@ impl Wallet {
     self.inscription_info.clone()
   }
 
+  pub(crate) fn get_inscription(
+    &self,
+    inscription_id: InscriptionId,
+  ) -> Result<Option<api::Inscription>> {
+    let inscription = self
+      .ord_client
+      .get(
+        self
+          .rpc_url
+          .join(&format!("/inscription/{inscription_id}"))
+          .unwrap(),
+      )
+      .send()?
+      .json()?;
+
+    Ok(inscription)
+  }
+
   pub(crate) fn inscription_exists(&self, inscription_id: InscriptionId) -> Result<bool> {
     Ok(
       !self
@@ -219,8 +234,18 @@ impl Wallet {
     )
   }
 
-  pub(crate) fn get_inscriptions_in_output(&self, output: &OutPoint) -> Vec<InscriptionId> {
-    self.output_info.get(output).unwrap().inscriptions.clone()
+  pub(crate) fn get_inscriptions_in_output(
+    &self,
+    output: &OutPoint,
+  ) -> Result<Option<Vec<InscriptionId>>> {
+    Ok(
+      self
+        .output_info
+        .get(output)
+        .ok_or(anyhow!("outpout not found in wallet"))?
+        .inscriptions
+        .clone(),
+    )
   }
 
   pub(crate) fn get_parent_info(&self, parents: &[InscriptionId]) -> Result<Vec<ParentInfo>> {
@@ -253,21 +278,25 @@ impl Wallet {
     Ok(parent_info)
   }
 
-  pub(crate) fn get_runic_outputs(&self) -> Result<BTreeSet<OutPoint>> {
+  pub(crate) fn get_runic_outputs(&self) -> Result<Option<BTreeSet<OutPoint>>> {
     let mut runic_outputs = BTreeSet::new();
-    for (output, info) in self.output_info.iter() {
-      if !info.runes.is_empty() {
+    for (output, info) in &self.output_info {
+      let Some(runes) = &info.runes else {
+        return Ok(None);
+      };
+
+      if !runes.is_empty() {
         runic_outputs.insert(*output);
       }
     }
 
-    Ok(runic_outputs)
+    Ok(Some(runic_outputs))
   }
 
   pub(crate) fn get_runes_balances_in_output(
     &self,
     output: &OutPoint,
-  ) -> Result<BTreeMap<SpacedRune, Pile>> {
+  ) -> Result<Option<BTreeMap<SpacedRune, Pile>>> {
     Ok(
       self
         .output_info
@@ -328,10 +357,6 @@ impl Wallet {
       "{feature} requires a descriptor wallet"
     );
     Ok(())
-  }
-
-  pub(crate) fn has_inscription_index(&self) -> bool {
-    self.has_inscription_index
   }
 
   pub(crate) fn has_sat_index(&self) -> bool {
@@ -572,11 +597,29 @@ impl Wallet {
       });
     }
 
-    settings
+    match settings
       .bitcoin_rpc_client(Some(name.clone()))?
-      .call::<serde_json::Value>("importdescriptors", &[serde_json::to_value(descriptors)?])?;
-
-    Ok(())
+      .call::<serde_json::Value>(
+        "importdescriptors",
+        &[serde_json::to_value(descriptors.clone())?],
+      ) {
+      Ok(_) => Ok(()),
+      Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(err)))
+        if err.code == -4 && err.message == "Wallet already loading." =>
+      {
+        // wallet loading
+        Ok(())
+      }
+      Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(err)))
+        if err.code == -35 =>
+      {
+        // wallet already loaded
+        Ok(())
+      }
+      Err(err) => {
+        bail!("Failed to import descriptors for wallet {}: {err}", name)
+      }
+    }
   }
 
   pub(crate) fn check_version(client: Client) -> Result<Client> {
@@ -681,7 +724,8 @@ impl Wallet {
       {
         let database = Database::builder().create(&path)?;
 
-        let tx = database.begin_write()?;
+        let mut tx = database.begin_write()?;
+        tx.set_quick_repair(true);
 
         tx.open_table(RUNE_TO_ETCHING)?;
 
@@ -705,7 +749,8 @@ impl Wallet {
     reveal: &Transaction,
     output: batch::Output,
   ) -> Result {
-    let wtx = self.database.begin_write()?;
+    let mut wtx = self.database.begin_write()?;
+    wtx.set_quick_repair(true);
 
     wtx.open_table(RUNE_TO_ETCHING)?.insert(
       rune.0,
@@ -734,7 +779,8 @@ impl Wallet {
   }
 
   pub(crate) fn clear_etching(&self, rune: Rune) -> Result {
-    let wtx = self.database.begin_write()?;
+    let mut wtx = self.database.begin_write()?;
+    wtx.set_quick_repair(true);
 
     wtx.open_table(RUNE_TO_ETCHING)?.remove(rune.0)?;
     wtx.commit()?;
@@ -760,6 +806,7 @@ impl Wallet {
     &self,
     unsigned_transaction: Transaction,
     dry_run: bool,
+    burn_amount: Option<Amount>,
   ) -> Result<(Txid, String, u64)> {
     let unspent_outputs = self.utxos();
 
@@ -767,8 +814,7 @@ impl Wallet {
       let psbt = self
         .bitcoin_client()
         .wallet_process_psbt(
-          &base64::engine::general_purpose::STANDARD
-            .encode(Psbt::from_unsigned_tx(unsigned_transaction.clone())?.serialize()),
+          &base64_encode(&Psbt::from_unsigned_tx(unsigned_transaction.clone())?.serialize()),
           Some(false),
           None,
           None,
@@ -780,8 +826,7 @@ impl Wallet {
       let psbt = self
         .bitcoin_client()
         .wallet_process_psbt(
-          &base64::engine::general_purpose::STANDARD
-            .encode(Psbt::from_unsigned_tx(unsigned_transaction.clone())?.serialize()),
+          &base64_encode(&Psbt::from_unsigned_tx(unsigned_transaction.clone())?.serialize()),
           Some(true),
           None,
           None,
@@ -794,10 +839,7 @@ impl Wallet {
         .hex
         .ok_or_else(|| anyhow!("unable to sign transaction"))?;
 
-      (
-        self.bitcoin_client().send_raw_transaction(&signed_tx)?,
-        psbt,
-      )
+      (self.send_raw_transaction(&signed_tx, burn_amount)?, psbt)
     };
 
     let mut fee = 0;
@@ -813,5 +855,335 @@ impl Wallet {
     }
 
     Ok((txid, psbt, fee))
+  }
+
+  pub(crate) fn send_raw_transaction<R: bitcoincore_rpc::RawTx>(
+    &self,
+    tx: R,
+    burn_amount: Option<Amount>,
+  ) -> Result<Txid> {
+    let hex = tx.raw_hex();
+    let mut arguments = vec![hex.clone().into()];
+
+    if let Some(burn_amount) = burn_amount {
+      if self.bitcoin_client().version()? >= 250000 {
+        arguments.push(serde_json::Value::Null);
+        arguments.push(burn_amount.to_btc().into());
+      } else {
+        // Core 21/24 have no maxburnamount RPC argument. Enforce the same cap
+        // locally before using their sendrawtransaction signature.
+        let transaction: Transaction = consensus::deserialize(&hex::decode(hex)?)?;
+        let burned: Amount = transaction
+          .output
+          .iter()
+          .filter(|output| {
+            output.script_pubkey.is_op_return() || output.script_pubkey.len() > 10_000
+          })
+          .map(|output| output.value)
+          .sum();
+        ensure!(
+          burned <= burn_amount,
+          "transaction burns {burned}, exceeding allowed {burn_amount}"
+        );
+      }
+    }
+
+    Ok(
+      self
+        .bitcoin_client()
+        .call("sendrawtransaction", &arguments)?,
+    )
+  }
+
+  pub fn create_unsigned_send_amount_transaction(
+    &self,
+    destination: Address,
+    amount: Amount,
+    fee_rate: FeeRate,
+  ) -> Result<Transaction> {
+    self.lock_non_cardinal_outputs()?;
+
+    let unfunded_transaction = Transaction {
+      version: Version(2),
+      lock_time: LockTime::ZERO,
+      input: Vec::new(),
+      output: vec![TxOut {
+        script_pubkey: destination.script_pubkey(),
+        value: amount,
+      }],
+    };
+
+    let unsigned_transaction = consensus::encode::deserialize(&fund_raw_transaction(
+      self.bitcoin_client(),
+      fee_rate,
+      &unfunded_transaction,
+    )?)?;
+
+    Ok(unsigned_transaction)
+  }
+
+  pub fn create_unsigned_send_satpoint_transaction(
+    &self,
+    destination: Address,
+    satpoint: SatPoint,
+    postage: Option<Amount>,
+    fee_rate: FeeRate,
+    sending_inscription: bool,
+  ) -> Result<Transaction> {
+    if !sending_inscription {
+      for inscription_satpoint in self.inscriptions().keys() {
+        if satpoint == *inscription_satpoint {
+          bail!("inscriptions must be sent by inscription ID");
+        }
+      }
+    }
+
+    let runic_outputs = self.get_runic_outputs()?.unwrap_or_default();
+
+    ensure!(
+      !runic_outputs.contains(&satpoint.outpoint),
+      "runic outpoints may not be sent by satpoint"
+    );
+
+    let change = [self.get_change_address()?, self.get_change_address()?];
+
+    let postage = if let Some(postage) = postage {
+      Target::ExactPostage(postage)
+    } else {
+      Target::Postage
+    };
+
+    Ok(
+      TransactionBuilder::new(
+        satpoint,
+        self.inscriptions().clone(),
+        self.utxos().clone(),
+        self.locked_utxos().clone().into_keys().collect(),
+        runic_outputs,
+        destination.script_pubkey(),
+        change,
+        fee_rate,
+        postage,
+        self.chain().network(),
+      )
+      .build_transaction()?,
+    )
+  }
+
+  pub fn create_unsigned_send_or_burn_runes_transaction(
+    &self,
+    destination: Option<Address>,
+    spaced_rune: SpacedRune,
+    decimal: Decimal,
+    postage: Option<Amount>,
+    fee_rate: FeeRate,
+  ) -> Result<Transaction> {
+    ensure!(
+      self.has_rune_index(),
+      "sending runes with `ord send` requires index created with `--index-runes` flag",
+    );
+
+    self.lock_non_cardinal_outputs()?;
+
+    let (id, entry, _parent) = self
+      .get_rune(spaced_rune.rune)?
+      .with_context(|| format!("rune `{}` has not been etched", spaced_rune.rune))?;
+
+    let amount = decimal.to_integer(entry.divisibility)?;
+
+    let inscribed_outputs = self
+      .inscriptions()
+      .keys()
+      .map(|satpoint| satpoint.outpoint)
+      .collect::<HashSet<OutPoint>>();
+
+    let balances = self
+      .get_runic_outputs()?
+      .unwrap_or_default()
+      .into_iter()
+      .filter(|output| !inscribed_outputs.contains(output))
+      .map(|output| {
+        self.get_runes_balances_in_output(&output).map(|balance| {
+          (
+            output,
+            balance
+              .unwrap_or_default()
+              .into_iter()
+              .map(|(spaced_rune, pile)| (spaced_rune.rune, pile.amount))
+              .collect(),
+          )
+        })
+      })
+      .collect::<Result<BTreeMap<OutPoint, BTreeMap<Rune, u128>>>>()?;
+
+    let mut inputs = Vec::new();
+    let mut input_rune_balances: BTreeMap<Rune, u128> = BTreeMap::new();
+
+    for (output, runes) in balances {
+      if let Some(balance) = runes.get(&spaced_rune.rune) {
+        if *balance > 0 {
+          for (rune, balance) in runes {
+            *input_rune_balances.entry(rune).or_default() += balance;
+          }
+
+          inputs.push(output);
+
+          if input_rune_balances
+            .get(&spaced_rune.rune)
+            .cloned()
+            .unwrap_or_default()
+            >= amount
+          {
+            break;
+          }
+        }
+      }
+    }
+
+    let input_rune_balance = input_rune_balances
+      .get(&spaced_rune.rune)
+      .cloned()
+      .unwrap_or_default();
+
+    let needs_runes_change_output = input_rune_balance > amount || input_rune_balances.len() > 1;
+
+    ensure! {
+      input_rune_balance >= amount,
+      "insufficient `{}` balance, only {} in wallet",
+      spaced_rune,
+      Pile {
+        amount: input_rune_balance,
+        divisibility: entry.divisibility,
+        symbol: entry.symbol
+      },
+    }
+
+    let runestone;
+    let postage = postage.unwrap_or(TARGET_POSTAGE);
+
+    let unfunded_transaction = if let Some(destination) = destination {
+      runestone = Runestone {
+        edicts: vec![Edict {
+          amount,
+          id,
+          output: 2,
+        }],
+        ..default()
+      };
+
+      Transaction {
+        version: Version(2),
+        lock_time: LockTime::ZERO,
+        input: inputs
+          .into_iter()
+          .map(|previous_output| TxIn {
+            previous_output,
+            script_sig: ScriptBuf::new(),
+            sequence: Sequence::MAX,
+            witness: Witness::new(),
+          })
+          .collect(),
+        output: if needs_runes_change_output {
+          vec![
+            TxOut {
+              script_pubkey: runestone.encipher(),
+              value: Amount::from_sat(0),
+            },
+            TxOut {
+              script_pubkey: self.get_change_address()?.script_pubkey(),
+              value: postage,
+            },
+            TxOut {
+              script_pubkey: destination.script_pubkey(),
+              value: postage,
+            },
+          ]
+        } else {
+          vec![TxOut {
+            script_pubkey: destination.script_pubkey(),
+            value: postage,
+          }]
+        },
+      }
+    } else {
+      runestone = Runestone {
+        edicts: vec![Edict {
+          amount,
+          id,
+          output: 0,
+        }],
+        ..default()
+      };
+
+      Transaction {
+        version: Version(2),
+        lock_time: LockTime::ZERO,
+        input: inputs
+          .into_iter()
+          .map(|previous_output| TxIn {
+            previous_output,
+            script_sig: ScriptBuf::new(),
+            sequence: Sequence::MAX,
+            witness: Witness::new(),
+          })
+          .collect(),
+        output: if needs_runes_change_output {
+          vec![
+            TxOut {
+              script_pubkey: runestone.encipher(),
+              value: Amount::from_sat(0),
+            },
+            TxOut {
+              script_pubkey: self.get_change_address()?.script_pubkey(),
+              value: postage,
+            },
+          ]
+        } else {
+          vec![TxOut {
+            script_pubkey: runestone.encipher(),
+            value: Amount::from_sat(0),
+          }]
+        },
+      }
+    };
+
+    let unsigned_transaction =
+      fund_raw_transaction(self.bitcoin_client(), fee_rate, &unfunded_transaction)?;
+
+    let unsigned_transaction = consensus::encode::deserialize(&unsigned_transaction)?;
+
+    if needs_runes_change_output {
+      assert_eq!(
+        Runestone::decipher(&unsigned_transaction),
+        Some(Artifact::Runestone(runestone)),
+      );
+    }
+
+    Ok(unsigned_transaction)
+  }
+
+  pub(crate) fn simulate_transaction(&self, tx: &Transaction) -> Result<SignedAmount> {
+    CoreVersion::get(self.bitcoin_client())?.require(240000, "transaction simulation")?;
+    let tx = {
+      let mut buffer = Vec::new();
+      tx.consensus_encode(&mut buffer).unwrap();
+      hex::encode(buffer)
+    };
+
+    Ok(
+      self
+        .bitcoin_client()
+        .call::<SimulateRawTransactionResult>(
+          "simulaterawtransaction",
+          &[
+            [tx].into(),
+            serde_json::to_value(SimulateRawTransactionOptions {
+              include_watchonly: false,
+            })
+            .unwrap(),
+          ],
+        )?
+        .balance_change,
+    )
   }
 }

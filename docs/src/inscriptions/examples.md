@@ -1,18 +1,21 @@
 Inscription Examples
-=========
+====================
 
-### Delegate
+Delegate
+--------
 
 * The [first delegate inscription](https://ordinalslite.com/inscription/626127511953479e1933a448f020c76acd9086efe2f2b3f5e492c0c85d2ce051i0).
 * The Oscillations * collection utilizes delegation, provenance, recursion, sat endpoint, and detects the kind of sat that each piece is inscribed on (sattribute-aware). Each piece is a delegate of [this inscription](https://ordinalslite.com/inscription/52b4ea10c2518c954c73594e403ccfb2d50044f5a3b09a224dfa3bf06dd1d499i0).
 * [This inscription](https://ordinalslite.com/inscription/23a8f17fff4a73e2932dfc76e46d14d4f8975da96f5d5ae9a45898422056071ai0) was inscribed as a delegate of [this inscription](https://ordinalslite.com/inscription/9ff39db4c51f831225d41efbd29a399f2b16c758970ec4ab95a1a17e8be59088i0) and is also the parent inscription of a rune.
 
-### Metadata
+Metadata
+--------
 
 * Each [member](https://ordinalslite.com/inscription/ab924ff229beca227bf40221faf492a20b5e2ee4f084524c84a5f98b80fe527fi1) in the FUN collection has metadata that describes its attributes.
 * [This inscription](https://ordinalslite.com/inscription/454700af2cffd3a872daeb89598a891f5fe9936225838a8c4522f491f246ca0ai0) uses its own metadata to draw the ordinal image.
 
-### Provenance
+Provenance
+----------
 
 * [Inscription 0](https://ordinalslite.com/inscription/0) is the parent inscription for Casey's sugar skull collection, a grandparent for the FUN! collection, and the grandparent for [the sleepiest rune](https://ordinalslite.com/rune/ZZZZZZZZZZZZZZZZZZZZZZZZZZ).
 * With the [Rug Me](https://ordinalslite.com/inscription/f87a6b16a1224b65f9c8ea55e1718585b3075373581689e343860c12a70d15c7i41) collection, owners are able to change the background color by inscribing a child to it.
@@ -20,7 +23,8 @@ Inscription Examples
 * [The yellow_ord_bot](https://ordinalslite.com/inscription/17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0) has many different quotes as cursed children.
 * The [Spellbound](https://ordinalslite.com/children/451accbce30177c23a8cd42ab85131312a449359ada3c054aa147b054136fa3bi0) collection from the Wizard of Ord utilizes recursion, delegation, metadata, provenance, postage, location, compression.
 
-### Recursion
+Recursion
+---------
 
 * [Inscription 12992](https://ordinalslite.com/inscription/bf637552f3758e20f733d1f250cbea7cbbb4bbf157a8d4a9c26132950a383415i0) was the first recursive inscription inscribed on mainnet.
 * [OnChain Monkey Genesis (LTC)](https://ordinalslite.com/children/fb162a46943e5d7d31d72ee2c8c850e66c1ca5d0d453068aa63883528285ed21i0) was one of the earliest collections to use recursion to create its PFP art.

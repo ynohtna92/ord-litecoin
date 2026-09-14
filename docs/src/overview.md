@@ -173,24 +173,24 @@ Rare Satoshi Supply
 
 ### Upstream Total Supply
 
-- `common`: 2.1 quadrillion
-- `uncommon`: 6,929,999
-- `rare`: 3437
-- `epic`: 32
+- `common`: 2,099,999,990,760,000
+- `uncommon`: 6,926,535
+- `rare`: 3432
+- `epic`: 27
 - `legendary`: 5
 - `mythic`: 1
 
 ### Upstream Supply Snapshot
 
-- `common`: 1.9 quadrillion
-- `uncommon`: 808,262
-- `rare`: 369
+- `common`: ~1.98 quadrillion
+- `uncommon`: ~880,000 (a new uncommon is mined roughly every 2.5 minutes)
+- `rare`: ~430 (a new rare is mined roughly every 3.5 days)
 - `epic`: 3
 - `legendary`: 0
 - `mythic`: 1
 
 At the moment, even uncommon satoshis are quite rare. As of this writing,
-745,855 uncommon satoshis have been mined - one per 25.6 litecoin in
+876,023 uncommon satoshis have been mined - one per 22.6 litecoin in
 circulation.
 
 Names

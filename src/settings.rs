@@ -10,6 +10,8 @@ pub struct Settings {
   litecoin_rpc_username: Option<String>,
   chain: Option<Chain>,
   commit_interval: Option<usize>,
+  savepoint_interval: Option<usize>,
+  max_savepoints: Option<usize>,
   config: Option<PathBuf>,
   config_dir: Option<PathBuf>,
   cookie_file: Option<PathBuf>,
@@ -115,6 +117,8 @@ impl Settings {
       litecoin_rpc_username: self.litecoin_rpc_username.or(source.litecoin_rpc_username),
       chain: self.chain.or(source.chain),
       commit_interval: self.commit_interval.or(source.commit_interval),
+      savepoint_interval: self.savepoint_interval.or(source.savepoint_interval),
+      max_savepoints: self.max_savepoints.or(source.max_savepoints),
       config: self.config.or(source.config),
       config_dir: self.config_dir.or(source.config_dir),
       cookie_file: self.cookie_file.or(source.cookie_file),
@@ -156,8 +160,11 @@ impl Settings {
         .then_some(Chain::Signet)
         .or(options.regtest.then_some(Chain::Regtest))
         .or(options.testnet.then_some(Chain::Testnet))
+        .or(options.testnet4.then_some(Chain::Testnet4))
         .or(options.chain_argument),
       commit_interval: options.commit_interval,
+      savepoint_interval: options.savepoint_interval,
+      max_savepoints: options.max_savepoints,
       config: options.config,
       config_dir: options.config_dir,
       cookie_file: options.cookie_file,
@@ -246,6 +253,8 @@ impl Settings {
       litecoin_rpc_username: get_string("LITECOIN_RPC_USERNAME"),
       chain: get_chain("CHAIN")?,
       commit_interval: get_usize("COMMIT_INTERVAL")?,
+      savepoint_interval: get_usize("SAVEPOINT_INTERVAL")?,
+      max_savepoints: get_usize("MAX_SAVEPOINTS")?,
       config: get_path("CONFIG"),
       config_dir: get_path("CONFIG_DIR"),
       cookie_file: get_path("COOKIE_FILE"),
@@ -276,6 +285,8 @@ impl Settings {
       litecoin_rpc_limit: None,
       chain: Some(Chain::Regtest),
       commit_interval: None,
+      savepoint_interval: None,
+      max_savepoints: None,
       config: None,
       config_dir: None,
       cookie_file: None,
@@ -343,6 +354,8 @@ impl Settings {
       litecoin_rpc_username: self.litecoin_rpc_username,
       chain: Some(chain),
       commit_interval: Some(self.commit_interval.unwrap_or(5000)),
+      savepoint_interval: Some(self.savepoint_interval.unwrap_or(10)),
+      max_savepoints: Some(self.max_savepoints.unwrap_or(2)),
       config: None,
       config_dir: None,
       cookie_file: Some(cookie_file),
@@ -392,6 +405,10 @@ impl Settings {
   }
 
   pub fn bitcoin_rpc_client(&self, wallet: Option<String>) -> Result<Client> {
+    ensure!(
+      self.chain() != Chain::Testnet4,
+      "The separate testnet4 chain is unsupported; use --testnet for Litecoin testnet"
+    );
     let rpc_url = self.bitcoin_rpc_url(wallet);
 
     let bitcoin_credentials = self.bitcoin_credentials()?;
@@ -431,9 +448,10 @@ impl Settings {
         Ok(blockchain_info) => {
           break match blockchain_info.chain.to_string().as_str() {
             "litecoin" | "bitcoin" => Chain::Mainnet,
-            "testnet" => Chain::Testnet,
             "regtest" => Chain::Regtest,
             "signet" => Chain::Signet,
+            "testnet" | "testnet3" => Chain::Testnet,
+            "testnet4" => Chain::Testnet4,
             other => bail!("Litecoin RPC server on unknown chain: {other}"),
           }
         }
@@ -466,6 +484,14 @@ impl Settings {
 
   pub fn commit_interval(&self) -> usize {
     self.commit_interval.unwrap()
+  }
+
+  pub fn savepoint_interval(&self) -> usize {
+    self.savepoint_interval.unwrap()
+  }
+
+  pub fn max_savepoints(&self) -> usize {
+    self.max_savepoints.unwrap()
   }
 
   pub fn cookie_file(&self) -> Result<PathBuf> {
@@ -762,6 +788,20 @@ mod tests {
     } else {
       "/Litecoin/signet/.cookie"
     }));
+
+    let cookie_file = parse(&["--testnet4"])
+      .cookie_file()
+      .unwrap()
+      .display()
+      .to_string();
+
+    assert!(cookie_file.ends_with(if cfg!(target_os = "linux") {
+      "/.litecoin/testnet4/.cookie"
+    } else if cfg!(windows) {
+      r"\Litecoin\testnet4\.cookie"
+    } else {
+      "/Litecoin/testnet4/.cookie"
+    }));
   }
 
   #[test]
@@ -830,6 +870,7 @@ mod tests {
 
   #[test]
   fn network_accepts_aliases() {
+    #[track_caller]
     fn check_network_alias(alias: &str, suffix: &str) {
       let data_dir = parse(&["--chain", alias]).data_dir().display().to_string();
 
@@ -864,6 +905,14 @@ mod tests {
     );
     check_network_alias(
       "testnet",
+      if cfg!(windows) {
+        r"ord\testnet4"
+      } else {
+        "ord/testnet4"
+      },
+    );
+    check_network_alias(
+      "testnet4",
       if cfg!(windows) {
         r"ord\testnet4"
       } else {
@@ -919,6 +968,20 @@ mod tests {
     let arguments =
       Arguments::try_parse_from(["ord", "--commit-interval", "500", "index", "update"]).unwrap();
     assert_eq!(arguments.options.commit_interval, Some(500));
+  }
+
+  #[test]
+  fn setting_savepoint_interval() {
+    let arguments =
+      Arguments::try_parse_from(["ord", "--savepoint-interval", "500", "index", "update"]).unwrap();
+    assert_eq!(arguments.options.savepoint_interval, Some(500));
+  }
+
+  #[test]
+  fn setting_max_savepoints() {
+    let arguments =
+      Arguments::try_parse_from(["ord", "--max-savepoints", "10", "index", "update"]).unwrap();
+    assert_eq!(arguments.options.max_savepoints, Some(10));
   }
 
   #[test]
@@ -1020,6 +1083,8 @@ mod tests {
       ("LITECOIN_RPC_USERNAME", "litecoin username"),
       ("CHAIN", "signet"),
       ("COMMIT_INTERVAL", "1"),
+      ("SAVEPOINT_INTERVAL", "10"),
+      ("MAX_SAVEPOINTS", "2"),
       ("CONFIG", "config"),
       ("CONFIG_DIR", "config dir"),
       ("COOKIE_FILE", "cookie file"),
@@ -1053,6 +1118,8 @@ mod tests {
         litecoin_rpc_username: Some("litecoin username".into()),
         chain: Some(Chain::Signet),
         commit_interval: Some(1),
+        savepoint_interval: Some(10),
+        max_savepoints: Some(2),
         config: Some("config".into()),
         config_dir: Some("config dir".into()),
         cookie_file: Some("cookie file".into()),
@@ -1099,6 +1166,8 @@ mod tests {
           "--litecoin-rpc-username=litecoin username",
           "--chain=signet",
           "--commit-interval=1",
+          "--savepoint-interval=10",
+          "--max-savepoints=2",
           "--config=config",
           "--config-dir=config dir",
           "--cookie-file=cookie file",
@@ -1125,6 +1194,8 @@ mod tests {
         litecoin_rpc_username: Some("litecoin username".into()),
         chain: Some(Chain::Signet),
         commit_interval: Some(1),
+        savepoint_interval: Some(10),
+        max_savepoints: Some(2),
         config: Some("config".into()),
         config_dir: Some("config dir".into()),
         cookie_file: Some("cookie file".into()),

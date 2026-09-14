@@ -104,7 +104,7 @@ dl {
   overflow-wrap: break-word;
 }
 
-ol, ul {
+ul {
   overflow: hidden;
 }
 
@@ -248,6 +248,18 @@ a.mythic {
 
 .inscription > a > iframe {
   width: 100%;
+}
+
+.satscard-error {
+  color: red;
+}
+
+.satscard-sealed {
+  color: green;
+}
+
+.satscard-unsealed {
+  color: yellow;
 }
 
 .tabs {

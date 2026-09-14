@@ -18,16 +18,15 @@ impl WalletConstructor {
   ) -> Result<Wallet> {
     let mut headers = HeaderMap::new();
     headers.insert(
-      header::ACCEPT,
-      header::HeaderValue::from_static("application/json"),
+      reqwest::header::ACCEPT,
+      reqwest::header::HeaderValue::from_static("application/json"),
     );
 
     if let Some((username, password)) = settings.credentials() {
-      let credentials =
-        base64::engine::general_purpose::STANDARD.encode(format!("{username}:{password}"));
+      let credentials = base64_encode(format!("{username}:{password}").as_bytes());
       headers.insert(
-        header::AUTHORIZATION,
-        header::HeaderValue::from_str(&format!("Basic {credentials}")).unwrap(),
+        reqwest::header::AUTHORIZATION,
+        reqwest::header::HeaderValue::from_str(&format!("Basic {credentials}")).unwrap(),
       );
     }
 
@@ -53,7 +52,30 @@ impl WalletConstructor {
         Wallet::check_version(self.settings.bitcoin_rpc_client(Some(self.name.clone()))?)?;
 
       if !client.list_wallets()?.contains(&self.name) {
-        client.load_wallet(&self.name)?;
+        loop {
+          match client.load_wallet(&self.name) {
+            Ok(_) => {
+              break;
+            }
+            Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(err)))
+              if err.code == -4 && err.message == "Wallet already loading." =>
+            {
+              // wallet loading
+              eprint!(".");
+              thread::sleep(Duration::from_secs(3));
+              continue;
+            }
+            Err(bitcoincore_rpc::Error::JsonRpc(bitcoincore_rpc::jsonrpc::Error::Rpc(err)))
+              if err.code == -35 =>
+            {
+              // wallet already loaded
+              break;
+            }
+            Err(err) => {
+              bail!("Failed to load wallet {}: {err}", self.name);
+            }
+          }
+        }
       }
 
       let version = CoreVersion::get(&client)?;
@@ -74,21 +96,21 @@ impl WalletConstructor {
       client
     };
 
-    let chain_block_count = bitcoin_client.get_block_count().unwrap() + 1;
+    let bitcoin_block_count = bitcoin_client.get_block_count().unwrap() + 1;
 
     if !self.no_sync {
       for i in 0.. {
-        let response = self.get("/blockcount")?;
+        let ord_block_count = self.get("/blockcount")?.text()?.parse::<u64>().expect(
+          "wallet failed to retreive block count from server. Make sure `ord server` is running.",
+        );
 
-        if response
-          .text()?
-          .parse::<u64>()
-          .expect("wallet failed to talk to server. Make sure `ord server` is running.")
-          >= chain_block_count
-        {
+        if ord_block_count >= bitcoin_block_count {
           break;
         } else if i == 20 {
-          bail!("wallet failed to synchronize with `ord server` after {i} attempts");
+          bail!(
+            "`ord server` {} blocks behind `litecoind`, consider using `--no-sync` to ignore this error",
+            bitcoin_block_count - ord_block_count
+          );
         }
         std::thread::sleep(Duration::from_millis(50));
       }
@@ -102,7 +124,7 @@ impl WalletConstructor {
 
     let inscriptions = output_info
       .iter()
-      .flat_map(|(_output, info)| info.inscriptions.clone())
+      .flat_map(|(_output, info)| info.inscriptions.clone().unwrap_or_default())
       .collect::<Vec<InscriptionId>>();
 
     let (inscriptions, inscription_info) = self.get_inscriptions(&inscriptions)?;
@@ -113,7 +135,6 @@ impl WalletConstructor {
       bitcoin_client,
       uses_descriptors,
       database,
-      has_inscription_index: status.inscription_index,
       has_rune_index: status.rune_index,
       has_sat_index: status.sat_index,
       inscription_info,
@@ -134,10 +155,15 @@ impl WalletConstructor {
       bail!("wallet failed get outputs: {}", response.text()?);
     }
 
-    let output_info: BTreeMap<OutPoint, api::Output> = outputs
-      .into_iter()
-      .zip(serde_json::from_str::<Vec<api::Output>>(&response.text()?)?)
-      .collect();
+    let response_outputs = serde_json::from_str::<Vec<api::Output>>(&response.text()?)?;
+
+    ensure! {
+      response_outputs.len() == outputs.len(),
+      "unexpected server `/outputs` response length",
+    }
+
+    let output_info: BTreeMap<OutPoint, api::Output> =
+      outputs.into_iter().zip(response_outputs).collect();
 
     for (output, info) in &output_info {
       if !info.indexed {

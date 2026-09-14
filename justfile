@@ -55,8 +55,12 @@ deploy-signet branch='master' remote='ordinals/ord': \
 deploy-testnet branch='master' remote='ordinals/ord': \
   (deploy branch remote 'test' 'testnet.ordinals.net')
 
+deploy-testnet4 branch='master' remote='ordinals/ord': \
+  (deploy branch remote 'testnet4' 'testnet4.ordinals.net')
+
 deploy-all: \
   deploy-testnet \
+  deploy-testnet4 \
   deploy-signet \
   deploy-mainnet-alpha \
   deploy-mainnet-bravo \
@@ -69,7 +73,7 @@ delete-indices: \
 delete-index domain:
   ssh root@{{domain}} 'systemctl stop ord && rm -f /var/lib/ord/*/index.redb'
 
-servers := 'alpha bravo charlie signet testnet'
+servers := 'alpha bravo charlie signet testnet3 testnet4'
 
 initialize-server-keys:
   #!/usr/bin/env bash
@@ -220,3 +224,14 @@ benchmark-server:
 
 update-contributors:
   cargo run --release --package update-contributors
+
+replicate:
+  rsync --archive bin/replicate root@charlie.ordinals.net:replicate
+  ssh root@charlie.ordinals.net ./replicate
+
+swap host:
+  rsync --archive bin/swap root@{{ host }}.ordinals.net:swap
+  ssh root@{{ host }}.ordinals.net ./swap
+
+changed-files tag:
+  git diff --name-only {{tag}}

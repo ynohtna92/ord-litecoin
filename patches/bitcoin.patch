@@ -1,6 +1,6 @@
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
-@@ -84,7 +84,7 @@
+@@ -99,7 +99,7 @@
     - Implement `ordered::ArbitraryOrd` for absolute and relative locktimes, introducing the "ordered" feature:
       - [#2581](https://github.com/rust-bitcoin/rust-bitcoin/pull/2581)
       - [#2248](https://github.com/rust-bitcoin/rust-bitcoin/pull/2248)
@@ -50,7 +50,7 @@
          }
      }
  }
-@@ -618,7 +618,7 @@
+@@ -621,7 +621,7 @@
      /// # })().unwrap();
      /// # assert_eq!(writer, ADDRESS);
      /// ```
@@ -59,7 +59,7 @@
  
      /// Returns true if the given pubkey is directly related to the address payload.
      ///
-@@ -1157,7 +1157,7 @@
+@@ -1151,7 +1151,7 @@
          {
              let addr =
                  Address::from_str(el).unwrap().require_network(Network::Bitcoin).expect("mainnet");
@@ -68,7 +68,7 @@
          }
  
          for el in [
-@@ -1167,7 +1167,7 @@
+@@ -1161,7 +1161,7 @@
          .iter()
          {
              let addr = Address::from_str(el).unwrap().assume_checked();
@@ -79,7 +79,7 @@
  
 --- a/src/blockdata/constants.rs
 +++ b/src/blockdata/constants.rs
-@@ -24,28 +24,28 @@
+@@ -23,28 +23,28 @@
  use crate::Amount;
  
  /// How many seconds between blocks we expect on average.
@@ -114,25 +114,35 @@
  /// Maximum allowed value for an integer in Script.
  pub const MAX_SCRIPTNUM_VALUE: u32 = 0x80000000; // 2^31
  /// Number of blocks needed for an output from a coinbase transaction to be spendable.
-@@ -65,7 +65,7 @@
-     let in_script = script::Builder::new()
-         .push_int(486604799)
-         .push_int_non_minimal(4)
--        .push_slice(b"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks")
-+        .push_slice(b"NY Times 05/Oct/2011 Steve Jobs, Apple\xE2\x80\x99s Visionary, Dies at 56")
-         .into_script();
-     ret.input.push(TxIn {
-         previous_output: OutPoint::null(),
-@@ -75,7 +75,7 @@
-     });
+@@ -55,17 +55,7 @@
+ // ref: https://blockstream.info/tx/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b?expand
+ // Note output script includes a leading 0x41 and trailing 0xac (added below using the `script::Builder`).
+ #[rustfmt::skip]
+-const GENESIS_OUTPUT_PK: [u8; 65] = [
+-    0x04,
+-    0x67, 0x8a, 0xfd, 0xb0, 0xfe, 0x55, 0x48, 0x27,
+-    0x19, 0x67, 0xf1, 0xa6, 0x71, 0x30, 0xb7, 0x10,
+-    0x5c, 0xd6, 0xa8, 0x28, 0xe0, 0x39, 0x09, 0xa6,
+-    0x79, 0x62, 0xe0, 0xea, 0x1f, 0x61, 0xde, 0xb6,
+-    0x49, 0xf6, 0xbc, 0x3f, 0x4c, 0xef, 0x38, 0xc4,
+-    0xf3, 0x55, 0x04, 0xe5, 0x1e, 0xc1, 0x12, 0xde,
+-    0x5c, 0x38, 0x4d, 0xf7, 0xba, 0x0b, 0x8d, 0x57,
+-    0x8a, 0x4c, 0x70, 0x2b, 0x6b, 0xf1, 0x1d, 0x5f
+-];
++const GENESIS_OUTPUT_PK: [u8; 65] = [0x04, 0x01, 0x84, 0x71, 0x0f, 0xa6, 0x89, 0xad, 0x50, 0x23, 0x69, 0x0c, 0x80, 0xf3, 0xa4, 0x9c, 0x8f, 0x13, 0xf8, 0xd4, 0x5b, 0x8c, 0x85, 0x7f, 0xbc, 0xbc, 0x8b, 0xc4, 0xa8, 0xe4, 0xd3, 0xeb, 0x4b, 0x10, 0xf4, 0xd4, 0x60, 0x4f, 0xa0, 0x8d, 0xce, 0x60, 0x1a, 0xaf, 0x0f, 0x47, 0x02, 0x16, 0xfe, 0x1b, 0x51, 0x85, 0x0b, 0x4a, 0xcf, 0x21, 0xb1, 0x79, 0xc4, 0x50, 0x70, 0xac, 0x7b, 0x03, 0xa9];
  
-     // Outputs
--    let script_bytes = hex!("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f");
-+    let script_bytes = hex!("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9");
-     let out_script =
-         script::Builder::new().push_slice(script_bytes).push_opcode(OP_CHECKSIG).into_script();
-     ret.output.push(TxOut { value: Amount::from_sat(50 * 100_000_000), script_pubkey: out_script });
-@@ -95,9 +95,9 @@
+ #[rustfmt::skip]
+ const TESTNET4_GENESIS_OUTPUT_PK: [u8; 33] = [0x00; 33];
+@@ -95,7 +85,7 @@
+                 script::Builder::new()
+                 .push_int(486604799)
+                 .push_int_non_minimal(4)
+-                .push_slice(b"The Times 03/Jan/2009 Chancellor on brink of second bailout for banks")
++                .push_slice(b"NY Times 05/Oct/2011 Steve Jobs, Apple\xE2\x80\x99s Visionary, Dies at 56")
+                 .into_script(),
+                 script::Builder::new().push_slice(GENESIS_OUTPUT_PK).push_opcode(OP_CHECKSIG).into_script(),
+             ),
+@@ -127,9 +117,9 @@
                  version: block::Version::ONE,
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
@@ -145,7 +155,7 @@
              },
              txdata,
          },
-@@ -106,9 +106,9 @@
+@@ -138,9 +128,9 @@
                  version: block::Version::ONE,
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
@@ -158,7 +168,7 @@
              },
              txdata,
          },
-@@ -118,8 +118,8 @@
+@@ -161,8 +151,8 @@
                  prev_blockhash: Hash::all_zeros(),
                  merkle_root,
                  time: 1598918400,
@@ -169,7 +179,7 @@
              },
              txdata,
          },
-@@ -130,7 +130,7 @@
+@@ -173,7 +163,7 @@
                  merkle_root,
                  time: 1296688602,
                  bits: CompactTarget::from_consensus(0x207fffff),
@@ -178,7 +188,7 @@
              },
              txdata,
          },
-@@ -146,25 +146,13 @@
+@@ -189,36 +179,21 @@
  impl ChainHash {
      // Mainnet value can be verified at https://github.com/lightning/bolts/blob/master/00-introduction.md
      /// `ChainHash` for mainnet bitcoin.
@@ -187,12 +197,24 @@
 -        101, 225, 90, 8, 156, 104, 214, 25, 0, 0, 0, 0, 0,
 -    ]);
 +    pub const BITCOIN: Self = Self([226, 191, 4, 126, 126, 90, 25, 26, 164, 239, 52, 211, 20, 151, 157, 201, 152, 110, 15, 25, 37, 30, 218, 186, 89, 64, 253, 31, 227, 101, 167, 18]);
-     /// `ChainHash` for testnet bitcoin.
+     /// `ChainHash` for testnet3 bitcoin.
+     #[deprecated(since = "0.32.4", note = "Use TESTNET3 instead")]
 -    pub const TESTNET: Self = Self([
 -        67, 73, 127, 215, 248, 38, 149, 113, 8, 244, 163, 15, 217, 206, 195, 174, 186, 121, 151,
 -        32, 132, 233, 14, 173, 1, 234, 51, 9, 0, 0, 0, 0,
 -    ]);
 +    pub const TESTNET: Self = Self([160, 41, 62, 78, 235, 61, 166, 230, 245, 111, 129, 237, 89, 95, 87, 136, 13, 26, 33, 86, 158, 19, 238, 253, 217, 81, 40, 75, 90, 98, 102, 73]);
+     /// `ChainHash` for testnet3 bitcoin.
+-    pub const TESTNET3: Self = Self([
+-        67, 73, 127, 215, 248, 38, 149, 113, 8, 244, 163, 15, 217, 206, 195, 174, 186, 121, 151,
+-        32, 132, 233, 14, 173, 1, 234, 51, 9, 0, 0, 0, 0,
+-    ]);
++    pub const TESTNET3: Self = Self([160, 41, 62, 78, 235, 61, 166, 230, 245, 111, 129, 237, 89, 95, 87, 136, 13, 26, 33, 86, 158, 19, 238, 253, 217, 81, 40, 75, 90, 98, 102, 73]);
+     /// `ChainHash` for testnet4 bitcoin.
+     pub const TESTNET4: Self = Self([
+         67, 240, 139, 218, 176, 80, 227, 91, 86, 124, 134, 75, 145, 244, 127, 80, 174, 114, 90,
+         226, 222, 83, 188, 251, 186, 242, 132, 218, 0, 0, 0, 0,
+     ]);
      /// `ChainHash` for signet bitcoin.
 -    pub const SIGNET: Self = Self([
 -        246, 30, 238, 59, 99, 163, 128, 164, 119, 160, 99, 175, 50, 178, 187, 201, 124, 159, 249,
@@ -208,7 +230,7 @@
  
      /// Returns the hash of the `network` genesis block for use as a chain hash.
      ///
-@@ -215,7 +203,7 @@
+@@ -278,7 +253,7 @@
          assert_eq!(gen.input[0].sequence, Sequence::MAX);
          assert_eq!(gen.output.len(), 1);
          assert_eq!(serialize(&gen.output[0].script_pubkey),
@@ -219,7 +241,7 @@
  
 --- a/src/blockdata/transaction.rs
 +++ b/src/blockdata/transaction.rs
-@@ -1263,6 +1263,33 @@
+@@ -1294,6 +1294,33 @@
                              lock_time: Decodable::consensus_decode_from_finite_reader(r)?,
                          })
                      }
@@ -275,74 +297,78 @@
                  return Err(InvalidAddressVersionError { invalid }.into());
 --- a/src/network.rs
 +++ b/src/network.rs
-@@ -209,7 +209,7 @@
+@@ -192,7 +192,7 @@
+     /// This is useful for displaying the network type as a string.
+     const fn as_display_str(self) -> &'static str {
+         match self {
+-            Network::Bitcoin => "bitcoin",
++            Network::Bitcoin => "litecoin",
+             Network::Testnet => "testnet",
+             Network::Testnet4 => "testnet4",
+             Network::Signet => "signet",
+@@ -228,7 +228,7 @@
                  Network::from_core_arg(s).map_err(|_| {
                      E::invalid_value(
                          serde::de::Unexpected::Str(s),
--                        &"bitcoin network encoded as a string (either main, test, signet or regtest)",
-+                        &"litecoin network encoded as a string (either main, test, signet or regtest)",
+-                        &"bitcoin network encoded as a string (either main, test, testnet4, signet or regtest)",
++                        &"litecoin network encoded as a string (either main, test, testnet4, signet or regtest)",
                      )
                  })
              }
-@@ -217,7 +217,7 @@
+@@ -236,7 +236,7 @@
              fn expecting(&self, formatter: &mut core::fmt::Formatter) -> core::fmt::Result {
                  write!(
                      formatter,
--                    "bitcoin network encoded as a string (either main, test, signet or regtest)"
-+                    "litecoin network encoded as a string (either main, test, signet or regtest)"
+-                    "bitcoin network encoded as a string (either main, test, testnet4, signet or regtest)"
++                    "litecoin network encoded as a string (either main, test, testnet4, signet or regtest)"
                  )
              }
          }
-@@ -250,7 +250,7 @@
-         use Network::*;
- 
-         let network = match s {
--            "bitcoin" => Bitcoin,
-+            "litecoin" | "bitcoin" => Bitcoin,
-             "testnet" => Testnet,
-             "signet" => Signet,
-             "regtest" => Regtest,
-@@ -265,7 +265,7 @@
-         use Network::*;
- 
-         let s = match *self {
--            Bitcoin => "bitcoin",
-+            Bitcoin => "litecoin",
-             Testnet => "testnet",
-             Signet => "signet",
-             Regtest => "regtest",
-@@ -326,7 +326,7 @@
+@@ -267,7 +267,7 @@
+     #[inline]
+     fn from_str(s: &str) -> Result<Self, Self::Err> {
+         match s {
+-            "bitcoin" => Ok(Network::Bitcoin),
++            "litecoin" | "bitcoin" => Ok(Network::Bitcoin),
+             // For user-side compatibility, testnet3 is retained as testnet
+             "testnet" => Ok(Network::Testnet),
+             "testnet4" => Ok(Network::Testnet4),
+@@ -351,7 +351,7 @@
  
      #[test]
      fn string_test() {
 -        assert_eq!(Network::Bitcoin.to_string(), "bitcoin");
 +        assert_eq!(Network::Bitcoin.to_string(), "litecoin");
          assert_eq!(Network::Testnet.to_string(), "testnet");
+         assert_eq!(Network::Testnet4.to_string(), "testnet4");
          assert_eq!(Network::Regtest.to_string(), "regtest");
-         assert_eq!(Network::Signet.to_string(), "signet");
-@@ -384,7 +384,7 @@
+@@ -411,7 +411,7 @@
      fn serde_roundtrip() {
          use Network::*;
          let tests = vec![
 -            (Bitcoin, "bitcoin"),
 +            (Bitcoin, "litecoin"),
              (Testnet, "testnet"),
+             (Testnet4, "testnet4"),
              (Signet, "signet"),
-             (Regtest, "regtest"),
 --- a/src/p2p/mod.rs
 +++ b/src/p2p/mod.rs
-@@ -214,9 +214,9 @@
+@@ -214,12 +214,12 @@
  
  impl Magic {
      /// Bitcoin mainnet network magic bytes.
 -    pub const BITCOIN: Self = Self([0xF9, 0xBE, 0xB4, 0xD9]);
 +    pub const BITCOIN: Self = Self([0xFB, 0xC0, 0xB6, 0xDB]);
-     /// Bitcoin testnet network magic bytes.
+     /// Bitcoin testnet3 network magic bytes.
+     #[deprecated(since = "0.32.4", note = "Use TESTNET3 instead")]
 -    pub const TESTNET: Self = Self([0x0B, 0x11, 0x09, 0x07]);
 +    pub const TESTNET: Self = Self([0xFD, 0xD2, 0xC8, 0xF1]);
+     /// Bitcoin testnet3 network magic bytes.
+-    pub const TESTNET3: Self = Self([0x0B, 0x11, 0x09, 0x07]);
++    pub const TESTNET3: Self = Self([0xFD, 0xD2, 0xC8, 0xF1]);
+     /// Bitcoin testnet4 network magic bytes.
+     pub const TESTNET4: Self = Self([0x1c, 0x16, 0x3f, 0x28]);
      /// Bitcoin signet network magic bytes.
-     pub const SIGNET: Self = Self([0x0A, 0x03, 0xCF, 0x40]);
-     /// Bitcoin regtest network magic bytes.
 --- a/src/consensus/serde.rs
 +++ b/src/consensus/serde.rs
 @@ -159,17 +159,17 @@
@@ -394,17 +420,6 @@
          }
      }
  
---- a/src/consensus/encode.rs
-+++ b/src/consensus/encode.rs
-@@ -15,7 +15,7 @@
- //! typically big-endian decimals, etc.)
- //!
- 
--use core::{fmt, mem, u32};
-+use core::{fmt, mem};
- 
- use hashes::{sha256, sha256d, Hash};
- use hex::error::{InvalidCharError, OddLengthStringError};
 --- a/src/bip32.rs
 +++ b/src/bip32.rs
 @@ -402,17 +402,17 @@
@@ -430,7 +445,7 @@
  
 --- a/src/blockdata/script/borrowed.rs
 +++ b/src/blockdata/script/borrowed.rs
-@@ -528,7 +528,7 @@
+@@ -547,7 +547,7 @@
      ///
      /// To force minimal pushes, use [`instructions_minimal`](Self::instructions_minimal).
      #[inline]
@@ -439,7 +454,7 @@
          Instructions { data: self.0.iter(), enforce_minimal: false }
      }
  
-@@ -537,7 +537,7 @@
+@@ -556,7 +556,7 @@
      /// This is similar to [`instructions`](Self::instructions) but an error is returned if a push
      /// is not minimal.
      #[inline]
@@ -448,7 +463,7 @@
          Instructions { data: self.0.iter(), enforce_minimal: true }
      }
  
-@@ -549,7 +549,7 @@
+@@ -568,7 +568,7 @@
      ///
      /// To force minimal pushes, use [`Self::instruction_indices_minimal`].
      #[inline]
@@ -457,7 +472,7 @@
          InstructionIndices::from_instructions(self.instructions())
      }
  
-@@ -558,7 +558,7 @@
+@@ -577,7 +577,7 @@
      /// This is similar to [`instruction_indices`](Self::instruction_indices) but an error is
      /// returned if a push is not minimal.
      #[inline]

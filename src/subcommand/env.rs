@@ -244,10 +244,14 @@ litecoin-cli -datadir={datadir} getblockchaininfo
 
     loop {
       if SHUTTING_DOWN.load(atomic::Ordering::Relaxed) {
-        break Ok(None);
+        break;
       }
 
       thread::sleep(Duration::from_millis(100));
     }
+
+    thread::sleep(Duration::from_secs(5));
+
+    Ok(None)
   }
 }

@@ -60,6 +60,10 @@ case $CHAIN in
     COOKIE_FILE_DIR=/var/lib/litecoind/testnet4
     ufw allow 19335
     ;;
+  testnet4)
+    echo "Use test for Litecoin testnet; a separate testnet4 chain is unsupported." >&2
+    exit 1
+    ;;
   *)
     echo "Unknown chain: $CHAIN"
     exit 1
@@ -87,7 +91,7 @@ fi
 
 litecoind --version
 
-chown bitcoin:bitcoin /var/lib/bitcoind/settings.json
+rm -f /var/lib/bitcoind/settings.json
 
 if [[ ! -e ~/.cargo/env ]]; then
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y

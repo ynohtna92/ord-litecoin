@@ -27,7 +27,7 @@ mod tests {
         gallery_inscription_number: 1,
         i: 2,
         item: Item {
-          id: inscription_id(1),
+          id: Some(inscription_id(1)),
           attributes: Attributes {
             title: Some("foo".into()),
             traits: Traits::default(),
@@ -36,6 +36,7 @@ mod tests {
       },
       "
         <h1>Gallery 1 item 2</h1>
+        <p class=subtitle>foo</p>
         <div class=inscription>
         <iframe .* src=/preview/1{64}i1></iframe>
         </div>
@@ -58,7 +59,7 @@ mod tests {
         gallery_inscription_number: 1,
         i: 2,
         item: Item {
-          id: inscription_id(1),
+          id: Some(inscription_id(1)),
           attributes: Attributes {
             title: Some("foo".into()),
             traits: Traits::default(),

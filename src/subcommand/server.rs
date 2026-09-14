@@ -6,12 +6,12 @@ use {
   },
   super::*,
   crate::templates::{
-    AddressHtml, BlockHtml, BlocksHtml, ChildrenHtml, ClockSvg, CollectionsHtml, HomeHtml,
-    InputHtml, InscriptionHtml, InscriptionsBlockHtml, InscriptionsHtml, ItemHtml, OutputHtml,
-    PageContent, PageHtml, ParentsHtml, PreviewAudioHtml, PreviewCodeHtml, PreviewFontHtml,
-    PreviewImageHtml, PreviewMarkdownHtml, PreviewModelHtml, PreviewPdfHtml, PreviewTextHtml,
-    PreviewUnknownHtml, PreviewVideoHtml, RareTxt, RuneHtml, RuneNotFoundHtml, RunesHtml, SatHtml,
-    SatscardHtml, TransactionHtml,
+    AddressHtml, BlockHtml, BlocksHtml, ChildrenHtml, ClockSvg, CollectionsHtml, GalleriesHtml,
+    GalleryHtml, HomeHtml, InputHtml, InscriptionHtml, InscriptionsBlockHtml, InscriptionsHtml,
+    ItemHtml, OutputHtml, PageContent, PageHtml, ParentsHtml, PreviewAudioHtml, PreviewCodeHtml,
+    PreviewFontHtml, PreviewImageHtml, PreviewMarkdownHtml, PreviewModelHtml, PreviewPdfHtml,
+    PreviewTextHtml, PreviewUnknownHtml, PreviewVideoHtml, RareTxt, RuneHtml, RuneNotFoundHtml,
+    RunesHtml, SatHtml, SatscardHtml, TransactionHtml,
   },
   axum::{
     Router,
@@ -21,7 +21,6 @@ use {
     routing::{get, post},
   },
   axum_server::Handle,
-  brotli::Decompressor,
   rust_embed::RustEmbed,
   rustls_acme::{
     AcmeConfig,
@@ -48,6 +47,7 @@ mod r;
 mod server_config;
 
 const MEBIBYTE: usize = 1 << 20;
+const PAGE_SIZE: usize = 100;
 
 enum SpawnConfig {
   Https(AxumAcceptor),
@@ -146,10 +146,20 @@ pub struct Server {
 }
 
 impl Server {
-  pub fn run(self, settings: Settings, index: Arc<Index>, handle: Handle) -> SubcommandResult {
+  pub fn run(
+    self,
+    settings: Settings,
+    index: Arc<Index>,
+    handle: Handle<SocketAddr>,
+    http_port_tx: Option<std::sync::mpsc::Sender<u16>>,
+  ) -> SubcommandResult {
     Runtime::new()?.block_on(async {
       let index_clone = index.clone();
       let integration_test = settings.integration_test();
+
+      if (cfg!(test) || integration_test) && !self.no_sync {
+        index.update().unwrap();
+      }
 
       let index_thread = thread::spawn(move || {
         loop {
@@ -210,9 +220,16 @@ impl Server {
         .route("/collections", get(Self::collections))
         .route("/collections/{page}", get(Self::collections_paginated))
         .route("/decode/{txid}", get(Self::decode))
+        .route("/galleries", get(Self::galleries))
+        .route("/galleries/{page}", get(Self::galleries_paginated))
         .route("/faq", get(Self::faq))
         .route("/favicon.ico", get(Self::favicon))
         .route("/feed.xml", get(Self::feed))
+        .route("/gallery/{inscription_id}", get(Self::gallery))
+        .route(
+          "/gallery/{inscription_id}/page/{page}",
+          get(Self::gallery_paginated),
+        )
         .route("/gallery/{inscription_query}/{item}", get(Self::item))
         .route("/input/{block}/{transaction}/{input}", get(Self::input))
         .route("/inscription/{inscription_query}", get(Self::inscription))
@@ -343,6 +360,7 @@ impl Server {
         .with_state(server_config.clone());
 
       let router = if let Some((username, password)) = settings.credentials() {
+        #[allow(deprecated)]
         router.layer(ValidateRequestHeaderLayer::basic(username, password))
       } else {
         router
@@ -351,7 +369,14 @@ impl Server {
       match (self.http_port(), self.https_port()) {
         (Some(http_port), None) => {
           self
-            .spawn(&settings, router, handle, http_port, SpawnConfig::Http)?
+            .spawn(
+              &settings,
+              router,
+              handle,
+              http_port,
+              SpawnConfig::Http,
+              http_port_tx,
+            )?
             .await??
         }
         (None, Some(https_port)) => {
@@ -362,6 +387,7 @@ impl Server {
               handle,
               https_port,
               SpawnConfig::Https(self.acceptor(&settings)?),
+              None,
             )?
             .await??
         }
@@ -382,7 +408,8 @@ impl Server {
               router.clone(),
               handle.clone(),
               http_port,
-              http_spawn_config
+              http_spawn_config,
+              http_port_tx,
             )?,
             self.spawn(
               &settings,
@@ -390,6 +417,7 @@ impl Server {
               handle,
               https_port,
               SpawnConfig::Https(self.acceptor(&settings)?),
+              None,
             )?
           );
           http_result.and(https_result)??;
@@ -405,9 +433,10 @@ impl Server {
     &self,
     settings: &Settings,
     router: Router,
-    handle: Handle,
+    handle: Handle<SocketAddr>,
     port: u16,
     config: SpawnConfig,
+    port_tx: Option<std::sync::mpsc::Sender<u16>>,
   ) -> Result<task::JoinHandle<io::Result<()>>> {
     let address = match &self.address {
       Some(address) => address.as_str(),
@@ -425,27 +454,37 @@ impl Server {
       .next()
       .ok_or_else(|| anyhow!("failed to get socket addrs"))?;
 
-    if !settings.integration_test() && !cfg!(test) {
-      eprintln!(
-        "Listening on {}://{addr}",
-        match config {
-          SpawnConfig::Https(_) => "https",
-          _ => "http",
-        }
-      );
-    }
+    let test = settings.integration_test() || cfg!(test);
 
     Ok(tokio::spawn(async move {
+      let listener = tokio::net::TcpListener::bind(addr).await?.into_std()?;
+
+      let addr = listener.local_addr()?;
+
+      if !test {
+        eprintln!(
+          "Listening on {}://{addr}",
+          match config {
+            SpawnConfig::Https(_) => "https",
+            _ => "http",
+          }
+        );
+      }
+
+      if let Some(tx) = port_tx {
+        tx.send(addr.port()).unwrap();
+      }
+
       match config {
         SpawnConfig::Https(acceptor) => {
-          axum_server::Server::bind(addr)
+          axum_server::from_tcp(listener)?
             .handle(handle)
             .acceptor(acceptor)
             .serve(router.into_make_service())
             .await
         }
         SpawnConfig::Redirect(destination) => {
-          axum_server::Server::bind(addr)
+          axum_server::from_tcp(listener)?
             .handle(handle)
             .serve(
               Router::new()
@@ -456,7 +495,7 @@ impl Server {
             .await
         }
         SpawnConfig::Http => {
-          axum_server::Server::bind(addr)
+          axum_server::from_tcp(listener)?
             .handle(handle)
             .serve(router.into_make_service())
             .await
@@ -1794,7 +1833,8 @@ impl Server {
     Path(page_index): Path<usize>,
   ) -> ServerResult {
     task::block_in_place(|| {
-      let (collections, more_collections) = index.get_collections_paginated(100, page_index)?;
+      let (collections, more_collections) =
+        index.get_collections_paginated(PAGE_SIZE, page_index)?;
 
       let prev = page_index.checked_sub(1);
 
@@ -1808,6 +1848,113 @@ impl Server {
         }
         .page(server_config)
         .into_response(),
+      )
+    })
+  }
+
+  async fn galleries(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    accept_json: AcceptJson,
+  ) -> ServerResult {
+    Self::galleries_paginated(
+      Extension(server_config),
+      Extension(index),
+      Path(0),
+      accept_json,
+    )
+    .await
+  }
+
+  async fn galleries_paginated(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    Path(page_index): Path<u32>,
+    AcceptJson(accept_json): AcceptJson,
+  ) -> ServerResult {
+    task::block_in_place(|| {
+      let (galleries, more) = index.get_galleries_paginated(PAGE_SIZE, page_index.into_usize())?;
+
+      let prev = page_index.checked_sub(1);
+
+      let next = more.then_some(page_index + 1);
+
+      Ok(if accept_json {
+        Json(api::Inscriptions {
+          ids: galleries,
+          page_index,
+          more,
+        })
+        .into_response()
+      } else {
+        GalleriesHtml {
+          inscriptions: galleries,
+          prev,
+          next,
+        }
+        .page(server_config)
+        .into_response()
+      })
+    })
+  }
+
+  async fn gallery(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    Path(inscription_id): Path<InscriptionId>,
+  ) -> ServerResult<PageHtml<GalleryHtml>> {
+    Self::gallery_paginated(
+      Extension(server_config),
+      Extension(index),
+      Path((inscription_id, 0)),
+    )
+    .await
+  }
+
+  async fn gallery_paginated(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
+    Extension(index): Extension<Arc<Index>>,
+    Path((id, page)): Path<(InscriptionId, usize)>,
+  ) -> ServerResult<PageHtml<GalleryHtml>> {
+    task::block_in_place(|| {
+      let inscription = index
+        .get_inscription_by_id(id)?
+        .ok_or_not_found(|| format!("inscription {id}"))?;
+
+      let number = index
+        .get_inscription_entry(id)?
+        .ok_or_not_found(|| format!("inscription {id}"))?
+        .inscription_number;
+
+      let properties = inscription.properties();
+
+      let mut items = properties
+        .gallery
+        .iter()
+        .enumerate()
+        .skip(page.saturating_mul(PAGE_SIZE))
+        .take(PAGE_SIZE.saturating_add(1))
+        .map(|(i, item)| (i, item.id()))
+        .collect::<Vec<(usize, InscriptionId)>>();
+
+      let more = items.len() > PAGE_SIZE;
+
+      if more {
+        items.pop();
+      }
+
+      let prev_page = page.checked_sub(1);
+      let next_page = more.then_some(page + 1);
+
+      Ok(
+        GalleryHtml {
+          id,
+          number,
+          items,
+          prev_page,
+          next_page,
+        }
+        .page(server_config),
       )
     })
   }
@@ -1841,7 +1988,7 @@ impl Server {
       let parent_number = entry.inscription_number;
 
       let (children, more_children) =
-        index.get_children_by_sequence_number_paginated(entry.sequence_number, 100, page)?;
+        index.get_children_by_sequence_number_paginated(entry.sequence_number, PAGE_SIZE, page)?;
 
       let prev_page = page.checked_sub(1);
 
@@ -1936,8 +2083,6 @@ impl Server {
     AcceptJson(accept_json): AcceptJson,
   ) -> ServerResult {
     task::block_in_place(|| {
-      const PAGE_SIZE: usize = 100;
-
       let mut inscriptions = index
         .get_inscriptions_in_block(block_height)?
         .into_iter()
@@ -1996,7 +2141,7 @@ impl Server {
         .ok_or_not_found(|| format!("inscription {id}"))?;
 
       let (parents, more) =
-        index.get_parents_by_sequence_number_paginated(child.parents, 100, page)?;
+        index.get_parents_by_sequence_number_paginated(child.parents, PAGE_SIZE, page)?;
 
       let prev_page = page.checked_sub(1);
 
@@ -2065,7 +2210,6 @@ mod tests {
       header::{self, HeaderMap},
     },
     serde::de::DeserializeOwned,
-    std::net::TcpListener,
     tempfile::TempDir,
   };
 
@@ -2138,12 +2282,6 @@ mod tests {
 
       fs::write(&cookiefile, "username:password").unwrap();
 
-      let port = TcpListener::bind("127.0.0.1:0")
-        .unwrap()
-        .local_addr()
-        .unwrap()
-        .port();
-
       let mut args = vec!["ord".to_string()];
 
       args.push("--litecoin-rpc-url".into());
@@ -2174,7 +2312,7 @@ mod tests {
       args.push("127.0.0.1".into());
 
       args.push("--http-port".into());
-      args.push(port.to_string());
+      args.push("0".to_string());
 
       args.push("--polling-interval".into());
       args.push("100ms".into());
@@ -2201,33 +2339,23 @@ mod tests {
       let index = Arc::new(Index::open(&settings).unwrap());
       let ord_server_handle = Handle::new();
 
+      let (tx, rx) = std::sync::mpsc::channel();
+
       {
         let index = index.clone();
         let ord_server_handle = ord_server_handle.clone();
-        thread::spawn(|| server.run(settings, index, ord_server_handle).unwrap());
+        thread::spawn(|| {
+          server
+            .run(settings, index, ord_server_handle, Some(tx))
+            .unwrap()
+        });
       }
 
       while index.statistic(crate::index::Statistic::Commits) == 0 {
         thread::sleep(Duration::from_millis(50));
       }
 
-      let client = reqwest::blocking::Client::builder()
-        .redirect(reqwest::redirect::Policy::none())
-        .build()
-        .unwrap();
-
-      for i in 0.. {
-        match client.get(format!("http://127.0.0.1:{port}/status")).send() {
-          Ok(_) => break,
-          Err(err) => {
-            if i == 400 {
-              panic!("ord server failed to start: {err}");
-            }
-          }
-        }
-
-        thread::sleep(Duration::from_millis(50));
-      }
+      let port = rx.recv().unwrap();
 
       TestServer {
         core,
@@ -2262,7 +2390,7 @@ mod tests {
   struct TestServer {
     core: mockcore::Handle,
     index: Arc<Index>,
-    ord_server_handle: Handle,
+    ord_server_handle: Handle<SocketAddr>,
     #[allow(unused)]
     tempdir: TempDir,
     url: Url,
@@ -4948,7 +5076,7 @@ mod tests {
           body: Some("foo".into()),
           properties: Properties {
             gallery: vec![Item {
-              id: inscription_id(1),
+              id: Some(inscription_id(1)),
               ..default()
             }],
             ..default()
@@ -5273,6 +5401,335 @@ next
   }
 
   #[test]
+  fn galleries_page_prev_and_next() {
+    let server = TestServer::builder()
+      .chain(Chain::Regtest)
+      .index_sats()
+      .build();
+
+    let mut gallery_item_ids = Vec::new();
+
+    for i in 0..15 {
+      server.mine_blocks(1);
+
+      gallery_item_ids.push(InscriptionId {
+        txid: server.core.broadcast_tx(TransactionTemplate {
+          inputs: &[(
+            i + 1,
+            0,
+            0,
+            inscription("text/plain", "gallery item").to_witness(),
+          )],
+          ..default()
+        }),
+        index: 0,
+      });
+    }
+
+    for i in 0..101 {
+      server.mine_blocks(1);
+
+      let gallery_items = gallery_item_ids
+        .iter()
+        .cycle()
+        .skip((i * 3) % gallery_item_ids.len())
+        .take(3)
+        .map(|&id| properties::Item {
+          id: Some(id),
+          attributes: Attributes::default(),
+        })
+        .collect::<Vec<_>>();
+
+      let properties = Properties {
+        attributes: Attributes::default(),
+        gallery: gallery_items,
+      };
+
+      server.core.broadcast_tx(TransactionTemplate {
+        inputs: &[(
+          i + 16,
+          0,
+          0,
+          Inscription {
+            content_type: Some("text/plain".into()),
+            body: Some("gallery".into()),
+            properties: properties.to_cbor(),
+            ..default()
+          }
+          .to_witness(),
+        )],
+        ..default()
+      });
+    }
+
+    server.mine_blocks(1);
+
+    server.assert_response_regex(
+      "/galleries",
+      StatusCode::OK,
+      r".*
+<h1>Galleries</h1>
+<div class=thumbnails>
+  <a href=/inscription/.*><iframe .* src=/preview/.*></iframe></a>
+  (<a href=/inscription/[[:xdigit:]]{64}i0>.*</a>\s*){99}
+</div>
+<div class=center>
+prev
+<a class=next href=/galleries/1>next</a>
+</div>.*"
+        .to_string()
+        .unindent(),
+    );
+
+    server.assert_response_regex(
+      "/galleries/1",
+      StatusCode::OK,
+      ".*
+<h1>Galleries</h1>
+<div class=thumbnails>
+  <a href=/inscription/.*><iframe .* src=/preview/.*></iframe></a>
+</div>
+<div class=center>
+<a class=prev href=/galleries/0>prev</a>
+next
+</div>.*"
+        .unindent(),
+    );
+
+    server.assert_response_regex(
+      "/galleries",
+      StatusCode::OK,
+      r".*<a href=/galleries title=galleries><img class=icon src=/static/box-archive\.svg></a>.*",
+    );
+  }
+
+  #[test]
+  fn gallery_page_prev_and_next() {
+    let server = TestServer::builder().chain(Chain::Regtest).build();
+
+    let mut gallery_item_ids = Vec::new();
+
+    for i in 0..101 {
+      server.mine_blocks(1);
+
+      gallery_item_ids.push(InscriptionId {
+        txid: server.core.broadcast_tx(TransactionTemplate {
+          inputs: &[(
+            i + 1,
+            0,
+            0,
+            inscription("text/plain", "gallery item").to_witness(),
+          )],
+          ..default()
+        }),
+        index: 0,
+      });
+    }
+
+    let gallery_items = gallery_item_ids
+      .iter()
+      .map(|&id| properties::Item {
+        id: Some(id),
+        attributes: Attributes::default(),
+      })
+      .collect::<Vec<_>>();
+
+    let properties = Properties {
+      attributes: Attributes::default(),
+      gallery: gallery_items,
+    };
+
+    server.mine_blocks(1);
+
+    let gallery_id = InscriptionId {
+      txid: server.core.broadcast_tx(TransactionTemplate {
+        inputs: &[(
+          102,
+          0,
+          0,
+          Inscription {
+            content_type: Some("text/plain".into()),
+            body: Some("gallery".into()),
+            properties: properties.to_cbor(),
+            ..default()
+          }
+          .to_witness(),
+        )],
+        ..default()
+      }),
+      index: 0,
+    };
+
+    server.mine_blocks(1);
+
+    let response = server.get(format!("/gallery/{gallery_id}"));
+    assert_eq!(response.status(), StatusCode::OK);
+    let body = response.text().unwrap();
+    assert!(body.contains(&format!(
+      "<h1><a href=/inscription/{gallery_id}>Inscription"
+    )));
+    assert!(body.contains(&format!("href=/gallery/{gallery_id}/0")));
+    assert!(body.contains(&format!(
+      "<a class=next href=/gallery/{gallery_id}/page/1>next</a>"
+    )));
+
+    let response = server.get(format!("/gallery/{gallery_id}/page/1"));
+    assert_eq!(response.status(), StatusCode::OK);
+    let body = response.text().unwrap();
+    assert!(body.contains(&format!(
+      "<h1><a href=/inscription/{gallery_id}>Inscription"
+    )));
+    assert!(body.contains(&format!("href=/gallery/{gallery_id}/100")));
+    assert!(body.contains(&format!(
+      "<a class=prev href=/gallery/{gallery_id}/page/0>prev</a>"
+    )));
+  }
+
+  #[test]
+  fn galleries_json() {
+    let server = TestServer::builder()
+      .chain(Chain::Regtest)
+      .index_sats()
+      .build();
+
+    server.mine_blocks(1);
+
+    let item_id = InscriptionId {
+      txid: server.core.broadcast_tx(TransactionTemplate {
+        inputs: &[(1, 0, 0, inscription("text/plain", "foo").to_witness())],
+        ..default()
+      }),
+      index: 0,
+    };
+
+    server.mine_blocks(1);
+
+    let gallery_id = InscriptionId {
+      txid: server.core.broadcast_tx(TransactionTemplate {
+        inputs: &[(
+          2,
+          0,
+          0,
+          Inscription {
+            content_type: Some("text/plain".into()),
+            body: Some("bar".into()),
+            properties: Properties {
+              gallery: vec![Item {
+                id: Some(item_id),
+                ..default()
+              }],
+              ..default()
+            }
+            .to_cbor(),
+            ..default()
+          }
+          .to_witness(),
+        )],
+        ..default()
+      }),
+      index: 0,
+    };
+
+    server.mine_blocks(1);
+
+    let json: api::Inscriptions = server.get_json("/galleries");
+
+    assert_eq!(json.ids, vec![gallery_id]);
+    assert!(!json.more);
+    assert_eq!(json.page_index, 0);
+  }
+
+  #[test]
+  fn galleries_json_pagination() {
+    let server = TestServer::builder()
+      .chain(Chain::Regtest)
+      .index_sats()
+      .build();
+
+    let mut item_ids = Vec::new();
+
+    for i in 0..3 {
+      server.mine_blocks(1);
+
+      item_ids.push(InscriptionId {
+        txid: server.core.broadcast_tx(TransactionTemplate {
+          inputs: &[(i + 1, 0, 0, inscription("text/plain", "foo").to_witness())],
+          ..default()
+        }),
+        index: 0,
+      });
+    }
+
+    let mut gallery_ids = Vec::new();
+
+    for i in 0..101 {
+      server.mine_blocks(1);
+
+      gallery_ids.push(InscriptionId {
+        txid: server.core.broadcast_tx(TransactionTemplate {
+          inputs: &[(
+            i + 4,
+            0,
+            0,
+            Inscription {
+              content_type: Some("text/plain".into()),
+              body: Some("bar".into()),
+              properties: Properties {
+                gallery: vec![Item {
+                  id: Some(item_ids[i % item_ids.len()]),
+                  ..default()
+                }],
+                ..default()
+              }
+              .to_cbor(),
+              ..default()
+            }
+            .to_witness(),
+          )],
+          ..default()
+        }),
+        index: 0,
+      });
+    }
+
+    server.mine_blocks(1);
+
+    let json: api::Inscriptions = server.get_json("/galleries");
+
+    assert_eq!(json.ids.len(), 100);
+    assert!(json.more);
+    assert_eq!(json.page_index, 0);
+
+    let json: api::Inscriptions = server.get_json("/galleries/1");
+
+    assert_eq!(json.ids.len(), 1);
+    assert!(!json.more);
+    assert_eq!(json.page_index, 1);
+  }
+
+  #[test]
+  fn non_gallery_inscription_not_in_galleries() {
+    let server = TestServer::builder()
+      .chain(Chain::Regtest)
+      .index_sats()
+      .build();
+
+    server.mine_blocks(1);
+
+    server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/plain", "foo").to_witness())],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let json: api::Inscriptions = server.get_json("/galleries");
+
+    assert!(json.ids.is_empty());
+    assert!(!json.more);
+  }
+
+  #[test]
   fn responses_are_gzipped() {
     let server = TestServer::new();
 
@@ -5300,7 +5757,7 @@ next
 
     let mut headers = HeaderMap::new();
 
-    headers.insert(header::ACCEPT_ENCODING, "br".parse().unwrap());
+    headers.insert(header::ACCEPT_ENCODING, BROTLI.parse().unwrap());
 
     let response = reqwest::blocking::Client::builder()
       .default_headers(headers)
@@ -5313,7 +5770,7 @@ next
 
     assert_eq!(
       response.headers().get(header::CONTENT_ENCODING).unwrap(),
-      "br"
+      BROTLI
     );
   }
 
@@ -5437,6 +5894,80 @@ next
   }
 
   #[test]
+  fn inscription_with_and_without_gallery_page() {
+    let server = TestServer::builder().chain(Chain::Regtest).build();
+    server.mine_blocks(1);
+
+    let empty_gallery_txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/plain", "hello").to_witness())],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let empty_gallery_id = InscriptionId {
+      txid: empty_gallery_txid,
+      index: 0,
+    };
+
+    server.assert_response_regex(
+      format!("/gallery/{empty_gallery_id}"),
+      StatusCode::OK,
+      ".*<h3>No gallery items</h3>.*",
+    );
+
+    let item_txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(2, 0, 0, inscription("text/plain", "item").to_witness())],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let item_id = InscriptionId {
+      txid: item_txid,
+      index: 0,
+    };
+
+    let gallery_txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        3,
+        0,
+        0,
+        Inscription {
+          content_type: Some("text/plain".into()),
+          body: Some("gallery".into()),
+          properties: Properties {
+            gallery: vec![Item {
+              id: Some(item_id),
+              ..default()
+            }],
+            ..default()
+          }
+          .to_cbor(),
+          ..default()
+        }
+        .to_witness(),
+      )],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let gallery_id = InscriptionId {
+      txid: gallery_txid,
+      index: 0,
+    };
+
+    server.assert_response_regex(
+      format!("/gallery/{gallery_id}"),
+      StatusCode::OK,
+      format!(
+        ".*<title>Inscription \\d+ Gallery</title>.*<h1><a href=/inscription/{gallery_id}>Inscription \\d+</a> Gallery</h1>.*<div class=thumbnails>.*<a href=/gallery/{gallery_id}/0><iframe .* src=/preview/{item_id}></iframe></a>.*",
+      ),
+    );
+  }
+
+  #[test]
   fn inscriptions_page_shows_max_four_children() {
     let server = TestServer::builder().chain(Chain::Regtest).build();
     server.mine_blocks(1);
@@ -5533,6 +6064,84 @@ next
 .*<a href=/inscription/.*><iframe .* src=/preview/.*></iframe></a>.*
     <div class=center>
       <a href=/children/{parent_inscription_id}>all \\(5\\)</a>
+    </div>.*"
+      ),
+    );
+  }
+
+  #[test]
+  fn inscriptions_page_shows_max_four_gallery_items() {
+    let server = TestServer::builder().chain(Chain::Regtest).build();
+
+    let mut item_ids = Vec::new();
+
+    for i in 0..5 {
+      server.mine_blocks(1);
+
+      item_ids.push(InscriptionId {
+        txid: server.core.broadcast_tx(TransactionTemplate {
+          inputs: &[(
+            i + 1,
+            0,
+            0,
+            inscription("text/plain", "gallery item").to_witness(),
+          )],
+          ..default()
+        }),
+        index: 0,
+      });
+    }
+
+    let gallery_items = item_ids
+      .into_iter()
+      .map(|id| Item {
+        id: Some(id),
+        ..default()
+      })
+      .collect::<Vec<_>>();
+
+    let properties = Properties {
+      attributes: Attributes::default(),
+      gallery: gallery_items,
+    };
+
+    server.mine_blocks(1);
+
+    let gallery_txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(
+        6,
+        0,
+        0,
+        Inscription {
+          content_type: Some("text/plain".into()),
+          body: Some("gallery".into()),
+          properties: properties.to_cbor(),
+          ..default()
+        }
+        .to_witness(),
+      )],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let gallery_id = InscriptionId {
+      txid: gallery_txid,
+      index: 0,
+    };
+
+    server.assert_response_regex(
+      format!("/inscription/{gallery_id}"),
+      StatusCode::OK,
+      format!(
+        ".*<title>Inscription \\d+</title>.*
+.*<dt>gallery</dt>.*
+.*<a href=/gallery/{gallery_id}/.*><iframe .* src=/preview/.*></iframe></a>.*
+.*<a href=/gallery/{gallery_id}/.*><iframe .* src=/preview/.*></iframe></a>.*
+.*<a href=/gallery/{gallery_id}/.*><iframe .* src=/preview/.*></iframe></a>.*
+.*<a href=/gallery/{gallery_id}/.*><iframe .* src=/preview/.*></iframe></a>.*
+    <div class=center>
+      <a href=/gallery/{gallery_id}>all \\(5\\)</a>
     </div>.*"
       ),
     );

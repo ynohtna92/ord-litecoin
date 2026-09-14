@@ -1,10 +1,11 @@
 use {
   super::*,
   ord::{
-    Attributes, Item, Trait, Traits, decimal::Decimal, subcommand::wallet::send,
+    Attributes, Item, Properties, Trait, Traits, decimal::Decimal, subcommand::wallet::send,
     templates::ItemHtml,
   },
   pretty_assertions::assert_eq,
+  std::io::Read,
 };
 
 fn receive(core: &mockcore::Handle, ord: &TestServer) -> Address {
@@ -2932,6 +2933,9 @@ inscriptions:
       <a href=/gallery/{gallery}/0>.*<iframe .* src=/preview/{id0}></iframe></a>
       <a href=/gallery/{gallery}/1>.*<iframe .* src=/preview/{id1}></iframe></a>
     </div>
+    <div class=center>
+      <a href=/gallery/{gallery}>all \(2\)</a>
+    </div>
   </dd>
 .*"
     ),
@@ -2944,7 +2948,7 @@ inscriptions:
       gallery_inscription_number: -1,
       i: 0,
       item: Item {
-        id: id0,
+        id: Some(id0),
         attributes: Attributes {
           title: Some("foo".into()),
           traits: Traits {
@@ -2962,7 +2966,7 @@ inscriptions:
       gallery_inscription_number: -1,
       i: 1,
       item: Item {
-        id: id1,
+        id: Some(id1),
         attributes: Attributes {
           title: Some("bar".into()),
           traits: Traits {
@@ -3022,4 +3026,57 @@ inscriptions:
     )
     .expected_exit_code(1)
     .run_and_extract_stdout();
+}
+
+#[test]
+fn batch_can_compress() {
+  let core = mockcore::spawn();
+  let ord = TestServer::spawn_with_server_args(&core, &[], &[]);
+
+  create_wallet(&core, &ord);
+  core.mine_blocks(1);
+
+  let title = "a]".repeat(100);
+
+  let Batch { reveal, .. } =
+    CommandBuilder::new("wallet batch --compress --fee-rate 1 --batch batch.yaml")
+      .write(
+        "batch.yaml",
+        format!("mode: shared-output\ninscriptions:\n- file: foo.txt\n  title: {title}\n"),
+      )
+      .write("foo.txt", [0; 350_000])
+      .core(&core)
+      .ord(&ord)
+      .run_and_deserialize_output();
+
+  core.mine_blocks(1);
+
+  let response = ord.json_request(format!("/decode/{reveal}"));
+  assert_eq!(response.status(), StatusCode::OK);
+
+  let decode: api::Decode = serde_json::from_str(&response.text().unwrap()).unwrap();
+  let inscription = &decode.inscriptions[0].payload;
+
+  assert_eq!(inscription.content_encoding, Some(b"br".to_vec()));
+  assert_eq!(inscription.property_encoding, Some(b"br".to_vec()));
+
+  let compressed_body = inscription.body.as_ref().unwrap();
+  let mut decompressor =
+    brotli::Decompressor::new(compressed_body.as_slice(), compressed_body.len());
+  let mut decompressed_body = Vec::new();
+  decompressor.read_to_end(&mut decompressed_body).unwrap();
+  assert_eq!(decompressed_body, vec![0; 350_000]);
+
+  let compressed_properties = inscription.properties.as_ref().unwrap();
+  let mut decompressor = brotli::Decompressor::new(
+    compressed_properties.as_slice(),
+    compressed_properties.len(),
+  );
+  let mut decompressed_properties = Vec::new();
+  decompressor
+    .read_to_end(&mut decompressed_properties)
+    .unwrap();
+
+  let properties = minicbor::decode::<Properties>(&decompressed_properties).unwrap();
+  assert_eq!(properties.attributes.title, Some(title));
 }

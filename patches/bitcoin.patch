@@ -1,6 +1,6 @@
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
-@@ -113,7 +113,7 @@
+@@ -118,7 +118,7 @@
     - Implement `ordered::ArbitraryOrd` for absolute and relative locktimes, introducing the "ordered" feature:
       - [#2581](https://github.com/rust-bitcoin/rust-bitcoin/pull/2581)
       - [#2248](https://github.com/rust-bitcoin/rust-bitcoin/pull/2248)
@@ -50,7 +50,7 @@
          }
      }
  }
-@@ -627,7 +627,7 @@
+@@ -630,7 +630,7 @@
      /// # })().unwrap();
      /// # assert_eq!(writer, ADDRESS);
      /// ```
@@ -59,7 +59,7 @@
  
      /// Returns true if the given pubkey is directly related to the address payload.
      ///
-@@ -1157,7 +1157,7 @@
+@@ -1160,7 +1160,7 @@
          {
              let addr =
                  Address::from_str(el).unwrap().require_network(Network::Bitcoin).expect("mainnet");
@@ -68,36 +68,13 @@
          }
  
          for el in [
-@@ -1167,7 +1167,7 @@
+@@ -1170,7 +1170,7 @@
          .iter()
          {
              let addr = Address::from_str(el).unwrap().assume_checked();
 -            assert_eq!(addr.to_qr_uri(), format!("bitcoin:{}", el.to_ascii_uppercase()));
 +            assert_eq!(addr.to_qr_uri(), format!("litecoin:{}", el.to_ascii_uppercase()));
          }
-     }
- 
---- a/src/bip32.rs
-+++ b/src/bip32.rs
-@@ -405,17 +405,17 @@
- 
-     /// Get an [Iterator] over the children of this [DerivationPath]
-     /// starting with the given [ChildNumber].
--    pub fn children_from(&self, cn: ChildNumber) -> DerivationPathIterator {
-+    pub fn children_from(&self, cn: ChildNumber) -> DerivationPathIterator<'_> {
-         DerivationPathIterator::start_from(self, cn)
-     }
- 
-     /// Get an [Iterator] over the unhardened children of this [DerivationPath].
--    pub fn normal_children(&self) -> DerivationPathIterator {
-+    pub fn normal_children(&self) -> DerivationPathIterator<'_> {
-         DerivationPathIterator::start_from(self, ChildNumber::Normal { index: 0 })
-     }
- 
-     /// Get an [Iterator] over the hardened children of this [DerivationPath].
--    pub fn hardened_children(&self) -> DerivationPathIterator {
-+    pub fn hardened_children(&self) -> DerivationPathIterator<'_> {
-         DerivationPathIterator::start_from(self, ChildNumber::Hardened { index: 0 })
      }
  
 --- a/src/blockdata/constants.rs
@@ -262,47 +239,9 @@
          assert_eq!(gen.output[0].value, Amount::from_str("50 BTC").unwrap());
          assert_eq!(gen.lock_time, absolute::LockTime::ZERO);
  
---- a/src/blockdata/script/borrowed.rs
-+++ b/src/blockdata/script/borrowed.rs
-@@ -547,7 +547,7 @@
-     ///
-     /// To force minimal pushes, use [`instructions_minimal`](Self::instructions_minimal).
-     #[inline]
--    pub fn instructions(&self) -> Instructions {
-+    pub fn instructions(&self) -> Instructions<'_> {
-         Instructions { data: self.0.iter(), enforce_minimal: false }
-     }
- 
-@@ -556,7 +556,7 @@
-     /// This is similar to [`instructions`](Self::instructions) but an error is returned if a push
-     /// is not minimal.
-     #[inline]
--    pub fn instructions_minimal(&self) -> Instructions {
-+    pub fn instructions_minimal(&self) -> Instructions<'_> {
-         Instructions { data: self.0.iter(), enforce_minimal: true }
-     }
- 
-@@ -568,7 +568,7 @@
-     ///
-     /// To force minimal pushes, use [`Self::instruction_indices_minimal`].
-     #[inline]
--    pub fn instruction_indices(&self) -> InstructionIndices {
-+    pub fn instruction_indices(&self) -> InstructionIndices<'_> {
-         InstructionIndices::from_instructions(self.instructions())
-     }
- 
-@@ -577,7 +577,7 @@
-     /// This is similar to [`instruction_indices`](Self::instruction_indices) but an error is
-     /// returned if a push is not minimal.
-     #[inline]
--    pub fn instruction_indices_minimal(&self) -> InstructionIndices {
-+    pub fn instruction_indices_minimal(&self) -> InstructionIndices<'_> {
-         InstructionIndices::from_instructions(self.instructions_minimal())
-     }
- 
 --- a/src/blockdata/transaction.rs
 +++ b/src/blockdata/transaction.rs
-@@ -1294,6 +1294,33 @@
+@@ -1284,6 +1284,33 @@
                              lock_time: Decodable::consensus_decode_from_finite_reader(r)?,
                          })
                      }
@@ -336,17 +275,6 @@
                  }
                  // We don't support anything else
                  x => Err(encode::Error::UnsupportedSegwitFlag(x)),
---- a/src/blockdata/witness.rs
-+++ b/src/blockdata/witness.rs
-@@ -290,7 +290,7 @@
-     pub fn is_empty(&self) -> bool { self.witness_elements == 0 }
- 
-     /// Returns a struct implementing [`Iterator`].
--    pub fn iter(&self) -> Iter {
-+    pub fn iter(&self) -> Iter<'_> {
-         Iter { inner: self.content.as_slice(), indices_start: self.indices_start, current_index: 0 }
-     }
- 
 --- a/src/crypto/key.rs
 +++ b/src/crypto/key.rs
 @@ -450,7 +450,7 @@
@@ -405,7 +333,7 @@
              // For user-side compatibility, testnet3 is retained as testnet
              "testnet" => Ok(Network::Testnet),
              "testnet4" => Ok(Network::Testnet4),
-@@ -359,7 +359,7 @@
+@@ -347,7 +347,7 @@
  
      #[test]
      fn string_test() {
@@ -414,7 +342,7 @@
          assert_eq!(Network::Testnet.to_string(), "testnet");
          assert_eq!(Network::Testnet4.to_string(), "testnet4");
          assert_eq!(Network::Regtest.to_string(), "regtest");
-@@ -419,7 +419,7 @@
+@@ -407,7 +407,7 @@
      fn serde_roundtrip() {
          use Network::*;
          let tests = vec![
@@ -441,26 +369,6 @@
      /// Bitcoin testnet4 network magic bytes.
      pub const TESTNET4: Self = Self([0x1c, 0x16, 0x3f, 0x28]);
      /// Bitcoin signet network magic bytes.
---- a/src/taproot/mod.rs
-+++ b/src/taproot/mod.rs
-@@ -705,7 +705,7 @@
- 
-     /// Returns [`TapTreeIter<'_>`] iterator for a taproot script tree, operating in DFS order over
-     /// tree [`ScriptLeaf`]s.
--    pub fn script_leaves(&self) -> ScriptLeaves { ScriptLeaves { leaf_iter: self.0.leaf_nodes() } }
-+    pub fn script_leaves(&self) -> ScriptLeaves<'_> { ScriptLeaves { leaf_iter: self.0.leaf_nodes() } }
- 
-     /// Returns the root [`TapNodeHash`] of this tree.
-     pub fn root_hash(&self) -> TapNodeHash { self.0.hash }
-@@ -857,7 +857,7 @@
-     }
- 
-     /// Creates an iterator over all leaves (including hidden leaves) in the tree.
--    pub fn leaf_nodes(&self) -> LeafNodes { LeafNodes { leaf_iter: self.leaves.iter() } }
-+    pub fn leaf_nodes(&self) -> LeafNodes<'_> { LeafNodes { leaf_iter: self.leaves.iter() } }
- 
-     /// Returns the root [`TapNodeHash`] of this node info.
-     pub fn node_hash(&self) -> TapNodeHash { self.hash }
 --- a/src/consensus/serde.rs
 +++ b/src/consensus/serde.rs
 @@ -159,17 +159,17 @@

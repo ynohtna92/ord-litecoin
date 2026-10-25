@@ -94,31 +94,50 @@ impl Plan {
       .sign_raw_transaction_with_wallet(&commit_tx, None, None)?
       .hex;
 
-    let result = wallet.bitcoin_client().sign_raw_transaction_with_wallet(
-      &reveal_tx,
-      Some(
-        &commit_tx
-          .output
-          .iter()
-          .enumerate()
-          .map(|(vout, output)| SignRawTransactionInput {
-            txid: commit_tx.txid(),
-            vout: vout.try_into().unwrap(),
-            script_pub_key: output.script_pubkey.clone(),
-            redeem_script: None,
-            amount: Some(Amount::from_sat(output.value)),
-          })
-          .collect::<Vec<SignRawTransactionInput>>(),
-      ),
-      None,
-    )?;
+    // LiteBox patch: Litecoin Core 0.21 aborts (`assert(this->txdata)` in CheckSchnorrSignature)
+    // when `signrawtransactionwithwallet` verifies the taproot commit input of the reveal, which
+    // ord has already signed. Without wallet inputs (parents, reinscriptions) there is nothing
+    // left for Core to sign; otherwise the reveal goes through a PSBT in which the commit input
+    // is already finalized, so Core skips it and only signs the wallet inputs.
+    let commit_input = self.parent_info.len() + self.reveal_satpoints.len();
 
-    ensure!(
-      result.complete,
-      format!("Failed to sign reveal transaction: {:?}", result.errors)
-    );
+    let signed_reveal_tx = if commit_input == 0 {
+      consensus::encode::serialize(&reveal_tx)
+    } else {
+      let mut psbt = Psbt::from_unsigned_tx(Self::remove_witnesses(reveal_tx.clone()))?;
 
-    let signed_reveal_tx = result.hex;
+      let mut prevouts: Vec<TxOut> = self.parent_info.iter().map(|p| p.tx_out.clone()).collect();
+      prevouts.extend(self.reveal_satpoints.iter().map(|(_, txout)| txout.clone()));
+      prevouts.push(
+        commit_tx.output[reveal_tx.input[commit_input].previous_output.vout as usize].clone(),
+      );
+
+      for (input, prevout) in psbt.inputs.iter_mut().zip(prevouts) {
+        input.witness_utxo = Some(prevout);
+      }
+      psbt.inputs[commit_input].final_script_witness =
+        Some(reveal_tx.input[commit_input].witness.clone());
+
+      let processed = wallet.bitcoin_client().wallet_process_psbt(
+        &base64::engine::general_purpose::STANDARD.encode(psbt.serialize()),
+        Some(true),
+        None,
+        None,
+      )?;
+
+      let finalized = wallet
+        .bitcoin_client()
+        .finalize_psbt(&processed.psbt, Some(true))?;
+
+      ensure!(
+        finalized.complete,
+        "Failed to sign reveal transaction: wallet inputs could not be signed"
+      );
+
+      finalized
+        .hex
+        .ok_or_else(|| anyhow!("finalizepsbt returned no transaction"))?
+    };
 
     if !self.no_backup {
       // Self::backup_recovery_key(wallet, recovery_key_pair)?;

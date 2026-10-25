@@ -969,22 +969,28 @@ impl Api for Server {
     )
     .unwrap();
 
+    // Like Core, keep the `witness_utxo` and finalized inputs already present in the PSBT
+    // (the reveal spends a commit output that is not broadcast yet).
     for (i, txin) in psbt.unsigned_tx.input.iter().enumerate() {
-      psbt.inputs[i].witness_utxo = Some(
-        self
-          .state()
-          .transactions
-          .get(&txin.previous_output.txid)
-          .unwrap()
-          .output[txin.previous_output.vout as usize]
-          .clone(),
-      );
+      if psbt.inputs[i].witness_utxo.is_none() {
+        psbt.inputs[i].witness_utxo = Some(
+          self
+            .state()
+            .transactions
+            .get(&txin.previous_output.txid)
+            .unwrap()
+            .output[txin.previous_output.vout as usize]
+            .clone(),
+        );
+      }
     }
 
     if let Some(sign) = sign {
       if sign {
         for input in psbt.inputs.iter_mut() {
-          input.final_script_witness = Some(Witness::from_slice(&[&[0; 64]]));
+          if input.final_script_witness.is_none() {
+            input.final_script_witness = Some(Witness::from_slice(&[&[0; 64]]));
+          }
         }
       }
     }
@@ -1000,18 +1006,19 @@ impl Api for Server {
     psbt: String,
     _extract: Option<bool>,
   ) -> Result<FinalizePsbtResult, jsonrpc_core::Error> {
-    let mut transaction = Psbt::deserialize(
+    let psbt = Psbt::deserialize(
       &base64::engine::general_purpose::STANDARD
         .decode(psbt)
         .unwrap(),
     )
-    .unwrap()
-    .unsigned_tx;
+    .unwrap();
 
-    for input in &mut transaction.input {
-      if input.witness.is_empty() {
-        input.witness = Witness::from_slice(&[&[0; 64]]);
-      }
+    let mut transaction = psbt.unsigned_tx;
+
+    for (input, psbt_input) in transaction.input.iter_mut().zip(psbt.inputs) {
+      input.witness = psbt_input
+        .final_script_witness
+        .unwrap_or_else(|| Witness::from_slice(&[&[0; 64]]));
     }
 
     Ok(FinalizePsbtResult {

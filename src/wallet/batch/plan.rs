@@ -416,6 +416,11 @@ impl Plan {
       tx_out,
     } in &self.parent_info
     {
+      ensure!(
+        TransactionBuilder::supported_input(&tx_out.script_pubkey),
+        "unsupported parent input script for {}",
+        location.outpoint,
+      );
       reveal_inputs.push(location.outpoint);
       reveal_outputs.push(TxOut {
         script_pubkey: destination.script_pubkey(),
@@ -424,7 +429,12 @@ impl Plan {
     }
 
     if self.mode == Mode::SatPoints {
-      for (satpoint, _txout) in self.reveal_satpoints.iter() {
+      for (satpoint, txout) in self.reveal_satpoints.iter() {
+        ensure!(
+          TransactionBuilder::supported_input(&txout.script_pubkey),
+          "unsupported reveal input script for {}",
+          satpoint.outpoint,
+        );
         reveal_inputs.push(satpoint.outpoint);
       }
     }
@@ -521,8 +531,7 @@ impl Plan {
 
     let commit_input = self.parent_info.len() + self.reveal_satpoints.len();
 
-    let (_reveal_tx, reveal_fee) = Self::build_reveal_transaction(
-      commit_input,
+    let (_reveal_tx, reveal_fee) = self.build_reveal_transaction(
       &control_block,
       self.reveal_fee_rate,
       reveal_outputs.clone(),
@@ -555,6 +564,18 @@ impl Plan {
     )
     .build_transaction()?;
 
+    // A legacy scriptSig changes the commit's txid when Core signs it, after
+    // the reveal has already committed to the unsigned transaction's outpoint.
+    ensure!(
+      unsigned_commit_tx
+        .input
+        .iter()
+        .all(|input| utxos[&input.previous_output]
+          .script_pubkey
+          .is_witness_program()),
+      "inscription commits require SegWit inputs; send funds to a P2WPKH or Taproot address",
+    );
+
     let (vout, _commit_output) = unsigned_commit_tx
       .output
       .iter()
@@ -567,8 +588,7 @@ impl Plan {
       vout: vout.try_into().unwrap(),
     };
 
-    let (mut reveal_tx, _fee) = Self::build_reveal_transaction(
-      commit_input,
+    let (mut reveal_tx, _fee) = self.build_reveal_transaction(
       &control_block,
       self.reveal_fee_rate,
       reveal_outputs.clone(),
@@ -726,7 +746,7 @@ impl Plan {
   }
 
   fn build_reveal_transaction(
-    commit_input_index: usize,
+    &self,
     control_block: &ControlBlock,
     fee_rate: FeeRate,
     output: Vec<TxOut>,
@@ -758,7 +778,7 @@ impl Plan {
 
       for (current_index, txin) in reveal_tx.input.iter_mut().enumerate() {
         // add dummy inscription witness for reveal input/commit output
-        if current_index == commit_input_index {
+        if current_index == self.parent_info.len() + self.reveal_satpoints.len() {
           txin.witness.push(
             Signature::from_slice(&[0; SCHNORR_SIGNATURE_SIZE])
               .unwrap()
@@ -767,7 +787,14 @@ impl Plan {
           txin.witness.push(script);
           txin.witness.push(control_block.serialize());
         } else {
-          txin.witness = Witness::from_slice(&[&[0; SCHNORR_SIGNATURE_SIZE]]);
+          let script = if current_index < self.parent_info.len() {
+            &self.parent_info[current_index].tx_out.script_pubkey
+          } else {
+            &self.reveal_satpoints[current_index - self.parent_info.len()]
+              .1
+              .script_pubkey
+          };
+          TransactionBuilder::estimate_signature(txin, script);
         }
       }
 

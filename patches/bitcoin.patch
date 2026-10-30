@@ -59,7 +59,22 @@
  
      /// Returns true if the given pubkey is directly related to the address payload.
      ///
-@@ -1160,7 +1160,7 @@
+@@ -847,11 +847,12 @@
+                 let hash = PubkeyHash::from_byte_array(data);
+                 AddressInner::P2pkh { hash, network: NetworkKind::Test }
+             }
+-            SCRIPT_ADDRESS_PREFIX_MAIN => {
++            // Litecoin Core accepts the original Bitcoin P2SH prefixes too.
++            SCRIPT_ADDRESS_PREFIX_MAIN | 5 => {
+                 let hash = ScriptHash::from_byte_array(data);
+                 AddressInner::P2sh { hash, network: NetworkKind::Main }
+             }
+-            SCRIPT_ADDRESS_PREFIX_TEST => {
++            SCRIPT_ADDRESS_PREFIX_TEST | 196 => {
+                 let hash = ScriptHash::from_byte_array(data);
+                 AddressInner::P2sh { hash, network: NetworkKind::Test }
+             }
+@@ -1160,7 +1161,7 @@
          {
              let addr =
                  Address::from_str(el).unwrap().require_network(Network::Bitcoin).expect("mainnet");
@@ -68,7 +83,7 @@
          }
  
          for el in [
-@@ -1170,7 +1170,7 @@
+@@ -1170,7 +1171,7 @@
          .iter()
          {
              let addr = Address::from_str(el).unwrap().assume_checked();

@@ -1,4 +1,5 @@
 /*.redb
+/.git
 /.idea/
 /.vagrant
 /.vscode
@@ -12,5 +13,4 @@
 /target
 /test-times.txt
 /tmp
-/.git
 /vendor/

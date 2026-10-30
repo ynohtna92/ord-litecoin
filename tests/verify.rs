@@ -48,8 +48,11 @@ fn verify_with_transaction() {
     "Hello World",
     &["T9KX5zCugGdXizZsfv9st3xy98jRF53XdQt2WDrZ1mZUcQxUSprs"],
     None,
+    bip322::LockParams::default(),
   )
   .unwrap();
+
+  let tx = tx.strip_prefix(bip322::FULL_SIGNATURE_PREFIX).unwrap();
 
   assert_eq!(
     CommandBuilder::new([
@@ -59,7 +62,7 @@ fn verify_with_transaction() {
       "--text",
       "Hello World",
       "--transaction",
-      &tx,
+      tx,
     ])
     .run_and_extract_stdout(),
     ""

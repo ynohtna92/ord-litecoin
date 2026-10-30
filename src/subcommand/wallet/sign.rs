@@ -1,5 +1,6 @@
 use {
   super::*,
+  crate::core_compat::CoreVersion,
   base64::{Engine, engine::general_purpose},
 };
 
@@ -51,6 +52,10 @@ impl Sign {
       )?,
     };
 
+    if address.script_pubkey().is_p2tr() {
+      CoreVersion::get(wallet.bitcoin_client())?.require(240000, "Taproot BIP322 signing")?;
+    }
+
     let message = if let Some(text) = &self.text {
       text.as_bytes()
     } else if let Some(file) = &self.file {
@@ -61,7 +66,7 @@ impl Sign {
 
     let to_spend = bip322::create_to_spend(&address, message)?;
 
-    let to_sign = bip322::create_to_sign(&to_spend, None)?;
+    let to_sign = bip322::create_to_sign(&to_spend, None, bip322::LockParams::default())?;
 
     let result = wallet.bitcoin_client().sign_raw_transaction_with_wallet(
       &to_sign.extract_tx()?,

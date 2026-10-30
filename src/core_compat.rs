@@ -70,6 +70,47 @@ mod tests {
   use super::*;
 
   #[test]
+  fn original_p2sh_addresses_match_modern_litecoin_addresses() {
+    for (network, original, modern) in [
+      (
+        Network::Bitcoin,
+        "31h1vYVSYuKP6AhS86fbRdMw9XHieotbST",
+        "M7uAERuQW2AotfyLDyewFGcLUDtAYu9v5V",
+      ),
+      (
+        Network::Regtest,
+        "2MsFDzHRUAMpjHxKyoEHU3aMCMsVtMqs1PV",
+        "QLbz7JHiBTspS962RLKV8GndWFwiJNvEPz",
+      ),
+    ] {
+      let original = original
+        .parse::<Address<NetworkUnchecked>>()
+        .unwrap()
+        .require_network(network)
+        .unwrap();
+      let modern = modern
+        .parse::<Address<NetworkUnchecked>>()
+        .unwrap()
+        .require_network(network)
+        .unwrap();
+      assert_eq!(original.script_pubkey(), modern.script_pubkey());
+      assert_eq!(original.to_string(), modern.to_string());
+      assert!(original.script_pubkey().is_p2sh());
+      assert!(
+        original
+          .as_unchecked()
+          .clone()
+          .require_network(if network == Network::Bitcoin {
+            Network::Regtest
+          } else {
+            Network::Bitcoin
+          })
+          .is_err()
+      );
+    }
+  }
+
+  #[test]
   fn mweb_block_preserves_transparent_transaction_ids() {
     let hash = "1c2cd34bc199c7061cb9bb975f8a15ad8b4696def85c958cd9e6e2ce36d594de"
       .parse()

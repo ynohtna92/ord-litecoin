@@ -36,6 +36,9 @@ jobs:
       run: cargo install mdbook@0.4.52
 
     - name: Install `mdbook-i18n-helpers`
+      env:
+        # The bundled Oniguruma predates the runner compiler's C23 default.
+        CFLAGS: -std=gnu17
       run: cargo install mdbook-i18n-helpers@0.3.6
 
     - name: Install `mdbook-linkcheck`

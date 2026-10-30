@@ -1,6 +1,21 @@
 use super::*;
 
 #[test]
+fn core_21_taproot_signing_is_rejected_before_reading_message() {
+  let core = mockcore::builder().version(210508).build();
+  let ord = TestServer::spawn_with_server_args(&core, &[], &[]);
+  CommandBuilder::new("wallet create")
+    .core(&core)
+    .run_and_deserialize_output::<serde_json::Value>();
+  CommandBuilder::new("wallet sign --signer ltc1pxwww0ct9ue7e8tdnlmug5m2tamfn7q06sahstg39ys4c9f3340qq98rvln --file missing.txt")
+    .core(&core)
+    .ord(&ord)
+    .expected_exit_code(1)
+    .expected_stderr("error: Taproot BIP322 signing requires Litecoin Core 24.0.0 or newer, current version is 21.5.8\n")
+    .run_and_extract_stdout();
+}
+
+#[test]
 fn core_21_wallet_creation_does_not_return_an_unused_mnemonic() {
   let core = mockcore::builder().version(210508).build();
   let output = CommandBuilder::new("wallet create")

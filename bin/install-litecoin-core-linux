@@ -2,11 +2,14 @@
 
 set -euxo pipefail
 
-version=0.21.2.1
+version=0.21.5.8
 
 wget \
   -O litecoin.tar.gz \
-  https://download.litecoin.org/litecoin-0.21.2.1/linux/litecoin-0.21.2.1-x86_64-linux-gnu.tar.gz
+  https://github.com/litecoin-project/litecoin/releases/download/v$version/litecoin-$version-x86_64-linux-gnu.tar.gz
+
+# SHA256SUMS.asc from the official v0.21.5.8 release.
+echo '43200c9f9d65ebc126ea5833ca9429e144c4b3273da6bb9f4e89fd7450ab1be9  litecoin.tar.gz' | sha256sum --check
 
 tar \
   -xzvf litecoin.tar.gz \

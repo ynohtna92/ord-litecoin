@@ -82,7 +82,22 @@ impl Sat {
   }
 
   pub fn percentile(self) -> String {
-    format!("{}%", (self.0 as f64 / Self::LAST.0 as f64) * 100.0)
+    let approximate = format!("{}%", (self.0 as f64 / Self::LAST.0 as f64) * 100.0);
+    if Self::from_percentile(&approximate).is_ok_and(|sat| sat == self) {
+      return approximate;
+    }
+
+    // Sixteen fractional percentage digits distinguish every Litecoin sat.
+    let scale = 10u128.pow(16);
+    let last = u128::from(Self::LAST.0);
+    let percentage = (u128::from(self.0) * 100 * scale + last / 2) / last;
+    let fraction = format!("{:016}", percentage % scale);
+    let fraction = fraction.trim_end_matches('0');
+    if fraction.is_empty() {
+      format!("{}%", percentage / scale)
+    } else {
+      format!("{}.{fraction}%", percentage / scale)
+    }
   }
 
   pub fn epoch(self) -> Epoch {
@@ -300,22 +315,44 @@ impl Sat {
       .parse::<f64>()
       .map_err(|source| ErrorKind::ParseFloat { source }.error(percentile))?;
 
-    if percentile < 0.0 {
+    if !percentile.is_finite() || !(0.0..=100.0).contains(&percentile) {
       return Err(ErrorKind::Percentile.error(percentile_string));
     }
 
-    let last = Sat::LAST.n() as f64;
+    if percentile == 0.0 {
+      return Ok(Sat(0));
+    }
 
-    println!("{}", percentile);
-
-    let n = (percentile / 100.0 * last).round();
-
-    if n > last {
+    // Parse decimal digits directly: f64 multiplication loses whole sats at
+    // Litecoin's supply. Retain scientific notation accepted by the parser.
+    let raw = percentile_string[..percentile_string.len() - 1].trim_start_matches('+');
+    let (mantissa, exponent) = raw.split_once(['e', 'E']).unwrap_or((raw, "0"));
+    let exponent = exponent.parse::<i64>().unwrap();
+    let point = i64::try_from(mantissa.find('.').unwrap_or(mantissa.len())).unwrap() + exponent;
+    let scale = 10u128.pow(20);
+    let mut numerator = 0;
+    let mut tail = false;
+    for (i, digit) in mantissa.bytes().filter(|byte| *byte != b'.').enumerate() {
+      let power = point - 1 - i64::try_from(i).unwrap();
+      if digit == b'0' {
+        continue;
+      }
+      if power > 2 {
+        return Err(ErrorKind::Percentile.error(percentile_string));
+      }
+      if power < -20 {
+        tail = true;
+      } else {
+        numerator += u128::from(digit - b'0') * 10u128.pow(u32::try_from(power + 20).unwrap());
+      }
+    }
+    let denominator = 100 * scale;
+    if numerator > denominator || (numerator == denominator && tail) {
       return Err(ErrorKind::Percentile.error(percentile_string));
     }
 
-    #[allow(clippy::cast_sign_loss, clippy::cast_possible_truncation)]
-    Ok(Sat(n as u64))
+    let n = (numerator * u128::from(Self::LAST.0) + denominator / 2) / denominator;
+    Ok(Sat(n.try_into().unwrap()))
   }
 }
 
@@ -414,7 +451,9 @@ impl FromStr for Sat {
   type Err = Error;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
-    if s.chars().any(|c| c.is_ascii_lowercase()) {
+    if s.ends_with('%') {
+      Self::from_percentile(s)
+    } else if s.chars().any(|c| c.is_ascii_lowercase()) {
       Self::from_name(s)
     } else if s.contains('°') {
       Self::from_degree(s)
@@ -787,25 +826,33 @@ mod tests {
   fn from_percentile() {
     "-1%".parse::<Sat>().unwrap_err();
     "101%".parse::<Sat>().unwrap_err();
+    "NaN%".parse::<Sat>().unwrap_err();
+    "inf%".parse::<Sat>().unwrap_err();
+    "100.000000000000000000001%".parse::<Sat>().unwrap_err();
+    assert_eq!("1e2%".parse::<Sat>().unwrap(), Sat::LAST);
+    assert_eq!("1e-1000%".parse::<Sat>().unwrap(), Sat(0));
+    assert_eq!(
+      "99.99999999999999%".parse::<Sat>().unwrap(),
+      Sat(Sat::LAST.0 - 1)
+    );
   }
 
-  // #[ignore] // Not important, we can fix this later. Failing due to bigger number space
-  // #[test]
-  // fn percentile_round_trip() {
-  //   #[track_caller]
-  //   fn case(n: u64) {
-  //     let expected = Sat(n);
-  //     let actual = expected.percentile().parse::<Sat>().unwrap();
-  //     assert_eq!(expected, actual);
-  //   }
-  //
-  //   for n in 0..1024 {
-  //     case(n);
-  //     case(Sat::LAST.n() / 2 + n);
-  //     case(Sat::LAST.n() - n);
-  //     case(Sat::LAST.n() / (n + 1));
-  //   }
-  // }
+  #[test]
+  fn percentile_round_trip() {
+    #[track_caller]
+    fn case(n: u64) {
+      let expected = Sat(n);
+      let actual = expected.percentile().parse::<Sat>().unwrap();
+      assert_eq!(expected, actual);
+    }
+
+    for n in 0..1024 {
+      case(n);
+      case(Sat::LAST.n() / 2 + n);
+      case(Sat::LAST.n() - n);
+      case(Sat::LAST.n() / (n + 1));
+    }
+  }
 
   #[test]
   fn common() {

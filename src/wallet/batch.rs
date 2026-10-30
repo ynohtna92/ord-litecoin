@@ -72,6 +72,44 @@ mod tests {
   };
 
   #[test]
+  fn legacy_commit_is_rejected_before_reveal_uses_unsigned_txid() {
+    let script = bitcoin::script::Builder::new()
+      .push_opcode(bitcoin::opcodes::all::OP_DUP)
+      .push_opcode(bitcoin::opcodes::all::OP_HASH160)
+      .push_slice([0; 20])
+      .push_opcode(bitcoin::opcodes::all::OP_EQUALVERIFY)
+      .push_opcode(bitcoin::opcodes::all::OP_CHECKSIG)
+      .into_script();
+    let result = batch::Plan {
+      satpoint: Some(satpoint(1, 0)),
+      inscriptions: vec![inscription("text/plain", "ord")],
+      destinations: vec![recipient_address()],
+      mode: batch::Mode::SharedOutput,
+      ..default()
+    }
+    .create_batch_transactions(
+      BTreeMap::new(),
+      Chain::Mainnet,
+      BTreeSet::new(),
+      BTreeSet::new(),
+      [(
+        outpoint(1),
+        TxOut {
+          value: Amount::from_sat(20000),
+          script_pubkey: script,
+        },
+      )]
+      .into(),
+      [change(0), change(1)],
+      change(2),
+    );
+    assert_eq!(
+      result.err().unwrap().to_string(),
+      "inscription commits require SegWit inputs; send funds to a P2WPKH or Taproot address"
+    );
+  }
+
+  #[test]
   fn reveal_transaction_pays_fee() {
     let utxos = vec![(outpoint(1), tx_out(20000, address(0)))];
     let inscription = inscription("text/plain", "ord");
@@ -302,7 +340,7 @@ mod tests {
     )
     .unwrap();
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = FeeRate::try_from(fee_rate)
       .unwrap()
       .fee(commit_tx.vsize() + sig_vbytes)
@@ -390,7 +428,7 @@ mod tests {
     )
     .unwrap();
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = FeeRate::try_from(fee_rate)
       .unwrap()
       .fee(commit_tx.vsize() + sig_vbytes)
@@ -405,10 +443,11 @@ mod tests {
 
     assert_eq!(reveal_value.to_sat(), 20_000 - fee);
 
-    let sig_vbytes = 16;
+    let mut signed_reveal = reveal_tx.clone();
+    signed_reveal.input[0].witness = Witness::from_slice(&[&[0; 72][..], &[0; 33][..]]);
     let fee = FeeRate::try_from(fee_rate)
       .unwrap()
-      .fee(reveal_tx.vsize() + sig_vbytes);
+      .fee(signed_reveal.vsize());
 
     assert_eq!(fee, commit_tx.output[0].value - reveal_tx.output[1].value);
     assert_eq!(
@@ -476,7 +515,7 @@ mod tests {
     )
     .unwrap();
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = FeeRate::try_from(commit_fee_rate)
       .unwrap()
       .fee(commit_tx.vsize() + sig_vbytes)
@@ -657,7 +696,7 @@ mod tests {
     )
     .unwrap();
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = fee_rate.fee(commit_tx.vsize() + sig_vbytes).to_sat();
 
     let reveal_value = commit_tx
@@ -669,8 +708,9 @@ mod tests {
 
     assert_eq!(reveal_value.to_sat(), 50_000 - fee);
 
-    let sig_vbytes = 16;
-    let fee = fee_rate.fee(reveal_tx.vsize() + sig_vbytes);
+    let mut signed_reveal = reveal_tx.clone();
+    signed_reveal.input[0].witness = Witness::from_slice(&[&[0; 72][..], &[0; 33][..]]);
+    let fee = fee_rate.fee(signed_reveal.vsize());
 
     assert_eq!(fee, commit_tx.output[0].value - reveal_tx.output[1].value);
     assert_eq!(
@@ -793,7 +833,7 @@ mod tests {
     )
     .unwrap();
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = fee_rate.fee(commit_tx.vsize() + sig_vbytes).to_sat();
 
     let reveal_value = commit_tx
@@ -1168,7 +1208,7 @@ mod tests {
         .parents(),
     );
 
-    let sig_vbytes = 17;
+    let sig_vbytes = 28; // P2WPKH witness plus marker and flag.
     let fee = fee_rate.fee(commit_tx.vsize() + sig_vbytes).to_sat();
 
     let reveal_value = commit_tx

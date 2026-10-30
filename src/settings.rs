@@ -3,6 +3,7 @@ use {super::*, bitcoincore_rpc::Auth};
 #[derive(Default, Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(default, deny_unknown_fields)]
 pub struct Settings {
+  batch_limit: Option<usize>,
   litecoin_data_dir: Option<PathBuf>,
   litecoin_rpc_limit: Option<u32>,
   litecoin_rpc_password: Option<String>,
@@ -110,6 +111,7 @@ impl Settings {
 
   pub fn or(self, source: Settings) -> Self {
     Self {
+      batch_limit: self.batch_limit.or(source.batch_limit),
       litecoin_data_dir: self.litecoin_data_dir.or(source.litecoin_data_dir),
       litecoin_rpc_limit: self.litecoin_rpc_limit.or(source.litecoin_rpc_limit),
       litecoin_rpc_password: self.litecoin_rpc_password.or(source.litecoin_rpc_password),
@@ -150,6 +152,7 @@ impl Settings {
 
   pub fn from_options(options: Options) -> Self {
     Self {
+      batch_limit: None,
       litecoin_data_dir: options.litecoin_data_dir,
       litecoin_rpc_limit: options.litecoin_rpc_limit,
       litecoin_rpc_password: options.litecoin_rpc_password,
@@ -246,6 +249,7 @@ impl Settings {
     };
 
     Ok(Self {
+      batch_limit: get_usize("BATCH_LIMIT")?,
       litecoin_data_dir: get_path("LITECOIN_DATA_DIR"),
       litecoin_rpc_limit: get_u32("LITECOIN_RPC_LIMIT")?,
       litecoin_rpc_password: get_string("LITECOIN_RPC_PASSWORD"),
@@ -278,6 +282,7 @@ impl Settings {
 
   pub fn for_env(dir: &Path, rpc_url: &str, server_url: &str) -> Self {
     Self {
+      batch_limit: None,
       litecoin_data_dir: Some(dir.into()),
       litecoin_rpc_limit: None,
       litecoin_rpc_password: None,
@@ -342,6 +347,7 @@ impl Settings {
     };
 
     Ok(Self {
+      batch_limit: self.batch_limit,
       litecoin_data_dir: Some(bitcoin_data_dir),
       litecoin_rpc_limit: Some(self.litecoin_rpc_limit.unwrap_or(12)),
       litecoin_rpc_password: self.litecoin_rpc_password,
@@ -390,6 +396,10 @@ impl Settings {
         .context("could not get data dir")?
         .join("ord"),
     )
+  }
+
+  pub fn batch_limit(&self) -> Option<usize> {
+    self.batch_limit
   }
 
   pub fn bitcoin_credentials(&self) -> Result<Auth> {
@@ -546,6 +556,10 @@ impl Settings {
 
   pub fn height_limit(&self) -> Option<u32> {
     self.height_limit
+  }
+
+  pub fn http_port(&self) -> Option<u16> {
+    self.http_port
   }
 
   pub fn index(&self) -> &Path {
@@ -1091,6 +1105,7 @@ mod tests {
   #[test]
   fn from_env() {
     let env = vec![
+      ("BATCH_LIMIT", "100"),
       ("LITECOIN_DATA_DIR", "/litecoin/data/dir"),
       ("LITECOIN_RPC_LIMIT", "12"),
       ("LITECOIN_RPC_PASSWORD", "litecoin password"),
@@ -1126,6 +1141,7 @@ mod tests {
     pretty_assert_eq!(
       Settings::from_env(env).unwrap(),
       Settings {
+        batch_limit: Some(100),
         litecoin_data_dir: Some("/litecoin/data/dir".into()),
         litecoin_rpc_limit: Some(12),
         litecoin_rpc_password: Some("litecoin password".into()),
@@ -1202,6 +1218,7 @@ mod tests {
         .unwrap()
       ),
       Settings {
+        batch_limit: None,
         litecoin_data_dir: Some("/litecoin/data/dir".into()),
         litecoin_rpc_limit: Some(12),
         litecoin_rpc_password: Some("litecoin password".into()),

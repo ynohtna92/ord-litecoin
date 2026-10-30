@@ -46,6 +46,7 @@ pub enum Error {
   InvalidAddress(bitcoin::address::FromScriptError),
   NotEnoughCardinalUtxos,
   NotInWallet(SatPoint),
+  UnsupportedInputScript(OutPoint),
   OutOfRange(SatPoint, u64),
   UtxoContainsAdditionalInscriptions {
     outgoing_satpoint: SatPoint,
@@ -98,6 +99,10 @@ impl Display for Error {
           .join(", "),
       ),
       Error::ValueOverflow => write!(f, "arithmetic overflow calculating value"),
+      Error::UnsupportedInputScript(outpoint) => write!(
+        f,
+        "ordinal input {outpoint} requires a Taproot, P2WPKH or P2PKH key-spend output"
+      ),
       Error::DuplicateAddress(address) => write!(f, "duplicate input address: {address}"),
     }
   }
@@ -225,12 +230,15 @@ impl TransactionBuilder {
       }
     }
 
-    let amount = self
+    let txout = self
       .amounts
       .get(&self.outgoing.outpoint)
-      .ok_or(Error::NotInWallet(self.outgoing))?
-      .value
-      .to_sat();
+      .ok_or(Error::NotInWallet(self.outgoing))?;
+
+    if !Self::supported_input(&txout.script_pubkey) {
+      return Err(Error::UnsupportedInputScript(self.outgoing.outpoint));
+    }
+    let amount = txout.value.to_sat();
 
     if self.outgoing.offset >= amount {
       return Err(Error::OutOfRange(self.outgoing, amount - 1));
@@ -334,7 +342,25 @@ impl TransactionBuilder {
 
     if let Some(mut deficit) = total.checked_sub(self.outputs.last().unwrap().value) {
       while deficit > Amount::ZERO {
-        let additional_fee = self.fee_rate.fee(Self::ADDITIONAL_INPUT_VBYTES);
+        let extra = self
+          .utxos
+          .iter()
+          .map(|outpoint| &self.amounts[outpoint].script_pubkey)
+          .filter(|script| Self::supported_input(script))
+          .map(|script| {
+            // Maximum input sizes: 68 vbytes for P2WPKH, 180 for legacy
+            // P2PKH (including uncompressed keys), versus the 57-byte base.
+            if script.is_p2wpkh() {
+              11
+            } else if script.is_p2pkh() {
+              123
+            } else {
+              0
+            }
+          })
+          .max()
+          .unwrap_or_default();
+        let additional_fee = self.fee_rate.fee(Self::ADDITIONAL_INPUT_VBYTES + extra);
 
         let needed = deficit
           .checked_add(additional_fee)
@@ -342,11 +368,12 @@ impl TransactionBuilder {
 
         let (utxo, value) = self.select_cardinal_utxo(needed.to_sat(), false)?;
 
+        let previous_fee = self.estimate_fee();
+        self.inputs.push(utxo);
+        let additional_fee = self.estimate_fee() - previous_fee;
         let benefit = value
           .checked_sub(additional_fee)
           .ok_or(Error::NotEnoughCardinalUtxos)?;
-
-        self.inputs.push(utxo);
 
         self.outputs.last_mut().unwrap().value += value;
 
@@ -448,14 +475,48 @@ impl TransactionBuilder {
     self
   }
 
-  /// Estimate the size in virtual bytes of the transaction under construction.
-  /// We initialize wallets with taproot descriptors only, so we know that all
-  /// inputs are taproot key path spends, which allows us to know that witnesses
-  /// will all consist of single Schnorr signatures.
-  fn estimate_vbytes(&self) -> usize {
-    Self::estimate_vbytes_with(self.inputs.len(), &self.outputs)
+  pub(super) fn supported_input(script: &Script) -> bool {
+    script.is_p2tr() || script.is_p2wpkh() || script.is_p2pkh()
   }
 
+  pub(super) fn estimate_signature(input: &mut TxIn, script: &Script) {
+    if script.is_p2wpkh() {
+      // A low-S DER signature with its sighash byte, plus a compressed key.
+      input.witness = Witness::from_slice(&[&[0; 72][..], &[0; 33][..]]);
+    } else if script.is_p2pkh() {
+      // Legacy wallets may contain uncompressed public keys.
+      input.script_sig = bitcoin::script::Builder::new()
+        .push_slice([0; 72])
+        .push_slice([0; 65])
+        .into_script();
+    } else {
+      input.witness = Witness::from_slice(&[&[0; Self::SCHNORR_SIGNATURE_SIZE]]);
+    }
+  }
+
+  /// Estimate signatures from the selected output scripts, including legacy wallets.
+  fn estimate_vbytes(&self) -> usize {
+    Transaction {
+      version: Version(2),
+      lock_time: LockTime::ZERO,
+      input: self
+        .inputs
+        .iter()
+        .map(|outpoint| {
+          let mut input = TxIn {
+            previous_output: *outpoint,
+            ..TxIn::default()
+          };
+          Self::estimate_signature(&mut input, &self.amounts[outpoint].script_pubkey);
+          input
+        })
+        .collect(),
+      output: self.outputs.clone(),
+    }
+    .vsize()
+  }
+
+  #[cfg(test)]
   fn estimate_vbytes_with(inputs: usize, outputs: &[TxOut]) -> usize {
     Transaction {
       version: Version(2),
@@ -625,7 +686,7 @@ impl TransactionBuilder {
 
     let mut modified_tx = transaction.clone();
     for input in &mut modified_tx.input {
-      input.witness = Witness::from_slice(&[&[0; 64]]);
+      Self::estimate_signature(input, &self.amounts[&input.previous_output].script_pubkey);
     }
     let expected_fee = self.fee_rate.fee(modified_tx.vsize());
 
@@ -683,6 +744,7 @@ impl TransactionBuilder {
       if self.runic_utxos.contains(utxo)
         || inscribed_utxos.contains(utxo)
         || self.locked_utxos.contains(utxo)
+        || !Self::supported_input(&self.amounts[utxo].script_pubkey)
       {
         continue;
       }
@@ -735,6 +797,124 @@ impl TransactionBuilder {
 #[cfg(test)]
 mod tests {
   use {super::Error, super::*};
+
+  // The fixed fee fixtures below model Taproot key spends.
+  fn address(n: u32) -> Address {
+    Address::from_script(
+      &bitcoin::script::Builder::new()
+        .push_opcode(bitcoin::opcodes::all::OP_PUSHNUM_1)
+        .push_slice([u8::try_from(n).unwrap(); 32])
+        .into_script(),
+      Network::Bitcoin,
+    )
+    .unwrap()
+  }
+
+  #[test]
+  fn unsupported_ordinal_input_is_rejected() {
+    let tx = TransactionBuilder::new(
+      satpoint(1, 0),
+      BTreeMap::new(),
+      [(
+        outpoint(1),
+        tx_out(
+          11000,
+          "M7uAERuQW2AotfyLDyewFGcLUDtAYu9v5V"
+            .parse::<Address<NetworkUnchecked>>()
+            .unwrap()
+            .assume_checked(),
+        ),
+      )]
+      .into(),
+      BTreeSet::new(),
+      BTreeSet::new(),
+      recipient(),
+      [change(0), change(1)],
+      FeeRate::try_from(1.0).unwrap(),
+      Target::Postage,
+      Network::Bitcoin,
+    )
+    .build_transaction();
+    assert_eq!(tx, Err(Error::UnsupportedInputScript(outpoint(1))));
+  }
+
+  #[test]
+  fn legacy_segwit_fees_cover_additional_inputs() {
+    let tx = TransactionBuilder::new(
+      satpoint(1, 0),
+      BTreeMap::new(),
+      [
+        (outpoint(1), tx_out(5000, crate::test::address(0))),
+        (outpoint(2), tx_out(6000, crate::test::address(1))),
+      ]
+      .into(),
+      BTreeSet::new(),
+      BTreeSet::new(),
+      recipient(),
+      [change(0), change(1)],
+      FeeRate::try_from(1.0).unwrap(),
+      Target::ExactPostage(Amount::from_sat(10000)),
+      Network::Testnet,
+    )
+    .build_transaction()
+    .unwrap();
+    assert_eq!(tx.input.len(), 2);
+    assert_eq!(tx.input[0].previous_output, outpoint(1));
+    assert_eq!(tx.output[0].value.to_sat(), 10000);
+    // 154 stripped bytes and 218 witness bytes, rounded up to 209 vbytes.
+    assert_eq!(
+      11000
+        - tx
+          .output
+          .iter()
+          .map(|output| output.value.to_sat())
+          .sum::<u64>(),
+      209
+    );
+  }
+
+  #[test]
+  fn legacy_p2pkh_fees_cover_uncompressed_keys() {
+    let script = bitcoin::script::Builder::new()
+      .push_opcode(bitcoin::opcodes::all::OP_DUP)
+      .push_opcode(bitcoin::opcodes::all::OP_HASH160)
+      .push_slice([0; 20])
+      .push_opcode(bitcoin::opcodes::all::OP_EQUALVERIFY)
+      .push_opcode(bitcoin::opcodes::all::OP_CHECKSIG)
+      .into_script();
+    let tx = TransactionBuilder::new(
+      satpoint(1, 0),
+      BTreeMap::new(),
+      [(
+        outpoint(1),
+        TxOut {
+          value: Amount::from_sat(11000),
+          script_pubkey: script,
+        },
+      )]
+      .into(),
+      BTreeSet::new(),
+      BTreeSet::new(),
+      recipient(),
+      [change(0), change(1)],
+      FeeRate::try_from(1.0).unwrap(),
+      Target::ExactPostage(Amount::from_sat(10000)),
+      Network::Testnet,
+    )
+    .build_transaction()
+    .unwrap();
+    assert_eq!(tx.output[0].value.to_sat(), 10000);
+    // 10 overhead + 180-byte input + two 31-byte outputs.
+    assert_eq!(
+      11000
+        - tx
+          .output
+          .iter()
+          .map(|output| output.value.to_sat())
+          .sum::<u64>(),
+      252
+    );
+  }
 
   #[test]
   fn select_sat() {

@@ -483,11 +483,9 @@ impl Wallet {
           progress.finish_with_message("Rune matured, submitting...");
           break;
         }
-        Maturity::ConfirmationsPending(remaining) => {
-          if remaining < pending_confirmations {
-            pending_confirmations = remaining;
-            progress.inc(1);
-          }
+        Maturity::ConfirmationsPending(remaining) if remaining < pending_confirmations => {
+          pending_confirmations = remaining;
+          progress.inc(1);
         }
         Maturity::CommitSpent(txid) => {
           self.clear_etching(rune)?;

@@ -17,6 +17,7 @@ use {
     Router,
     extract::{DefaultBodyLimit, Extension, Json, Path, Query},
     http::{self, HeaderMap, HeaderName, HeaderValue, StatusCode, Uri, header},
+    middleware,
     response::{IntoResponse, Redirect, Response},
     routing::{get, post},
   },
@@ -99,6 +100,11 @@ pub struct Server {
   pub(crate) acme_domain: Vec<String>,
   #[arg(
     long,
+    help = "Reject JSON API batch requests for more than <BATCH_LIMIT> items."
+  )]
+  pub(crate) batch_limit: Option<usize>,
+  #[arg(
+    long,
     help = "Use <CSP_ORIGIN> in Content-Security-Policy header. Set this to the public-facing URL of your ord instance."
   )]
   pub(crate) csp_origin: Option<String>,
@@ -131,7 +137,7 @@ pub struct Server {
   #[arg(long, help = "Redirect HTTP traffic to HTTPS.")]
   pub(crate) redirect_http_to_https: bool,
   #[arg(long, alias = "nosync", help = "Do not update the index.")]
-  pub(crate) no_sync: bool,
+  pub no_sync: bool,
   #[arg(
     long,
     help = "Proxy `/content/INSCRIPTION_ID` and other recursive endpoints to `<PROXY>` if the inscription is not present on current chain."
@@ -188,6 +194,7 @@ impl Server {
 
       let server_config = Arc::new(ServerConfig {
         accept_offers: self.accept_offers,
+        batch_limit: self.batch_limit.or(settings.batch_limit()),
         chain: settings.chain(),
         csp_origin: self.csp_origin.clone(),
         decompress: self.decompress,
@@ -285,6 +292,7 @@ impl Server {
         .route("/blockhash/{height}", get(r::block_hash_from_height_string))
         .route("/blockheight", get(r::blockheight_string))
         .route("/blocktime", get(r::blocktime_string))
+        .route("/r/block/{query}", get(r::block))
         .route("/r/blockhash", get(r::blockhash))
         .route("/r/blockhash/{height}", get(r::blockhash_at_height))
         .route("/r/blockheight", get(r::blockheight_string))
@@ -334,12 +342,15 @@ impl Server {
           "/r/sat/{sat_number}/at/{index}/content",
           get(r::sat_at_index_content),
         )
-        .layer(axum::middleware::from_fn(Self::proxy_layer));
+        .layer(middleware::from_fn(Self::proxy_layer));
 
       let router = router.merge(proxiable_routes);
 
       let router = router
         .fallback(Self::fallback)
+        .layer(middleware::from_fn(
+          Self::reject_service_worker_script_requests,
+        ))
         .layer(Extension(index))
         .layer(Extension(server_config.clone()))
         .layer(Extension(settings.clone()))
@@ -367,7 +378,7 @@ impl Server {
         router
       };
 
-      match (self.http_port(), self.https_port()) {
+      match (self.http_port(&settings), self.https_port()) {
         (Some(http_port), None) => {
           self
             .spawn(
@@ -522,9 +533,11 @@ impl Server {
     }
   }
 
-  fn http_port(&self) -> Option<u16> {
-    if self.http || self.http_port.is_some() || (self.https_port.is_none() && !self.https) {
-      Some(self.http_port.unwrap_or(80))
+  fn http_port(&self, settings: &Settings) -> Option<u16> {
+    let http_port = self.http_port.or(settings.http_port());
+
+    if self.http || http_port.is_some() || (self.https_port.is_none() && !self.https) {
+      Some(http_port.unwrap_or(80))
     } else {
       None
     }
@@ -587,7 +600,7 @@ impl Server {
   async fn proxy_layer(
     server_config: Extension<Arc<ServerConfig>>,
     request: http::Request<axum::body::Body>,
-    next: axum::middleware::Next,
+    next: middleware::Next,
   ) -> ServerResult {
     let path = request.uri().path().to_owned();
 
@@ -618,6 +631,17 @@ impl Server {
     }
 
     Ok(response)
+  }
+
+  async fn reject_service_worker_script_requests(
+    request: http::Request<axum::body::Body>,
+    next: middleware::Next,
+  ) -> Response {
+    if request.headers().contains_key("service-worker") {
+      (StatusCode::FORBIDDEN, "service workers are forbidden").into_response()
+    } else {
+      next.run(request).await
+    }
   }
 
   fn index_height(index: &Index) -> ServerResult<Height> {
@@ -870,14 +894,23 @@ impl Server {
   }
 
   async fn outputs(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
     AcceptJson(accept_json): AcceptJson,
     Json(outputs): Json<Vec<OutPoint>>,
   ) -> ServerResult {
     task::block_in_place(|| {
       Ok(if accept_json {
+        server_config.check_batch_limit(outputs.len())?;
+
         let mut response = Vec::new();
         for outpoint in outputs {
+          if outpoint == OutPoint::null() || outpoint == unbound_outpoint() {
+            return Err(ServerError::BadRequest(format!(
+              "outpoint {outpoint} may not be queried in batch"
+            )));
+          }
+
           let (output_info, _) = index
             .get_output_info(outpoint)?
             .ok_or_not_found(|| format!("output {outpoint}"))?;
@@ -1804,12 +1837,15 @@ impl Server {
   }
 
   async fn inscriptions_json(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
     AcceptJson(accept_json): AcceptJson,
     Json(inscriptions): Json<Vec<InscriptionId>>,
   ) -> ServerResult {
     task::block_in_place(|| {
       Ok(if accept_json {
+        server_config.check_batch_limit(inscriptions.len())?;
+
         let mut response = Vec::new();
         for inscription in inscriptions {
           let query = query::Inscription::Id(inscription);
@@ -1828,12 +1864,15 @@ impl Server {
   }
 
   async fn missing(
+    Extension(server_config): Extension<Arc<ServerConfig>>,
     Extension(index): Extension<Arc<Index>>,
     AcceptJson(accept_json): AcceptJson,
     Json(inscription_ids): Json<Vec<InscriptionId>>,
   ) -> ServerResult {
     task::block_in_place(|| {
       Ok(if accept_json {
+        server_config.check_batch_limit(inscription_ids.len())?;
+
         Json(index.missing_inscriptions(&inscription_ids)?).into_response()
       } else {
         StatusCode::NOT_FOUND.into_response()
@@ -2542,6 +2581,25 @@ mod tests {
     }
 
     #[track_caller]
+    fn assert_post_json_error(
+      &self,
+      path: impl AsRef<str>,
+      body: &impl Serialize,
+      status: StatusCode,
+      expected_response: &str,
+    ) {
+      let response = reqwest::blocking::Client::new()
+        .post(self.join_url(path.as_ref()))
+        .json(body)
+        .header(header::ACCEPT, "application/json")
+        .send()
+        .unwrap();
+
+      assert_eq!(response.status(), status);
+      assert_eq!(response.text().unwrap(), expected_response);
+    }
+
+    #[track_caller]
     fn post(
       &self,
       path: impl AsRef<str>,
@@ -2699,7 +2757,26 @@ mod tests {
 
   #[test]
   fn http_port_defaults_to_80() {
-    assert_eq!(parse_server_args("ord server").1.http_port(), Some(80));
+    let (settings, server) = parse_server_args("ord server");
+    assert_eq!(server.http_port(&settings), Some(80));
+  }
+
+  #[test]
+  fn http_port_is_loaded_from_settings() {
+    let (settings, server) = parse_server_args("ord server");
+    let settings = Settings::from_env([("HTTP_PORT".into(), "8080".into())].into())
+      .unwrap()
+      .or(settings);
+    assert_eq!(server.http_port(&settings), Some(8080));
+  }
+
+  #[test]
+  fn http_port_argument_overrides_settings() {
+    let (settings, server) = parse_server_args("ord server --http-port 9090");
+    let settings = Settings::from_env([("HTTP_PORT".into(), "8080".into())].into())
+      .unwrap()
+      .or(settings);
+    assert_eq!(server.http_port(&settings), Some(9090));
   }
 
   #[test]
@@ -2719,24 +2796,17 @@ mod tests {
 
   #[test]
   fn https_disables_http() {
-    assert_eq!(
-      parse_server_args("ord server --https --acme-cache foo --acme-contact bar --acme-domain baz")
-        .1
-        .http_port(),
-      None
-    );
+    let (settings, server) =
+      parse_server_args("ord server --https --acme-cache foo --acme-contact bar --acme-domain baz");
+    assert_eq!(server.http_port(&settings), None);
   }
 
   #[test]
   fn https_port_disables_http() {
-    assert_eq!(
-      parse_server_args(
-        "ord server --https-port 433 --acme-cache foo --acme-contact bar --acme-domain baz"
-      )
-      .1
-      .http_port(),
-      None
+    let (settings, server) = parse_server_args(
+      "ord server --https-port 433 --acme-cache foo --acme-contact bar --acme-domain baz",
     );
+    assert_eq!(server.http_port(&settings), None);
   }
 
   #[test]
@@ -2753,14 +2823,10 @@ mod tests {
 
   #[test]
   fn http_with_https_leaves_http_enabled() {
-    assert_eq!(
-      parse_server_args(
-        "ord server --https --http --acme-cache foo --acme-contact bar --acme-domain baz"
-      )
-      .1
-      .http_port(),
-      Some(80)
+    let (settings, server) = parse_server_args(
+      "ord server --https --http --acme-cache foo --acme-contact bar --acme-domain baz",
     );
+    assert_eq!(server.http_port(&settings), Some(80));
   }
 
   #[test]
@@ -4058,6 +4124,38 @@ mod tests {
   }
 
   #[test]
+  fn output_of_transaction_with_anchor_output() {
+    let server = TestServer::new();
+
+    server.mine_blocks(1);
+
+    let txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, Default::default())],
+      recipient: Some(Address::from_script(&ScriptBuf::new_p2a(), Network::Bitcoin).unwrap()),
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let output = server.get_json::<api::Output>(format!("/output/{txid}:0"));
+
+    assert_eq!(output.script_pubkey, ScriptBuf::new_p2a());
+    assert!(!output.spent);
+
+    server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(2, 1, 0, Default::default())],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let output = server.get_json::<api::Output>(format!("/output/{txid}:0"));
+
+    assert_eq!(output.script_pubkey, ScriptBuf::new_p2a());
+    assert!(output.spent);
+  }
+
+  #[test]
   fn output_without_sat_index() {
     let txid = "97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9";
     TestServer::new().assert_response_regex(
@@ -4403,6 +4501,28 @@ mod tests {
       "/r/tx/97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9",
       StatusCode::OK,
       "\"01000000010000000000000000000000000000000000000000000000000000000000000000ffffffff4804ffff001d0104404e592054696d65732030352f4f63742f32303131205374657665204a6f62732c204170706c65e280997320566973696f6e6172792c2044696573206174203536ffffffff0100f2052a010000004341040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9ac00000000\""
+    );
+  }
+
+  #[test]
+  fn recursive_block_hex_endpoint() {
+    let server = TestServer::new();
+
+    server.assert_response("/r/block/1", StatusCode::NOT_FOUND, "block 1 not found");
+
+    let block = server.mine_blocks(1)[0].clone();
+    let hex = format!("\"{}\"", consensus::encode::serialize_hex(&block));
+
+    server.assert_response("/r/block/1", StatusCode::OK, &hex);
+    server.assert_response(
+      format!("/r/block/{}", block.block_hash()),
+      StatusCode::OK,
+      &hex,
+    );
+    server.assert_response(
+      "/r/block/467a86f0642b1d284376d13a98ef58310caa49502b0f9a560ee222e0a122fe16",
+      StatusCode::NOT_FOUND,
+      "block 467a86f0642b1d284376d13a98ef58310caa49502b0f9a560ee222e0a122fe16 not found",
     );
   }
 
@@ -8289,6 +8409,33 @@ next
   }
 
   #[test]
+  fn service_worker_script_requests_are_forbidden() {
+    let server = TestServer::builder().chain(Chain::Regtest).build();
+
+    server.mine_blocks(1);
+
+    let txid = server.core.broadcast_tx(TransactionTemplate {
+      inputs: &[(1, 0, 0, inscription("text/javascript", "foo").to_witness())],
+      ..default()
+    });
+
+    server.mine_blocks(1);
+
+    let id = InscriptionId { txid, index: 0 };
+
+    server.assert_response(format!("/content/{id}"), StatusCode::OK, "foo");
+
+    let response = reqwest::blocking::Client::new()
+      .get(server.join_url(&format!("/content/{id}")))
+      .header("service-worker", "script")
+      .send()
+      .unwrap();
+
+    assert_eq!(response.status(), StatusCode::FORBIDDEN);
+    assert_eq!(response.text().unwrap(), "service workers are forbidden");
+  }
+
+  #[test]
   fn metadata_proxy() {
     let server = TestServer::builder().chain(Chain::Regtest).build();
 
@@ -9295,7 +9442,18 @@ next
       .serialize(),
     );
 
-    server.post("offer", &psbt, StatusCode::PAYLOAD_TOO_LARGE);
+    // HTTP/2 can reject the request stream without closing the connection while
+    // the client is still uploading the oversized body.
+    let response = reqwest::blocking::Client::builder()
+      .http2_prior_knowledge()
+      .build()
+      .unwrap()
+      .post(server.join_url("offer"))
+      .body(psbt)
+      .send()
+      .unwrap();
+
+    assert_eq!(response.status(), StatusCode::PAYLOAD_TOO_LARGE);
   }
 
   #[test]
@@ -9376,6 +9534,90 @@ next
       StatusCode::PAYLOAD_TOO_LARGE,
       "{}",
       response.text().unwrap(),
+    );
+  }
+
+  #[test]
+  fn batch_limit_rejects_oversized_outputs_request() {
+    let server = TestServer::builder()
+      .server_option("--batch-limit", "1")
+      .build();
+
+    server.assert_post_json_error(
+      "outputs",
+      &vec![OutPoint::null(), OutPoint::null()],
+      StatusCode::BAD_REQUEST,
+      "request for 2 items exceeds batch limit of 1",
+    );
+  }
+
+  #[test]
+  fn batch_limit_rejects_oversized_inscriptions_request() {
+    let server = TestServer::builder()
+      .server_option("--batch-limit", "1")
+      .build();
+
+    server.assert_post_json_error(
+      "inscriptions",
+      &vec![inscription_id(1), inscription_id(2)],
+      StatusCode::BAD_REQUEST,
+      "request for 2 items exceeds batch limit of 1",
+    );
+  }
+
+  #[test]
+  fn batch_limit_rejects_oversized_missing_request() {
+    let server = TestServer::builder()
+      .server_option("--batch-limit", "1")
+      .build();
+
+    server.assert_post_json_error(
+      "missing",
+      &vec![inscription_id(1), inscription_id(2)],
+      StatusCode::BAD_REQUEST,
+      "request for 2 items exceeds batch limit of 1",
+    );
+  }
+
+  #[test]
+  fn batch_limit_is_loaded_from_settings() {
+    let server = TestServer::builder().config("batch_limit: 1").build();
+
+    server.assert_post_json_error(
+      "missing",
+      &vec![inscription_id(1), inscription_id(2)],
+      StatusCode::BAD_REQUEST,
+      "request for 2 items exceeds batch limit of 1",
+    );
+  }
+
+  #[test]
+  fn batch_limit_allows_requests_at_limit() {
+    let server = TestServer::builder()
+      .server_option("--batch-limit", "1")
+      .build();
+
+    let result = server.post_json::<Vec<InscriptionId>>("missing", &vec![inscription_id(1)]);
+
+    assert_eq!(result, vec![inscription_id(1)]);
+  }
+
+  #[test]
+  fn outputs_rejects_null_and_unbound_outpoints() {
+    let server = TestServer::new();
+
+    server.assert_post_json_error(
+      "outputs",
+      &vec![OutPoint::null()],
+      StatusCode::BAD_REQUEST,
+      "outpoint 0000000000000000000000000000000000000000000000000000000000000000:4294967295 may not be queried in batch",
+    );
+
+    server.assert_post_json_error(
+      "outputs",
+      &vec![unbound_outpoint()],
+      StatusCode::BAD_REQUEST,
+      "outpoint 0000000000000000000000000000000000000000000000000000000000000000:0 may not be queried in batch",
     );
   }
 }

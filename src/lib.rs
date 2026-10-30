@@ -16,6 +16,7 @@ use {
   self::{
     arguments::Arguments,
     blocktime::Blocktime,
+    client_ext::ClientExt,
     decimal::Decimal,
     deserialize_from_str::DeserializeFromStr,
     fund_raw_transaction::fund_raw_transaction,
@@ -55,7 +56,7 @@ use {
     transaction::Version,
   },
   bitcoincore_rpc::{Client, RpcApi},
-  boilerplate::{Escape, Trusted},
+  boilerplate::{Format, Trusted},
   chrono::{DateTime, TimeZone, Utc},
   ciborium::Value,
   clap::{ArgGroup, Parser},
@@ -117,6 +118,7 @@ pub mod api;
 pub mod arguments;
 mod blocktime;
 pub mod chain;
+mod client_ext;
 mod core_compat;
 pub mod decimal;
 mod deserialize_from_str;

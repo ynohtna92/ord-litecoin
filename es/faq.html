@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="es" class="coal" dir="ltr">
+<html lang="es" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introducción</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Descripción General</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Artefactos Digitales</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscripciones</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegado</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadatos</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Puntero</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Proveniencia</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursión</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Renderizado</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Ejemplos</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> Especificación</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">5.</strong> Preguntas Frecuentes</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Contribuir</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> Donaciones</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> Guías</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorador</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Monedero</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Inscribiendo por Lotes</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Coleccionar</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Monedero Sparrow</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderación</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindexación</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Caza de Sats</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Configuración</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Telequemado</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> Pruebas</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> Recompensas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> Recompensa Ordinal 0: 100,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> Recompensa Ordinal 1: 200,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> Recompensa Ordinal 2: 300,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> Recompensa Ordinal 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -254,13 +235,13 @@
                     <main>
                         <h1 id="preguntas-frecuentes-sobre-la-teoría-ordinal"><a class="header" href="#preguntas-frecuentes-sobre-la-teoría-ordinal">Preguntas frecuentes sobre la teoría Ordinal</a></h1>
 <h2 id="qué-es-la-teoría-ordinal"><a class="header" href="#qué-es-la-teoría-ordinal">¿Qué es la teoría ordinal?</a></h2>
-<p>La teoría ordinal es un protocolo para asignar números de serie a los satoshis, la denominación más pequeña de un bitcoin, y rastrear esos satoshis a medida que son gastados en transacciones.</p>
-<p>Estos números de serie son números grandes, un ejemplo es el número 804766073970493. Cada satoshi, el cual es ¹⁄₁₀₀₀₀₀₀₀₀ de un bitcoin, tiene un número ordinal.</p>
-<h2 id="la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-bitcoin"><a class="header" href="#la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-bitcoin">¿La teoría ordinal requiere una cadena lateral, un token separado o cambios en Bitcoin?</a></h2>
-<p>¡No! La teoría ordinal funciona en este momento, sin una cadena lateral, y el único token necesario es simplemente bitcoin.</p>
+<p>La teoría ordinal es un protocolo para asignar números de serie a los satoshis, la denominación más pequeña de un litecoin, y rastrear esos satoshis a medida que son gastados en transacciones.</p>
+<p>Estos números de serie son números grandes, un ejemplo es el número 804766073970493. Cada satoshi, el cual es ¹⁄₁₀₀₀₀₀₀₀₀ de un litecoin, tiene un número ordinal.</p>
+<h2 id="la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-litecoin"><a class="header" href="#la-teoría-ordinal-requiere-una-cadena-lateral-un-token-separado-o-cambios-en-litecoin">¿La teoría ordinal requiere una cadena lateral, un token separado o cambios en Litecoin?</a></h2>
+<p>¡No! La teoría ordinal funciona en este momento, sin una cadena lateral, y el único token necesario es simplemente litecoin.</p>
 <h2 id="para-qué-sirve-la-teoría-ordinals"><a class="header" href="#para-qué-sirve-la-teoría-ordinals">¿Para qué sirve la teoría Ordinals?</a></h2>
 <p>Para coleccionar, comerciar e innovar. La teoría ordinal asigna una identidad a los satoshis, permitiendo que se rastreen e intercambien, como curiosidades y por su valor numismático.</p>
-<p>La teoría ordinal también habilita las inscripciones, un protocolo para adjuntar contenido arbitrario a los satoshis, convirtiéndolos en artefactos digitales nativos en bitcoin.</p>
+<p>La teoría ordinal también habilita las inscripciones, un protocolo para adjuntar contenido arbitrario a los satoshis, convirtiéndolos en artefactos digitales nativos en litecoin.</p>
 <h2 id="cómo-funciona-la-teoría-ordinal"><a class="header" href="#cómo-funciona-la-teoría-ordinal">¿Cómo funciona la teoría ordinal?</a></h2>
 <p>Los números ordinales se asignan a los satoshis en el orden en que se minan. El primer satoshi en el primer bloque tiene el número ordinal 0, el segundo tiene el número ordinal 1 y el último satoshi del primer bloque tiene el número ordinal 4,999,999,999.</p>
 <p>Los satoshis se hallan en las transacciones salientes, pero las transacciones se destruyen cuando son emitidas y se crean nuevas transacciones, lo que la teoría de Ordinals hace es utilizar un algoritmo para determinar cómo los satoshis se mueven entre las transacciones que salen y entran.</p>
@@ -281,15 +262,15 @@
 <p>Los satoshis <var>e</var> y <var>f</var> ahora no tienen ningún lugar a donde ir en las salidas:</p>
 <pre><code>[a b] [c] [d e f] → [a b c d]
 </code></pre>
-<p>Así que van al minero que minó el bloque como comisión. <a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">El BIP</a> tiene los detalles, pero, en resumen, las comisiones pagadas por las transacciones se tratan como entradas adicionales a la transacción coinbase y se ordenan según el orden en el que están en el bloque. La transacción coinbase del bloque podría verse así:</p>
+<p>Así que van al minero que minó el bloque como comisión. <a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">El BIP</a> tiene los detalles, pero, en resumen, las comisiones pagadas por las transacciones se tratan como entradas adicionales a la transacción coinbase y se ordenan según el orden en el que están en el bloque. La transacción coinbase del bloque podría verse así:</p>
 <pre><code>[SUBSIDY] [e f] → [SUBSIDY e f]
 </code></pre>
 <h2 id="dónde-puedo-encontrar-los-detalles-técnicos"><a class="header" href="#dónde-puedo-encontrar-los-detalles-técnicos">¿Dónde puedo encontrar los detalles técnicos?</a></h2>
-<p><a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">¡En el BIP!</a></p>
+<p><a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">¡En el BIP!</a></p>
 <h2 id="por-qué-a-las-inscripciones-de-satoshis-se-les-llama-artefactos-digitales-en-lugar-de-nft"><a class="header" href="#por-qué-a-las-inscripciones-de-satoshis-se-les-llama-artefactos-digitales-en-lugar-de-nft">¿Por qué a las inscripciones de Satoshis se les llama "artefactos digitales" en lugar de "NFT"?</a></h2>
 <p>Una inscripción es un NFT, pero se utiliza el término "artefacto digital", porque es fácil, sugerente y familiar.</p>
 <p>La frase "artefacto digital" es muy sugerente, incluso para alguien que nunca ha oído el término. En comparación, NFT es un acrónimo y no proporciona ninguna indicación de lo que significa si no has escuchado el término.</p>
-<p>Además, la palabra, "NFT" suena como terminología financiera, y tanto la palabra "fungible" como el sentido de la palabra "token" como se usa en los "NFT" no son comunes fuera de los contextos financieros.</p>
+<p>Additionally, "NFT" feels like financial terminology, and both the word "fungible" and sense of the word "token" as used in "NFT" is uncommon outside of financial contexts.</p>
 <h2 id="cómo-se-comparan-las-inscripciones-con"><a class="header" href="#cómo-se-comparan-las-inscripciones-con">¿Cómo se comparan las inscripciones con…</a></h2>
 <h3 id="los-nft-de-ethereum"><a class="header" href="#los-nft-de-ethereum">¿Los NFT de Ethereum?</a></h3>
 <p><em>Las inscripciones siempre son inmutables.</em></p>
@@ -297,65 +278,65 @@
 <p>Los NFTs en Ethereum <em>pueden</em> ser inmutables, pero muchos no lo son y pueden ser cambiados o eliminados por el propietario del contrato del NFT.</p>
 <p>Para asegurarse de que un NFT de Ethereum sea inmutable, se debe analizar el código del contrato, lo cual requiere un conocimiento a profundidad de la EVM y la semántica de Solidity.</p>
 <p>Para un usuario que no tiene habilidades técnicas es bastante difícil determinar si un NFT de Ethereum es mutable o inmutable, y las plataformas Ethereum NFT no se esfuerzan para ayudar a distinguir si un NFT es mutable o inmutable y si el código fuente del contrato está disponible y ha sido auditado.</p>
-<p><em>El contenido de la inscripción siempre está en la cadena de Bitcoin.</em></p>
-<p>No hay forma de que una inscripción haga referencia a contenido que esta por fuera de la cadena de Bitcoin. Debido a esto las inscripciones son más duraderas porque el contenido no puede perderse y también las hace más escasas porque los creadores de inscripciones deben pagar comisiones proporcionales al tamaño del contenido.</p>
+<p><em>El contenido de la inscripción siempre está en la cadena de Litecoin.</em></p>
+<p>No hay forma de que una inscripción haga referencia a contenido que esta por fuera de la cadena de Litecoin. Debido a esto las inscripciones son más duraderas porque el contenido no puede perderse y también las hace más escasas porque los creadores de inscripciones deben pagar comisiones proporcionales al tamaño del contenido.</p>
 <p>Hay algunos NFTs en Ethereum que están en la cadena, pero muchos no lo están y se almacenan en plataformas como IPFS o Arweave, o en servidores web centralizados. No se garantiza que el contenido que esta almacenado en IPFS continue estando disponible, de hecho, ya se ha perdido contenido de NFTs que fueron almacenado en IPFS. Plataformas como Arweave dependen de suposiciones económicas y probablemente fallarán catastróficamente cuando estas suposiciones ya no se cumplan. Los servidores web centralizados pueden desaparecer en cualquier momento.</p>
 <p>Es difícil para un usuario que no tienes habilidades técnicas determinar donde el contenido de un NFT de Ethereum esta alojado.</p>
 <p><em>Las inscripciones son mucho más sencillas.</em></p>
 <p>Los NFT de Ethereum dependen de la red y la máquina virtual de Ethereum, las cuales son altamente complejas, cambian constantemente e introducen cambios mediante bifurcaciones incompatibles con versiones anteriores.</p>
-<p>Por otro lado, las inscripciones dependen de la blockchain de Bitcoin que es relativamente simple y conservadora, e introduce cambios mediante bifurcaciones suaves (soft fork) compatibles con versiones anteriores.</p>
+<p>Por otro lado, las inscripciones dependen de la blockchain de Litecoin que es relativamente simple y conservadora, e introduce cambios mediante bifurcaciones suaves (soft fork) compatibles con versiones anteriores.</p>
 <p><em>Las inscripciones son más seguras.</em></p>
-<p>Las inscripciones heredan el modelo de transacción de Bitcoin, lo que permite al usuario ver exactamente qué inscripciones se están transfiriendo en una transacción antes de firmarla. Las inscripciones pueden ofrecerse a la venta mediante transacciones parcialmente firmadas, lo que no requiere el permiso un tercero, como un mercado o plataforma para la transferencia.</p>
+<p>Las inscripciones heredan el modelo de transacción de Litecoin, lo que permite al usuario ver exactamente qué inscripciones se están transfiriendo en una transacción antes de firmarla. Las inscripciones pueden ofrecerse a la venta mediante transacciones parcialmente firmadas, lo que no requiere el permiso un tercero, como un mercado o plataforma para la transferencia.</p>
 <p>En comparación, los NFT de Ethereum están plagados de vulnerabilidades de seguridad para el usuario final. Es común firmar transacciones a ciegas, otorgar permisos ilimitados a aplicaciones de terceros sobre los NFTs e interactuar con contratos inteligentes complejos e impredecibles. Estos problemas que tienen los NFTs de Ethereum simplemente no son una preocupación para los teóricos de Ordinals.</p>
 <p><em>Las inscripciones son más escasas.</em></p>
-<p>Para mintear, transferir y almacenar inscripciones, se requiere bitcoin. Superficialmente esto parece un inconveniente, pero la razón de ser de los artefactos digitales es ser escasos y, por lo tanto, valiosos.</p>
+<p>Para mintear, transferir y almacenar inscripciones, se requiere litecoin. Superficialmente esto parece un inconveniente, pero la razón de ser de los artefactos digitales es ser escasos y, por lo tanto, valiosos.</p>
 <p>Los NFT de Ethereum, por otro lado, pueden ser minteados en cantidades prácticamente ilimitadas con una sola transacción, lo que los hace intrínsecamente menos escasos y, por lo tanto, potencialmente menos valiosos.</p>
 <p><em>Las inscripciones no pretenden respaldar regalías en la cadena.</em></p>
 <p>En teoría, la idea de implementar regalías en blockchain suena prometedora, pero en la práctica surgen problemas significativos. La aplicación de regalías enfrenta restricciones complejas e invasivas en la cadena. Actualmente, el ecosistema de NFT en Ethereum está lidiando con problemas debido a la confusión en torno a las regalías. Colectivamente, se está llegando a la conclusión de que las regalías en cadena, originalmente vistas como una ventaja para los artistas en los NFT, no son factibles. Algunas plataformas ya están eliminando el soporte para regalías.</p>
 <p>Las inscripciones evitan esta situación por completo al no hacer falsas promesas de respaldar regalías en la cadena, evitando así la confusión, el caos y la negatividad de la situación que ocurre con los NFT en Ethereum.</p>
 <p><em>Las inscripciones abren las puertas a nuevos mercados.</em></p>
-<p>La valoración de mercado y el flujo de capital en Bitcoin exceden considerablemente a los de Ethereum. Gran parte de esta liquidez no está disponible para los NFT en Ethereum, ya que muchos bitcoiners prefieren no interactuar con el ecosistema de Ethereum debido a las preocupaciones relacionadas con la simplicidad, seguridad y descentralización.</p>
-<p>Estos bitcoiners podrían estar más interesados en las inscripciones que en los NFT de Ethereum, abriendo la puerta a otros tipos de coleccionistas.</p>
+<p>Bitcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Bitcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, security, and decentralization.</p>
+<p>Estos Litecoin users podrían estar más interesados en las inscripciones que en los NFT de Ethereum, abriendo la puerta a otros tipos de coleccionistas.</p>
 <p><em>Las inscripciones tienen un modelo de datos más robusto.</em></p>
 <p>Una inscripción consiste en un tipo de contenido, conocido como tipo MIME, acompañado por una cadena (string) de bytes que representa su contenido. Este modelo de datos es el mismo utilizado en la web, lo que permite que el contenido de la inscripción evolucione junto con la web y pueda admitir cualquier tipo de contenido compatible con los navegadores web, sin necesidad de modificar el protocolo subyacente.</p>
 <h3 id="activos-de-rgb-y-taro"><a class="header" href="#activos-de-rgb-y-taro">¿Activos de RGB y Taro?</a></h3>
-<p>RGB y Taro son protocolos de activos construidos en una capa segundaria sobre Bitcoin. En comparación con las inscripciones, son mucho más complicados, pero con muchas más funcionalidades.</p>
+<p>RGB y Taro son protocolos de activos construidos en una capa segundaria sobre Litecoin. En comparación con las inscripciones, son mucho más complicados, pero con muchas más funcionalidades.</p>
 <p>La teoría ordinal ha sido desarrollada específicamente para artefactos digitales desde cero, mientras que RGB y Taro se enfocan en tokens fungibles. Por lo tanto, la experiencia del usuario con las inscripciones probablemente sea más simple y refinada en comparación con el uso de NFTs de RGB y Taro.</p>
 <p>RGB y Taro almacenan contenido fuera de la cadena, lo que implica depender de una infraestructura adicional que podría perderse. Por el contrario, el contenido de las inscripciones se guarda en la cadena y no corre el riesgo de perderse.</p>
 <p>La teoría ordinal, RGB y Taro están en sus primeras etapas, por lo que todo esto es especulativo, pero el enfoque de la teoría ordinal podría darle la ventaja en términos de funcionalidad para artefactos digitales, incluyendo un mejor modelo de contenido y características como símbolos globalmente únicos.</p>
 <h3 id="activos-de-counterparty"><a class="header" href="#activos-de-counterparty">¿Activos de Counterparty?</a></h3>
-<p>Counterparty tiene su propio token, XCP, que es necesario para algunas funcionalidades, lo que hace que la mayoría de los bitcoiners lo consideren como una altcoin, y no como una extensión o segunda capa de bitcoin.</p>
+<p>Counterparty tiene su propio token, XCP, que es necesario para algunas funcionalidades, lo que hace que la mayoría de los Litecoin users lo consideren como una altcoin, y no como una extensión o segunda capa de litecoin.</p>
 <p>La teoría ordinal fue diseñada específicamente para tratar con artefactos digitales, a diferencia de Counterparty, que se diseñó principalmente enfocado en la emisión de tokens financieros.</p>
 <h2 id="inscripciones-para"><a class="header" href="#inscripciones-para">Inscripciones para…</a></h2>
 <h3 id="artistas"><a class="header" href="#artistas">Artistas</a></h3>
-<p><em>Las inscripciones están en Bitcoin</em>. Bitcoin es la moneda digital con el mayor prestigio y la mayor probabilidad de supervivencia a largo plazo. Si deseas garantizar que tu arte perdure en el futuro, no hay mejor forma de publicarlo que mediante inscripciones.</p>
-<p><em>Almacenamiento en cadena es menos costoso</em>. A $20,000 por BTC y una comisión mínima de 1 satoshi por vbyte, el costo de publicar contenido en una inscripción es de $50 por 1 millón de bytes.</p>
+<p><em>Inscriptions are on Bitcoin.</em> Bitcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions.</p>
+<p><em>Almacenamiento en cadena es menos costoso</em>. A $20,000 por LTC y una comisión mínima de 1 satoshi por vbyte, el costo de publicar contenido en una inscripción es de $50 por 1 millón de bytes.</p>
 <p><em>¡Las inscripciones están en sus inicios!</em> Las inscripciones todavía están en desarrollo y aún no se han lanzado en la red principal. Esto te brinda la oportunidad de ser un pionero y explorar el medio a medida que evoluciona.</p>
 <p><em>Las inscripciones son simples</em>. No es necesario escribir ni comprender contratos inteligentes.</p>
-<p><em>Las inscripciones abren las puertas a nuevas fuentes de liquidez</em>. Las inscripciones resultan más accesibles y atractivas para los poseedores de bitcoin, dando paso a una clase completamente nueva de coleccionistas.</p>
+<p><em>Las inscripciones abren las puertas a nuevas fuentes de liquidez</em>. Las inscripciones resultan más accesibles y atractivas para los poseedores de litecoin, dando paso a una clase completamente nueva de coleccionistas.</p>
 <p><em>Las inscripciones están diseñadas para los artefactos digitales</em>. Se diseñan desde cero enfocándose en los NFTs y ofrecen un modelo de datos superior, con características como símbolos globalmente únicos y una procedencia mejorada.</p>
 <p><em>Las inscripciones no admiten regalías en cadena</em>. Esto puede verse como algo negativo, pero realmente depende de la perspectiva de cada uno. Si bien las regalías en cadena han beneficiado enormemente a los creadores, también han generado una gran cantidad de confusión en el ecosistema NFT de Ethereum. En este momento, el ecosistema está lidiando con este problema, encaminándose hacia un futuro donde las regalías serán opcionales. Las inscripciones no admiten regalías en cadena debido a que técnica y prácticamente no son viables. Sin embargo, si decides crear inscripciones, existen varias estrategias para superar esta restricción: puedes retener una porción de tus inscripciones para futuras ventas, aprovechando así la valorización que puedan tener con el tiempo; o incluso ofrecer incentivos a los usuarios que opten por respetar las regalías opcionales.</p>
 <h3 id="coleccionistas"><a class="header" href="#coleccionistas">Coleccionistas</a></h3>
-<p><em>Las inscripciones son sencillas, claras y sin sorpresas inesperadas</em>. Son siempre inmutables y residen en la cadena de Bitcoin, lo que elimina la necesidad de gestiones adicionales.</p>
-<p><em>Las inscripciones están en Bitcoin</em>. Puedes verificar fácilmente la ubicación y propiedades de las inscripciones con un nodo de Bitcoin que tu controlas.</p>
-<h3 id="bitcoiners"><a class="header" href="#bitcoiners">Bitcoiners</a></h3>
-<p>Permíteme iniciar esta sección señalando que: la principal función de la red de Bitcoin es la descentralización del dinero. Todos los otros usos que se le pueden dar son secundarios, y eso incluye a la teoría ordinal. Los desarrolladores detrás de esta teoría comprenden muy bien este aspecto y consideran que su trabajo contribuye, aunque sea mínimamente, a la misión principal de Bitcoin.</p>
+<p><em>Las inscripciones son sencillas, claras y sin sorpresas inesperadas</em>. Son siempre inmutables y residen en la cadena de Litecoin, lo que elimina la necesidad de gestiones adicionales.</p>
+<p><em>Las inscripciones están en Bitcoin</em>. Puedes verificar fácilmente la ubicación y propiedades de las inscripciones con un nodo de Litecoin que tu controlas.</p>
+<h3 id="litecoin-users"><a class="header" href="#litecoin-users">Litecoin users</a></h3>
+<p>Permíteme iniciar esta sección señalando que: la principal función de la red de Litecoin es la descentralización del dinero. Todos los otros usos que se le pueden dar son secundarios, y eso incluye a la teoría ordinal. Los desarrolladores detrás de esta teoría comprenden muy bien este aspecto y consideran que su trabajo contribuye, aunque sea mínimamente, a la misión principal de Litecoin.</p>
 <p>A diferencia de muchas otras cosas en el espacio altcoin,  los artefactos digitales tienen mérito propio. Es verdad que hay una gran cantidad de NFTs que son feos, estúpidos o fraudulentos. Sin embargo, también hay muchos que sobresalen por su increíble creatividad. La creación y colección de arte ha sido parte fundamental de la historia humana desde tiempos antiguos, incluso antes del surgimiento del comercio y el dinero, que son tecnologías ancestrales también.</p>
-<p>Bitcoin ofrece una plataforma increíble para la creación y colección de artefactos digitales de manera segura y descentralizada, protegiendo tanto a usuarios como a artistas, al igual que facilita una plataforma confiable para transmitir y recibir valor.</p>
-<p>Los Ordinals y las inscripciones aumentan la demanda de espacio en los bloques de Bitcoin, lo que aumenta el presupuesto de seguridad de Bitcoin esto es vital para salvaguardar la transición de Bitcoin a un modelo de seguridad dependiente de comisiones, a medida que el subsidio de bloque se reduce a una cantidad insignificante.</p>
-<p>El contenido de la inscripción se guarda en la cadena de bloques de Bitcoin y, debido a esto, la necesidad de espacio en los bloques para alojar inscripciones es ilimitada. Esta dinámica establece una demanda constante por el espacio disponible en los bloques de Bitcoin, favoreciendo la sustentación de un mercado de comisiones saludable, lo que a su vez contribuye a preservar la seguridad de Bitcoin.</p>
-<p>Las inscripciones también desafían la narrativa de que Bitcoin no puede expandirse o ser utilizado para nuevos casos de uso. Si estás al tanto de proyectos como DLCs, Fedimint, Lightning, Taro y RGB, sabrás que esta narrativa es incorrecta. Las inscripciones ofrecen un contraargumento claro y fácil de entender, apuntando a un caso de uso popular y probado como son los NFTs, lo cual las hace muy atractivas.</p>
-<p>Si las inscripciones demuestran ser artefactos digitales muy buscados, como esperan sus creadores, podrían convertirse en un poderoso gancho para la adopción de Bitcoin: las personas podrían ser atraídas inicialmente por el arte divertido, pero se quedarían por el potencial del dinero digital descentralizado.</p>
-<p>Las inscripciones representan una forma extremadamente benigna de demanda de espacio en el bloque. A diferencia de las stablecoins, por ejemplo, que pueden otorgar a los emisores un gran poder de influencia sobre el desarrollo futuro de Bitcoin, o DeFi, que podría centralizar la minería al introducir oportunidades para el MEV, el arte digital y los coleccionables en Bitcoin, es poco probable que produzcan entidades individuales con suficiente poder para corromper Bitcoin. El arte es descentralizado.</p>
-<p>Se les incentiva a los usuarios de inscripciones y a los proveedores de servicios ejecutar nodos de Bitcoin, para publicar y rastrear inscripciones, y así apoyar respaldar la cadena.</p>
-<p>La teoría ordinal y las inscripciones no afectan en alguna escala significante la fungibilidad de Bitcoin. Los usuarios de Bitcoin pueden ignorar ambos y no verse afectados.</p>
-<p>Esperamos que la teoría ordinal fortalezca y enriquezca a bitcoin, y le dé otra dimensión de atractividad y funcionalidad, permitiéndole servir de manera más efectiva a su caso de uso principal como el almacenamiento descentralizado de valor de para la humanidad.</p>
+<p>Litecoin ofrece una plataforma increíble para la creación y colección de artefactos digitales de manera segura y descentralizada, protegiendo tanto a usuarios como a artistas, al igual que facilita una plataforma confiable para transmitir y recibir valor.</p>
+<p>Los Ordinals y las inscripciones aumentan la demanda de espacio en los bloques de Litecoin, lo que aumenta el presupuesto de seguridad de Litecoin esto es vital para salvaguardar la transición de Litecoin a un modelo de seguridad dependiente de comisiones, a medida que el subsidio de bloque se reduce a una cantidad insignificante.</p>
+<p>El contenido de la inscripción se guarda en la cadena de bloques de Litecoin y, debido a esto, la necesidad de espacio en los bloques para alojar inscripciones es ilimitada. Esta dinámica establece una demanda constante por el espacio disponible en los bloques de Litecoin, favoreciendo la sustentación de un mercado de comisiones saludable, lo que a su vez contribuye a preservar la seguridad de Litecoin.</p>
+<p>Las inscripciones también desafían la narrativa de que Litecoin no puede expandirse o ser utilizado para nuevos casos de uso. Si estás al tanto de proyectos como DLCs, Fedimint, Lightning, Taro y RGB, sabrás que esta narrativa es incorrecta. Las inscripciones ofrecen un contraargumento claro y fácil de entender, apuntando a un caso de uso popular y probado como son los NFTs, lo cual las hace muy atractivas.</p>
+<p>Si las inscripciones demuestran ser artefactos digitales muy buscados, como esperan sus creadores, podrían convertirse en un poderoso gancho para la adopción de Litecoin: las personas podrían ser atraídas inicialmente por el arte divertido, pero se quedarían por el potencial del dinero digital descentralizado.</p>
+<p>Las inscripciones representan una forma extremadamente benigna de demanda de espacio en el bloque. A diferencia de las stablecoins, por ejemplo, que pueden otorgar a los emisores un gran poder de influencia sobre el desarrollo futuro de Litecoin, o DeFi, que podría centralizar la minería al introducir oportunidades para el MEV, el arte digital y los coleccionables en Litecoin, es poco probable que produzcan entidades individuales con suficiente poder para corromper Litecoin. El arte es descentralizado.</p>
+<p>Se les incentiva a los usuarios de inscripciones y a los proveedores de servicios ejecutar nodos de Litecoin, para publicar y rastrear inscripciones, y así apoyar respaldar la cadena.</p>
+<p>La teoría ordinal y las inscripciones no afectan en alguna escala significante la fungibilidad de Litecoin. Los usuarios de Litecoin pueden ignorar ambos y no verse afectados.</p>
+<p>Esperamos que la teoría ordinal fortalezca y enriquezca a litecoin, y le dé otra dimensión de atractividad y funcionalidad, permitiéndole servir de manera más efectiva a su caso de uso principal como el almacenamiento descentralizado de valor de para la humanidad.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="runes/specification.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -369,7 +350,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="runes/specification.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ru" class="coal" dir="ltr">
+<html lang="ru" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Вступление</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Обзор</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Цифровые артефакты</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Надписи</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Провенанс</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Рекурсия</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> Описание</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">5.</strong> ЧАВО</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Вклад</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> Пожертвование</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> Руководства</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Проводник</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Коллекционирование</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Модерация</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Переиндексация</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Охота на сатоши</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> Тестирование</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> Награды</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> Награда 0: 100 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> Награда 1: 200 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> Награда 2: 300 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> Награда 3: 400 000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -256,7 +237,7 @@
 <h2 id="Что-такое-ordinal-theory"><a class="header" href="#Что-такое-ordinal-theory">Что такое ordinal theory?</a></h2>
 <p>Ordinal theory - это протокол для присвоения порядковых номеров сатоши, наименьшей части биткоина, и отслеживания этих сатоши по мере их расходования в ходе транзакций.</p>
 <p>Эти серийные номера представляют собой большие числа, как, например, этот 804766073970493. Каждый сатоши, который представляет собой ¹⁄₁₀₀₀₀₀₀₀₀ биткоина, имеет порядковый номер.</p>
-<h2 id="Требует-ли-ordinal-theory-создания-side-chain-отдельного-токена-или-изменений-в-bitcoin"><a class="header" href="#Требует-ли-ordinal-theory-создания-side-chain-отдельного-токена-или-изменений-в-bitcoin">Требует ли ordinal theory создания side chain, отдельного токена или изменений в Bitcoin?</a></h2>
+<h2 id="Требует-ли-ordinal-theory-создания-side-chain-отдельного-токена-или-изменений-в-litecoin"><a class="header" href="#Требует-ли-ordinal-theory-создания-side-chain-отдельного-токена-или-изменений-в-litecoin">Требует ли ordinal theory создания side chain, отдельного токена или изменений в Litecoin?</a></h2>
 <p>Нет! Ordinal theory работает прямо сейчас, без side chain, и единственным необходимым токеном является сам биткоин.</p>
 <h2 id="Чем-полезна-ordinal-theory"><a class="header" href="#Чем-полезна-ordinal-theory">Чем полезна ordinal theory?</a></h2>
 <p>Коллекционирование, торговля и интриги. Ordinal theory присваивает идентификацию отдельным сатоши, что позволяет отслеживать их по отдельности и торговать ими как диковинами и нумизматическими ценностями.</p>
@@ -281,15 +262,15 @@
 <p>The satoshis <var>e</var> and <var>f</var> now have nowhere to go in the outputs:</p>
 <pre><code>[a b] [c] [d e f] → [a b c d]
 </code></pre>
-<p>Поэтому они поступают майнеру, добывшему блок, в качестве вознаграждения. <a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">В BIP</a> описаны подробности, но вкратце, комиссии, уплаченные транзакциями, рассматриваются как дополнительные входы в транзакцию coinbase и упорядочиваются так, как упорядочены соответствующие им транзакции в блоке. Транзакция блока coinbase может выглядеть следующим образом:</p>
+<p>Поэтому они поступают майнеру, добывшему блок, в качестве вознаграждения. <a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">В BIP</a> описаны подробности, но вкратце, комиссии, уплаченные транзакциями, рассматриваются как дополнительные входы в транзакцию coinbase и упорядочиваются так, как упорядочены соответствующие им транзакции в блоке. Транзакция блока coinbase может выглядеть следующим образом:</p>
 <pre><code>[SUBSIDY] [e f] → [SUBSIDY e f]
 </code></pre>
 <h2 id="Где-я-могу-найти-подробную-информацию"><a class="header" href="#Где-я-могу-найти-подробную-информацию">Где я могу найти подробную информацию?</a></h2>
-<p><a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">В BIP!</a></p>
+<p><a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">В BIP!</a></p>
 <h2 id="Почему-sat-надписи-называются-цифровыми-артефактами-а-не-nft"><a class="header" href="#Почему-sat-надписи-называются-цифровыми-артефактами-а-не-nft">Почему sat надписи называются "цифровыми артефактами", а не "NFT"?</a></h2>
 <p>Надпись - это NFT, но вместо нее используется термин "цифровой артефакт", поскольку он прост, наводит на размышления и хорошо знаком.</p>
 <p>Фраза "цифровой артефакт" наводит на размышления даже тех, кто никогда раньше не слышал этого термина. Для сравнения, NFT - это аббревиатура, которая не дает никаких указаний на то, что она означает, если вы не слышали этот термин раньше.</p>
-<p>Кроме того, в "NFT" чувствуется финансовая терминология, а слова "fungible" и смысл слова "token", используемые в "NFT", нередки вне финансового контекста.</p>
+<p>Additionally, "NFT" feels like financial terminology, and both the word "fungible" and sense of the word "token" as used in "NFT" is uncommon outside of financial contexts.</p>
 <h2 id="Чем-sat-надписи-отличаются-от"><a class="header" href="#Чем-sat-надписи-отличаются-от">Чем sat-надписи отличаются от…</a></h2>
 <h3 id="nft-на-ethereum"><a class="header" href="#nft-на-ethereum">NFT на Ethereum?</a></h3>
 <p><em>Надписи всегда неизменны.</em></p>
@@ -303,9 +284,9 @@
 <p>Нетехническому пользователю очень сложно определить, где хранится содержимое того или иного Ethereum NFT.</p>
 <p><em>Надписи гораздо проще.</em></p>
 <p>Ethereum NFT зависит от сети и виртуальной машины Ethereum, которые очень сложны, постоянно меняются и вносят изменения через обратно-несовместимые хард форки.</p>
-<p>С другой стороны, надписи зависят от блокчейна Bitcoin, который относительно прост и консервативен, а изменения в него вносятся через обратно совместимые софт форки.</p>
+<p>С другой стороны, надписи зависят от блокчейна Litecoin, который относительно прост и консервативен, а изменения в него вносятся через обратно совместимые софт форки.</p>
 <p><em>Надписи более надежны.</em></p>
-<p>Надписи наследуют модель Bitcoin транзакций, позволяющую пользователю до подписания транзакции видеть, какие именно надписи передаются по ней. Надписи могут быть выставлены на продажу с помощью частично подписанных транзакций, которые не требуют разрешения третьей стороне, например бирже или торговой площадке, передавать их от имени пользователя.</p>
+<p>Надписи наследуют модель Litecoin транзакций, позволяющую пользователю до подписания транзакции видеть, какие именно надписи передаются по ней. Надписи могут быть выставлены на продажу с помощью частично подписанных транзакций, которые не требуют разрешения третьей стороне, например бирже или торговой площадке, передавать их от имени пользователя.</p>
 <p>Для сравнения, NFT на Ethereum страдают от уязвимостей безопасности конечных пользователей. Обычным явлением является слепая подпись транзакций, предоставление сторонним приложениям неограниченных прав доступа к NFT пользователя, а также взаимодействие со сложными и непредсказуемыми смарт-контрактами. Это создает минное поле опасностей для пользователей Ethereum NFT, которые просто не волнуют ordinal теоретиков.</p>
 <p><em>Надписи встречаются все реже.</em></p>
 <p>Для нанесения надписей, их передачи и хранения требуется биткоин. На первый взгляд, это недостаток, но смысл существования цифровых артефактов заключается в том, чтобы быть дефицитными и, следовательно, ценными.</p>
@@ -314,22 +295,22 @@
 <p>On-chain Роялти - хорошая идея в теории, но не на практике. Выплата on-chain роялти не может быть обеспечена без сложных и инвазивных ограничений. Экосистема Ethereum NFT в настоящее время борется с путаницей вокруг роялти и коллективно приходит к пониманию того, что on-chain роялти, которые были заявлены художникам в качестве преимущества NFT, невозможны, в то время как платформы гонятся за дном и убирают поддержку роялти.</p>
 <p>Надписи полностью исключают подобную ситуацию, не давая ложных обещаний о поддержке on-chain роялти, что позволяет избежать путаницы, хаоса и негатива, характерных для ситуации с NFT на Ethereum.</p>
 <p><em>Надписи открывают новые рынки.</em></p>
-<p>Рыночная капитализация и ликвидность Bitcoin значительно превосходят Ethereum за счёт большей маржи. Значительная часть этой ликвидности недоступна для Ethereum NFT, поскольку многие Bitcoiners предпочитают не взаимодействовать с экосистемой Ethereum из-за опасений, связанных с простотой, безопасностью и децентрализацией.</p>
-<p>Такие Bitcoiners могут быть более заинтересованы в надписях, чем в Ethereum NFT, что открывает новые классы коллекционеров.</p>
+<p>Bitcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Bitcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, security, and decentralization.</p>
+<p>Такие Litecoin users могут быть более заинтересованы в надписях, чем в Ethereum NFT, что открывает новые классы коллекционеров.</p>
 <p><em>Надписи имеют более богатую модель данных.</em></p>
 <p>Надписи состоят из типа содержимого, известного также как тип-MIME, и содержимого, представляющего собой произвольную байтовую строку. Это та же модель данных, которая используется в web, и позволяет содержимому надписей развиваться вместе с web и поддерживать любой тип содержимого, поддерживаемый браузерами, не требуя изменений в базовом протоколе.</p>
 <h3 id="rgb-и-активы-taro"><a class="header" href="#rgb-и-активы-taro">RGB и активы Taro?</a></h3>
-<p>RGB и Taro - протоколы активов второго уровня, построенные на базе Bitcoin. По сравнению с надписями они гораздо сложнее, но и гораздо более функциональны.</p>
+<p>RGB и Taro - протоколы активов второго уровня, построенные на базе Litecoin. По сравнению с надписями они гораздо сложнее, но и гораздо более функциональны.</p>
 <p>Ordinal theory была разработана с нуля для цифровых артефактов, в то время как основной сферой использования RGB и Taro являются взаимозаменяемые токены, поэтому пользовательский опыт для надписей, скорее всего, будет более простым и отточенным, чем пользовательский опыт для NFT RGB и Taro.</p>
 <p>RGB и Taro хранят off-chain контент, что требует дополнительной инфраструктуры и может быть утеряно. В отличие от них, содержимое надписей хранится on-chain и не может быть потеряно.</p>
 <p>Ordinal theory, RGB и Taro находятся на очень ранних стадиях развития, поэтому это лишь предположение, но то, что ordinal theory уделяет больше внимания цифровым артефактам, может дать ей преимущество в плане возможностей для них, включая лучшую модель контента и такие возможности, как глобально уникальные символы.</p>
 <h3 id="Активы-counterparty"><a class="header" href="#Активы-counterparty">Активы Counterparty?</a></h3>
-<p>У Counterparty есть собственный токен XCP, который необходим для работы с некоторыми функциями, что заставляет большинство bitcoiners рассматривать его как альткоин, а не как расширение или второй уровень биткоина.</p>
+<p>У Counterparty есть собственный токен XCP, который необходим для работы с некоторыми функциями, что заставляет большинство Litecoin users рассматривать его как альткоин, а не как расширение или второй уровень биткоина.</p>
 <p>Ordinal theory была разработана с нуля для цифровых артефактов, в то время как Counterparty в первую очередь предназначалась для выпуска финансовых токенов.</p>
 <h2 id="Надписи-для"><a class="header" href="#Надписи-для">Надписи для…</a></h2>
 <h3 id="Художников"><a class="header" href="#Художников">Художников</a></h3>
-<p><em>Надписи на Bitcoin.</em> Bitcoin - это цифровая валюта с самым высоким статусом и наибольшими шансами на долгосрочное выживание. Если вы хотите гарантировать, что ваше искусство сохранится в будущем, нет лучшего способа опубликовать его, чем в виде надписей.</p>
-<p><em>Более дешевое on-chain хранение.</em> При цене $20 000 за BTC и минимальной комиссии за ретрансляцию в размере 1 сатоши за один байт публикация on-chain контента обходится в $50 за 1 млн байт.</p>
+<p><em>Inscriptions are on Bitcoin.</em> Bitcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions.</p>
+<p><em>Более дешевое on-chain хранение.</em> При цене $20 000 за LTC и минимальной комиссии за ретрансляцию в размере 1 сатоши за один байт публикация on-chain контента обходится в $50 за 1 млн байт.</p>
 <p><em>Надписи все еще являются ранними!</em> Надписи находятся в стадии разработки и еще не запущены в основной сети. Это дает вам возможность стать ранним последователем и изучать среду по мере ее развития.</p>
 <p><em>Надписи просты.</em> Надписи не требуют написания или понимания смарт-контрактов.</p>
 <p><em>Надписи открывают новую ликвидность.</em> Надписи становятся более доступными и привлекательными для держателей биткоинов, открывая совершенно новый класс коллекционеров.</p>
@@ -337,17 +318,17 @@
 <p><em>Надписи не поддерживают on-chain роялти.</em> Это негативный момент, но только в зависимости от того, как на него посмотреть. On-chain роялти стали благом для создателей, но в то же время внесли огромную путаницу в экосистему NFT на Ethereum. В настоящее время экосистема решает эту проблему и участвует в гонке на понижение, стремясь к будущему без роялти. Надписи не поддерживают on-chain роялти, поскольку это технически неосуществимо. Если вы решите создавать надписи, есть много способов обойти это ограничение: придержать часть надписей для будущей продажи, чтобы получить выгоду от будущего роста стоимости, или, возможно, предложить привилегии для пользователей, соблюдающих необязательные роялти.</p>
 <h3 id="Коллекционеры"><a class="header" href="#Коллекционеры">Коллекционеры</a></h3>
 <p><em>Надписи просты, понятны и не содержат сюрпризов.</em> Они всегда неизменны и находятсяon-chain, не требуя специальной проверки.</p>
-<p><em>Надписи находятся на Bitcoin.</em> Вы можете легко проверить местоположение и свойства надписей с помощью Bitcoin fill node, который вы контролируете.</p>
-<h3 id="bitcoiners"><a class="header" href="#bitcoiners">Bitcoiners</a></h3>
-<p>Начну этот раздел с того, что самое главное, что делает сеть Bitcoin, - это децентрализация денег. Все остальные варианты использования, в том числе и ordinal theory, являются вторичными. Разработчики ordinal theory понимают и признают это, и считают, что ordinal theory хотя бы в малой степени способствует выполнению основной миссии Биткойна.</p>
+<p><em>Надписи находятся на Litecoin.</em> Вы можете легко проверить местоположение и свойства надписей с помощью Litecoin fill node, который вы контролируете.</p>
+<h3 id="litecoin-users"><a class="header" href="#litecoin-users">Litecoin users</a></h3>
+<p>Начну этот раздел с того, что самое главное, что делает сеть Litecoin, - это децентрализация денег. Все остальные варианты использования, в том числе и ordinal theory, являются вторичными. Разработчики ordinal theory понимают и признают это, и считают, что ordinal theory хотя бы в малой степени способствует выполнению основной миссии Биткойна.</p>
 <p>В отличие от многих других вещей в альткоин пространстве, цифровые артефакты имеют свои достоинства. Конечно, существует огромное количество NFT, которые являются уродливыми, глупыми и мошенническими. Однако есть и множество фантастически креативных, а создание и коллекционирование произведений искусства было частью истории человечества с момента его зарождения и предшествовало даже торговле и деньгам, которые также являются древними технологиями.</p>
-<p>Bitcoin предоставляет потрясающую платформу для создания и сбора цифровых артефактов безопасным, децентрализованным способом, который защищает пользователей и художников точно так же, как и платформа для отправки и получения ценностей, и по всем тем же причинам.</p>
-<p>Ordinals и надписи увеличивают спрос на место в блоке Bitcoin, что увеличивает бюджет Bitcoin безопасности, который крайне важен для обеспечения перехода Bitcoin на платно-зависимую модель безопасности, так как субсидия на блок сокращается вдвое и становится незначительной.</p>
-<p>Содержимое надписей хранится on-chain, и поэтому спрос на блокчейн для использования в надписях неограничен. Это создает покупателя последней инстанции для <em>всего</em> блокчейна Bitcoin. Это поможет поддержать надежный рынок вознаграждений, что обеспечит безопасность биткойна.</p>
-<p>Надписи также противостоят утверждению, что Bitcoin не может быть расширен или использован для новых целей. Если вы следите за такими проектами, как DLCs, Fedimint, Lightning, Taro и RGB, вы знаете, что это утверждение неверно, но надписи предоставляют контраргумент, который легко понять, и который нацелен на популярный и проверенный пример использования - NFT, что делает его весьма наглядным.</p>
-<p>Если надписи, как надеются авторы, окажутся востребованными цифровыми артефактами с богатой историей, они послужат мощным крючком для внедрения Bitcoin: приходите за интересным, богатым искусством, оставайтесь за децентрализованными цифровыми деньгами.</p>
+<p>Litecoin предоставляет потрясающую платформу для создания и сбора цифровых артефактов безопасным, децентрализованным способом, который защищает пользователей и художников точно так же, как и платформа для отправки и получения ценностей, и по всем тем же причинам.</p>
+<p>Ordinals и надписи увеличивают спрос на место в блоке Litecoin, что увеличивает бюджет Litecoin безопасности, который крайне важен для обеспечения перехода Litecoin на платно-зависимую модель безопасности, так как субсидия на блок сокращается вдвое и становится незначительной.</p>
+<p>Содержимое надписей хранится on-chain, и поэтому спрос на блокчейн для использования в надписях неограничен. Это создает покупателя последней инстанции для <em>всего</em> блокчейна Litecoin. Это поможет поддержать надежный рынок вознаграждений, что обеспечит безопасность биткойна.</p>
+<p>Надписи также противостоят утверждению, что Litecoin не может быть расширен или использован для новых целей. Если вы следите за такими проектами, как DLCs, Fedimint, Lightning, Taro и RGB, вы знаете, что это утверждение неверно, но надписи предоставляют контраргумент, который легко понять, и который нацелен на популярный и проверенный пример использования - NFT, что делает его весьма наглядным.</p>
+<p>Если надписи, как надеются авторы, окажутся востребованными цифровыми артефактами с богатой историей, они послужат мощным крючком для внедрения Litecoin: приходите за интересным, богатым искусством, оставайтесь за децентрализованными цифровыми деньгами.</p>
 <p>Надписи - это исключительно доброкачественный источник спроса на блокчейн. В отличие, например, от стабильных монеток, которые потенциально дают крупным эмитентам стабильных монеток возможность влиять на будущее развитие Биткоина, или DeFi, которые могут централизовать майнинг, создавая возможности для MEV, цифровое искусство и коллекционные предметы на Биткоине вряд ли приведут к появлению отдельных субъектов, обладающих достаточной властью, чтобы коррумпировать Биткоин. Искусство децентрализовано.</p>
-<p>Пользователи надписей и поставщики услуг получают стимул запускать Bitcoin full nodes, публиковать и отслеживать надписи и тем самым поддерживать честную цепочку своим экономическим весом.</p>
+<p>Пользователи надписей и поставщики услуг получают стимул запускать Litecoin full nodes, публиковать и отслеживать надписи и тем самым поддерживать честную цепочку своим экономическим весом.</p>
 <p>Ordinal theory и надписи не оказывают существенного влияния на взаимозаменяемость Биткоина. Пользователи Биткоина могут игнорировать и то, и другое, и это их не затронет.</p>
 <p>Мы надеемся, что ordinal theory укрепит и обогатит Биткоин, придаст ему еще одно измерение привлекательности и функциональности, это позволит ему более эффективно выполнять свою основную функцию децентрализованного хранилища ценностей человечества.</p>
 
@@ -355,7 +336,7 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="runes/specification.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -369,7 +350,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="runes/specification.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

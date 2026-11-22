@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
-<html lang="ja" class="coal" dir="ltr">
+<html lang="ja" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Wallet - Ordinal Theory Handbook</title>
+        <title>ウォレット - Ordinal Theory Handbook</title>
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">紹介</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 銘文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 出所</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 再帰</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> 規範</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 一般的問題</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> 貢献</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> 寄付</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> ガイド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> ブラウザ</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> コレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 雀のウォレット</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 調節</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 再インデックス</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 聡狩り</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> テスティング</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> 賞金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> ミッション 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> ミッション 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> ミッション 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> ミッション 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -252,16 +233,16 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="wallet"><a class="header" href="#wallet">Wallet</a></h1>
+                        <h1 id="ウォレット"><a class="header" href="#ウォレット">ウォレット</a></h1>
 <p>単一のコングは、ビットコインウォレットに保存され、ビットコイントランザクションを使用して転送されるビットコインネイティブデジタルアーティファクトを作成するために、任意のコンテンツを刻印することができます。の銘文はビットコイン自体と同じくらい持続的で、不変で、安全で、分散化されています。</p>
 <p>銘文を使用するには、ビットコインのブロックチェーンの現在の状態を知ることができるビットコインの完全なノードが必要です。また、銘文を作成し、取引を構築することができます」他のウォレットに銘文を送信するときにスマートコントロールを実行するウォレット。</p>
-<p>Bitcoin Core ビットコインのフルノードとウォレットを提供します。しかし，Bitcoin Coreウォレットは碑文を作成できず、スマートコントロールを実行しません。</p>
-<p>これには<a href="https://github.com/ordinals/ord">'ord'</a>,序数ユーティリティ。'ord'は自分のウォレットを持っていないので、'ord wallet'サブコマンドはBitcoin Coreウォレットと対話します。</p>
+<p>Litecoin Core ビットコインのフルノードとウォレットを提供します。しかし，Litecoin Coreウォレットは碑文を作成できず、スマートコントロールを実行しません。</p>
+<p>これには<a href="https://github.com/ynohtna92/ord-litecoin">'ord'</a>,序数ユーティリティ。'ord'は自分のウォレットを持っていないので、'ord wallet'サブコマンドはLitecoin Coreウォレットと対話します。</p>
 <p>このガイドの含まれ：</p>
 <ol>
-<li>Bitcoin Coreを取り付けます。</li>
+<li>Litecoin Coreを取り付けます。</li>
 <li>ビットコインのブロックを同期します。</li>
-<li>Bitcoin Core ウォレットを作り上げます。</li>
+<li>Litecoin Core ウォレットを作り上げます。</li>
 <li><code>ord wallet receive</code>を使って聡を取り受けます。</li>
 <li><code>ord wallet inscribe</code>を使って、銘文を作り上げます。</li>
 <li><code>ord wallet send</code>を使って`銘文を発送します</li>
@@ -269,36 +250,36 @@
 <li>Batch inscribing with <code>ord wallet inscribe --batch</code></li>
 </ol>
 <h2 id="助けを求めます"><a class="header" href="#助けを求めます">助けを求めます。</a></h2>
-<p>困ったことがあったら、<a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>,またはGithubの関連内容をチェックする<a href="https://github.com/ordinals/ord/issues">質問</a>と<a href="https://github.com/ordinals/ord/discussions">ディスカッション</a>.</p>
-<h2 id="bitcoin-coreを取り付けます"><a class="header" href="#bitcoin-coreを取り付けます">Bitcoin Coreを取り付けます。</a></h2>
-<p><a href="https://bitcoincore.org/">bitcoincore.org</a>で」の<a href="https://bitcoincore.org/en/download/">ダウンロードページ</a></p>
-<p>銘文を作成するにはBitcoin Core 24以降が必要です。</p>
-<p>This guide does not cover installing Bitcoin Core in detail. Once Bitcoin Core is installed, you should be able to run <code>bitcoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>bitcoin-qt</code>.</p>
-<h2 id="bitcoin-coreを配置します"><a class="header" href="#bitcoin-coreを配置します">Bitcoin Coreを配置します。</a></h2>
-<p><code>ord</code> requires Bitcoin Core's transaction index and rest interface.</p>
-<p>トランザクションインデックスを配置するためにBitcoin Coreフェーズを設定します,'bitcoin.conf'に追加する必要があります::</p>
+<p>If you get stuck, try asking for help on the <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>, or checking GitHub for relevant <a href="https://github.com/ynohtna92/ord-litecoin/issues">issues</a> and <a href="https://github.com/ynohtna92/ord-litecoin/discussions">discussions</a>.</p>
+<h2 id="litecoin-coreを取り付けます"><a class="header" href="#litecoin-coreを取り付けます">Litecoin Coreを取り付けます。</a></h2>
+<p><a href="https://litecoin.org/">litecoin.org</a>で」の<a href="https://litecoin.org/">ダウンロードページ</a></p>
+<p>Making inscriptions requires Litecoin Core 21.5.8; Taproot wallets require a compatible Core 24 development build.</p>
+<p>This guide does not cover installing Litecoin Core in detail. Once Litecoin Core is installed, you should be able to run <code>litecoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>litecoin-qt</code>.</p>
+<h2 id="litecoin-coreを配置します"><a class="header" href="#litecoin-coreを配置します">Litecoin Coreを配置します。</a></h2>
+<p><code>ord</code> requires Litecoin Core's transaction index and rest interface.</p>
+<p>トランザクションインデックスを配置するためにLitecoin Coreフェーズを設定します,'litecoin.conf'に追加する必要があります::</p>
 <pre><code>txindex=1
 </code></pre>
-<p>または,  <code>bitcoind</code> 和 <code>-txindex</code>を運行します:</p>
-<pre><code>bitcoind -txindex
+<p>または,  <code>litecoind</code> 和 <code>-txindex</code>を運行します:</p>
+<pre><code>litecoind -txindex
 </code></pre>
-<p>Details on creating or modifying your <code>bitcoin.conf</code> file can be found <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">here</a>.</p>
+<p><code>litecoin.conf</code> ファイルの作成または変更についての詳細は<a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md">こちら</a>で確認できます。</p>
 <h2 id="ビットコインのブロックを同期にします"><a class="header" href="#ビットコインのブロックを同期にします">ビットコインのブロックを同期にします。</a></h2>
 <p>ブロックを同期にして、運行します：</p>
-<pre><code>bitcoind -txindex
+<pre><code>litecoind -txindex
 </code></pre>
 <p>… <code>getblockcount運行するまで</code>:</p>
-<pre><code>bitcoin-cli getblockcount
+<pre><code>litecoin-cli getblockcount
 </code></pre>
-<p>ブロックチェーンブラウザのように[the mempool.space block explorer]（https://mempool.space/)のようにブロックを記述する...<code>ord</code>は'bitcoind'と相互作用するので、'ord'を使用するときは'bitcoind'をバックグラウンドで実行する必要があります。</p>
-<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>bitcoin-cli</code> and <code>ord</code> to find.</p>
+<p>agrees with the block count on a block explorer like <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>. <code>ord</code> interacts with <code>litecoind</code>, so you should leave <code>litecoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>ブロックチェーンは約600GBのディスク容量を必要とします。ブロックを保存したい外付けドライブがある場合は、設定オプション <code>blocksdir=&lt;external_drive_path&gt;</code> を使用してください。これは <code>datadir</code> オプションを使用するよりもはるかに簡単です。クッキーファイルが <code>litecoin-cli</code> や <code>ord</code> が見つけられるデフォルトの場所にあり続けるためです。</p>
 <h2 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h2>
-<p>Make sure you can access <code>bitcoind</code> with <code>bitcoin-cli -getinfo</code> and that it is fully synced.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>bitcoind</code> is not running.</p>
-<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>bitcoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your bitcoin data directory.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
-<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>bitcoin.conf</code> file. If <code>bitcoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
-<p>Make sure <code>txindex=1</code> is set. Run <code>bitcoin-cli getindexinfo</code> and it should return something like</p>
+<p><code>litecoin-cli -getinfo</code> で <code>litecoind</code> にアクセスできることと、完全に同期されていることを確認してください。</p>
+<p><code>litecoin-cli -getinfo</code> が <code>Could not connect to the server</code> を返す場合、<code>litecoind</code> が実行されていません。</p>
+<p><code>litecoin.conf</code> ファイルに <code>rpcuser</code>、<code>rpcpassword</code>、または <code>rpcauth</code> が設定されて_いない_ことを確認してください。<code>ord</code> はクッキー認証の使用が必要です。Bitcoinデータディレクトリに <code>.cookie</code> ファイルがあることを確認してください。</p>
+<p><code>litecoin-cli -getinfo</code> が <code>Could not locate RPC credentials</code> を返す場合、クッキーファイルの場所を指定する必要があります。カスタムデータディレクトリを使用している場合（<code>datadir</code> オプションを指定）、<code>litecoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code> のようにクッキーの場所を指定する必要があります。<code>ord</code> を実行する際は、<code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code> でクッキーファイルの場所を指定する必要があります。</p>
+<p><code>litecoin.conf</code> ファイルに <code>disablewallet=1</code> が設定されて_いない_ことを確認してください。<code>litecoin-cli listwallets</code> が <code>Method not found</code> を返す場合、ウォレットが無効になっており、<code>ord</code> を使用できません。</p>
+<p><code>txindex=1</code> が設定されていることを確認してください。<code>litecoin-cli getindexinfo</code> を実行すると、次のような結果が返されるはずです</p>
 <pre><code class="language-json">{
   "txindex": {
     "synced": true,
@@ -306,44 +287,44 @@
   }
 }
 </code></pre>
-<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>"synced": false</code>, <code>bitcoind</code> is still creating the <code>txindex</code>. Wait until <code>"synced": true</code> before using <code>ord</code>.</p>
-<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:8333</code>.</p>
+<p><code>{}</code> のみが返される場合、<code>txindex</code> が設定されていません。<code>"synced": false</code> が返される場合、<code>litecoind</code> がまだ <code>txindex</code> を作成中です。<code>ord</code> を使用する前に <code>"synced": true</code> になるまで待ってください。</p>
+<p><code>maxuploadtarget</code> が設定されている場合、<code>ord</code> インデックス用のブロック取得に干渉する可能性があります。これを削除するか、<code>whitebind=127.0.0.1:9333</code> を設定してください。</p>
 <h2 id="ord取り付けます"><a class="header" href="#ord取り付けます"><code>ord取り付けます。</code></a></h2>
-<p><code>ord</code> プログラムはRust言語で書かれており、<a href="https://github.com/ordinals/ord">ソースコード</a>インストール.事前に作成されたファイルは、<a href="https://github.com/ordinals/ord/releases">バージョンリリースページ</a>)からダウンロードできます。</p>
-<p>コマンドラインで次のコマンドを使用して、最新のファイルをインストールすることもできます。：</p>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+<p>The <code>ord</code> utility is written in Rust and can be built from <a href="https://github.com/ynohtna92/ord-litecoin">source</a>. Pre-built binaries are available on the <a href="https://github.com/ynohtna92/ord-litecoin/releases">releases page</a>.</p>
+<p>最新のプリビルドバイナリをコマンドラインから次のコマンドでインストールできます：コマンドラインで次のコマンドを使用して、最新のファイルをインストールすることもできます。：</p>
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 </code></pre>
 <p>'ord'が正常にインストールされた後、あなたは実行することができます :</p>
 <pre><code>ord --version
 </code></pre>
 <p>これにより、「ord」のバージョン番号が出力されます。</p>
 <h2 id="creating-a-wallet"><a class="header" href="#creating-a-wallet">Creating a Wallet</a></h2>
-<p><code>ord</code> uses <code>bitcoind</code> to manage private keys, sign transactions, and broadcast transactions to the Bitcoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
-<pre><code>bitcoind -txindex
+<p><code>ord</code> uses <code>litecoind</code> to manage private keys, sign transactions, and broadcast transactions to the Litecoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
+<pre><code>litecoind -txindex
 </code></pre>
 <pre><code>ord server
 </code></pre>
 <p>To create a wallet named <code>ord</code>, the default, for use with <code>ord wallet</code>, run:</p>
 <pre><code>ord wallet create
 </code></pre>
-<p>This will print out your seed phrase mnemonic, store it somewhere safe.</p>
+<p>これによりシードフレーズニーモニックが表示されます。安全な場所に保存してください。</p>
 <pre><code>{
   "mnemonic": "dignity buddy actor toast talk crisp city annual tourist orient similar federal",
   "passphrase": ""
 }
 </code></pre>
-<p>If you want to specify a different name or use an <code>ord server</code> running on a non-default URL you can set these options:</p>
+<p>異なる名前を指定したい場合や、デフォルト以外のURLで動作している <code>ord server</code> を使用したい場合は、以下のオプションを設定できます：</p>
 <pre><code>ord wallet --name foo --server-url http://127.0.0.1:8080 create
 </code></pre>
-<p>To see all available wallet options you can run:</p>
+<p>利用可能なウォレットオプションをすべて確認するには、次のコマンドを実行してください：</p>
 <pre><code>ord wallet help
 </code></pre>
-<h2 id="restoring-and-dumping-wallet"><a class="header" href="#restoring-and-dumping-wallet">Restoring and Dumping Wallet</a></h2>
-<p>The <code>ord</code> wallet uses descriptors, so you can export the output descriptors and import them into another descriptor-based wallet. To export the wallet descriptors, which include your private keys:</p>
+<h2 id="ウォレットの復元とダンプ"><a class="header" href="#ウォレットの復元とダンプ">ウォレットの復元とダンプ</a></h2>
+<p><code>ord</code> ウォレットはディスクリプタを使用しているため、アウトプットディスクリプタをエクスポートして他のディスクリプタベースのウォレットにインポートできます。秘密鍵を含むウォレットディスクリプタをエクスポートするには：</p>
 <pre><code>$ ord wallet dump
 ==========================================
-= THIS STRING CONTAINS YOUR PRIVATE KEYS =
-=        DO NOT SHARE WITH ANYONE        =
+= この文字列には秘密鍵が含まれています =
+=        誰とも共有しないでください        =
 ==========================================
 {
   "wallet_name": "ord",
@@ -373,17 +354,17 @@
   ]
 }
 </code></pre>
-<p>An <code>ord</code> wallet can be restored from a mnemonic:</p>
+<p><code>ord</code> ウォレットはニーモニックから復元できます：</p>
 <pre><code>ord wallet restore --from mnemonic
 </code></pre>
-<p>Type your mnemonic and press return.</p>
-<p>To restore from a descriptor in <code>descriptor.json</code>:</p>
+<p>ニーモニックを入力してEnterキーを押してください。</p>
+<p><code>descriptor.json</code> のディスクリプタから復元するには：</p>
 <pre><code>cat descriptor.json | ord wallet restore --from descriptor
 </code></pre>
-<p>To restore from a descriptor in the clipboard:</p>
+<p>クリップボードのディスクリプタから復元するには：</p>
 <pre><code>ord wallet restore --from descriptor
 </code></pre>
-<p>Paste the descriptor into the terminal and press CTRL-D on unix and CTRL-Z on Windows.</p>
+<p>ディスクリプタをターミナルに貼り付け、UnixではCTRL-D、WindowsではCTRL-Zを押してください。</p>
 <h2 id="聡を取り受けます"><a class="header" href="#聡を取り受けます">聡を取り受けます。</a></h2>
 <p>銘文は、単一のコングに作成され、通常のビットコイン取引のためにコングを使用して料金を支払うので、あなたの財布はいくつかのコング（ビットコイン）を必要とします。</p>
 <p>'ord'ウォレットの新しいアドレスを作成して、実行します::</p>
@@ -398,24 +379,24 @@
 <p>聡の上ではあらゆる種類のコンテンツを書き込むことができますが、'ord'ウォレットは'ord'ブロックブラウザで表示できる種類のコンテンツしかサポートしていません。</p>
 <p>また、銘文は取引に含まれているため、内容が大きいほど銘文取引にかかる費用が高くなります。</p>
 <p>銘文の内容は取引証言に含まれ、証言割引を受ける。トランザクションへの書き込みで支払われる費用の概算を計算するには、コンテンツサイズを4で割ってから、レートを掛けてください。</p>
-<p>銘文取引は400,000重量測定単位未満でなければならない。そうでなければ、Bitcoin Coreに中継されないの1バイトの銘文内容には重み測定単位が必要です。銘文取引は銘文の内容だけではないので、銘文の内容は400、000重量計量単位以内に制限されている。390、000の重み測定単位は安全でなければならなりません。</p>
+<p>銘文取引は400,000重量測定単位未満でなければならない。そうでなければ、Litecoin Coreに中継されないの1バイトの銘文内容には重み測定単位が必要です。銘文取引は銘文の内容だけではないので、銘文の内容は400、000重量計量単位以内に制限されている。390、000の重み測定単位は安全でなければならなりません。</p>
 <h2 id="銘文を作成します"><a class="header" href="#銘文を作成します">銘文を作成します。</a></h2>
 <p>『FILE』の内容で銘文を作成し、実行する必要があります:</p>
 <pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ordは2つの取引IDが出力されます。1つはcommit取引、もう1つはreveal取引、そして銘文IDです。銘文IDのフォーマットは、'TXIDiN'であり、'TXID'は、取引を開示する取引IDであり、'N'は、取引における銘文を開示するインデックスであ。</p>
 <p>CommitCommitトランザクションは銘文の内容を含むtapscriptに提出され、revealトランザクションはそのtapscriptから費やされます。チェーン上のコンテンツを表示し、revealトランザクションの最初の出力の最初のsatにそれらをマークします。</p>
-<p>reveal取引が記録されるのを待っている間、あなたは使用することができます[the mempool.space block explorer]（https://mempool.space/)は取引の状態をチェックします。</p>
+<p>reveal取引が記録されるのを待っている間、あなたは使用することができます[the litecoinspace.org block explorer]（https://litecoinspace.org/)は取引の状態をチェックします。</p>
 <p>reveal取引が記帳を完了したら、以下のコマンドを使用して銘文IDを照会できます</p>
 <pre><code>ord wallet inscriptions
 </code></pre>
 <h2 id="parent-child-inscriptions"><a class="header" href="#parent-child-inscriptions">Parent-Child Inscriptions</a></h2>
-<p>Parent-child inscriptions enable what is colloquially known as collections, see <a href="../inscriptions/provenance.html">provenance</a> for more information.</p>
-<p>To make an inscription a child of another, the parent inscription has to be inscribed and present in the wallet. To choose a parent run <code>ord wallet inscriptions</code> and copy the inscription id (<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>).</p>
+<p>親子関係の碑文は、一般的にコレクションと呼ばれる機能を可能にします。詳しくは <a href="../inscriptions/provenance.html">provenance</a> を参照してください。</p>
+<p>碑文を他の碑文の子にするためには、親碑文が碑文されておりウォレットに存在する必要があります。親を選ぶには <code>ord wallet inscriptions</code> を実行し、碑文ID（<code>&lt;PARENT_INSCRIPTION_ID&gt;</code>）をコピーしてください。</p>
 <p>Now inscribe the child inscription and specify the parent like so:</p>
 <pre><code>ord wallet inscribe --fee-rate FEE_RATE --parent &lt;PARENT_INSCRIPTION_ID&gt; --file CHILD_FILE
 </code></pre>
-<p>This relationship cannot be added retroactively, the parent has to be present at inception of the child.</p>
+<p>この関係は後から追加することはできません。親は子の作成時に存在している必要があります。</p>
 <h2 id="銘文を発送します"><a class="header" href="#銘文を発送します">銘文を発送します</a></h2>
 <p>銘文受信者は次のコマンドを使って住所を生成する</p>
 <pre><code>ord wallet receive
@@ -436,7 +417,7 @@
 <p>Send the runes by running:</p>
 <pre><code>ord wallet send --fee-rate &lt;FEE_RATE&gt; &lt;ADDRESS&gt; &lt;RUNES_AMOUNT&gt;
 </code></pre>
-<p>Where <code>RUNES_AMOUNT</code> is the number of runes to send, a <code>:</code> character, and the name of the rune. For example if you want to send 1000 of the EXAMPLE rune, you would use <code>1000:EXAMPLE</code>.</p>
+<p><code>RUNES_AMOUNT</code> は送信するルーンの数、<code>:</code> 文字、そしてルーンの名前です。例えば、EXAMPLEルーンを1000個送信したい場合は、<code>1000:EXAMPLE</code> を使用します。</p>
 <pre><code>ord wallet send --fee-rate 1 SOME_ADDRESS 1000:EXAMPLE
 </code></pre>
 <p>できなかった取引状況を検査します：</p>
@@ -463,11 +444,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -477,11 +458,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

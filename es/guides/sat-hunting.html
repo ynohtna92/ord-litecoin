@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="es" class="coal" dir="ltr">
+<html lang="es" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introducción</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Descripción General</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Artefactos Digitales</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Inscripciones</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegado</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadatos</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Puntero</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Proveniencia</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursión</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Renderizado</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Ejemplos</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Especificación</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> Preguntas Frecuentes</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Contribuir</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Donaciones</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Guías</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorador</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Monedero</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Inscribiendo por Lotes</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Coleccionar</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Monedero Sparrow</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderación</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindexación</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html" class="active"><strong aria-hidden="true">8.7.</strong> Caza de Sats</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Configuración</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Telequemado</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Pruebas</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Recompensas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Recompensa Ordinal 0: 100,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Recompensa Ordinal 1: 200,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Recompensa Ordinal 2: 300,000 sats reclamados!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Recompensa Ordinal 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -259,24 +240,24 @@
 <p>Antes de empezar, necesitarás algunas cosas.</p>
 <ol>
 <li>
-<p>Primero, necesitarás un nodo de Bitcoin Core sincronizado con un índice de transacciones. Para activar la indexación de transacciones, ejecuta <code>-txindex</code> en la línea de comandos:</p>
-<pre><code class="language-sh">bitcoind -txindex
+<p>Primero, necesitarás un nodo de Litecoin Core sincronizado con un índice de transacciones. Para activar la indexación de transacciones, ejecuta <code>-txindex</code> en la línea de comandos:</p>
+<pre><code class="language-sh">litecoind -txindex
 </code></pre>
-<p>O escribe lo siguiente en tu <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">Archivo de Configuración de Bitcoin</a>::</p>
+<p>O escribe lo siguiente en tu <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">Archivo de Configuración de Litecoin</a>::</p>
 <pre><code>txindex=1
 </code></pre>
 <p>Ejecutalo y espera hasta que llegue al final de la cadena; una vez hecho esto, el siguiente comando debería imprimir la altura del bloque actual:</p>
-<pre><code class="language-sh">bitcoin-cli getblockcount
+<pre><code class="language-sh">litecoin-cli getblockcount
 </code></pre>
 </li>
 <li>
 <p>En segundo lugar, vas a necesitar un índice de <code>ord</code> sincronizado.</p>
 <ul>
 <li>
-<p>Obtén una copia de <code>ord</code> desde el <a href="https://github.com/ordinals/ord/">repositorio</a>..</p>
+<p>Obtén una copia de <code>ord</code> desde el <a href="https://github.com/ynohtna92/ord-litecoin/">repositorio</a>..</p>
 </li>
 <li>
-<p>Ejecuta <code>ord --index-sats server</code>. Esto debería conectar con tu nodo de Bitcoin Core y comenzar el indexado.</p>
+<p>Ejecuta <code>ord --index-sats server</code>. Esto debería conectar con tu nodo de Litecoin Core y comenzar el indexado.</p>
 </li>
 <li>
 <p>Once it has finished indexing, leave the server running and submit new <code>ord</code> commands in a separate terminal session.</p>
@@ -288,12 +269,12 @@
 </li>
 </ol>
 <h2 id="buscando-ordinals-raros"><a class="header" href="#buscando-ordinals-raros">Buscando Ordinals Raros</a></h2>
-<h3 id="buscando-ordinals-raros-en-un-monedero-de-bitcoin-core"><a class="header" href="#buscando-ordinals-raros-en-un-monedero-de-bitcoin-core">Buscando Ordinals Raros en un Monedero de Bitcoin Core</a></h3>
-<p>El comando <code>ord walle</code>t es solo un envoltorio alrededor de la API RPC de Bitcoin Core, así que buscar ordinals raros en un monedero de Bitcoin Core es fácil. Digamos que tu monedero se llama <code>foo</code>:</p>
+<h3 id="buscando-ordinals-raros-en-un-monedero-de-litecoin-core"><a class="header" href="#buscando-ordinals-raros-en-un-monedero-de-litecoin-core">Buscando Ordinals Raros en un Monedero de Litecoin Core</a></h3>
+<p>El comando <code>ord walle</code>t es solo un envoltorio alrededor de la API RPC de Litecoin Core, así que buscar ordinals raros en un monedero de Litecoin Core es fácil. Digamos que tu monedero se llama <code>foo</code>:</p>
 <ol>
 <li>
 <p>Carga tu monedero:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo
+<pre><code class="language-sh">litecoin-cli loadwallet foo
 </code></pre>
 </li>
 <li>
@@ -302,10 +283,10 @@
 </code></pre>
 </li>
 </ol>
-<h3 id="buscando-ordinals-raros-en-un-monedero-que-no-es-de-bitcoin-core"><a class="header" href="#buscando-ordinals-raros-en-un-monedero-que-no-es-de-bitcoin-core">Buscando Ordinals Raros en un Monedero que no es de Bitcoin Core</a></h3>
-<p>El comando <code>ord wallet</code> es solo un envoltorio alrededor de la API RPC de Bitcoin Core, así que para buscar ordinales raros en un monedero que no es de Bitcoin Core, necesitarás importar los descriptores de tu monedero a Bitcoin Core.</p>
-<p>Los <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md">descriptors</a> describen la manera en que los monederos generan llaves privadas y públicas.</p>
-<p>Solo deberías importar los descriptores en Bitcoin Core para las claves públicas de tu monedero, no para las claves privadas.</p>
+<h3 id="buscando-ordinals-raros-en-un-monedero-que-no-es-de-litecoin-core"><a class="header" href="#buscando-ordinals-raros-en-un-monedero-que-no-es-de-litecoin-core">Buscando Ordinals Raros en un Monedero que no es de Litecoin Core</a></h3>
+<p>El comando <code>ord wallet</code> es solo un envoltorio alrededor de la API RPC de Litecoin Core, así que para buscar ordinales raros en un monedero que no es de Litecoin Core, necesitarás importar los descriptores de tu monedero a Litecoin Core.</p>
+<p>Los <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md">descriptors</a> describen la manera en que los monederos generan llaves privadas y públicas.</p>
+<p>Solo deberías importar los descriptores en Litecoin Core para las claves públicas de tu monedero, no para las claves privadas.</p>
 <p>Si el descriptor de llave pública de tu monedero está comprometido, un atacante podrá ver las direcciones de tu monedero, pero tus fondos estarán seguros.</p>
 <p>Si el descriptor de llave privada de tu monedero está comprometido, un atacante podrá vaciar los fondos de tu monedero.</p>
 <ol>
@@ -316,25 +297,25 @@
 </li>
 <li>
 <p>Crea un monedero de solo lectura llamada <code>foo-solo-lectura</code>:</p>
-<pre><code class="language-sh">bitcoin-cli createwallet foo-watch-only true true
+<pre><code class="language-sh">litecoin-cli createwallet foo-watch-only true true
 </code></pre>
 <p>¡Siéntete libre de elegir un nombre major que <code>foo-solo-lectura</code>!</p>
 </li>
 <li>
 <p>Carga el monedero <code>foo-solo-lectura</code>:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
 <p>Importa los descriptores de tu monedero a <code>1foo-solo-lectura</code>:</p>
-<pre><code class="language-sh">bitcoin-cli importdescriptors \
+<pre><code class="language-sh">litecoin-cli importdescriptors \
   '[{ "desc": "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
 </code></pre>
-<p>Si conoces la marca de tiempo Unix cuando tu monedero comenzó a recibir transacciones, puedes usarla para el valor de <code>"timestamp"</code> en lugar de <code>0</code>. Esto reducirá el tiempo que Bitcoin Core tardará en buscar los UTXO en tu monedero.</p>
+<p>Si conoces la marca de tiempo Unix cuando tu monedero comenzó a recibir transacciones, puedes usarla para el valor de <code>"timestamp"</code> en lugar de <code>0</code>. Esto reducirá el tiempo que Litecoin Core tardará en buscar los UTXO en tu monedero.</p>
 </li>
 <li>
 <p>Comprueba que todo haya funcionado correctamente:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -344,7 +325,7 @@
 </li>
 </ol>
 <h3 id="buscando-ordinals-raros-en-un-monedero-que-exporta-descriptores-de-múltiples-rutas-multi-path"><a class="header" href="#buscando-ordinals-raros-en-un-monedero-que-exporta-descriptores-de-múltiples-rutas-multi-path">Buscando Ordinals Raros en un Monedero que Exporta Descriptores de Múltiples Rutas (multi-path)</a></h3>
-<p>Algunos descriptores describen múltiples rutas en un descriptor utilizando paréntesis angular, por ejemplo, &lt;0;1&gt;. Los descriptores de múltiples rutas aún no son compatibles con Bitcoin Core, así que primero deberás convertirlos en múltiples descriptores y luego importarlos a Bitcoin Core.</p>
+<p>Algunos descriptores describen múltiples rutas en un descriptor utilizando paréntesis angular, por ejemplo, &lt;0;1&gt;. Los descriptores de múltiples rutas aún no son compatibles con Litecoin Core, así que primero deberás convertirlos en múltiples descriptores y luego importarlos a Litecoin Core.</p>
 <ol>
 <li>
 <p>En primer lugar, obtén el descriptor de múltiples rutas de tu monedero. Se verá algo así:</p>
@@ -355,13 +336,13 @@
 <p>Crea un descriptor para la ruta de dirección que lo recibirá:</p>
 <pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)
 </code></pre>
-<p>Y la dirección que recibirá lo que sobra de bitcoin o el cambio:</p>
+<p>Y la dirección que recibirá lo que sobra de litecoin o el cambio:</p>
 <pre><code>wpkh([bf1dd55e/84'/0'/0']xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)
 </code></pre>
 </li>
 <li>
 <p>Obtén y anota el checksum del descriptor de la dirección de recepción, en este caso es <code>tpnxnxax</code>:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -373,7 +354,7 @@
 }
 </code></pre>
 <p>Y para el descriptor de la dirección de cambio, en este caso 64k8wnd7:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -387,12 +368,12 @@
 </li>
 <li>
 <p>Carga el monedero al cual deseas importar los descriptores:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
-<p>Ahora importa los descriptores, con los checksums correctos, a Bitcoin Core.</p>
-<pre><code class="language-sh">bitcoin-cli \
+<p>Ahora importa los descriptores, con los checksums correctos, a Litecoin Core.</p>
+<pre><code class="language-sh">litecoin-cli \
  importdescriptors \
  '[
    {
@@ -405,11 +386,11 @@
    }
  ]'
 </code></pre>
-<p>Si conoces la marca de tiempo de Unix cuando tu monedero comenzó a recibir transacciones por primera vez, puedes utilizarlo como el valor del campo <code>"timestamp"</code> en lugar de <code>0</code>. Esto reducirá el tiempo que tarda Bitcoin Core en buscar los UTXOs de tu monedero.</p>
+<p>Si conoces la marca de tiempo de Unix cuando tu monedero comenzó a recibir transacciones por primera vez, puedes utilizarlo como el valor del campo <code>"timestamp"</code> en lugar de <code>0</code>. Esto reducirá el tiempo que tarda Litecoin Core en buscar los UTXOs de tu monedero.</p>
 </li>
 <li>
 <p>Comprueba que todo haya funcionado correctamente:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -425,7 +406,7 @@
 <p>Puedes transferir satoshis específicos utilizando el nombre asignado en el monedero <code>ord</code>. Para enviar el satoshi denominado <code>zonefruits</code>, sigue estos pasos:</p>
 <pre><code>ord wallet send &lt;RECEIVING_ADDRESS&gt; zonefruits --fee-rate 21
 </code></pre>
-<p>También puedes utilizar los comandos de <code>bitcoin-cli</code> como <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code> y <code>sendrawtransaction</code>, pero este método puede ser complejo y está fuera del alcance de esta guía.</p>
+<p>También puedes utilizar los comandos de <code>litecoin-cli</code> como <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code> y <code>sendrawtransaction</code>, pero este método puede ser complejo y está fuera del alcance de esta guía.</p>
 
                     </main>
 
@@ -435,7 +416,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/settings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/satscards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -449,7 +430,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/settings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/satscards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

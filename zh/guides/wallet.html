@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="zh" class="coal" dir="ltr">
+<html lang="zh" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">介绍</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 概述</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 铭文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> 委托</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> 元数据</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> 指针</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 溯源</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 递归</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> 渲染</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> 示例</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> 符文｜福文🧧</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> 规范</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 常见问题</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> 贡献</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> 捐赠</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> 指引</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> 浏览器</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> 钱包</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> 批量铸造</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> 收藏</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 麻雀钱包</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 调节</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 重新索引</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 猎聪</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> 设置</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> 燃烧传送</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> 调试</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> 赏金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> 赏金 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> 赏金 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> 赏金 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> 赏金 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -255,13 +236,13 @@
                         <h1 id="钱包"><a class="header" href="#钱包">钱包</a></h1>
 <p>单个 聪 可以刻有任意内容，创建可以保存在比特币钱包中并使用比特币交易传输的比特币原生数字人工制品。铭文与比特币本身一样持久、不变、安全和去中心化。</p>
 <p>使用铭文需要一个比特币完整节点，让您了解比特币区块链的当前状态，以及一个可以创建铭文并在构建交易以将铭文发送到另一个钱包时执行 聪 控制的钱包。</p>
-<p>Bitcoin Core 提供比特币全节点和钱包。 但是，Bitcoin Core 钱包不能创建铭文，不执行 聪 控制。</p>
-<p>这需要<a href="https://github.com/ordinals/ord"><code>ord</code></a>，序数实用程序。 <code>ord</code> 没有自己的钱包，因此  <code>ord wallet</code>子命令与 Bitcoin Core 钱包交互。</p>
+<p>Litecoin Core 提供比特币全节点和钱包。 但是，Litecoin Core 钱包不能创建铭文，不执行 聪 控制。</p>
+<p>这需要<a href="https://github.com/ynohtna92/ord-litecoin"><code>ord</code></a>，序数实用程序。 <code>ord</code> 没有自己的钱包，因此  <code>ord wallet</code>子命令与 Litecoin Core 钱包交互。</p>
 <p>本指南涵盖：</p>
 <ol>
-<li>安装 Bitcoin Core</li>
+<li>安装 Litecoin Core</li>
 <li>同步比特币区块链</li>
-<li>创建 Bitcoin Core 钱包</li>
+<li>创建 Litecoin Core 钱包</li>
 <li>使用 <code>ord wallet receive</code>收取聪</li>
 <li>使用<code>ord wallet inscribe</code>创建铭文</li>
 <li>使用 <code>ord wallet send</code>发送铭文</li>
@@ -269,36 +250,36 @@
 <li>使用<code>ord wallet inscribe</code>创建铭文</li>
 </ol>
 <h2 id="寻求帮助"><a class="header" href="#寻求帮助">寻求帮助</a></h2>
-<p>如果你遇到困难，可以在<a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>,或者检查Github上的相关内容<a href="https://github.com/ordinals/ord/issues">问题</a> 和<a href="https://github.com/ordinals/ord/discussions">讨论</a>.</p>
-<h2 id="安装-bitcoin-core"><a class="header" href="#安装-bitcoin-core">安装 Bitcoin Core</a></h2>
-<p>Bitcoin Core 可以在 <a href="https://bitcoincore.org/">bitcoincore.org</a> 上的<a href="https://bitcoincore.org/en/download/">下载页面</a>.</p>
-<p>制作铭文需要Bitcoin Core 24 或者更新版本。</p>
-<p>本指南不包括如何详细安装 Bitcoin Core；当你成功安装Bitcoin Core以后，你应该可以在命令行使用 <code>bitcoind -version</code>命令。</p>
-<h2 id="配置-bitcoin-core"><a class="header" href="#配置-bitcoin-core">配置 Bitcoin Core</a></h2>
-<p><code>ord</code> 需要Bitcoin Core 的交易索引</p>
-<p>配置你的Bitcoin Core阶段去维护一个交易索引，需要在<code>bitcoin.conf</code>里面添加:</p>
+<p>If you get stuck, try asking for help on the <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>, or checking GitHub for relevant <a href="https://github.com/ynohtna92/ord-litecoin/issues">issues</a> and <a href="https://github.com/ynohtna92/ord-litecoin/discussions">discussions</a>.</p>
+<h2 id="安装-litecoin-core"><a class="header" href="#安装-litecoin-core">安装 Litecoin Core</a></h2>
+<p>Litecoin Core 可以在 <a href="https://litecoin.org/">litecoin.org</a> 上的<a href="https://litecoin.org/">下载页面</a>.</p>
+<p>Making inscriptions requires Litecoin Core 21.5.8; Taproot wallets require a compatible Core 24 development build.</p>
+<p>本指南不包括如何详细安装 Litecoin Core；当你成功安装Litecoin Core以后，你应该可以在命令行使用 <code>litecoind -version</code>命令。</p>
+<h2 id="配置-litecoin-core"><a class="header" href="#配置-litecoin-core">配置 Litecoin Core</a></h2>
+<p><code>ord</code> 需要Litecoin Core 的交易索引</p>
+<p>配置你的Litecoin Core阶段去维护一个交易索引，需要在<code>litecoin.conf</code>里面添加:</p>
 <pre><code>txindex=1
 </code></pre>
-<p>或者, 运行 <code>bitcoind</code> 和 <code>-txindex</code>:</p>
-<pre><code>bitcoind -txindex
+<p>或者, 运行 <code>litecoind</code> 和 <code>-txindex</code>:</p>
+<pre><code>litecoind -txindex
 </code></pre>
-<p>关于创建或者修改你的 <code>bitcoin.conf</code>文件，可以参考 <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">这里</a>.</p>
+<p>关于创建或者修改你的 <code>litecoin.conf</code>文件，可以参考 <a href="https://github.com/litecoin/litecoin/blob/master/doc/litecoin-conf.md">这里</a>.</p>
 <h2 id="比特币区块同步"><a class="header" href="#比特币区块同步">比特币区块同步</a></h2>
 <p>区块同步，运行：</p>
-<pre><code>bitcoind -txindex
+<pre><code>litecoind -txindex
 </code></pre>
 <p>…直到运行 <code>getblockcount</code>:</p>
-<pre><code>bitcoin-cli getblockcount
+<pre><code>litecoin-cli getblockcount
 </code></pre>
-<p>像区块链浏览器<a href="https://mempool.space/">the mempool.space block explorer</a>一样对区块进行记述. <code>ord</code>同<code>bitcoind</code>进行交互, 所以你在使用<code>ord</code>时候需要让<code>bitcoind</code> 在后台运行。</p>
-<p>区块链占用约600GB的磁盘空间。如果你有一个外接硬盘来存储区块，可以使用配置选项<code>blocksdir=&lt;external_drive_path&gt;</code>. 这比使用<code>datadir</code> 选项更简单， <code>bitcoin-cli</code> 和 <code>ord</code> 可以在默认的位置找到cookie文件</p>
+<p>agrees with the block count on a block explorer like <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>. <code>ord</code> interacts with <code>litecoind</code>, so you should leave <code>litecoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>区块链占用约600GB的磁盘空间。如果你有一个外接硬盘来存储区块，可以使用配置选项<code>blocksdir=&lt;external_drive_path&gt;</code>. 这比使用<code>datadir</code> 选项更简单， <code>litecoin-cli</code> 和 <code>ord</code> 可以在默认的位置找到cookie文件</p>
 <h2 id="故障排除"><a class="header" href="#故障排除">故障排除</a></h2>
-<p>确保你可以通过 <code>bitcoin-cli -getinfo</code> 来访问<code>bitcoind</code> ，并且它已经完全同步</p>
-<p>假如 <code>bitcoin-cli -getinfo</code> 返回的是 <code>Could not connect to the server</code>, 这可能是<code>bitcoind</code> 没有运行</p>
-<p>确保 <code>rpcuser</code>, <code>rpcpassword</code>, 或者 <code>rpcauth</code> <em>没有</em> 在你的 <code>bitcoin.conf</code> 文件里进行设置。 <code>ord</code> 需要使用 cookie 认证。因此需要确保 你的bitcoin data的文件夹里有 <code>.cookie</code>文件。</p>
-<p>如果 <code>bitcoin-cli -getinfo</code> 返回<code>Could not locate RPC credentials</code>, 那么 你必须指定 cookie 文件的位置。如果你正在使用自定义的数据目录 (指定 <code>datadir</code> 的选项),那么你必须指定cookie文件的位置. <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/ cookie -getinfo</code>.当你运行 <code>ord</code> 命令时，你必须指定 cookie 文件的位置 <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
-<p>确保你在<code>bitcoin.conf</code> 文件中 <em>没有</em> 配置 <code>disablewallet=1</code> 如果 <code>bitcoin-cli listwallets</code> 返回 <code>Method not found</code> 那么钱包就会被禁用你将要无法使用 <code>ord</code>.</p>
-<p>确保设置 <code>txindex=1</code> 。运行 <code>bitcoin-cli getindexinfo</code> 将会返回一些这样的结果</p>
+<p>确保你可以通过 <code>litecoin-cli -getinfo</code> 来访问<code>litecoind</code> ，并且它已经完全同步</p>
+<p>假如 <code>litecoin-cli -getinfo</code> 返回的是 <code>Could not connect to the server</code>, 这可能是<code>litecoind</code> 没有运行</p>
+<p>确保 <code>rpcuser</code>, <code>rpcpassword</code>, 或者 <code>rpcauth</code> <em>没有</em> 在你的 <code>litecoin.conf</code> 文件里进行设置。 <code>ord</code> 需要使用 cookie 认证。因此需要确保 你的litecoin data的文件夹里有 <code>.cookie</code>文件。</p>
+<p>如果 <code>litecoin-cli -getinfo</code> 返回<code>Could not locate RPC credentials</code>, 那么 你必须指定 cookie 文件的位置。如果你正在使用自定义的数据目录 (指定 <code>datadir</code> 的选项),那么你必须指定cookie文件的位置. <code>litecoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/ cookie -getinfo</code>.当你运行 <code>ord</code> 命令时，你必须指定 cookie 文件的位置 <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
+<p>确保你在<code>litecoin.conf</code> 文件中 <em>没有</em> 配置 <code>disablewallet=1</code> 如果 <code>litecoin-cli listwallets</code> 返回 <code>Method not found</code> 那么钱包就会被禁用你将要无法使用 <code>ord</code>.</p>
+<p>确保设置 <code>txindex=1</code> 。运行 <code>litecoin-cli getindexinfo</code> 将会返回一些这样的结果</p>
 <pre><code class="language-json">{
   "txindex": {
     "synced": true,
@@ -306,24 +287,24 @@
   }
 }
 </code></pre>
-<p>假如仅仅返回 <code>{}</code>, <code>txindex</code> 没有被设置。如果返回 <code>"synced": false</code>, <code>bitcoind</code> 仍然在创建 <code>txindex</code>。那就需要等到<code>"synced": true</code> ，<code>ord</code>命令方可以使用.</p>
-<p>如果你设置了<code>maxuploadtarget</code> ，他将干扰 <code>ord</code> 的索引获取区块， 你可以选择移除或者设置<code>whitebind=127.0.0.1:8333</code>.</p>
+<p>假如仅仅返回 <code>{}</code>, <code>txindex</code> 没有被设置。如果返回 <code>"synced": false</code>, <code>litecoind</code> 仍然在创建 <code>txindex</code>。那就需要等到<code>"synced": true</code> ，<code>ord</code>命令方可以使用.</p>
+<p>如果你设置了<code>maxuploadtarget</code> ，他将干扰 <code>ord</code> 的索引获取区块， 你可以选择移除或者设置<code>whitebind=127.0.0.1:9333</code>.</p>
 <h2 id="安装-ord"><a class="header" href="#安装-ord">安装 <code>ord</code></a></h2>
-<p><code>ord</code> 程序使用Rust语言写成，可以从<a href="https://github.com/ordinals/ord">源码</a>安装. 预制文件可以从<a href="https://github.com/ordinals/ord/releases">版本发布页</a>下载。</p>
+<p>The <code>ord</code> utility is written in Rust and can be built from <a href="https://github.com/ynohtna92/ord-litecoin">source</a>. Pre-built binaries are available on the <a href="https://github.com/ynohtna92/ord-litecoin/releases">releases page</a>.</p>
 <p>你也可以在命令行中使用下面命令来安装最新的文件：</p>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 </code></pre>
 <p>当 <code>ord</code> 成功安装以后,你可以运行 :</p>
 <pre><code>ord --version
 </code></pre>
 <p>这会返回 <code>ord</code>的版本信息.</p>
-<h2 id="创建一个bitcoin-core钱包"><a class="header" href="#创建一个bitcoin-core钱包">创建一个Bitcoin Core钱包</a></h2>
-<p><code>ord</code> 使用Bitcoin Core来管理私钥，签署交易以及向比特币网络广播交易。此外，<code>ord</code> 钱包需要在后台运行<a href="explorer.html"><code>ord server</code></a>，请确保这些程序运行</p>
-<pre><code>bitcoind -txindex
+<h2 id="创建一个litecoin-core钱包"><a class="header" href="#创建一个litecoin-core钱包">创建一个Litecoin Core钱包</a></h2>
+<p><code>ord</code> 使用Litecoin Core来管理私钥，签署交易以及向比特币网络广播交易。此外，<code>ord</code> 钱包需要在后台运行<a href="explorer.html"><code>ord server</code></a>，请确保这些程序运行</p>
+<pre><code>litecoind -txindex
 </code></pre>
 <pre><code>ord server
 </code></pre>
-<p>创建一个名为<code>ord</code> 的Bitcoin Core 钱包，运行:</p>
+<p>创建一个名为<code>ord</code> 的Litecoin Core 钱包，运行:</p>
 <pre><code>ord wallet create
 </code></pre>
 <p>这将打印出您的助记词，并将其存储在安全的地方。</p>
@@ -398,14 +379,14 @@
 <p>聪上可以刻录任何类型的内容，但<code>ord</code>钱包只支持<code>ord</code>区块浏览器可以显示的内容类型。</p>
 <p>另外，铭文是包含在交易中的，所以内容越大，铭文交易需要支付的费用就越高。</p>
 <p>铭文内容包含在交易见证中，获得见证折扣。要计算写入交易将支付的大概费用，请将内容大小除以四，然后乘以费率。</p>
-<p>铭文交易必须少于 400,000 个权重计量单位，否则不会被 Bitcoin Core 中继。一个字节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。</p>
+<p>铭文交易必须少于 400,000 个权重计量单位，否则不会被 Litecoin Core 中继。一个字节的铭文内容需要一个权重计量单位。 由于铭文交易不只是铭文内容，铭文内容限制在400,000权重计量单位以内。390,000 个权重计量单位应该是安全的。</p>
 <h2 id="创建铭文"><a class="header" href="#创建铭文">创建铭文</a></h2>
 <p>以<code>FILE</code>的内容创建一个铭文，需要运行:</p>
 <pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ord会输出两个交易ID，一个是commit交易，一个是reveal交易，还有铭文ID。铭文 ID 的格式为<code>TXIDiN</code>，其中<code>TXID</code> 是揭示交易的交易 ID，<code>N</code> 是揭示交易中铭文的索引。</p>
 <p>Commit交易提交到包含铭文内容的 tapscript，reveal交易则从该 tapscript 中花费，显示链上的内容并将它们铭刻在reveal交易的第一个输出的第一个 sat 上。</p>
-<p>在等待reveal交易被记录的同时，你可以使用<a href="https://mempool.space/">the mempool.space block explorer</a>来检查交易的状态。</p>
+<p>在等待reveal交易被记录的同时，你可以使用<a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>来检查交易的状态。</p>
 <p>一旦reveal交易完成记账，你可以使用以下命令查询铭文ID：</p>
 <pre><code>ord wallet inscriptions
 </code></pre>
@@ -463,11 +444,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -477,11 +458,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

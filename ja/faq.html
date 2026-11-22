@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
-<html lang="ja" class="coal" dir="ltr">
+<html lang="ja" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>一般的問題 - Ordinal Theory Handbook</title>
+        <title>FAQ - Ordinal Theory Handbook</title>
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">紹介</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> 概要</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> 数字文物</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> 銘文</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 出所</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 再帰</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> 規範</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">5.</strong> 一般的問題</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> 貢献</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> 寄付</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> ガイド</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> ブラウザ</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> コレクション</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 雀のウォレット</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 調節</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 再インデックス</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> 聡狩り</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> テスティング</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> 賞金</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> ミッション 0: 100,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> ミッション 1: 200,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> ミッション 2: 300,000 sats 完成!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> ミッション 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -281,15 +262,15 @@
 <p>The satoshis <var>e</var> and <var>f</var> now have nowhere to go in the outputs:</p>
 <pre><code>[a b] [c] [d e f] → [a b c d]
 </code></pre>
-<p>だから彼らは「費用」としてこのブロックを掘っている鉱山労働者のところに行きます。<a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">The BIP</a>にはもっと詳しい説明があります。しかし、簡単に言えば、取引によって支払われる料金は、Coinbase取引への追加入力とみなされ、その対応する取引に応じてブロック内にありますの順にソートされます。ブロックのCoinbaseトランザクションは次のようになる可能性があります:</p>
+<p>So they go to the miner who mined the block as fees. <a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">The BIP</a> has the details, but in short, fees paid by transactions are treated as extra inputs to the coinbase transaction, and are ordered how their corresponding transactions are ordered in the block. The coinbase transaction of the block might look like this:</p>
 <pre><code>[SUBSIDY] [e f] → [SUBSIDY e f]
 </code></pre>
 <h2 id="これらの詳細な情報はどこで見つけることができますか"><a class="header" href="#これらの詳細な情報はどこで見つけることができますか">これらの詳細な情報はどこで見つけることができますか</a></h2>
-<p><a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">The BIP!</a></p>
+<p><a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">BIP仕様書!</a></p>
 <h2 id="なぜ聡の銘文はnftではなくデジタル文化財と呼ばれていますか"><a class="header" href="#なぜ聡の銘文はnftではなくデジタル文化財と呼ばれていますか">なぜ聡の銘文は「NFT」ではなく「デジタル文化財」と呼ばれていますか？</a></h2>
 <p>銘文もNFTの一種です。しかし、その代わりに「デジタル文化財」という用語が使われています。それは簡単で、啓発的で、なじみがあるからです</p>
 <p>"デジタル文化財"（デジタル工作物、デジタル人工物）これらの言葉は強い暗示性を持っている。「これまでこの言葉を聞いたことがない人にとってもそうだ」に比べて、NFTは頭文字の略語で、以前この用語を聞いたことがなければ、意味を説明できません。</p>
-<p>さらに、"NFT"は金融用語のような気がします。"NFT"で使われている"同質化"という言葉と"トークン"という言葉の意味は金融の文脈の外では一般的ではありません。</p>
+<p>Additionally, "NFT" feels like financial terminology, and both the word "fungible" and sense of the word "token" as used in "NFT" is uncommon outside of financial contexts.</p>
 <h2 id="聡は他のルーンと比較します"><a class="header" href="#聡は他のルーンと比較します">聡は他のルーンと比較します</a></h2>
 <h3 id="エセリウムnft"><a class="header" href="#エセリウムnft">エセリウムNFT</a></h3>
 <p><em>銘文は永遠に変わりません</em></p>
@@ -314,9 +295,9 @@
 <p>「チェーン上の版税」は理論的には良い考えですが、実際にはうまくいきません。複雑で侵入的な制限がなければチェーン上の版税の支払いを強制することはできません。イーサリアムNFTエコシステムは、版税をめぐる問題を解決するために努力しています。そして、は共に一つの現実に直面しています。つまり、NFTチェーン上の版税という利器を芸術家に伝えることは実際には不可能です。同時に、複数のプラットフォームが版税のサポートを削除するために競争しています</p>
 <p>銘文はこの状況を完全に迴避し、チェーン上のロイヤリティをサポートすることを虚偽で約束していません。はイーサリアムNFTのような混乱と消極的な状況を避けました。</p>
 <p><em>銘文は新たな市場を開きました</em></p>
-<p>ビットコインの市場価格と流動性はイーサリアムを大きく上回っている。イーサリアムNFTはこのような流動性の大部分を得ることができません。多くのビットコインユーザーは、シンプルさ、安全性、分散化の観点から、イーサリアムのエコシステムと対話することを望んでいないからです。</p>
+<p>Bitcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Bitcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, security, and decentralization.</p>
 <p>イーサリアムNFTと比較して、そのようなビットコインの支持者は、新しいカテゴリのコレクターをロック解除するために、碑文に興味を持っている可能性があります。</p>
-<p><em>铭文有更丰富的数据模型</em></p>
+<p><em>碑文はより豊富なデータモデルを持っています</em></p>
 <p>銘文はコンテンツタイプ（MI MEタイプとも呼ばれる）とコンテンツ）任意のバイト文字列）で構成される。これは、Webで使用されるデータモデルと同じです。銘文コンテンツをウェブの発展に合わせて発展させ、基盤となるプロトコルを変更することなく、ウェブブラウザがサポートするあらゆる種類のコンテンツをサポートすることを可能に</p>
 <h3 id="rgb-和-taro-資産"><a class="header" href="#rgb-和-taro-資産">RGB 和 Taro 資産？</a></h3>
 <p>RGBとTaroはいずれもビットコインの上に構築された二層資産協定である。銘文に比べて、それらはずっと複雑ですが、より特色があります。</p>
@@ -328,10 +309,10 @@
 <p>序数理論はデジタル文化財のために最初から設計されたのに対し、Counterpartyは主に金融トークン発行のために設計されました。</p>
 <h2 id="銘文は"><a class="header" href="#銘文は">銘文は...</a></h2>
 <h3 id="芸術家になれます"><a class="header" href="#芸術家になれます">芸術家になれます</a></h3>
-<p>_ビットコインの銘文_ビットコインは現在最も地位が高く、長期生存の機会が最も大きいデジタル通貨であります。はあなたの芸術作品が未来に伝わることを保証したいなら、銘文より良い発表方法はありません。</p>
+<p><em>Inscriptions are on Bitcoin.</em> Bitcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions.</p>
 <p>_チェーン上のストレージはより安価です_ビットコインあたり2万ドルとvbyteあたり1聡の最低中継料金で計算します。碑文の内容を公開するためのコストは100万バイトあたり50ドルです。</p>
-<p><em>铭文还处于项目早期</em> 铭文仍在开发中，尚未在主网上发布（建议更新）。 这使您有机会成为早期采用者，并随着媒体的发展探索它。</p>
-<p><em>铭文很简单</em> 铭文不需要你编写或理解智能合约。</p>
+<p><em>碑文はまだ初期段階です！</em> 碑文はまだ開発中であり、メインネットではまだローンチしていません。これは、あなたが早期採用者になり、メディアが発展するにつれてこの分野を探求する機会を与えます。</p>
+<p><em>碑文はシンプルです</em> 碑文はスマートコントラクトを書いたり理解したりする必要がありません。</p>
 <p>_銘文ロック解除新しい流動性_ビットコインの所有者にとって、銘文はより簡単に入手でき、より魅力的で、新しいコレクションをもたらします。</p>
 <p>_銘文はデジタル文化財のために設計されています_新しいデザインの銘文はNFTをサポートし、より良いデータモデルを持っています,や、世界的にユニークなシンボルや拡張ソースなどの機能です。</p>
 <p>_銘文はチェーン上のロイヤリティを奨励しない_これは良いニュースではないかもしれませんが、それをどう見るかによっても異なります。チェーン上のロイヤリティは常にクリエイターにとっての福音ですしかし、はイーサリアムNFT生態系にも大きな混乱をもたらした。イーサリアムは今この問題を解決しようと努力しています。底をついた競争でもあります。は「オプションのロイヤリティ」の未来を実現する。銘文はチェーン上のロイヤリティをサポートしていません。技術的に不可能だからです。」銘文を作成することを選択した場合、この制限を迴避する方法はたくさんあります。銘文の一部を将来の販売のために残して、将来の上昇から利益を得ます。またはオプションのロイヤリティを尊重するユーザーに追加の手当を提供します。</p>
@@ -355,7 +336,7 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="runes/specification.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -369,7 +350,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="runes/specification.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

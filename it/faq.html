@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="it" class="coal" dir="ltr">
+<html lang="it" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduzione</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Panoramica</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Artefatti Digitali</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Iscrizioni</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadati</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenienza</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Esempi</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> Specifiche</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html" class="active"><strong aria-hidden="true">5.</strong> FAQ</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Contribuire</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> Donare</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> Guide</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Esploratore</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Iscrivere in Batch</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Collezionare</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Portafoglio Sparrow</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderazione</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindicizzazione</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sat Hunting</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> Testare</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> Premi</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> Premio 0: 100,000 sats Riscossi!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> Premio 1: 200,000 sats Riscossi!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> Premio 2: 300,000 sats Riscossi!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> Premio 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -254,13 +235,13 @@
                     <main>
                         <h1 id="faq-sulla-teoria-ordinale"><a class="header" href="#faq-sulla-teoria-ordinale">FAQ sulla Teoria Ordinale</a></h1>
 <h2 id="cosè-la-teoria-ordinale"><a class="header" href="#cosè-la-teoria-ordinale">Cos'è la teoria ordinale?</a></h2>
-<p>La teoria ordinale è un protocollo per l'assegnazione di numeri seriali ai satoshi, la più piccola unità di un bitcoin, e per il monitoraggio di tali satoshi man mano che vengono spesi nelle transazioni.</p>
-<p>Questi numeri di serie sono grandi numeri, come questo 804766073970493. Ogni satoshi, ovvero ¹⁄₁₀₀₀₀₀₀₀₀ (1/100 milioni) di un bitcoin, ha un numero ordinale.</p>
-<h2 id="la-teoria-degli-ordinali-richiede-una-side-chain-un-token-separato-o-modifiche-a-bitcoin"><a class="header" href="#la-teoria-degli-ordinali-richiede-una-side-chain-un-token-separato-o-modifiche-a-bitcoin">La teoria degli ordinali richiede una side chain, un token separato o modifiche a Bitcoin?</a></h2>
-<p>No! La teoria ordinale funziona già adesso, senza una catena secondaria, e l'unico token necessario è il bitcoin stesso.</p>
+<p>La teoria ordinale è un protocollo per l'assegnazione di numeri seriali ai satoshi, la più piccola unità di un litecoin, e per il monitoraggio di tali satoshi man mano che vengono spesi nelle transazioni.</p>
+<p>Questi numeri di serie sono grandi numeri, come questo 804766073970493. Ogni satoshi, ovvero ¹⁄₁₀₀₀₀₀₀₀₀ (1/100 milioni) di un litecoin, ha un numero ordinale.</p>
+<h2 id="la-teoria-degli-ordinali-richiede-una-side-chain-un-token-separato-o-modifiche-a-litecoin"><a class="header" href="#la-teoria-degli-ordinali-richiede-una-side-chain-un-token-separato-o-modifiche-a-litecoin">La teoria degli ordinali richiede una side chain, un token separato o modifiche a Litecoin?</a></h2>
+<p>No! La teoria ordinale funziona già adesso, senza una catena secondaria, e l'unico token necessario è il litecoin stesso.</p>
 <h2 id="a-cosa-serve-la-teoria-ordinale"><a class="header" href="#a-cosa-serve-la-teoria-ordinale">A cosa serve la teoria ordinale?</a></h2>
 <p>A collezionare, scambiare e progettare. La teoria ordinale assegna identità ai singoli satoshi, consentendo loro di essere rintracciati e scambiati individualmente, come collezionabili e per il loro valore numismatico.</p>
-<p>La teoria ordinale consente anche di inserire iscrizioni, un protocollo per allegare contenuti arbitrari ai singoli satoshi, trasformandoli in artefatti digitali nativi di bitcoin.</p>
+<p>La teoria ordinale consente anche di inserire iscrizioni, un protocollo per allegare contenuti arbitrari ai singoli satoshi, trasformandoli in artefatti digitali nativi di litecoin.</p>
 <h2 id="come-funziona-la-teoria-ordinale"><a class="header" href="#come-funziona-la-teoria-ordinale">Come funziona la teoria ordinale?</a></h2>
 <p>I numeri ordinali vengono assegnati ai satoshi nell'ordine in cui vengono minati. Il primo satoshi del primo blocco ha il numero ordinale 0, il secondo ha il numero ordinale 1, e l'ultimo satoshi del primo blocco ha il numero ordinale 4.999.999.999.</p>
 <p>I satoshi vivono negli output, ma le transazioni distruggono gli output e ne creano di nuovi, quindi la teoria ordinale utilizza un algoritmo per determinare come i satoshi passano dagli input di una transazione ai suoi output.</p>
@@ -281,15 +262,15 @@
 <p>The satoshis <var>e</var> and <var>f</var> now have nowhere to go in the outputs:</p>
 <pre><code>[a b] [c] [d e f] → [a b c d]
 </code></pre>
-<p>Quindi vanno al minatore che ha estratto il blocco come commissioni. <a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">Il BIP</a> contiene i dettagli, ma in breve le commissioni pagate dalle transazioni sono trattate come input aggiuntivi alla transazione coinbase e sono ordinate come sono ordinate le transazioni corrispondenti nel blocco. La transazione coinbase del blocco potrebbe apparire come segue:</p>
+<p>Quindi vanno al minatore che ha estratto il blocco come commissioni. <a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">Il BIP</a> contiene i dettagli, ma in breve le commissioni pagate dalle transazioni sono trattate come input aggiuntivi alla transazione coinbase e sono ordinate come sono ordinate le transazioni corrispondenti nel blocco. La transazione coinbase del blocco potrebbe apparire come segue:</p>
 <pre><code>[SUBSIDY] [e f] → [SUBSIDY e f]
 </code></pre>
 <h2 id="dove-posso-trovare-i-dettagli-più-precisi"><a class="header" href="#dove-posso-trovare-i-dettagli-più-precisi">Dove posso trovare i dettagli più precisi?</a></h2>
-<p><a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">Nel BIP!</a></p>
+<p><a href="https://github.com/ynohtna92/ord-litecoin/blob/master/bip.mediawiki">Nel BIP!</a></p>
 <h2 id="perché-le-iscrizioni-sat-sono-chiamate-artefatti-digitali-anziché-nft"><a class="header" href="#perché-le-iscrizioni-sat-sono-chiamate-artefatti-digitali-anziché-nft">Perché le iscrizioni sat sono chiamate "artefatti digitali" anziché "NFT"?</a></h2>
 <p>Un'iscrizione è un NFT, ma si usa il termine "artefatto digitale" perché è semplice, suggestivo e familiare.</p>
 <p>L'espressione "artefatto digitale" è molto suggestiva, anche per chi non l'ha mai sentita prima. In confronto, NFT è un acronimo e non fornisce alcuna indicazione sul suo significato se non lo si è mai sentito prima.</p>
-<p>Inoltre, "NFT" sembra una terminologia finanziaria, e sia la parola "fungibile" che il senso della parola "token" usata in "NFT" sono poco comuni al di fuori dei contesti finanziari.</p>
+<p>Additionally, "NFT" feels like financial terminology, and both the word "fungible" and sense of the word "token" as used in "NFT" is uncommon outside of financial contexts.</p>
 <h2 id="come-si-confrontano-le-iscrizioni-con"><a class="header" href="#come-si-confrontano-le-iscrizioni-con">Come si confrontano le iscrizioni con…</a></h2>
 <h3 id="nft-di-ethereum"><a class="header" href="#nft-di-ethereum">NFT di Ethereum?</a></h3>
 <p><em>Le iscrizioni sono sempre immutabili.</em></p>
@@ -303,59 +284,59 @@
 <p>Per un utente non tecnico è molto difficile determinare dove sia memorizzato il contenuto di un determinato NFT di Ethereum.</p>
 <p><em>Le iscrizioni sono molto più semplici.</em></p>
 <p>Gli NFT di Ethereum dipendono dalla rete e dalla macchina virtuale di Ethereum, che sono molto complesse, in continua evoluzione e che introducono cambiamenti tramite hard fork incompatibili con le versioni precedenti.</p>
-<p>Le iscrizioni, invece, dipendono dalla blockchain di Bitcoin, che è relativamente semplice e conservativa e che introduce modifiche tramite soft fork compatibili "all'indietro".</p>
+<p>Le iscrizioni, invece, dipendono dalla blockchain di Litecoin, che è relativamente semplice e conservativa e che introduce modifiche tramite soft fork compatibili "all'indietro".</p>
 <p><em>Le iscrizioni sono più sicure.</em></p>
-<p>Le iscrizioni ereditano il modello di transazione di Bitcoin, che consente all'utente di vedere esattamente quali iscrizioni vengono trasferite da una transazione prima di firmarla. Le iscrizioni possono essere messe in vendita utilizzando transazioni parzialmente firmate, che non richiedono l'autorizzazione di una terza parte, come un exchange o un marketplace, a trasferirle per conto dell'utente.</p>
+<p>Le iscrizioni ereditano il modello di transazione di Litecoin, che consente all'utente di vedere esattamente quali iscrizioni vengono trasferite da una transazione prima di firmarla. Le iscrizioni possono essere messe in vendita utilizzando transazioni parzialmente firmate, che non richiedono l'autorizzazione di una terza parte, come un exchange o un marketplace, a trasferirle per conto dell'utente.</p>
 <p>In confronto, gli NFT di Ethereum sono afflitti da vulnerabilità della sicurezza dell'utente finale. È consuetudine firmare le transazioni alla cieca, concedere alle applicazioni di terze parti permessi illimitati sugli NFT di un utente e interagire con smart contracts complessi e imprevedibili. Questo crea un campo minato di pericoli per gli utenti di Ethereum NFT che non sono semplicemente una preoccupazione per i teorici ordinali.</p>
 <p><em>Le iscrizioni sono più scarse.</em></p>
-<p>Le iscrizioni richiedono bitcoin per essere coniate, trasferite e conservate. In apparenza questo sembra un aspetto negativo, ma la ragion d'essere degli artefatti digitali è quella di essere scarsi e quindi preziosi.</p>
+<p>Le iscrizioni richiedono litecoin per essere coniate, trasferite e conservate. In apparenza questo sembra un aspetto negativo, ma la ragion d'essere degli artefatti digitali è quella di essere scarsi e quindi preziosi.</p>
 <p>Gli NFT di Ethereum, invece, possono essere coniati in qualità virtualmente illimitata con una singola transazione, il che li rende intrinsecamente meno scarsi e quindi potenzialmente meno preziosi.</p>
 <p><em>Le iscrizioni non pretendono di supportare le royalties on-chain.</em></p>
 <p>Le royalties on-chain sono una buona idea in teoria, ma non in pratica. Il pagamento delle royalty non può essere imposto on-chain senza restrizioni complesse e invasive. L'ecosistema NFT di Ethereum è attualmente alle prese con la confusione sulle royalties e sta affrontando collettivamente la realtà che le royalties on-chain, che sono state comunicate agli artisti come un vantaggio degli NFT, non sono possibili, mentre le piattaforme corrono al ribasso e rimuovono il supporto alle royalties.</p>
 <p>Le iscrizioni evitano completamente questa situazione, non facendo false promesse sul supporto delle royalties on-chain, evitando così la confusione, il caos e la negatività della situazione NFT di Ethereum.</p>
 <p><em>Le iscrizioni sbloccano nuovi mercati.</em></p>
-<p>La capitalizzazione di mercato e la liquidità di Bitcoin sono superiori a quelle di Ethereum con un ampio margine. Gran parte di questa liquidità non è disponibile per gli NFT di Ethereum, poiché molti Bitcoiners preferiscono non interagire con l'ecosistema di Ethereum a causa di preoccupazioni legate alla semplicità, alla sicurezza e alla decentralizzazione.</p>
-<p>Questi Bitcoiners potrebbero essere più interessati alle Iscrizioni che agli NFT di Ethereum, sbloccando nuove classi di collezionisti.</p>
+<p>Bitcoin's market capitalization and liquidity are greater than Ethereum's by a large margin. Much of this liquidity is not available to Ethereum NFTs, since many Bitcoiners prefer not to interact with the Ethereum ecosystem due to concerns related to simplicity, security, and decentralization.</p>
+<p>Questi Litecoin users potrebbero essere più interessati alle Iscrizioni che agli NFT di Ethereum, sbloccando nuove classi di collezionisti.</p>
 <p><em>Le iscrizioni hanno un modello di dati più ricco.</em></p>
 <p>Le iscrizioni consistono in un tipo di contenuto, noto anche come tipo MIME, e in un secondo contenuto, che è una stringa di byte arbitraria. Questo è lo stesso modello di dati utilizzato dal web e consente ai contenuti delle iscrizioni di evolversi con il web e di supportare qualsiasi tipo di contenuto supportato dai browser web, senza richiedere modifiche al protocollo sottostante.</p>
 <h3 id="gli-asset-rgb-e-taro"><a class="header" href="#gli-asset-rgb-e-taro">Gli asset RGB e Taro?</a></h3>
-<p>RGB e Taro sono entrambi protocolli di asset di secondo livello costruiti su Bitcoin. Rispetto alle iscrizioni, sono molto più complicati, ma molto più ricchi di funzionalità.</p>
+<p>RGB e Taro sono entrambi protocolli di asset di secondo livello costruiti su Litecoin. Rispetto alle iscrizioni, sono molto più complicati, ma molto più ricchi di funzionalità.</p>
 <p>La teoria ordinale è stata progettata da zero per gli artefatti digitali, mentre il caso d'uso principale di RGB e Taro sono i token fungibili, quindi l'esperienza dell'utente per le iscrizioni sarà probabilmente più semplice e raffinata di quella per gli NFT di RGB e Taro.</p>
 <p>RGB e Taro memorizzano entrambi i contenuti off-chain, il che richiede un'infrastruttura aggiuntiva e per questo motivo possono andare persi. Al contrario, i contenuti delle iscrizioni sono memorizzati on-chain e non possono andare perduti.</p>
 <p>La teoria ordinale, RGB e Taro sono ancora agli inizi, quindi si tratta di speculazione, ma l'attenzione sugli Ordinali potrebbe darle un vantaggio in termini di caratteristiche per gli artefatti digitali, tra cui un modello di contenuto migliore e caratteristiche come i simboli unici a livello globale.</p>
 <h3 id="asset-di-counterparty"><a class="header" href="#asset-di-counterparty">Asset di Counterparty?</a></h3>
-<p>Counterparty ha un proprio token, XCP, che è necessario per alcune funzionalità, il che fa sì che la maggior parte dei bitcoiners la consideri un'altcoin, e non un'estensione o un secondo livello per bitcoin.</p>
+<p>Counterparty ha un proprio token, XCP, che è necessario per alcune funzionalità, il che fa sì che la maggior parte dei Litecoin users la consideri un'altcoin, e non un'estensione o un secondo livello per litecoin.</p>
 <p>La teoria ordinale è stata progettata da zero per gli artefatti digitali, mentre Counterparty è stata progettata principalmente per l'emissione di token finanziari.</p>
 <h2 id="iscrizioni-per"><a class="header" href="#iscrizioni-per">Iscrizioni per…</a></h2>
 <h3 id="artisti"><a class="header" href="#artisti">Artisti</a></h3>
-<p><em>Le iscrizioni sono su Bitcoin.</em> Il Bitcoin è la valuta digitale con lo status più elevato e le maggiori possibilità di sopravvivenza a lungo termine. Se volete garantire che la vostra arte sopravviva nel futuro, non c'è modo migliore di pubblicarla che sotto forma di iscrizioni.</p>
-<p><em>Archiviazione on-chain più economica.</em> Con il BTC a $20.000 e una tariffa minima di 1 satoshi per vbyte, la pubblicazione di contenuti di iscrizioni costa $50 per 1 milione di byte.</p>
+<p><em>Inscriptions are on Bitcoin.</em> Bitcoin is the digital currency with the highest status and greatest chance of long-term survival. If you want to guarantee that your art survives into the future, there is no better way to publish it than as inscriptions.</p>
+<p><em>Archiviazione on-chain più economica.</em> Con il LTC a $20.000 e una tariffa minima di 1 satoshi per vbyte, la pubblicazione di contenuti di iscrizioni costa $50 per 1 milione di byte.</p>
 <p><em>Le iscrizioni sono "early"!</em> Le iscrizioni sono ancora in fase di sviluppo e non sono ancora state lanciate sulla mainnet. Questo vi dà l'opportunità di essere un early adopter e di esplorare questo strumento mentre si evolve.</p>
 <p><em>Le iscrizioni sono semplici.</em> Le iscrizioni non richiedono la scrittura o la comprensione di smart contracts.</p>
-<p><em>Le iscrizioni sbloccano nuova liquidità.</em> Le iscrizioni sono più accessibili e attraenti per i detentori di bitcoin, e liberano una classe completamente nuova di collezionisti.</p>
+<p><em>Le iscrizioni sbloccano nuova liquidità.</em> Le iscrizioni sono più accessibili e attraenti per i detentori di litecoin, e liberano una classe completamente nuova di collezionisti.</p>
 <p><em>Le iscrizioni sono progettate per gli artefatti digitali.</em> Le iscrizioni sono state progettate da zero per supportare gli NFT e presentano un modello di dati migliore, oltre a caratteristiche come simboli unici a livello globale e una provenienza migliorata.</p>
 <p><em>Le iscrizioni non supportano le royalties on-chain.</em> Questo è un aspetto negativo, ma dipende da come lo si guarda. Le royalties on-chain sono state una manna per i creatori, ma hanno anche creato un'enorme confusione nell'ecosistema Ethereum NFT. L'ecosistema è ora alle prese con questo problema ed è impegnato in una corsa al ribasso, verso un futuro di royalties facoltative. Le iscrizioni non supportano le royalties sulla catena, perché sono tecnicamente inapplicabili. Se scegliete di creare iscrizioni, potete aggirare questa limitazione in molti modi: trattenendo una parte delle vostre iscrizioni per una futura vendita, per beneficiare di un futuro apprezzamento, o magari offrendo vantaggi agli utenti che rispettano le royalties opzionali.</p>
 <h3 id="collezionisti"><a class="header" href="#collezionisti">Collezionisti</a></h3>
 <p><em>Le iscrizioni sono semplici, chiare e senza sorprese.</em> Sono sempre immutabili e on-chain, senza che sia necessaria una particolare due diligence.</p>
-<p><em>Le iscrizioni sono su Bitcoin.</em> È possibile verificare facilmente la posizione e le proprietà delle iscrizioni con il nodo Bitcoin completo che si controlla.</p>
-<h3 id="bitcoiners"><a class="header" href="#bitcoiners">Bitcoiners</a></h3>
-<p>Permettetemi di iniziare questa sezione dicendo che la cosa più importante che la rete Bitcoin fa è decentralizzare il denaro. Tutti gli altri casi d'uso sono secondari, compresa la teoria ordinale. Gli sviluppatori della teoria ordinale lo capiscono e lo riconoscono, e credono che la teoria ordinale aiuti, almeno in minima parte, la missione primaria di Bitcoin.</p>
+<p><em>Le iscrizioni sono su Litecoin.</em> È possibile verificare facilmente la posizione e le proprietà delle iscrizioni con il nodo Litecoin completo che si controlla.</p>
+<h3 id="litecoin-users"><a class="header" href="#litecoin-users">Litecoin users</a></h3>
+<p>Permettetemi di iniziare questa sezione dicendo che la cosa più importante che la rete Litecoin fa è decentralizzare il denaro. Tutti gli altri casi d'uso sono secondari, compresa la teoria ordinale. Gli sviluppatori della teoria ordinale lo capiscono e lo riconoscono, e credono che la teoria ordinale aiuti, almeno in minima parte, la missione primaria di Litecoin.</p>
 <p>A differenza di molte altre cose nello spazio delle altcoin, gli artefatti digitali hanno un valore. Ci sono, ovviamente, molti NFT che sono brutti, stupidi e fraudolenti. Tuttavia, ce ne sono molti che sono fantasticamente creativi, e la creazione e il collezionismo di opere d'arte fanno parte della storia dell'uomo fin dalla sua nascita, e precedono persino il commercio e il denaro, che sono anch'essi tecnologie antiche.</p>
-<p>Bitcoin offre una piattaforma straordinaria per la creazione e la raccolta di artefatti digitali in modo sicuro e decentralizzato, che protegge gli utenti e gli artisti nello stesso modo in cui fornisce una piattaforma straordinaria per l'invio e la ricezione di valore, e per tutte le stesse ragioni.</p>
-<p>Gli ordinali e le iscrizioni aumentano la domanda di spazio per i blocchi di Bitcoin, aumentando il budget di sicurezza di Bitcoin, che è fondamentale per salvaguardare la transizione di Bitcoin a un modello di sicurezza dipendente dalle commissioni, in quanto la ricompensa economica espressa in BTC per i blocchi si dimezza (a causa dell' halving) fino a diventare insignificante.</p>
-<p>I contenuti delle iscrizioni sono memorizzati on-chain e quindi la domanda di spazio per i blocchi da utilizzare per le iscrizioni è illimitata. Questo crea un acquirente di ultima istanza per <em>tutto</em> lo spazio dei blocchi Bitcoin. Ciò contribuirà a sostenere un solido mercato delle commissioni, che garantisce la sicurezza del Bitcoin.</p>
-<p>Le iscrizioni contrastano anche la tesi secondo cui Bitcoin non può essere esteso o utilizzato per nuovi casi d'uso. Se si seguono progetti come DLC, Fedimint, Lightning, Taro e RGB, si sa che questa tesi è falsa, ma le iscrizioni forniscono un'argomentazione contraria facile da capire e che si rivolge a un caso d'uso popolare e comprovato, gli NFT, il che la rende altamente leggibile.</p>
-<p>Se le iscrizioni si riveleranno, come sperano gli autori, artefatti digitali molto ricercati e ricchi di storia, serviranno da potente gancio per l'adozione di Bitcoin: venite per il divertimento, la ricchezza artistica, rimanete per la moneta digitale decentralizzata.</p>
-<p>Le iscrizioni sono una fonte estremamente benevola di domanda di spazio per i blocchi. A differenza, ad esempio, delle stablecoin, che potrebbero dare ai grandi emittenti di stablecoin un'influenza sul futuro dello sviluppo di Bitcoin, o della DeFi, che potrebbe centralizzare il mining introducendo opportunità di MEV, è improbabile che l'arte digitale e gli oggetti da collezione su Bitcoin producano o attraggano entità individuali con un potere sufficiente a corrompere Bitcoin. L'arte è decentralizzata.</p>
-<p>Gli utenti delle iscrizioni e i fornitori di servizi sono incentivati a gestire i nodi completi di Bitcoin, a pubblicare e a tenere traccia delle iscrizioni, e quindi a far valere il loro peso economico dietro la "catena onesta".</p>
-<p>La teoria ordinale e le iscrizioni non influiscono significativamente sulla fungibilità di Bitcoin. Gli utenti di Bitcoin possono ignorarle e non risentirne.</p>
-<p>Ci auguriamo che la teoria ordinale rafforzi e arricchisca il bitcoin, conferendogli un'ulteriore dimensione di fascino e funzionalità, consentendogli di servire più efficacemente il suo caso d'uso primario come riserva di valore decentralizzata dell'umanità.</p>
+<p>Litecoin offre una piattaforma straordinaria per la creazione e la raccolta di artefatti digitali in modo sicuro e decentralizzato, che protegge gli utenti e gli artisti nello stesso modo in cui fornisce una piattaforma straordinaria per l'invio e la ricezione di valore, e per tutte le stesse ragioni.</p>
+<p>Gli ordinali e le iscrizioni aumentano la domanda di spazio per i blocchi di Litecoin, aumentando il budget di sicurezza di Litecoin, che è fondamentale per salvaguardare la transizione di Litecoin a un modello di sicurezza dipendente dalle commissioni, in quanto la ricompensa economica espressa in LTC per i blocchi si dimezza (a causa dell' halving) fino a diventare insignificante.</p>
+<p>I contenuti delle iscrizioni sono memorizzati on-chain e quindi la domanda di spazio per i blocchi da utilizzare per le iscrizioni è illimitata. Questo crea un acquirente di ultima istanza per <em>tutto</em> lo spazio dei blocchi Litecoin. Ciò contribuirà a sostenere un solido mercato delle commissioni, che garantisce la sicurezza del Litecoin.</p>
+<p>Le iscrizioni contrastano anche la tesi secondo cui Litecoin non può essere esteso o utilizzato per nuovi casi d'uso. Se si seguono progetti come DLC, Fedimint, Lightning, Taro e RGB, si sa che questa tesi è falsa, ma le iscrizioni forniscono un'argomentazione contraria facile da capire e che si rivolge a un caso d'uso popolare e comprovato, gli NFT, il che la rende altamente leggibile.</p>
+<p>Se le iscrizioni si riveleranno, come sperano gli autori, artefatti digitali molto ricercati e ricchi di storia, serviranno da potente gancio per l'adozione di Litecoin: venite per il divertimento, la ricchezza artistica, rimanete per la moneta digitale decentralizzata.</p>
+<p>Le iscrizioni sono una fonte estremamente benevola di domanda di spazio per i blocchi. A differenza, ad esempio, delle stablecoin, che potrebbero dare ai grandi emittenti di stablecoin un'influenza sul futuro dello sviluppo di Litecoin, o della DeFi, che potrebbe centralizzare il mining introducendo opportunità di MEV, è improbabile che l'arte digitale e gli oggetti da collezione su Litecoin producano o attraggano entità individuali con un potere sufficiente a corrompere Litecoin. L'arte è decentralizzata.</p>
+<p>Gli utenti delle iscrizioni e i fornitori di servizi sono incentivati a gestire i nodi completi di Litecoin, a pubblicare e a tenere traccia delle iscrizioni, e quindi a far valere il loro peso economico dietro la "catena onesta".</p>
+<p>La teoria ordinale e le iscrizioni non influiscono significativamente sulla fungibilità di Litecoin. Gli utenti di Litecoin possono ignorarle e non risentirne.</p>
+<p>Ci auguriamo che la teoria ordinale rafforzi e arricchisca il litecoin, conferendogli un'ulteriore dimensione di fascino e funzionalità, consentendogli di servire più efficacemente il suo caso d'uso primario come riserva di valore decentralizzata dell'umanità.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="runes/specification.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="security.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
@@ -369,7 +350,7 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="runes/specification.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="security.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 

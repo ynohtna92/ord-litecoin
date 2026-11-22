@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ko" class="coal" dir="ltr">
+<html lang="ko" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">서론</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> 개요</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> 디지털 아티팩트</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> 인스크립션</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> 메타 데이터</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> 기원</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> 리커젼</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> 설명서</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> 자주 묻는 질문</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> 기여하는 방법</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> 기부하는 방법</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> 안내서들</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> 탐색기</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> 수집</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> 스패로우 월렛</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> 중재</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> 재인덱싱</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html" class="active"><strong aria-hidden="true">8.7.</strong> SAT 헌팅</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> 테스팅</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> 현상금</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> 현상금 0: 100,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> 현상금 1: 200,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> 현상금 2: 300,000 SAT 획득!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> 현상금 3: 400,000 SAT</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -259,24 +240,24 @@
 <p>시작하기 전에 몇 가지 준비해야 할 사항이 있다.</p>
 <ol>
 <li>
-<p>첫째, 트랜잭션 인덱스가 있는 동기화된 Bitcoin Core 노드가 필요하다. 트랜잭션 인덱싱을 활성화하려면 명령줄에 <code>-txindex</code>를 입력한다:</p>
-<pre><code class="language-sh">bitcoind -txindex
+<p>첫째, 트랜잭션 인덱스가 있는 동기화된 Litecoin Core 노드가 필요하다. 트랜잭션 인덱싱을 활성화하려면 명령줄에 <code>-txindex</code>를 입력한다:</p>
+<pre><code class="language-sh">litecoind -txindex
 </code></pre>
-<p>또는 다음을 <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">Bitcoin configuration file</a>에 입력한다:</p>
+<p>Or put the following in your <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">Litecoin configuration file</a>:</p>
 <pre><code>txindex=1
 </code></pre>
 <p>이를 실행하고 체인 끝을 따라잡을 때까지 기다린 후 다음 명령을 입력하면 현재 블록 높이를 출력할 것이다:</p>
-<pre><code class="language-sh">bitcoin-cli getblockcount
+<pre><code class="language-sh">litecoin-cli getblockcount
 </code></pre>
 </li>
 <li>
 <p>둘째, 동기화된 <code>ord</code> 인덱스가 필요하다.</p>
 <ul>
 <li>
-<p><a href="https://github.com/ordinals/ord/">the repo</a>에서 <code>ord</code>의 사본을 가져오자.</p>
+<p><a href="https://github.com/ynohtna92/ord-litecoin/">the repo</a>에서 <code>ord</code>의 사본을 가져오자.</p>
 </li>
 <li>
-<p>Run <code>ord --index-sats server</code>. It should connect to your bitcoin core node and start indexing.</p>
+<p>Run <code>ord --index-sats server</code>. It should connect to your litecoin core node and start indexing.</p>
 </li>
 <li>
 <p>Once it has finished indexing, leave the server running and submit new <code>ord</code> commands in a separate terminal session.</p>
@@ -288,12 +269,12 @@
 </li>
 </ol>
 <h2 id="희귀-오디널스-검색하기"><a class="header" href="#희귀-오디널스-검색하기">희귀 오디널스 검색하기</a></h2>
-<h3 id="bitcoin-core-지갑에서-희귀-오디널스-검색하기"><a class="header" href="#bitcoin-core-지갑에서-희귀-오디널스-검색하기">Bitcoin Core 지갑에서 희귀 오디널스 검색하기</a></h3>
-<p><code>ord wallet</code> 명령은 Bitcoin Core의 RPC API를 감싸는 래퍼일 뿐이므로 Bitcoin Core 지갑에서 희귀한 오디널스를 검색하는 것은 쉽다. 지갑의 이름이 <code>foo</code>이라는 가정하에:</p>
+<h3 id="litecoin-core-지갑에서-희귀-오디널스-검색하기"><a class="header" href="#litecoin-core-지갑에서-희귀-오디널스-검색하기">Litecoin Core 지갑에서 희귀 오디널스 검색하기</a></h3>
+<p><code>ord wallet</code> 명령은 Litecoin Core의 RPC API를 감싸는 래퍼일 뿐이므로 Litecoin Core 지갑에서 희귀한 오디널스를 검색하는 것은 쉽다. 지갑의 이름이 <code>foo</code>이라는 가정하에:</p>
 <ol>
 <li>
 <p>지갑을 로드한다:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo
+<pre><code class="language-sh">litecoin-cli loadwallet foo
 </code></pre>
 </li>
 <li>
@@ -302,10 +283,10 @@
 </code></pre>
 </li>
 </ol>
-<h3 id="bitcoin-core-지갑이-아닌-지갑에서-희귀-오디널스-검색하기"><a class="header" href="#bitcoin-core-지갑이-아닌-지갑에서-희귀-오디널스-검색하기">Bitcoin Core 지갑이 아닌 지갑에서 희귀 오디널스 검색하기</a></h3>
-<p><code>ord wallet</code> 명령은 Bitcoin Core의 RPC API를 감싸는 래퍼일 뿐이므로, Bitcoin Core가 아닌 지갑에서 희귀 오디널스를 검색하려면 지갑의 기술자(discriptors)를 Bitcoin Core로 가져오기 해야 한다.</p>
-<p><a href="https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md">기술자</a>는 지갑이 개인 키와 공개 키를 생성하는 방법을 설명한다.</p>
-<p>지갑의 공개 키에 대한 기술자만 Bitcoin Core로 가져와야 하며, 개인 키는 가져오지 않아야 한다.</p>
+<h3 id="litecoin-core-지갑이-아닌-지갑에서-희귀-오디널스-검색하기"><a class="header" href="#litecoin-core-지갑이-아닌-지갑에서-희귀-오디널스-검색하기">Litecoin Core 지갑이 아닌 지갑에서 희귀 오디널스 검색하기</a></h3>
+<p><code>ord wallet</code> 명령은 Litecoin Core의 RPC API를 감싸는 래퍼일 뿐이므로, Litecoin Core가 아닌 지갑에서 희귀 오디널스를 검색하려면 지갑의 기술자(discriptors)를 Litecoin Core로 가져오기 해야 한다.</p>
+<p><a href="https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md">기술자</a>는 지갑이 개인 키와 공개 키를 생성하는 방법을 설명한다.</p>
+<p>지갑의 공개 키에 대한 기술자만 Litecoin Core로 가져와야 하며, 개인 키는 가져오지 않아야 한다.</p>
 <p>지갑의 공개 키 기술자가 유출되면 공격자가 지갑 주소를 볼 수 있지만 자금은 안전할 것이다.</p>
 <p>지갑의 개인 키 기술자가 유출되면 공격자가 지갑에서 자금을 탈취할 수 있다.</p>
 <ol>
@@ -316,25 +297,25 @@
 </li>
 <li>
 <p>‘foo-watch-only’라는 이름으로 Watch-only 지갑을 생성한다:</p>
-<pre><code class="language-sh">bitcoin-cli createwallet foo-watch-only true true
+<pre><code class="language-sh">litecoin-cli createwallet foo-watch-only true true
 </code></pre>
-<p>당신 마음대로 <code>foo-watch-only</code>보다 더 좋은 이름으로 지어주자!</p>
+<p>당신 마음대""""""로 <code>foo-watch-only</code>보다 더 좋은 이름으로 지어주자!</p>
 </li>
 <li>
 <p><code>foo-watch-only</code> 지갑을 로드한다:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
 <p>지갑 기술자를 'foo-watch-only'로 가져온다:</p>
-<pre><code class="language-sh">bitcoin-cli importdescriptors \
+<pre><code class="language-sh">litecoin-cli importdescriptors \
   '[{ "desc": "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
 </code></pre>
-<p>지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, <code>0</code> 대신 <code>”timestamp”</code> 값에 사용할 수 있다. 이렇게 하면 Bitcoin Core가 당신 지갑의 UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다.</p>
+<p>지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, <code>0</code> 대신 <code>”timestamp”</code> 값에 사용할 수 있다. 이렇게 하면 Litecoin Core가 당신 지갑의 UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다.</p>
 </li>
 <li>
 <p>모든 것이 제대로 되었는지 확인한다:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -344,7 +325,7 @@
 </li>
 </ol>
 <h3 id="다중-경로-기술자를-내보내기-하는-지갑에서-희귀-오디널스-검색하기"><a class="header" href="#다중-경로-기술자를-내보내기-하는-지갑에서-희귀-오디널스-검색하기">다중 경로 기술자를 내보내기 하는 지갑에서 희귀 오디널스 검색하기</a></h3>
-<p>일부 기술자는 꺾쇠 괄호(예: <code>&lt;0;1&gt;</code>)를 사용하여 하나의 기술자 안에 다수에 경로를 기술한다. 다중 경로 기술자는 아직 Bitcoin Core에서 지원되지 않으므로, 먼저 다수에 기술자들로 변환한 다음 Bitcoin Core로 해당 기술자들을 가져오기 해야 한다.</p>
+<p>일부 기술자는 꺾쇠 괄호(예: <code>&lt;0;1&gt;</code>)를 사용하여 하나의 기술자 안에 다수에 경로를 기술한다. 다중 경로 기술자는 아직 Litecoin Core에서 지원되지 않으므로, 먼저 다수에 기술자들로 변환한 다음 Litecoin Core로 해당 기술자들을 가져오기 해야 한다.</p>
 <ol>
 <li>
 <p>먼저 지갑에서 다중 경로 기술자를 가져온다. 다음과 같은 형태가 될 것이다:</p>
@@ -361,7 +342,7 @@
 </li>
 <li>
 <p>수신 주소 기술자의 체크섬(이 경우 <code>tpnxnxax</code>)을 가져와 기록한다:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -373,7 +354,7 @@
 }
 </code></pre>
 <p>그리고 변경 주소 설명자의 체크섬(이 경우 <code>64k8wnd7</code>)를 가져와 기록한다:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -387,12 +368,12 @@
 </li>
 <li>
 <p>기술자를 가져오기 할 지갑을 로드한다:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
-<p>이제 올바른 체크섬과 기술자를 Bitcoin Core로 가져오기 한다.</p>
-<pre><code class="language-sh">bitcoin-cli \
+<p>이제 올바른 체크섬과 기술자를 Litecoin Core로 가져오기 한다.</p>
+<pre><code class="language-sh">litecoin-cli \
  importdescriptors \
  '[
    {
@@ -405,11 +386,11 @@
    }
  ]'
 </code></pre>
-<p>지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, <code>0</code> 대신 <code>”timestamp”</code> 값에 사용할 수 있다. 이렇게 하면 Bitcoin Core가 당신 지갑의 UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다.</p>
+<p>지갑이 처음 트랜잭션을 받기 시작한 유닉스 타임스탬프를 알고 있다면, <code>0</code> 대신 <code>”timestamp”</code> 값에 사용할 수 있다. 이렇게 하면 Litecoin Core가 당신 지갑의 UTXO를 검색하는 데 걸리는 시간을 줄일 수 있다.</p>
 </li>
 <li>
 <p>모든 것이 제대로 되었는지 확인한다:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -425,7 +406,7 @@
 <p>The <code>ord</code> wallet supports transferring specific satoshis by using the name of the satoshi. To send the satoshi <code>zonefruits</code>, do:</p>
 <pre><code>ord wallet send &lt;RECEIVING_ADDRESS&gt; zonefruits --fee-rate 21
 </code></pre>
-<p>You can also use the <code>bitcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
+<p>You can also use the <code>litecoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
 
                     </main>
 
@@ -435,7 +416,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/settings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/satscards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -449,7 +430,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/settings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/satscards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

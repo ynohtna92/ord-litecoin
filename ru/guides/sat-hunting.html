@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ru" class="coal" dir="ltr">
+<html lang="ru" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Вступление</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Обзор</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Цифровые артефакты</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Надписи</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Провенанс</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Рекурсия</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Описание</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> ЧАВО</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Вклад</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Пожертвование</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Руководства</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Проводник</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Коллекционирование</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Модерация</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Переиндексация</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html" class="active"><strong aria-hidden="true">8.7.</strong> Охота на сатоши</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Тестирование</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Награды</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Награда 0: 100 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Награда 1: 200 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Награда 2: 300 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Награда 3: 400 000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -259,24 +240,24 @@
 <p>Перед началом работы вам потребуется несколько вещей.</p>
 <ol>
 <li>
-<p>Во-первых, вам потребуется синхронизированный Bitcoin Core node с индексом транзакций. Чтобы включить индексирование транзакций, передайте в командной строке команду <code>-txindex</code>:</p>
-<pre><code class="language-sh">bitcoind -txindex
+<p>Во-первых, вам потребуется синхронизированный Litecoin Core node с индексом транзакций. Чтобы включить индексирование транзакций, передайте в командной строке команду <code>-txindex</code>:</p>
+<pre><code class="language-sh">litecoind -txindex
 </code></pre>
-<p>Или поместите в <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">файл конфигурации Bitcoin</a>:</p>
+<p>Или поместите в <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path">файл конфигурации Litecoin</a>:</p>
 <pre><code>txindex=1
 </code></pre>
 <p>Запустите его и дождитесь, пока он догонит вершину цепи, после чего следующая команда должна вывести текущую высоту блока:</p>
-<pre><code class="language-sh">bitcoin-cli getblockcount
+<pre><code class="language-sh">litecoin-cli getblockcount
 </code></pre>
 </li>
 <li>
 <p>Во-вторых, вам понадобится синхронизированный индекс <code>ord</code>.</p>
 <ul>
 <li>
-<p>Получить копию <code>ord</code> из <a href="https://github.com/ordinals/ord/">репозитория</a>.</p>
+<p>Получить копию <code>ord</code> из <a href="https://github.com/ynohtna92/ord-litecoin/">репозитория</a>.</p>
 </li>
 <li>
-<p>Run <code>ord --index-sats server</code>. It should connect to your bitcoin core node and start indexing.</p>
+<p>Run <code>ord --index-sats server</code>. It should connect to your litecoin core node and start indexing.</p>
 </li>
 <li>
 <p>Once it has finished indexing, leave the server running and submit new <code>ord</code> commands in a separate terminal session.</p>
@@ -288,12 +269,12 @@
 </li>
 </ol>
 <h2 id="Поиск-rare-ordinals"><a class="header" href="#Поиск-rare-ordinals">Поиск Rare Ordinals</a></h2>
-<h3 id="Поиск-rare-ordinals-в-bitcoin-core-wallet"><a class="header" href="#Поиск-rare-ordinals-в-bitcoin-core-wallet">Поиск Rare Ordinals в Bitcoin Core Wallet</a></h3>
-<p>Команда <code>ord wallet</code> - это просто обертка вокруг RPC API Bitcoin Core, поэтому найти rare ordinals в Bitcoin Core wallet довольно легко . Предположим, что ваш кошелек имеет имя <code>foo</code>:</p>
+<h3 id="Поиск-rare-ordinals-в-litecoin-core-wallet"><a class="header" href="#Поиск-rare-ordinals-в-litecoin-core-wallet">Поиск Rare Ordinals в Litecoin Core Wallet</a></h3>
+<p>Команда <code>ord wallet</code> - это просто обертка вокруг RPC API Litecoin Core, поэтому найти rare ordinals в Litecoin Core wallet довольно легко . Предположим, что ваш кошелек имеет имя <code>foo</code>:</p>
 <ol>
 <li>
 <p>Загрузите свой кошелек:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo
+<pre><code class="language-sh">litecoin-cli loadwallet foo
 </code></pre>
 </li>
 <li>
@@ -302,10 +283,10 @@
 </code></pre>
 </li>
 </ol>
-<h3 id="Поиск-rare-ordinals-в-кошельке-не-относящемся-к-bitcoin-core-wallet"><a class="header" href="#Поиск-rare-ordinals-в-кошельке-не-относящемся-к-bitcoin-core-wallet">Поиск Rare Ordinals в кошельке, не относящемся к Bitcoin Core Wallet</a></h3>
-<p>Команда <code>ord wallet</code> является лишь оберткой для RPC API Bitcoin Core, поэтому для поиска rare ordinals в кошельке, не принадлежащем Bitcoin Core wallet, необходимо импортировать дескрипторы кошелька в Bitcoin Core.</p>
-<p><a href="https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md">Дескрипторы</a> описывают способы генерации кошельками закрытых и открытых ключей.</p>
-<p>В Bitcoin Core следует импортировать дескрипторы только для открытых ключей кошелька, но не для его закрытых ключей.</p>
+<h3 id="Поиск-rare-ordinals-в-кошельке-не-относящемся-к-litecoin-core-wallet"><a class="header" href="#Поиск-rare-ordinals-в-кошельке-не-относящемся-к-litecoin-core-wallet">Поиск Rare Ordinals в кошельке, не относящемся к Litecoin Core Wallet</a></h3>
+<p>Команда <code>ord wallet</code> является лишь оберткой для RPC API Litecoin Core, поэтому для поиска rare ordinals в кошельке, не принадлежащем Litecoin Core wallet, необходимо импортировать дескрипторы кошелька в Litecoin Core.</p>
+<p><a href="https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md">Дескрипторы</a> описывают способы генерации кошельками закрытых и открытых ключей.</p>
+<p>В Litecoin Core следует импортировать дескрипторы только для открытых ключей кошелька, но не для его закрытых ключей.</p>
 <p>Если дескриптор открытого ключа вашего кошелька будет скомпрометирован, злоумышленник сможет увидеть адреса вашего кошелька, но ваши средства будут в безопасности.</p>
 <p>Если дескриптор закрытого ключа вашего кошелька скомпрометирован, злоумышленник может вывести с него ваши средства.</p>
 <ol>
@@ -316,25 +297,25 @@
 </li>
 <li>
 <p>Создайте кошелек с именем <code>foo-watch-only</code>, предназначенный только для просмотра:</p>
-<pre><code class="language-sh">bitcoin-cli createwallet foo-watch-only true true
+<pre><code class="language-sh">litecoin-cli createwallet foo-watch-only true true
 </code></pre>
 <p>Не стесняйтесь дать ему более подходящее название, чем <code>foo-watch-only</code>!</p>
 </li>
 <li>
 <p>Загрузите кошелек <code>foo-watch-only</code>:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
 <p>Импортируйте дескрипторы вашего кошелька в <code>foo-watch-only</code>:</p>
-<pre><code class="language-sh">bitcoin-cli importdescriptors \
+<pre><code class="language-sh">litecoin-cli importdescriptors \
   '[{ "desc": "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
 </code></pre>
-<p>Если вам известна временная метка Unix, когда ваш кошелек впервые начал принимать транзакции, вы можете использовать ее в качестве значения <code>"timestamp"</code> вместо <code>0</code>. Это позволит сократить время поиска UTXO кошелька для Bitcoin Core.</p>
+<p>Если вам известна временная метка Unix, когда ваш кошелек впервые начал принимать транзакции, вы можете использовать ее в качестве значения <code>"timestamp"</code> вместо <code>0</code>. Это позволит сократить время поиска UTXO кошелька для Litecoin Core.</p>
 </li>
 <li>
 <p>Проверьте, что все работает:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -344,7 +325,7 @@
 </li>
 </ol>
 <h3 id="Поиск-rare-ordinals-в-кошельке-экспортирующем-многопутевые-дескрипторы"><a class="header" href="#Поиск-rare-ordinals-в-кошельке-экспортирующем-многопутевые-дескрипторы">Поиск Rare Ordinals в кошельке, экспортирующем многопутевые дескрипторы</a></h3>
-<p>Некоторые дескрипторы описывают несколько путей в одном дескрипторе с помощью угловых скобок, например,<code>&lt;0;1&gt;</code>. Bitcoin Core пока не поддерживает многопутевые дескрипторы, поэтому сначала их необходимо преобразовать в многопутевые дескрипторы, а затем импортировать эти многопутевые дескрипторы в Bitcoin Core.</p>
+<p>Некоторые дескрипторы описывают несколько путей в одном дескрипторе с помощью угловых скобок, например,<code>&lt;0;1&gt;</code>. Litecoin Core пока не поддерживает многопутевые дескрипторы, поэтому сначала их необходимо преобразовать в многопутевые дескрипторы, а затем импортировать эти многопутевые дескрипторы в Litecoin Core.</p>
 <ol>
 <li>
 <p>Сначала получите многопутевой дескриптор из вашего кошелька. Он будет выглядеть примерно так:</p>
@@ -361,7 +342,7 @@
 </li>
 <li>
 <p>Получите и запишите контрольную сумму для дескриптора адреса приема, в данном случае <code>tpnxnxax</code>:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -373,7 +354,7 @@
 }
 </code></pre>
 <p>И для дескриптора адреса изменения, в данном случае <code>64k8wnd7</code>:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -387,12 +368,12 @@
 </li>
 <li>
 <p>Загрузите кошелек, в который вы хотите импортировать дескрипторы:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
-<p>Теперь импортируйте дескрипторы с правильными контрольными суммами в Bitcoin Core.</p>
-<pre><code class="language-sh">bitcoin-cli \
+<p>Теперь импортируйте дескрипторы с правильными контрольными суммами в Litecoin Core.</p>
+<pre><code class="language-sh">litecoin-cli \
  importdescriptors \
  '[
    {
@@ -405,11 +386,11 @@
    }
  ]'
 </code></pre>
-<p>Если вам известна временная метка Unix, когда ваш кошелек впервые начал принимать транзакции, вы можете использовать ее в качестве значения <code>"timestamp"</code> вместо <code>0</code>. Это позволит сократить время поиска UTXO кошелька для Bitcoin Core.</p>
+<p>Если вам известна временная метка Unix, когда ваш кошелек впервые начал принимать транзакции, вы можете использовать ее в качестве значения <code>"timestamp"</code> вместо <code>0</code>. Это позволит сократить время поиска UTXO кошелька для Litecoin Core.</p>
 </li>
 <li>
 <p>Проверьте, что все работает:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -425,7 +406,7 @@
 <p>The <code>ord</code> wallet supports transferring specific satoshis by using the name of the satoshi. To send the satoshi <code>zonefruits</code>, do:</p>
 <pre><code>ord wallet send &lt;RECEIVING_ADDRESS&gt; zonefruits --fee-rate 21
 </code></pre>
-<p>You can also use the <code>bitcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
+<p>You can also use the <code>litecoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
 
                     </main>
 
@@ -435,7 +416,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/settings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/satscards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -449,7 +430,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/settings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/satscards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="hi" class="coal" dir="ltr">
+<html lang="hi" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">परिचय</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> अवलोकन</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> डिजिटल अभिलेख</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> इंस्‍क्रीप्‍शंस</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> उत्‍पति</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> रिकर्सन-प्रतिवर्तन</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> विनिर्देश</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> एफएक्‍यू</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> योगदान</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> दान करें</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> मार्गदर्शक निर्देश</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> एक्‍सप्‍लोरर</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> संग्राहक</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> स्‍पैरो वॉलेट</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> मॉडरेशन</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> रिइंडैक्सिंग</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> सैट हंटिंग</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> परीक्षण</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> बांउटीज़</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> बांउटी 0: 100,000 सैट्स दावा किया!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> बांउटी 1: 200,000 सैट्स दावा किया!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> बांउटी 2: 300,000 सैट्स दावा किया!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> बांउटी 3: 400,000 सैट्स दावा किया!</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -256,7 +237,7 @@
 <p>व्‍यक्तिगत सैट्स को स्‍वेच्छित विषय-वस्‍तु के साथ उत्‍कीर्ण किया जा सकता है, जो बिटकॉइन-मूल डिजिटल अभिलेखों का सृजन किया जा सकता है जिन्हें बिटकॉइन वॉलेट में सहेजा जा सकता है और बिटकॉइन लेनदेन करके स्थानांतरित किया जा सकता है। ये डिजिटल अभिलेख भी बिटकॉइन की तरह ही टिकाऊ, अपरिवर्तनीय, सुरक्षित और विकेंद्रीकृत हैं।</p>
 <p>डिजिटल अभिलेखों का प्रयोग करने के लिए आपको बिटकॉइन ब्लॉकचेन की वर्तमान स्थिति दर्शाने के लिए एक बिटकॉइन पूर्ण नोड की आवश्यकता होती है। इसके अतिरिक्‍त, वॉलेट जो डिजिटल अभिलेखों का सृजन कर सकता है और दूसरे वॉलेट में डिजिटल अभिलेखों को प्रेषित करने के लिए लेनदेन के दौरान सैट नियंत्रि‍त कर सकता है।</p>
 <p>बिटकॉइन कोर में बिटकॉइन पूर्ण नोड और वॉलेट दोनों प्रदान किए जाते हैं। हालाँकि, बिटकॉइन कोर वॉलेट डिजिटल अभिलेखों के सृजन नहीं कर सकते और न ही सैट नियंत्रण निष्‍पादित करते हैं।</p>
-<p>इसके लिए <a href="https://github.com/ordinals/ord"><code>ऑर्ड</code></a>, यूटिलिटी की आवश्यकता होती है। <code>ऑर्ड</code> अपने स्वयं के वॉलेट अमल में नहीं लाते हैं, इसीलिए <code>ऑर्ड वॉलेट</code> के उप-अनुदेश बिटकॉइन कोर वॉलेट के साथ समन्‍वय करते हैं।</p>
+<p>इसके लिए <a href="https://github.com/ynohtna92/ord-litecoin"><code>ऑर्ड</code></a>, यूटिलिटी की आवश्यकता होती है। <code>ऑर्ड</code> अपने स्वयं के वॉलेट अमल में नहीं लाते हैं, इसीलिए <code>ऑर्ड वॉलेट</code> के उप-अनुदेश बिटकॉइन कोर वॉलेट के साथ समन्‍वय करते हैं।</p>
 <p>इस मार्गदर्शक निर्देशों में निम्‍नलिखित शामिल हैं:</p>
 <ol>
 <li>बिटकॉइन कोर इंस्‍टाल करना</li>
@@ -269,36 +250,36 @@
 <li>Batch inscribing with <code>ord wallet inscribe --batch</code></li>
 </ol>
 <h2 id="मदद-परापत-करें"><a class="header" href="#मदद-परापत-करें">मदद प्राप्त करें</a></h2>
-<p>यदि आप कहीं फंस जाते हैं, तब आप <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>, पर मदद के लिए संपर्क करने का प्रयास करें, या प्रासंगिक <a href="https://github.com/ordinals/ord/issues">मुद्दों</a> और <a href="https://%22github.com/ordinals/ord/discussions">चर्चाओं</a> के लिए GitHub पर संबंधित अवरोध के बारे में पता लगाएं।</p>
+<p>If you get stuck, try asking for help on the <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>, or checking GitHub for relevant <a href="https://github.com/ynohtna92/ord-litecoin/issues">issues</a> and <a href="https://github.com/ynohtna92/ord-litecoin/discussions">discussions</a>.</p>
 <h2 id="बिटकॉइन-कोर-इंसटाल-करना"><a class="header" href="#बिटकॉइन-कोर-इंसटाल-करना">बिटकॉइन कोर इंस्‍टाल करना</a></h2>
-<p>बिटकॉइन कोर <a href="https://bitcoincore.org/">bitcoincore.org</a> के डाउनलोड पृष्‍ठ (https://bitcoincore.org/en/download/) पर उपलब्ध हैं।</p>
-<p>डिजिटल अभिलेख बनाने के लिए बिटकॉइन कोर 24 या उसका नया संस्‍करण आवश्यक है।</p>
-<p>This guide does not cover installing Bitcoin Core in detail. Once Bitcoin Core is installed, you should be able to run <code>bitcoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>bitcoin-qt</code>.</p>
+<p>बिटकॉइन कोर <a href="https://litecoin.org/">litecoin.org</a> के डाउनलोड पृष्‍ठ (https://bitcoincore.org/en/download/) पर उपलब्ध हैं।</p>
+<p>Making inscriptions requires Litecoin Core 21.5.8; Taproot wallets require a compatible Core 24 development build.</p>
+<p>This guide does not cover installing Litecoin Core in detail. Once Litecoin Core is installed, you should be able to run <code>litecoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>litecoin-qt</code>.</p>
 <h2 id="बिटकॉइन-कोर-कॉनफिगर-समरूप-करना"><a class="header" href="#बिटकॉइन-कोर-कॉनफिगर-समरूप-करना">बिटकॉइन कोर कॉन्फ़िगर (समरूप) करना</a></h2>
-<p><code>ord</code> requires Bitcoin Core's transaction index and rest interface.</p>
-<p>लेन-देन सूचकांक के अनुरक्षण के लिए अपने बिटकॉइन कोर नोड को कॉन्फ़िगर करने के लिए, निम्नलिखित को अपने <code>bitcoin.conf</code> में जोड़ें:</p>
+<p><code>ord</code> requires Litecoin Core's transaction index and rest interface.</p>
+<p>लेन-देन सूचकांक के अनुरक्षण के लिए अपने बिटकॉइन कोर नोड को कॉन्फ़िगर करने के लिए, निम्नलिखित को अपने <code>litecoin.conf</code> में जोड़ें:</p>
 <pre><code>txindex=1
 </code></pre>
-<p>या, <code>bitcoind</code> के साथ <code>-txindex</code> बिटकॉइन संचालित करें:</p>
-<pre><code>bitcoind -txindex
+<p>या, <code>litecoind</code> के साथ <code>-txindex</code> बिटकॉइन संचालित करें:</p>
+<pre><code>litecoind -txindex
 </code></pre>
-<p>Details on creating or modifying your <code>bitcoin.conf</code> file can be found <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">here</a>.</p>
+<p>Details on creating or modifying your <code>litecoin.conf</code> file can be found <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md">here</a>.</p>
 <h2 id="बिटकॉइन-बलॉकचेन-सिंक-करना"><a class="header" href="#बिटकॉइन-बलॉकचेन-सिंक-करना">बिटकॉइन ब्लॉकचेन सिंक करना</a></h2>
 <p>चेन सिंक करने के लिए, निम्‍नलिखित संचालित करें:</p>
-<pre><code>bitcoind -txindex
+<pre><code>litecoind -txindex
 </code></pre>
 <p>…और <code>getblockcount</code> तक इसे चालू रहने दें:</p>
-<pre><code>bitcoin-cli getblockcount
+<pre><code>litecoin-cli getblockcount
 </code></pre>
-<p><a href="https://mempool.space/">the mempool.space block explorer</a> ब्लॉक एक्सप्लोरर जैसे ब्लॉक एक्सप्लोरर पर ब्लॉक गणना से सहमत है। <code>ऑर्ड</code> <code>bitcoind</code> "के साथ समन्‍वय करता है, इसलिए जब आप ऑर्ड का उपयोग कर रहे हों तो आपको <code>bitcoind</code> को पृष्ठभूमि में चालू रहने देना चाहिए।</p>
-<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>bitcoin-cli</code> and <code>ord</code> to find.</p>
+<p>agrees with the block count on a block explorer like <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>. <code>ord</code> interacts with <code>litecoind</code>, so you should leave <code>litecoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>litecoin-cli</code> and <code>ord</code> to find.</p>
 <h2 id="समसया-सुलझाना"><a class="header" href="#समसया-सुलझाना">समस्या सुलझाना</a></h2>
-<p>Make sure you can access <code>bitcoind</code> with <code>bitcoin-cli -getinfo</code> and that it is fully synced.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>bitcoind</code> is not running.</p>
-<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>bitcoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your bitcoin data directory.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
-<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>bitcoin.conf</code> file. If <code>bitcoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
-<p>Make sure <code>txindex=1</code> is set. Run <code>bitcoin-cli getindexinfo</code> and it should return something like</p>
+<p>Make sure you can access <code>litecoind</code> with <code>litecoin-cli -getinfo</code> and that it is fully synced.</p>
+<p>If <code>litecoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>litecoind</code> is not running.</p>
+<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>litecoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your litecoin data directory.</p>
+<p>If <code>litecoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>litecoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
+<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>litecoin.conf</code> file. If <code>litecoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
+<p>Make sure <code>txindex=1</code> is set. Run <code>litecoin-cli getindexinfo</code> and it should return something like</p>
 <pre><code class="language-json">{
   "txindex": {
     "synced": true,
@@ -306,20 +287,20 @@
   }
 }
 </code></pre>
-<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>"synced": false</code>, <code>bitcoind</code> is still creating the <code>txindex</code>. Wait until <code>"synced": true</code> before using <code>ord</code>.</p>
-<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:8333</code>.</p>
+<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>"synced": false</code>, <code>litecoind</code> is still creating the <code>txindex</code>. Wait until <code>"synced": true</code> before using <code>ord</code>.</p>
+<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:9333</code>.</p>
 <h2 id="ऑरड-इंसटाल-करना"><a class="header" href="#ऑरड-इंसटाल-करना"><code>ऑर्ड</code> इंस्‍टाल करना</a></h2>
-<p><code>ऑर्ड</code> यूटिलिटी रस्ट में लिखी जाती है और इसे <a href="https://github.com/ordinals/ord">सोर्स</a> से बनाया जा सकता है। पूर्व-निर्मित बाइनेरी रिलीज़ पृष्ठ <a href="https://github.com/ordinals/ord/releases">releases page</a> पर उपलब्ध हैं।</p>
+<p>The <code>ord</code> utility is written in Rust and can be built from <a href="https://github.com/ynohtna92/ord-litecoin">source</a>. Pre-built binaries are available on the <a href="https://github.com/ynohtna92/ord-litecoin/releases">releases page</a>.</p>
 <p>आप निम्‍न के साथ कमांड लाइन से नवीनतम पूर्व-निर्मित बाइनरी इंस्‍टाल कर सकते हैं:</p>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 </code></pre>
 <p>एक बार <code>ऑर्ड</code> इंस्‍टाल होने पर, आप उसे संचालित करने में सक्षम हो जाएंगे:</p>
 <pre><code>ord --version
 </code></pre>
 <p>जिसमें <code>ऑर्ड</code>—संस्करण नंबर प्रिंट होता है।</p>
 <h2 id="creating-a-wallet"><a class="header" href="#creating-a-wallet">Creating a Wallet</a></h2>
-<p><code>ord</code> uses <code>bitcoind</code> to manage private keys, sign transactions, and broadcast transactions to the Bitcoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
-<pre><code>bitcoind -txindex
+<p><code>ord</code> uses <code>litecoind</code> to manage private keys, sign transactions, and broadcast transactions to the Litecoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
+<pre><code>litecoind -txindex
 </code></pre>
 <pre><code>ord server
 </code></pre>
@@ -405,7 +386,7 @@
 </code></pre>
 <p>ऑर्ड दो लेनदेन आईडी आउटपुट प्रदान करेगा, एक प्रतिबद्ध लेनदेन के लिए, और दूसरी प्रकट लेनदेन, और "डिजिटल अभिलेख आईडी के लिए। डिजिटल अभिलेख आईडी <code>TXIDiN</code> के रूप में है, जिसमें <code>TXID</code> प्रकट लेनदेन की लेनदेन आईडी है, और <code>N</code> प्रकट लेनदेन में डिजिटल अभिलेख का सूचकांक है।</p>
 <p>प्रतिबद्ध लेनदेन एक टेपस्क्रिप्ट के लिए प्रतिबद्ध होता है जिसमें डिजिटल अभिलेख की विषय-वस्‍तु निहित होती है, और प्रकट लेनदेन उस टेपस्क्रिप्ट से खर्च होता है, चेन पर विषय-वस्‍तु को प्रकट करता है और इसे इनपुट के "पहले सेट पर अंकित करता है जिसमें संबंधित टेपस्क्रिप्ट शामिल होती है।</p>
-<p>प्रकट लेन-देन के खनन होने की प्रतीक्षा करें। आप <a href="https://mempool.space/">the mempool.space block explorer</a> का उपयोग करके प्रतिबद्धता स्थिति की जांच और लेनदेन का खुलासा कर सकते हैं।</p>
+<p>प्रकट लेन-देन के खनन होने की प्रतीक्षा करें। आप <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a> का उपयोग करके प्रतिबद्धता स्थिति की जांच और लेनदेन का खुलासा कर सकते हैं।</p>
 <p>एक बार प्रकट लेनदेन खनन हो जाने के बाद, जब आप अग्रसर होते हैं तो डिजिटल अभिलेख आईडी मुद्रित होनी चाहिए:</p>
 <pre><code>ord wallet inscriptions
 </code></pre>
@@ -463,11 +444,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -477,11 +458,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

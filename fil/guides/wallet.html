@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="fil" class="coal" dir="ltr">
+<html lang="fil" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Panimula</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Pangkalahatang-ideya</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digital Artifacts</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Pagtutukoy</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> Mga Madalas Itanong</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Mag-ambag</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Donate</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Mga gabay</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Pagkolekta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindexing</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sat Hunting</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Pagsuri</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Bounty 0: 100,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Bounty 1: 200,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Bounty 2: 300,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Bounty 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -253,15 +234,15 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="wallet"><a class="header" href="#wallet">Wallet</a></h1>
-<p>Ang mga indibidwal na sat ay maaaring ma-inscribe ng arbitrary na content, na lumilikha ng mga digital artifact na pinagana ng Bitcoin na maaaring i-store sa isang Bitcoin wallet at ilipat sa pamamagitan ng mga transaksyon sa Bitcoin. Ang mga inscription ay hindi nababago, secure, at desentralisado gaya ng mismong Bitcoin.</p>
-<p>Ang pagtratrabaho sa inscriptions ay nangangailangan ng isang Bitcoin full node, upang mabigyan ka ng view ng kasalukuyang estado ng Bitcoin blockchain, at isang wallet na maaaring lumikha ng mga inscription at magsagawa ng sat check kapag gumagawa ng mga transaksyon upang magpadala ng mga inscription sa ibang wallet.</p>
-<p>Ang Bitcoin Core ay nagbibigay ng parehong buong node at isang Bitcoin wallet. Gayunpaman, ang Bitcoin Core Wallet ay hindi makakalikha ng inscriptions at hindi nagsasagawa ng mga sat control.</p>
-<p>Nangangailangan ito ng <a href="https://github.com/ordinals/ord"><code>ord</code></a>, ang ordinal utility. Hindi nagpapatupad ang <code>ord</code> ng sarili nitong wallet, kaya ang mga subcommand ng ord wallet ay nakikipag-ugnayan sa mga wallet ng Bitcoin Core.</p>
+<p>Ang mga indibidwal na sat ay maaaring ma-inscribe ng arbitrary na content, na lumilikha ng mga digital artifact na pinagana ng Litecoin na maaaring i-store sa isang Litecoin wallet at ilipat sa pamamagitan ng mga transaksyon sa Litecoin. Ang mga inscription ay hindi nababago, secure, at desentralisado gaya ng mismong Litecoin.</p>
+<p>Ang pagtratrabaho sa inscriptions ay nangangailangan ng isang Litecoin full node, upang mabigyan ka ng view ng kasalukuyang estado ng Litecoin blockchain, at isang wallet na maaaring lumikha ng mga inscription at magsagawa ng sat check kapag gumagawa ng mga transaksyon upang magpadala ng mga inscription sa ibang wallet.</p>
+<p>Ang Litecoin Core ay nagbibigay ng parehong buong node at isang Litecoin wallet. Gayunpaman, ang Litecoin Core Wallet ay hindi makakalikha ng inscriptions at hindi nagsasagawa ng mga sat control.</p>
+<p>Nangangailangan ito ng <a href="https://github.com/ynohtna92/ord-litecoin"><code>ord</code></a>, ang ordinal utility. Hindi nagpapatupad ang <code>ord</code> ng sarili nitong wallet, kaya ang mga subcommand ng ord wallet ay nakikipag-ugnayan sa mga wallet ng Litecoin Core.</p>
 <p>Sinasaklaw ng gabay na ito ang mga sumusunod na punto:</p>
 <ol>
-<li>Pag-install ng Bitcoin Core</li>
-<li>Pag-synchronize ng Bitcoin Blockchain</li>
-<li>Gumawa ng Bitcoin Core wallet</li>
+<li>Pag-install ng Litecoin Core</li>
+<li>Pag-synchronize ng Litecoin Blockchain</li>
+<li>Gumawa ng Litecoin Core wallet</li>
 <li>Gamitin ang <code>ord wallet receive</code> para makatanggap ng sats</li>
 <li>Gumawa ng inscriptions gamit ang <code>ord wallet inscribe</code></li>
 <li>Magpadala ng inscriptions gamit ang <code>ord wallet send</code></li>
@@ -269,36 +250,36 @@
 <li>Batch inscribing with <code>ord wallet inscribe --batch</code></li>
 </ol>
 <h2 id="kumuha-ng-tulong"><a class="header" href="#kumuha-ng-tulong">Kumuha ng tulong</a></h2>
-<p>Kung natigil ka, subukang humingi ng tulong sa server ng <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord</a>, o tingnan ang GitHub para sa mga <a href="https://github.com/ordinals/ord/issues">isyu</a> at <a href="https://github.com/ordinals/ord/discussions">discussions</a>.</p>
-<h2 id="pag-install-ng-bitcoin-core"><a class="header" href="#pag-install-ng-bitcoin-core">Pag-install ng Bitcoin Core</a></h2>
-<p>Ang Bitcoin Core ay mada-download sa <a href="https://bitcoincore.org/">bitcoincore.org</a> sa pahina ng <a href="https://bitcoincore.org/en/download/">pag-download</a>.</p>
-<p>Ang inscriptions ay nangangailangan ng Bitcoin Core 24 o mas bago.</p>
-<p>Hindi saklaw ng gabay na ito ang pag-install ng Bitcoin Core nang detalyado. Kapag na-install na ang Bitcoin Core, dapat ay matagumpay mong mapatakbo ang <code>bitcoind -version</code> mula sa command line. <em>HUWAG</em> gamitin ang <code>bitcoin-qt</code>.</p>
-<h2 id="bitcoin-core-setup"><a class="header" href="#bitcoin-core-setup">Bitcoin Core Setup</a></h2>
-<p>Ang <code>ord</code> ay nangangailangan ng index ng transaksyon at rest interface ng Bitcoin Core.</p>
-<p>I-configure ang iyong Bitcoin Core node upang mapanatili ang index ng mga transaksyon, idagdag ang sumusunod sa iyong bitcoin.conf file:</p>
+<p>If you get stuck, try asking for help on the <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a>, or checking GitHub for relevant <a href="https://github.com/ynohtna92/ord-litecoin/issues">issues</a> and <a href="https://github.com/ynohtna92/ord-litecoin/discussions">discussions</a>.</p>
+<h2 id="pag-install-ng-litecoin-core"><a class="header" href="#pag-install-ng-litecoin-core">Pag-install ng Litecoin Core</a></h2>
+<p>Ang Litecoin Core ay mada-download sa <a href="https://bitcoincore.org/">litecoin.org</a> sa pahina ng <a href="https://litecoin.org/">pag-download</a>.</p>
+<p>Making inscriptions requires Litecoin Core 21.5.8; Taproot wallets require a compatible Core 24 development build.</p>
+<p>Hindi saklaw ng gabay na ito ang pag-install ng Litecoin Core nang detalyado. Kapag na-install na ang Litecoin Core, dapat ay matagumpay mong mapatakbo ang <code>litecoind -version</code> mula sa command line. <em>HUWAG</em> gamitin ang <code>litecoin-qt</code>.</p>
+<h2 id="litecoin-core-setup"><a class="header" href="#litecoin-core-setup">Litecoin Core Setup</a></h2>
+<p>Ang <code>ord</code> ay nangangailangan ng index ng transaksyon at rest interface ng Litecoin Core.</p>
+<p>I-configure ang iyong Litecoin Core node upang mapanatili ang index ng mga transaksyon, idagdag ang sumusunod sa iyong litecoin.conf file:</p>
 <pre><code>txindex=1
 </code></pre>
-<p>O, patakbuhin ang <code>bitcoind</code> gamit ang <code>-txindex</code>:</p>
-<pre><code>bitcoind -txindex
+<p>O, patakbuhin ang <code>litecoind</code> gamit ang <code>-txindex</code>:</p>
+<pre><code>litecoind -txindex
 </code></pre>
-<p>Ang mga detalye sa paggawa o pagbabago ng iyong <code>bitcoin.conf</code> na file ay matatagpuan <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">dito</a>.</p>
-<h2 id="pag-synchronize-ng-bitcoin-blockchain"><a class="header" href="#pag-synchronize-ng-bitcoin-blockchain">Pag-synchronize ng Bitcoin Blockchain</a></h2>
+<p>Ang mga detalye sa paggawa o pagbabago ng iyong <code>litecoin.conf</code> na file ay matatagpuan <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md">dito</a>.</p>
+<h2 id="pag-synchronize-ng-litecoin-blockchain"><a class="header" href="#pag-synchronize-ng-litecoin-blockchain">Pag-synchronize ng Litecoin Blockchain</a></h2>
 <p>Upang i-sync ang blockchain patakbuhin ang sumusunod na command</p>
-<pre><code>bitcoind -txindex
+<pre><code>litecoind -txindex
 </code></pre>
 <p>…at hayaan itong tumakbo hanggang sa <code>getblockcount</code>:</p>
-<pre><code>bitcoin-cli getblockcount
+<pre><code>litecoin-cli getblockcount
 </code></pre>
-<p>tumutugma sa bilang ng mga bloke tulad nalamang ng <a href="https://mempool.space/">mempool.space block explorer</a>. Nakikipag-ugnayan ang <code>ord</code> sa <code>bitcoind</code>, kaya dapat mong iwanan ang <code>bitcoind</code> na tumatakbo sa background kapag gumagamit ng <code>ord</code>.</p>
-<p>Ang blockchain ay humigit-kumulang 600GB disk space. Kung mayroon kang external drive na gamitin para mag-store ng blocks, gamitin ang configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. Ito ay mas simple kaysa sa paggamit ng <code>datadir</code> na opsyon dahil ang cookie file ay nasa default pa ring lokasyon para mahanap ang <code>bitcoin-cli</code> at <code>ord</code>.</p>
+<p>agrees with the block count on a block explorer like <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>. <code>ord</code> interacts with <code>litecoind</code>, so you should leave <code>litecoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>Ang blockchain ay humigit-kumulang 600GB disk space. Kung mayroon kang external drive na gamitin para mag-store ng blocks, gamitin ang configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. Ito ay mas simple kaysa sa paggamit ng <code>datadir</code> na opsyon dahil ang cookie file ay nasa default pa ring lokasyon para mahanap ang <code>litecoin-cli</code> at <code>ord</code>.</p>
 <h2 id="pag-troubleshoot"><a class="header" href="#pag-troubleshoot">Pag-Troubleshoot</a></h2>
-<p>Tiyaking maa-access mo ang <code>bitcoind</code> gamit ang <code>bitcoin-cli -getinfo</code> at ito ay ay ganap na naka-sync.</p>
-<p>Kung ibabalik ng <code>bitcoin-cli -getinfo</code> ang <code>Could not connect to the server</code>, Hindi tumatakbo ang iyong <code>bitcoind</code>.</p>
-<p>Tiyaking <code>rpcuser</code>, <code>rpcpassword</code>, o <code>rpcauth</code> ay <em>HINDI</em> naka-set sa iyong <code>bitcoin.conf</code> file. Ang <code>ord</code> ay nangangailangan ng paggamit ng cookie authentication. Tiyaking may file na <code>.cookie</code> sa iyong bitcoin data directory.</p>
-<p>Kung ibabalik ng <code>bitcoin-cli -getinfo</code> ang <code>Could not locate RPC credentials</code>, kung gayon dapat mong tukuyin ang lokasyon ng cookie file. Kung gumagamit ka ng custom na data directory (tumutukoy sa <code>datadir</code>), dapat mong tukuyin ang lokasyon ng cookie tulad ng <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. Kapag nagpapatakbo ng <code>ord</code> dapat mong tukuyin ang cookie file location na may <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
-<p>Tiyaking <em>WALA</em> kang <code>disablewallet=1</code> sa iyong <code>bitcoin.conf</code> file.Kung ibabalik ng <code>bitcoin-cli listwallet</code> ang <code>Method not found</code> ang wallet ay naka-disable at hindi mo magagamit ang <code>ord</code>.</p>
-<p>Tiyaking nakatakda ang <code>txindex=1</code>. Patakbuhin ang <code>bitcoin-cli getindexinfo</code> at dapat itong ibalik ang isang bagay tulad ng</p>
+<p>Tiyaking maa-access mo ang <code>litecoind</code> gamit ang <code>litecoin-cli -getinfo</code> at ito ay ay ganap na naka-sync.</p>
+<p>Kung ibabalik ng <code>litecoin-cli -getinfo</code> ang <code>Could not connect to the server</code>, Hindi tumatakbo ang iyong <code>litecoind</code>.</p>
+<p>Tiyaking <code>rpcuser</code>, <code>rpcpassword</code>, o <code>rpcauth</code> ay <em>HINDI</em> naka-set sa iyong <code>litecoin.conf</code> file. Ang <code>ord</code> ay nangangailangan ng paggamit ng cookie authentication. Tiyaking may file na <code>.cookie</code> sa iyong litecoin data directory.</p>
+<p>Kung ibabalik ng <code>litecoin-cli -getinfo</code> ang <code>Could not locate RPC credentials</code>, kung gayon dapat mong tukuyin ang lokasyon ng cookie file. Kung gumagamit ka ng custom na data directory (tumutukoy sa <code>datadir</code>), dapat mong tukuyin ang lokasyon ng cookie tulad ng <code>litecoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. Kapag nagpapatakbo ng <code>ord</code> dapat mong tukuyin ang cookie file location na may <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
+<p>Tiyaking <em>WALA</em> kang <code>disablewallet=1</code> sa iyong <code>litecoin.conf</code> file.Kung ibabalik ng <code>litecoin-cli listwallet</code> ang <code>Method not found</code> ang wallet ay naka-disable at hindi mo magagamit ang <code>ord</code>.</p>
+<p>Tiyaking nakatakda ang <code>txindex=1</code>. Patakbuhin ang <code>litecoin-cli getindexinfo</code> at dapat itong ibalik ang isang bagay tulad ng</p>
 <pre><code class="language-json">{
   "txindex": {
     "synced": true,
@@ -306,20 +287,20 @@
   }
 }
 </code></pre>
-<p>Kung ibinabalik nito ang <code>{}</code>, hindi naka-set ang <code>txindex</code>. Kung ibinabalik nito ang <code>"naka-sync": false</code>, ginagawa pa rin ng <code>bitcoind</code> ang <code>txindex</code>. Maghintay ang <code>"synced": true</code> bago gamitin ang <code>ord</code>.</p>
-<p>Kung mayroon kang naka-set na <code>maxuploadtarget</code> maaari itong makagambala sa pagkuha ng mga bloke para sa index ng <code>ord</code>. Alisin ito o i-set ang <code>whitebind=127.0.0.1:8333</code>.</p>
+<p>Kung ibinabalik nito ang <code>{}</code>, hindi naka-set ang <code>txindex</code>. Kung ibinabalik nito ang <code>"naka-sync": false</code>, ginagawa pa rin ng <code>litecoind</code> ang <code>txindex</code>. Maghintay ang <code>"synced": true</code> bago gamitin ang <code>ord</code>.</p>
+<p>Kung mayroon kang naka-set na <code>maxuploadtarget</code> maaari itong makagambala sa pagkuha ng mga bloke para sa index ng <code>ord</code>. Alisin ito o i-set ang <code>whitebind=127.0.0.1:9333</code>.</p>
 <h2 id="pag-install-ng-ord"><a class="header" href="#pag-install-ng-ord">Pag-install ng <code>ord</code></a></h2>
-<p>Ang <code>ord</code> utility ay nakasulat sa Rust at maaaring i-compile mula sa <a href="https://github.com/ordinals/ord">source</a>. Available ang mga pre-built na binary sa page ng mga <a href="https://github.com/ordinals/ord/releases">release page</a>.</p>
+<p>The <code>ord</code> utility is written in Rust and can be built from <a href="https://github.com/ynohtna92/ord-litecoin">source</a>. Pre-built binaries are available on the <a href="https://github.com/ynohtna92/ord-litecoin/releases">releases page</a>.</p>
 <p>Maaari mong i-install ang pinakabagong prebuilt binary mula sa command line gamit ang:</p>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 </code></pre>
 <p>Kapag na-install na ang ord, dapat mong patakbuhin ang:</p>
 <pre><code>ord --version
 </code></pre>
 <p>na magpapakita ng numero ng bersyon ng <code>ord</code>.</p>
 <h2 id="creating-a-wallet"><a class="header" href="#creating-a-wallet">Creating a Wallet</a></h2>
-<p><code>ord</code> uses <code>bitcoind</code> to manage private keys, sign transactions, and broadcast transactions to the Bitcoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
-<pre><code>bitcoind -txindex
+<p><code>ord</code> uses <code>litecoind</code> to manage private keys, sign transactions, and broadcast transactions to the Litecoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
+<pre><code>litecoind -txindex
 </code></pre>
 <pre><code>ord server
 </code></pre>
@@ -385,7 +366,7 @@
 </code></pre>
 <p>Paste the descriptor into the terminal and press CTRL-D on unix and CTRL-Z on Windows.</p>
 <h2 id="tumanggap-ng-sats"><a class="header" href="#tumanggap-ng-sats">Tumanggap ng sats</a></h2>
-<p>Ang mga inscription ay ginagawa sa mga indibidwal na sats, gamit ang mga normal na transaksyon sa Bitcoin na nagbabayad ng gamit ang sats, kaya ang iyong wallet ay mangangailangan ng mga sats.</p>
+<p>Ang mga inscription ay ginagawa sa mga indibidwal na sats, gamit ang mga normal na transaksyon sa Litecoin na nagbabayad ng gamit ang sats, kaya ang iyong wallet ay mangangailangan ng mga sats.</p>
 <p>Kumuha ng bagong address mula sa iyong ord wallet sa pamamagitan ng:</p>
 <pre><code>ord wallet receive
 </code></pre>
@@ -398,14 +379,14 @@
 <p>Maaaring i-inscribe ang Sats sa anumang uri ng content, ngunit sinusuportahan lamang ng ord wallet ang mga uri ng content na maaaring i-display ng <code>ord</code> block explorer.</p>
 <p>Gayundin, ang mga inscription ay kasama sa mga transaksyon, kaya kung mas maraming nilalaman, mas mataas ang bayad para sa transaksyon sa inscription.</p>
 <p>Ang nilalaman ng inscription ay kasama sa mga witnesses transaksyon, na tumatanggap ng diskwento. Upang kalkulahin ang tinatayang bayad na babayaran ng isang inscribe na transaksyon, hatiin ang laki ng content sa apat at i-multiply sa rate ng bayad.</p>
-<p>Ang mga transaksyon sa inscription ay dapat na mas mababa sa 400,00, o hindi sila ipapadala ng Bitcoin Core. Ang isang byte na nilalaman ng inscription ay nagkakahalaga ng isang yunit ng timbang. Dahil ang isang transaksyon sa inscription ay hindi kasama lamang ang nilalaman ng inscription, angkop na limitahan ang nilalaman ng pagpapatala sa mas mababa sa 400,000. Dapat ay sapat na ang 390,000 weight units.</p>
+<p>Ang mga transaksyon sa inscription ay dapat na mas mababa sa 400,00, o hindi sila ipapadala ng Litecoin Core. Ang isang byte na nilalaman ng inscription ay nagkakahalaga ng isang yunit ng timbang. Dahil ang isang transaksyon sa inscription ay hindi kasama lamang ang nilalaman ng inscription, angkop na limitahan ang nilalaman ng pagpapatala sa mas mababa sa 400,000. Dapat ay sapat na ang 390,000 weight units.</p>
 <h2 id="paglikha-ng-mga-inscription"><a class="header" href="#paglikha-ng-mga-inscription">Paglikha ng mga inscription</a></h2>
 <p>Upang lumikha ng inscription na may mga nilalaman na <code>FILE</code>, patakbuhin ang:</p>
 <pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Maglalabas ang Ord ng dalawang transaction ID, isa para sa commit transaction at isa para sa reveal transaction, kasama ang inscription ID. Ang mga Inscription ID ay nasa anyong <code>TXIDiN</code>, kung saan ang <code>TXID</code> ay ang transaction ID ng reveal na transaksyon, at ang <code>N</code> ay ang index ng pag-inscribe sa reveal na transaksyon.</p>
 <p>Ang commit na transaksyon ay commit sa isang tapscript na naglalaman ng content ng inscription, at ang reveal na transaction ay gumagastos mula sa tapscript na iyon, na nire-reveal ang content sa string at nii-inscribe ito sa unang sat ng input na naglalaman ng kaukulang tapscript.</p>
-<p>Hintaying mamimina ang reveal na transaksyon. Maaari mong suriin ang status ng commit at i-reveal ang mga transaksyon gamit ang <a href="https://mempool.space/">mempool.space block explorer</a>.</p>
+<p>Hintaying mamimina ang reveal na transaksyon. Maaari mong suriin ang status ng commit at i-reveal ang mga transaksyon gamit ang <a href="https://litecoinspace.org/">litecoinspace.org block explorer</a>.</p>
 <p>Kapag ang inscription na transaksyon ay nakuha na, ang inscription ID ay dapat na mai-print gamit ang:</p>
 <pre><code>ord wallet inscriptions
 </code></pre>
@@ -463,11 +444,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -477,11 +458,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

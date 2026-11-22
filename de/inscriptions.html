@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="de" class="coal" dir="ltr">
+<html lang="de" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Einführung</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Übersicht</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale Artefakte</a></li><li class="chapter-item expanded "><a href="inscriptions.html" class="active"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Rekursion</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> Specification</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">5.</strong> Häufig gestellte Fragen</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Beitragen</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> Spenden</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> Anleitungen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Sammeln</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Erneutes Indizieren</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sat-Suche</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> Testen</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> Bounty 0: 100.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> Bounty 1: 200.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> Bounty 2: 300.000 sats beansprucht!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> Bounty 3: 400.000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -253,8 +234,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="inscriptions"><a class="header" href="#inscriptions">Inscriptions</a></h1>
-<p>Inscriptions beschriften Sats mit beliebigen Inhalten und erzeugen Bitcoin-native digitale Artefakte, besser bekannt als NFTs. Für Inscriptions erfordern keine Sidechain oder separaten Token.</p>
-<p>Diese eingeschriebenen Sats können dann mithilfe von Bitcoin-Transaktionen übertragen, an Bitcoin-Adressen gesendet und in Bitcoin-UTXOs gespeichert werden. Diese Transaktionen, Adressen und UTXOs sind in jeder Hinsicht normale Bitcoin-Transaktionen, Adressen und UTXOS, mit der Ausnahme, dass Transaktionen zum Senden einzelner Sats die Reihenfolge und den Wert der Ein- und Ausgänge gemäß der Ordinal theorie steuern müssen.</p>
+<p>Inscriptions beschriften Sats mit beliebigen Inhalten und erzeugen Litecoin-native digitale Artefakte, besser bekannt als NFTs. Für Inscriptions erfordern keine Sidechain oder separaten Token.</p>
+<p>Diese eingeschriebenen Sats können dann mithilfe von Litecoin-Transaktionen übertragen, an Litecoin-Adressen gesendet und in Litecoin-UTXOs gespeichert werden. Diese Transaktionen, Adressen und UTXOs sind in jeder Hinsicht normale Litecoin-Transaktionen, Adressen und UTXOS, mit der Ausnahme, dass Transaktionen zum Senden einzelner Sats die Reihenfolge und den Wert der Ein- und Ausgänge gemäß der Ordinal theorie steuern müssen.</p>
 <p>Das Inhaltsmodell der inscription ist das des Webs. Eine inscription besteht aus einem Inhaltstyp, auch MIME-Typ genannt, und dem Inhalt selbst, bei dem es sich um eine Bytefolge handelt. Dies ermöglicht die Rückgabe von inscriptions von einem Webserver und die Erstellung von HTML-inscriptions , die den Inhalt anderer inscription verwenden und neu mischen.</p>
 <p>Der Inhalt der Inscription ist vollständig in der Kette und wird in Taproot-Skriptpfad-Ausgabeskripten gespeichert. Für Taproot-Skripte gelten nur sehr wenige Einschränkungen hinsichtlich ihres Inhalts und sie erhalten zusätzlich den Witness-Rabatt, was die Speicherung von Inscription-Inhalten relativ kostengünstig macht.</p>
 <p>Da Ausgaben für Taproot-Skripts nur aus vorhandenen Taproot-Ausgaben getätigt werden können, werden inscriptions mithilfe eines zweiphasigen Commit/Reveal-Verfahrens vorgenommen. Zunächst wird in der Commit-Transaktion eine Taproot-Ausgabe erstellt, die ein Commit für ein Skript mit dem Inhalt der Inschrift durchführt. Zweitens wird bei der Offenlegungstransaktion die durch die Festschreibungstransaktion erzeugte Ausgabe ausgegeben, um den Inhalt der Inschrift in der chain preiszugeben.</p>
@@ -276,16 +257,23 @@ OP_ENDIF
 <p>Das Datenmodell von inscriptions ist das einer HTTP-Antwort, sodass inscription inhalte von einem Webserver bereitgestellt und in einem Webbrowser angezeigt werden können.</p>
 <h2 id="felder"><a class="header" href="#felder">Felder</a></h2>
 <p>Inscriptions können Felder vor einem optionalen Text enthalten. Jedes Feld besteht aus zwei Daten-Pushs, einem Tag und einem Wert.</p>
-<p>Currently, there are six defined fields:</p>
-<ul>
-<li><code>content_type</code>, with a tag of <code>1</code>, whose value is the MIME type of the body.</li>
-<li><code>pointer</code>, with a tag of <code>2</code>, see <a href="inscriptions/pointer.html">pointer docs</a>.</li>
-<li><code>parent</code>, with a tag of <code>3</code>, see <a href="inscriptions/provenance.html">provenance</a>.</li>
-<li><code>metadata</code>, with a tag of <code>5</code>, see <a href="inscriptions/metadata.html">metadata</a>.</li>
-<li><code>metaprotocol</code>, with a tag of <code>7</code>, whose value is the metaprotocol identifier.</li>
-<li><code>content_encoding</code>, with a tag of <code>9</code>, whose value is the encoding of the body.</li>
-<li><code>delegate</code>, with a tag of <code>11</code>, see <a href="inscriptions/delegate.html">delegate</a>.</li>
-</ul>
+<p>Currently, there are thirteen defined fields:</p>
+<div class="table-wrapper"><table><thead><tr><th>tag</th><th>name</th><th>comment</th></tr></thead><tbody>
+<tr><td><code>1</code></td><td><code>content_type</code></td><td>MIME type of the body</td></tr>
+<tr><td><code>2</code></td><td><code>pointer</code></td><td>see <a href="inscriptions/pointer.html">pointer</a></td></tr>
+<tr><td><code>3</code></td><td><code>parent</code></td><td>see <a href="inscriptions/provenance.html">provenance</a></td></tr>
+<tr><td><code>5</code></td><td><code>metadata</code></td><td>see <a href="inscriptions/metadata.html">metadata</a></td></tr>
+<tr><td><code>7</code></td><td><code>metaprotocol</code></td><td>metaprotocol identifier</td></tr>
+<tr><td><code>9</code></td><td><code>content_encoding</code></td><td>encoding of the body</td></tr>
+<tr><td><code>11</code></td><td><code>delegate</code></td><td>see <a href="inscriptions/delegate.html">delegate</a></td></tr>
+<tr><td><code>13</code></td><td><code>rune</code></td><td>serialized rune</td></tr>
+<tr><td><code>15</code></td><td></td><td>no-op</td></tr>
+<tr><td><code>17</code></td><td><code>properties</code></td><td>see <a href="inscriptions/properties.html">properties</a></td></tr>
+<tr><td><code>19</code></td><td><code>property_encoding</code></td><td>encoding of the properties field</td></tr>
+<tr><td><code>66</code></td><td></td><td>unbinds inscription</td></tr>
+<tr><td><code>255</code></td><td></td><td>no-op</td></tr>
+</tbody></table>
+</div>
 <p>Der Anfang des Hauptteils und das Ende der Felder werden durch einen leeren Daten-Push angezeigt.</p>
 <p>Nicht erkannte Tags werden unterschiedlich interpretiert, je nachdem, ob sie gerade oder ungerade sind. Dabei gilt die vom Lightning Network verwendete Regel "Es ist in Ordnung, ungerade zu sein".</p>
 <p>Sogar Tags werden für Felder verwendet, die sich auf die Erstellung, Erstzuweisung oder Übertragung einer inscription auswirken können. So müssen inscription mit nicht erkannten geraden Feldern als "ungebunden“, also ohne Ortsangabe, angezeigt werden.</p>
@@ -330,7 +318,7 @@ OP_ENDIF
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="inscriptions/delegate.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="inscriptions/burning.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -344,7 +332,7 @@ OP_ENDIF
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="inscriptions/delegate.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="inscriptions/burning.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

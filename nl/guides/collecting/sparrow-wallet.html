@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="nl" class="coal" dir="ltr">
+<html lang="nl" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../../language-picker.css">
+        <link rel="stylesheet" href="../../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../../introduction.html">Introductie</a></li><li class="chapter-item expanded "><a href="../../overview.html"><strong aria-hidden="true">1.</strong> Overzicht</a></li><li class="chapter-item expanded "><a href="../../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale artefacten</a></li><li class="chapter-item expanded "><a href="../../inscriptions.html"><strong aria-hidden="true">3.</strong> Inscripties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Gemachtigde</a></li><li class="chapter-item expanded "><a href="../../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="../../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursie</a></li><li class="chapter-item expanded "><a href="../../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Voorbeelden</a></li></ol></li><li class="chapter-item expanded "><a href="../../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Specificatie</a></li></ol></li><li class="chapter-item expanded "><a href="../../faq.html"><strong aria-hidden="true">5.</strong> Veelgestelde Vragen</a></li><li class="chapter-item expanded "><a href="../../contributing.html"><strong aria-hidden="true">6.</strong> Bijdragen</a></li><li class="chapter-item expanded "><a href="../../donate.html"><strong aria-hidden="true">7.</strong> Donaties</a></li><li class="chapter-item expanded "><a href="../../guides.html"><strong aria-hidden="true">8.</strong> Handleidingen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Verkenner</a></li><li class="chapter-item expanded "><a href="../../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscriptie</a></li><li class="chapter-item expanded "><a href="../../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Verzamelen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../guides/collecting/sparrow-wallet.html" class="active"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="../../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Beheer</a></li><li class="chapter-item expanded "><a href="../../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Herindexeren</a></li><li class="chapter-item expanded "><a href="../../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sats Jagen</a></li><li class="chapter-item expanded "><a href="../../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Instellingen</a></li><li class="chapter-item expanded "><a href="../../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburnen</a></li><li class="chapter-item expanded "><a href="../../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Testen</a></li></ol></li><li class="chapter-item expanded "><a href="../../bounties.html"><strong aria-hidden="true">9.</strong> Beloningen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Beloning 0: 100.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Beloning 1: 200.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Beloning 2: 300.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Beloning 3: 400.000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -266,7 +247,7 @@
 <p><img src="images/wallet_setup_02.png" alt="" /></p>
 <p>Selecteer <code>Use 12 Words</code> en klik vervolgens op <code>Generate New</code>. Laat de wachtwoordzin leeg.</p>
 <p><img src="images/wallet_setup_03.png" alt="" /></p>
-<p>Er wordt een nieuwe 12-woord BIP39 seed phrase voor je gegenereerd. Schrijf dit ergens veilig op, aangezien dit je backup is om toegang te krijgen tot je wallet. DEEL of TOON deze seed phrase NOOIT aan iemand anders.</p>
+<p>A new 12 word <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> seed phrase will be generated for you. Write this down somewhere safe as this is your backup to get access to your wallet. NEVER share or show this seed phrase to anyone else.</p>
 <p>Zodra je de seed phrase hebt opgeschreven, klik je op <code>Confirm Backup</code>.</p>
 <p><img src="images/wallet_setup_04.png" alt="" /></p>
 <p>Voer de seed phrase die je hebt opgeschreven opnieuw in en klik vervolgens op <code>Create Keystore</code>.</p>
@@ -275,7 +256,7 @@
 <p><img src="images/wallet_setup_06.png" alt="" /></p>
 <p>Klik op <code>Apply</code>. Voeg een wachtwoord toe voor de wallet als je dat wilt.</p>
 <p><img src="images/wallet_setup_07.png" alt="" /></p>
-<p>Je hebt nu een wallet die compatibel is met <code>ord</code> en geïmporteerd kan worden in <code>ord</code> met de BIP39 Seed Phrase. Om ordinals of inscripties te ontvangen, klik je op het tabblad <code>Receive</code> en kopieer je een nieuw adres.</p>
+<p>You now have a wallet which is compatible with <code>ord</code>, and can be imported into <code>ord</code> using the <a href="https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki">BIP39</a> Seed Phrase. To receive ordinals or inscriptions, click on the <code>Receive</code> tab and copy a new address.</p>
 <p>Elke keer dat je wilt ontvangen, moet je een gloednieuw adres gebruiken en geen bestaande adressen hergebruiken.</p>
 <p>Houd er rekening mee dat bitcoin anders is dan sommige andere blockchain wallets, in die zin dat deze wallet een onbeperkt aantal nieuwe adressen kan genereren. Je kunt een nieuw adres genereren door op de knop <code>Get Next Address</code> te klikken. Je kunt al je adressen bekijken in het tabblad <code>Addresses</code> van de app.</p>
 <p>Je kunt elk adres een label toevoegen, zodat je kunt bijhouden waarvoor het is gebruikt.</p>
@@ -286,7 +267,7 @@
 <p><img src="images/validating_viewing_01.png" alt="" /></p>
 <p>Om de status van je transactie te volgen, kun je met de rechtermuisknop op de transactie klikken, <code>Copy Transaction ID</code> selecteren en vervolgens die transactie-ID plakken op <a href="https://mempool.space">mempool.space</a>.</p>
 <p><img src="images/validating_viewing_02.png" alt="" /></p>
-<p>Zodra de transactie is bevestigd, kun je je inscriptie valideren en bekijken door naar het tabblad <code>UTXOs</code> te gaan, de UTXO te vinden die je wilt controleren, met de rechtermuisknop op de <code>Output</code> te klikken en <code>Copy Transaction Output</code> te selecteren. Deze transactie-uitvoer-ID kan vervolgens worden geplakt in de zoekfunctie van <a href="https://ordinals.com">ordinals.com</a>.</p>
+<p>Zodra de transactie is bevestigd, kun je je inscriptie valideren en bekijken door naar het tabblad <code>UTXOs</code> te gaan, de UTXO te vinden die je wilt controleren, met de rechtermuisknop op de <code>Output</code> te klikken en <code>Copy Transaction Output</code> te selecteren. Deze transactie-uitvoer-ID kan vervolgens worden geplakt in de zoekfunctie van <a href="https://ordinalslite.com">ordinalslite.com</a>.</p>
 <h2 id="utxos-bevriezen"><a class="header" href="#utxos-bevriezen">UTXO's Bevriezen</a></h2>
 <p>Zoals hierboven uitgelegd, wordt elke inscriptie opgeslagen in een Unspent Transaction Output (UTXO). Je moet uiterst voorzichtig zijn om je inscripties niet per ongeluk uit te geven, en een manier om dit moeilijker te maken, is door de UTXO te bevriezen.</p>
 <p>Om dit te doen, ga je naar het tabblad <code>UTXOs</code>, zoek je de UTXO die je wilt bevriezen, klik je met de rechtermuisknop op de <code>Output</code> en selecteer je <code>Freeze UTXO</code>.</p>
@@ -312,10 +293,10 @@
 <h4 id="je-inscriptie-inspecteren-voordat-je-deze-verzendt"><a class="header" href="#je-inscriptie-inspecteren-voordat-je-deze-verzendt">Je inscriptie inspecteren voordat je deze verzendt</a></h4>
 <p>Zoals eerder beschreven, worden inscripties op sats geschreven, en sats worden opgeslagen binnen UTXO's. UTXO's zijn een verzameling satoshis met een specifieke waarde in aantal satoshis (de outputwaarde). Meestal (maar niet altijd) zal de inscriptie worden geschreven op de eerste satoshi in de UTXO.</p>
 <p>Bij het inspecteren van je inscriptie voordat je deze verzendt, is de belangrijkste stap om te controleren op welke satoshi in de UTXO je inscriptie is geschreven.</p>
-<p>Om dit te doen, kun je de stappen volgen in de sectie <a href="./sparrow-wallet.html#validating--viewing-received-inscriptions">Validating / Viewing Received Inscriptions</a> hierboven om de inscriptiepagina voor je inscriptie op ordinals.com te vinden</p>
+<p>Om dit te doen, kun je de stappen volgen in de sectie <a href="./sparrow-wallet.html#validating--viewing-received-inscriptions">Validating / Viewing Received Inscriptions</a> hierboven om de inscriptiepagina voor je inscriptie op ordinalslite.com te vinden</p>
 <p>Daar vind je wat metadata over je inscriptie, die er als volgt uitziet:</p>
 <p><img src="images/sending_01.png" alt="" /></p>
-<p>Er zijn een paar belangrijke dingen om hier te controleren:</p>
+<p>There are a few of important things to check here:</p>
 <ul>
 <li>De <code>output</code>-identifier komt overeen met de identifier van de UTXO die je gaat verzenden.</li>
 <li>De <code>offset</code> van de inscriptie is <code>0</code> (dit betekent dat de inscriptie zich op de eerste satoshi in de UTXO bevindt).</li>
@@ -325,10 +306,10 @@
 <p>⚠️⚠️ Wees zeer voorzichtig bij het verzenden van je inscriptie, vooral als de <code>offset</code>-waarde niet <code>0</code> is. Het wordt niet aanbevolen deze methode te gebruiken als dat het geval is, omdat je anders per ongeluk je inscriptie naar een bitcoin-miner kunt sturen, tenzij je precies weet wat je doet.</p>
 <h4 id="je-inscriptie-verzenden"><a class="header" href="#je-inscriptie-verzenden">Je inscriptie verzenden</a></h4>
 <p>Om een inscriptie te verzenden, ga je naar het tabblad <code>UTXOs</code> en zoek je de UTXO die je eerder hebt gevalideerd en waarvan je weet dat deze je inscriptie bevat.</p>
-<p>Als je de UTXO eerder hebt bevroren, moet je er met de rechtermuisknop op klikken en deze ontdooien (unfreezen).</p>
+<p>If you previously froze the UTXO you will need to right-click on it and unfreeze it.</p>
 <p>Selecteer de UTXO die je wilt verzenden en zorg ervoor dat dit de <em>enige</em> geselecteerde UTXO is. Je zou <code>UTXOs 1/1</code> in de interface moeten zien. Zodra je zeker weet dat dit het geval is, kun je op <code>Send Selected</code> klikken.</p>
 <p><img src="images/sending_02.png" alt="" /></p>
-<p>Je wordt vervolgens gepresenteerd met de interface voor het opstellen van de transactie. Er zijn een paar dingen die je hier moet controleren om ervoor te zorgen dat het verzenden veilig is:</p>
+<p>You will then be presented with the transaction construction interface. There are a few things you need to check here to make sure that this is a safe send:</p>
 <ul>
 <li>De transactie zou slechts 1 invoer moeten hebben, en dit zou de UTXO moeten zijn met het label dat je wilt verzenden.</li>
 <li>De transactie zou slechts 1 uitvoer moeten hebben, namelijk het adres/label waar je de inscriptie naartoe wilt sturen</li>
@@ -345,7 +326,7 @@
 <p>En dan krijg je nog een allerlaatste kans om alles te controleren voordat je op <code>Broadcast Transaction</code> klikt. Zodra je de transactie hebt uitgezonden, wordt deze naar het bitcoin-netwerk gestuurd en begint deze zich door de mempool te verspreiden.</p>
 <p><img src="images/sending_06.png" alt="" /></p>
 <p>Als je de status van je transactie wilt volgen, kun je de <code>Transaction Id (Txid)</code> kopiëren en deze in <a href="https://mempool.space">mempool.space</a> plakken.</p>
-<p>Zodra de transactie is bevestigd, kun je de inscriptiepagina op <a href="https://ordinals.com">ordinals.com</a> controleren om te bevestigen dat deze naar de nieuwe outputlocatie en het nieuwe adres is verplaatst.</p>
+<p>Zodra de transactie is bevestigd, kun je de inscriptiepagina op <a href="https://ordinalslite.com">ordinalslite.com</a> controleren om te bevestigen dat deze naar de nieuwe outputlocatie en het nieuwe adres is verplaatst.</p>
 <h2 id="probleemoplossing"><a class="header" href="#probleemoplossing">Probleemoplossing</a></h2>
 <h4 id="sparrow-wallet-toont-geen-transactieutxo-maar-ik-kan-het-zien-op-mempoolspace"><a class="header" href="#sparrow-wallet-toont-geen-transactieutxo-maar-ik-kan-het-zien-op-mempoolspace">Sparrow Wallet toont geen transactie/UTXO, maar ik kan het zien op mempool.space!</a></h4>
 <p>Zorg ervoor dat je wallet verbonden is met een bitcoin-node. Om dit te controleren, ga naar de <code>Voorkeuren</code> -&gt; <code>Server</code>-instellingen en klik op <code>Bestaande Verbinding Bewerken</code>.</p>
@@ -361,7 +342,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../../guides/moderation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../../guides/explorer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -375,7 +356,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../../guides/moderation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../../guides/explorer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

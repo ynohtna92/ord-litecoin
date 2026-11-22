@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="pt" class="coal" dir="ltr">
+<html lang="pt" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introdução</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Descrição Geral</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Artefatos Digitais</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Inscrições</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Procedência</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursão</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Especificações</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> Perguntas Frequentes</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Contribuir</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Doações</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Guias</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorador</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html" class="active"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Colecionando</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Carteira Sparrow</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderação</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindexação</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Caçando Sats</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Testando</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Recompensas</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Recompensa 0: 100,000 sats reivindicados!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Recompensa 1: 200,000 sats reivindicados!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Recompensa 2: 300,000 sats reivindicados!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Recompensa 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -253,15 +234,15 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="wallet"><a class="header" href="#wallet">Wallet</a></h1>
-<p>Sats individuais podem ser inscritos com conteúdo arbitrário, criando artefatos digitais nativos do Bitcoin que podem ser mantidos em uma carteira Bitcoin e transferidos usando transações Bitcoin. As inscrições são tão duráveis, imutáveis, seguras e descentralizadas quanto o próprio Bitcoin.</p>
-<p>Trabalhar com inscrições requer um nó completo do Bitcoin, para fornecer uma visão do estado atual da blockchain do Bitcoin, e uma carteira que pode criar inscrições e realizar controle de sat ao construir transações para enviar inscrições para outra carteira.</p>
-<p>O Bitcoin Core fornece um nó completo e uma carteira Bitcoin. No entanto, a carteira Bitcoin Core não pode criar inscrições e não realiza controle de sat.</p>
-<p>Isso requer <a href="https://github.com/ordinals/ord"><code>ord</code></a>, o utilitário ordinal. <code>ord</code> não implementa sua própria carteira, então os subcomandos <code>ord wallet</code> interagem com carteiras Bitcoin Core.</p>
+<p>Sats individuais podem ser inscritos com conteúdo arbitrário, criando artefatos digitais nativos do Litecoin que podem ser mantidos em uma carteira Litecoin e transferidos usando transações Litecoin. As inscrições são tão duráveis, imutáveis, seguras e descentralizadas quanto o próprio Litecoin.</p>
+<p>Trabalhar com inscrições requer um nó completo do Litecoin, para fornecer uma visão do estado atual da blockchain do Litecoin, e uma carteira que pode criar inscrições e realizar controle de sat ao construir transações para enviar inscrições para outra carteira.</p>
+<p>O Litecoin Core fornece um nó completo e uma carteira Litecoin. No entanto, a carteira Litecoin Core não pode criar inscrições e não realiza controle de sat.</p>
+<p>Isso requer <a href="https://github.com/ynohtna92/ord-litecoin"><code>ord</code></a>, o utilitário ordinal. <code>ord</code> não implementa sua própria carteira, então os subcomandos <code>ord wallet</code> interagem com carteiras Litecoin Core.</p>
 <p>Este guia cobre:</p>
 <ol>
-<li>Instalando Bitcoin Core</li>
-<li>Sincronizando a blockchain do Bitcoin</li>
-<li>Criando uma carteira Bitcoin Core</li>
+<li>Instalando Litecoin Core</li>
+<li>Sincronizando a blockchain do Litecoin</li>
+<li>Criando uma carteira Litecoin Core</li>
 <li>Usando <code>ord wallet receive</code> para receber sats</li>
 <li>Criando inscrições com <code>ord wallet inscribe</code></li>
 <li>Enviando inscrições com <code>ord wallet send</code></li>
@@ -269,36 +250,36 @@
 <li>Batch inscribing with <code>ord wallet inscribe --batch</code></li>
 </ol>
 <h2 id="obtendo-ajuda"><a class="header" href="#obtendo-ajuda">Obtendo Ajuda</a></h2>
-<p>Se você tiver dúvidas, tente pedir ajuda no <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a> ou verifique o GitHub para <a href="https://github.com/ordinals/ord/issues">problemas relevantes</a> e <a href="https://github.com/ordinals/ord/discussions">discussões</a>.</p>
-<h2 id="instalando-bitcoin-core"><a class="header" href="#instalando-bitcoin-core">Instalando Bitcoin Core</a></h2>
-<p>O Bitcoin Core está disponível em <a href="https://bitcoincore.org/">bitcoincore.org</a> na <a href="https://bitcoincore.org/en/download/">página de download</a>.</p>
-<p>Fazer inscrições requer Bitcoin Core 24 ou mais recente.</p>
-<p>This guide does not cover installing Bitcoin Core in detail. Once Bitcoin Core is installed, you should be able to run <code>bitcoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>bitcoin-qt</code>.</p>
-<h2 id="configurando-o-bitcoin-core"><a class="header" href="#configurando-o-bitcoin-core">Configurando o Bitcoin Core</a></h2>
-<p><code>ord</code> requires Bitcoin Core's transaction index and rest interface.</p>
-<p>Para configurar seu nó Bitcoin Core para manter um índice de transação, adicione o seguinte ao seu <code>bitcoin.conf</code>:</p>
+<p>Se você tiver dúvidas, tente pedir ajuda no <a href="https://discord.com/invite/87cjuz4FYg">Ordinals Discord Server</a> ou verifique o GitHub para <a href="https://github.com/ynohtna92/ord-litecoin/issues">problemas relevantes</a> e <a href="https://github.com/ynohtna92/ord-litecoin/discussions">discussões</a>.</p>
+<h2 id="instalando-litecoin-core"><a class="header" href="#instalando-litecoin-core">Instalando Litecoin Core</a></h2>
+<p>O Litecoin Core está disponível em <a href="https://litecoin.org/">litecoin.org</a> na <a href="https://litecoin.org/">página de download</a>.</p>
+<p>Making inscriptions requires Litecoin Core 21.5.8; Taproot wallets require a compatible Core 24 development build.</p>
+<p>This guide does not cover installing Litecoin Core in detail. Once Litecoin Core is installed, you should be able to run <code>litecoind -version</code> successfully from the command line. Do <em>NOT</em> use <code>litecoin-qt</code>.</p>
+<h2 id="configurando-o-litecoin-core"><a class="header" href="#configurando-o-litecoin-core">Configurando o Litecoin Core</a></h2>
+<p><code>ord</code> requires Litecoin Core's transaction index and rest interface.</p>
+<p>Para configurar seu nó Litecoin Core para manter um índice de transação, adicione o seguinte ao seu <code>litecoin.conf</code>:</p>
 <pre><code>txindex=1
 </code></pre>
-<p>Ou execute <code>bitcoind</code> com <code>-txindex</code>:</p>
-<pre><code>bitcoind -txindex
+<p>Ou execute <code>litecoind</code> com <code>-txindex</code>:</p>
+<pre><code>litecoind -txindex
 </code></pre>
-<p>Details on creating or modifying your <code>bitcoin.conf</code> file can be found <a href="https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md">here</a>.</p>
-<h2 id="sincronizando-a-blockchain-do-bitcoin"><a class="header" href="#sincronizando-a-blockchain-do-bitcoin">Sincronizando a Blockchain do Bitcoin</a></h2>
+<p>Details on creating or modifying your <code>litecoin.conf</code> file can be found <a href="https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md">here</a>.</p>
+<h2 id="sincronizando-a-blockchain-do-litecoin"><a class="header" href="#sincronizando-a-blockchain-do-litecoin">Sincronizando a Blockchain do Litecoin</a></h2>
 <p>Para sincronizar a cadeia, execute:</p>
-<pre><code>bitcoind -txindex
+<pre><code>litecoind -txindex
 </code></pre>
 <p>…e deixe rodando até <code>getblockcount</code>:</p>
-<pre><code>bitcoin-cli getblockcount
+<pre><code>litecoin-cli getblockcount
 </code></pre>
-<p>concorde com a contagem de blocos em um explorador de blocos como <a href="https://mempool.space/">o explorador de blocos mempool.space</a>. <code>ord</code> interage com <code>bitcoind</code>, então você deve deixar <code>bitcoind</code> rodando em segundo plano quando você estiver usando o <code>ord</code>.</p>
-<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>bitcoin-cli</code> and <code>ord</code> to find.</p>
+<p>agrees with the block count on a block explorer like <a href="https://litecoinspace.org/">the litecoinspace.org block explorer</a>. <code>ord</code> interacts with <code>litecoind</code>, so you should leave <code>litecoind</code> running in the background when you're using <code>ord</code>.</p>
+<p>The blockchain takes about 600GB of disk space. If you have an external drive you want to store blocks on, use the configuration option <code>blocksdir=&lt;external_drive_path&gt;</code>. This is much simpler than using the <code>datadir</code> option because the cookie file will still be in the default location for <code>litecoin-cli</code> and <code>ord</code> to find.</p>
 <h2 id="solução-de-problemas"><a class="header" href="#solução-de-problemas">Solução de problemas</a></h2>
-<p>Make sure you can access <code>bitcoind</code> with <code>bitcoin-cli -getinfo</code> and that it is fully synced.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>bitcoind</code> is not running.</p>
-<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>bitcoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your bitcoin data directory.</p>
-<p>If <code>bitcoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>bitcoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
-<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>bitcoin.conf</code> file. If <code>bitcoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
-<p>Make sure <code>txindex=1</code> is set. Run <code>bitcoin-cli getindexinfo</code> and it should return something like</p>
+<p>Make sure you can access <code>litecoind</code> with <code>litecoin-cli -getinfo</code> and that it is fully synced.</p>
+<p>If <code>litecoin-cli -getinfo</code> returns <code>Could not connect to the server</code>, <code>litecoind</code> is not running.</p>
+<p>Make sure <code>rpcuser</code>, <code>rpcpassword</code>, or <code>rpcauth</code> are <em>NOT</em> set in your <code>litecoin.conf</code> file. <code>ord</code> requires using cookie authentication. Make sure there is a file <code>.cookie</code> in your litecoin data directory.</p>
+<p>If <code>litecoin-cli -getinfo</code> returns <code>Could not locate RPC credentials</code>, then you must specify the cookie file location. If you are using a custom data directory (specifying the <code>datadir</code> option), then you must specify the cookie location like <code>litecoin-cli -rpccookiefile=&lt;your_bitcoin_datadir&gt;/.cookie -getinfo</code>. When running <code>ord</code> you must specify the cookie file location with <code>--cookie-file=&lt;your_bitcoin_datadir&gt;/.cookie</code>.</p>
+<p>Make sure you do <em>NOT</em> have <code>disablewallet=1</code> in your <code>litecoin.conf</code> file. If <code>litecoin-cli listwallets</code> returns <code>Method not found</code> then the wallet is disabled and you won't be able to use <code>ord</code>.</p>
+<p>Make sure <code>txindex=1</code> is set. Run <code>litecoin-cli getindexinfo</code> and it should return something like</p>
 <pre><code class="language-json">{
   "txindex": {
     "synced": true,
@@ -306,20 +287,20 @@
   }
 }
 </code></pre>
-<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>"synced": false</code>, <code>bitcoind</code> is still creating the <code>txindex</code>. Wait until <code>"synced": true</code> before using <code>ord</code>.</p>
-<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:8333</code>.</p>
+<p>If it only returns <code>{}</code>, <code>txindex</code> is not set. If it returns <code>"synced": false</code>, <code>litecoind</code> is still creating the <code>txindex</code>. Wait until <code>"synced": true</code> before using <code>ord</code>.</p>
+<p>If you have <code>maxuploadtarget</code> set it can interfere with fetching blocks for <code>ord</code> index. Either remove it or set <code>whitebind=127.0.0.1:9333</code>.</p>
 <h2 id="instalando-o-ord"><a class="header" href="#instalando-o-ord">Instalando o <code>ord</code></a></h2>
-<p>O utilitário <code>ord</code> é escrito em Rust e pode ser compilado a partir da <a href="https://github.com/ordinals/ord">fonte</a>. Binários pré-construídos estão disponíveis na <a href="https://github.com/ordinals/ord/releases">página de lançamentos</a>.</p>
+<p>O utilitário <code>ord</code> é escrito em Rust e pode ser compilado a partir da <a href="https://github.com/ynohtna92/ord-litecoin">fonte</a>. Binários pré-construídos estão disponíveis na <a href="https://github.com/ynohtna92/ord-litecoin/releases">página de lançamentos</a>.</p>
 <p>Você pode instalar o binário pré-construído mais recente a partir da linha de comando com:</p>
-<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://ordinals.com/install.sh | bash -s
+<pre><code class="language-sh">curl --proto '=https' --tlsv1.2 -fsLS https://raw.githubusercontent.com/ynohtna92/ord-litecoin/master/install.sh | bash -s
 </code></pre>
 <p>Depois que o <code>ord</code> estiver instalado, você poderá executar:</p>
 <pre><code>ord --version
 </code></pre>
 <p>Que imprime o número da versão do <code>ord</code>.</p>
 <h2 id="creating-a-wallet"><a class="header" href="#creating-a-wallet">Creating a Wallet</a></h2>
-<p><code>ord</code> uses <code>bitcoind</code> to manage private keys, sign transactions, and broadcast transactions to the Bitcoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
-<pre><code>bitcoind -txindex
+<p><code>ord</code> uses <code>litecoind</code> to manage private keys, sign transactions, and broadcast transactions to the Litecoin network. Additionally the <code>ord wallet</code> requires <a href="explorer.html"><code>ord server</code></a> running in the background. Make sure these programs are running:</p>
+<pre><code>litecoind -txindex
 </code></pre>
 <pre><code>ord server
 </code></pre>
@@ -385,7 +366,7 @@
 </code></pre>
 <p>Paste the descriptor into the terminal and press CTRL-D on unix and CTRL-Z on Windows.</p>
 <h2 id="recebendo-sats"><a class="header" href="#recebendo-sats">Recebendo Sats</a></h2>
-<p>As inscrições são feitas em sats individuais, usando transações normais de Bitcoin que pagam taxas em sats, então sua carteira precisará de alguns sats.</p>
+<p>As inscrições são feitas em sats individuais, usando transações normais de Litecoin que pagam taxas em sats, então sua carteira precisará de alguns sats.</p>
 <p>Obtenha um novo endereço da sua carteira <code>ord</code> executando:</p>
 <pre><code>ord wallet receive
 </code></pre>
@@ -397,15 +378,15 @@
 <h2 id="criando-conteúdo-de-inscrição"><a class="header" href="#criando-conteúdo-de-inscrição">Criando conteúdo de inscrição</a></h2>
 <p>Sats pode ser inscrito com qualquer tipo de conteúdo, mas a carteira <code>ord</code> só suporta tipos de conteúdo que podem ser exibidos pelo explorador de blocos <code>ord</code>.</p>
 <p>Além disso, as inscrições estão incluídas nas transações, portanto, quanto maior o conteúdo, maior será a taxa que a transação de inscrição deverá pagar.</p>
-<p>O conteúdo da inscrição está incluído nas testemunhas da transação, que recebem o desconto de testemunha. Para calcular a taxa aproximada que uma transação de inscrição pagará, divida o tamanho do conteúdo por quatro e multiplique pela taxa da rede." BOOKMAR</p>
-<p>As transações de inscrição devem ter menos de 400.000 unidades de peso ou não serão retransmitidas pelo Bitcoin Core. Um byte de conteúdo de inscrição custa uma unidade de peso. Como uma transação de inscrição não inclui apenas o conteúdo da inscrição, limite o conteúdo da inscrição a menos de 400.000 unidades de peso. 390.000 unidades de peso é uma margem segura.</p>
+<p>O conteúdo da inscrição está incluído nas testemunhas da transação, que recebem o desconto de testemunha. Para calcular a taxa aproximada que uma transação de inscrição pagará, divida o tamanho do conteúdo por quatro e multiplique pela taxa da rede." BOOKMARK</p>
+<p>As transações de inscrição devem ter menos de 400.000 unidades de peso ou não serão retransmitidas pelo Litecoin Core. Um byte de conteúdo de inscrição custa uma unidade de peso. Como uma transação de inscrição não inclui apenas o conteúdo da inscrição, limite o conteúdo da inscrição a menos de 400.000 unidades de peso. 390.000 unidades de peso é uma margem segura.</p>
 <h2 id="criando-inscrições"><a class="header" href="#criando-inscrições">Criando Inscrições</a></h2>
 <p>Para criar uma inscrição com o conteúdo de <code>ARQUIVO</code>, execute:</p>
 <pre><code>ord wallet inscribe --fee-rate FEE_RATE --file FILE
 </code></pre>
 <p>Ord produzirá dois IDs de transação, um para a transação de confirmação, outro para a transação de revelação, e o ID de inscrição. Os IDs de inscrição têm o formato <code>TXIDiN</code>, onde <code>TXID</code> é o ID da transação de revelação e <code>N</code> é o índice da inscrição na transação de revelação.</p>
 <p>A transação de commit confirma um tapscript contendo o conteúdo da inscrição, e a transação de revelação gasta a partir desse tapscript, revelando o conteúdo na cadeia e inscrevendo-o no primeiro sat da entrada que contém o tapscript correspondente.</p>
-<p>Aguarde até que a transação de revelação seja extraída. Você pode verificar o status do commit e revelar transações usando <a href="https://mempool.space/">o explorador de blocos mempool.space</a>.</p>
+<p>Aguarde até que a transação de revelação seja extraída. Você pode verificar o status do commit e revelar transações usando <a href="https://litecoinspace.org/">o explorador de blocos mempool.space</a>.</p>
 <p>Depois que a transação de revelação for minerada, o ID da inscrição deverá ser impresso quando você executar:</p>
 <pre><code>ord wallet inscriptions
 </code></pre>
@@ -463,11 +444,11 @@
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../guides/explorer.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../guides/testing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/batch-inscribing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -477,11 +458,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../guides/explorer.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../guides/testing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/batch-inscribing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

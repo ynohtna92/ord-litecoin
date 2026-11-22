@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ru" class="coal" dir="ltr">
+<html lang="ru" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Вступление</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Обзор</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Цифровые артефакты</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Надписи</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Провенанс</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Рекурсия</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Описание</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> ЧАВО</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Вклад</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Пожертвование</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Руководства</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Проводник</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Коллекционирование</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Модерация</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Переиндексация</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Охота на сатоши</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html" class="active"><strong aria-hidden="true">8.10.</strong> Тестирование</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Награды</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Награда 0: 100 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Награда 1: 200 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Награда 2: 300 000 sats Собрано!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Награда 3: 400 000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -254,25 +235,25 @@
                     <main>
                         <h1 id="Тестирование"><a class="header" href="#Тестирование">Тестирование</a></h1>
 <h2 id="test-environment"><a class="header" href="#test-environment">Test Environment</a></h2>
-<p><code>ord env &lt;DIRECTORY&gt;</code> creates a test environment in <code>&lt;DIRECTORY&gt;</code>, spins up <code>bitcoind</code> and <code>ord server</code> instances, prints example commands for interacting with the test <code>bitcoind</code> and <code>ord server</code> instances, waits for <code>CTRL-C</code>, and then shuts down <code>bitcoind</code> and <code>ord server</code>.</p>
-<p><code>ord env</code> tries to use port 9000 for <code>bitcoind</code>'s RPC interface, and port <code>9001</code> for <code>ord</code>'s RPC interface, but will fall back to random unused ports.</p>
-<p>Inside of the env directory, <code>ord env</code> will write <code>bitcoind</code>'s configuration to <code>bitcoin.conf</code>, <code>ord</code>'s configuration to <code>ord.yaml</code>, and the env configuration to <code>env.json</code>.</p>
-<p><code>env.json</code> contains the commands needed to invoke <code>bitcoin-cli</code> and <code>ord wallet</code>, as well as the ports <code>bitcoind</code> and <code>ord server</code> are listening on.</p>
+<p><code>ord env &lt;DIRECTORY&gt;</code> creates a test environment in <code>&lt;DIRECTORY&gt;</code>, spins up <code>litecoind</code> and <code>ord server</code> instances, prints example commands for interacting with the test <code>litecoind</code> and <code>ord server</code> instances, waits for <code>CTRL-C</code>, and then shuts down <code>litecoind</code> and <code>ord server</code>.</p>
+<p><code>ord env</code> tries to use port 9000 for <code>litecoind</code>'s RPC interface, and port <code>9001</code> for <code>ord</code>'s RPC interface, but will fall back to random unused ports.</p>
+<p>Inside of the env directory, <code>ord env</code> will write <code>litecoind</code>'s configuration to <code>litecoin.conf</code>, <code>ord</code>'s configuration to <code>ord.yaml</code>, and the env configuration to <code>env.json</code>.</p>
+<p><code>env.json</code> contains the commands needed to invoke <code>litecoin-cli</code> and <code>ord wallet</code>, as well as the ports <code>litecoind</code> and <code>ord server</code> are listening on.</p>
 <p>These can be extracted into shell commands using <code>jq</code>:</p>
-<pre><code class="language-shell">bitcoin=`jq -r '.bitcoin_cli_command | join(" ")' env/env.json`
-$bitcoin listunspent
+<pre><code class="language-shell">litecoin=`jq -r '.litecoin_cli_command | join(" ")' env/env.json`
+$litecoin listunspent
 
 ord=`jq -r '.ord_wallet_command | join(" ")' env/env.json`
 $ord outputs
 </code></pre>
-<p>If <code>ord</code> is in the <code>$PATH</code> and the env directory is <code>env</code>, the <code>bitcoin-cli</code> command will be:</p>
-<pre><code>bitcoin-cli -datadir=env
+<p>If <code>ord</code> is in the <code>$PATH</code> and the env directory is <code>env</code>, the <code>litecoin-cli</code> command will be:</p>
+<pre><code>litecoin-cli -datadir=env
 </code></pre>
 <p>And the <code>ord</code> will be:</p>
 <pre><code>ord --datadir env
 </code></pre>
 <h2 id="test-networks"><a class="header" href="#test-networks">Test Networks</a></h2>
-<p>Ord можно протестировать, используя следующие флаги для указания тестовой сети. Более подробную информацию о запуске Bitcoin Core для тестирования смотрите в <a href="https://developer.bitcoin.org/examples/testing.html">документации разработчика Bitcoin</a>.</p>
+<p>Ord можно протестировать, используя следующие флаги для указания тестовой сети. Более подробную информацию о запуске Litecoin Core для тестирования смотрите в <a href="https://github.com/litecoin-project/litecoin/tree/master/doc">документации разработчика Litecoin</a>.</p>
 <p>Most <code>ord</code> commands in <a href="wallet.html">wallet</a> and <a href="explorer.html">explorer</a> can be run with the following network flags:</p>
 <div class="table-wrapper"><table><thead><tr><th>Network</th><th>Flag</th></tr></thead><tbody>
 <tr><td>Testnet</td><td><code>--testnet</code> or <code>-t</code></td></tr>
@@ -282,8 +263,8 @@ $ord outputs
 </div>
 <p>Regtest doesn't require downloading the blockchain since you create your own private blockchain, so indexing <code>ord</code> is almost instantaneous.</p>
 <h2 id="Пример"><a class="header" href="#Пример">Пример</a></h2>
-<p>Run <code>bitcoind</code> in regtest with:</p>
-<pre><code>bitcoind -regtest -txindex
+<p>Run <code>litecoind</code> in regtest with:</p>
+<pre><code>litecoind -regtest -txindex
 </code></pre>
 <p>Run <code>ord server</code> in regtest with:</p>
 <pre><code>ord --regtest server
@@ -295,13 +276,13 @@ $ord outputs
 <pre><code>ord --regtest wallet receive
 </code></pre>
 <p>Добыть 101 блок (для разблокировки coinbase) с помощью:</p>
-<pre><code>bitcoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
+<pre><code>litecoin-cli -regtest generatetoaddress 101 &lt;receive address&gt;
 </code></pre>
 <p>Inscribe в regtest с:</p>
 <pre><code>ord --regtest wallet inscribe --fee-rate 1 --file &lt;file&gt;
 </code></pre>
 <p>Добыть надпись с:</p>
-<pre><code>bitcoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
+<pre><code>litecoin-cli -regtest generatetoaddress 1 &lt;receive address&gt;
 </code></pre>
 <p>By default, browsers don't support compression over HTTP. To test compressed content over HTTP, use the <code>--decompress</code> flag:</p>
 <pre><code>ord --regtest server --decompress
@@ -316,11 +297,11 @@ $ord outputs
 <pre><code>ord --regtest wallet inscribe --fee-rate 1 --file recursive-inscription.html
 </code></pre>
 <p>Наконец, нужно добыть несколько блоков и запустить сервер:</p>
-<pre><code>bitcoin-cli generatetoaddress 6 &lt;receive address&gt;
+<pre><code>litecoin-cli generatetoaddress 6 &lt;receive address&gt;
 </code></pre>
 <h3 id="mainnet-dependencies"><a class="header" href="#mainnet-dependencies">Mainnet Dependencies</a></h3>
-<p>To avoid having to change dependency inscription IDs to mainnet inscription IDs, you may utilize a content proxy when testing. <code>ord server</code> accepts a <code>--proxy</code> option, which takes the URL of a another <code>ord server</code> instance. When making a request to <code>/content/&lt;INSCRIPTION_ID&gt;</code> when a content proxy is set and the inscription is not found, <code>ord server</code> will forward the request to the content proxy. This allows you to run a test <code>ord server</code> instance with a mainnet content proxy. You can then use mainnet inscription IDs in your test inscription, which will then return the content of the mainnet inscriptions.</p>
-<pre><code>ord --regtest server --proxy https://ordinals.com
+<p>To avoid having to change dependency inscription IDs to mainnet inscription IDs, you may utilize a content proxy when testing. <code>ord server</code> accepts a <code>--proxy</code> option, which takes the URL of another <code>ord server</code> instance. When making a request to <code>/content/&lt;INSCRIPTION_ID&gt;</code> when a content proxy is set and the inscription is not found, <code>ord server</code> will forward the request to the content proxy. This allows you to run a test <code>ord server</code> instance with a mainnet content proxy. You can then use mainnet inscription IDs in your test inscription, which will then return the content of the mainnet inscriptions.</p>
+<pre><code>ord --regtest server --proxy https://ordinalslite.com
 </code></pre>
 
                     </main>
@@ -331,7 +312,7 @@ $ord outputs
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../bounties.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/wallet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -345,7 +326,7 @@ $ord outputs
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../bounties.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/wallet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

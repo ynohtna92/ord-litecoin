@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="nl" class="coal" dir="ltr">
+<html lang="nl" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">Introductie</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overzicht</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digitale artefacten</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> Inscripties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Gemachtigde</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html" class="active"><strong aria-hidden="true">3.5.</strong> Recursie</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Voorbeelden</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Specificatie</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> Veelgestelde Vragen</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> Bijdragen</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> Donaties</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> Handleidingen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Verkenner</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscriptie</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Verzamelen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Beheer</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Herindexeren</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sats Jagen</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Instellingen</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburnen</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> Testen</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> Beloningen</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> Beloning 0: 100.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> Beloning 1: 200.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> Beloning 2: 300.000 sats Geclaimd!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> Beloning 3: 400.000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -275,69 +256,112 @@
 <p>Generatieve profielafbeeldingcollecties waarbij accessoires en attributen worden ingeschreven als afzonderlijke afbeeldingen, of in een gedeelde texture atlas, en vervolgens op unieke manieren worden gecombineerd, collage-stijl, in meerdere inscripties.</p>
 </li>
 </ul>
-<p>De recursieve eindpunten zijn:</p>
-<ul>
-<li><code>/content/&lt;INSCRIPTION_ID&gt;</code>:  de inhoud van de inscriptie met <code>&lt;INSCRIPTION_ID&gt;</code></li>
-<li><code>/r/blockhash/&lt;HEIGHT&gt;</code>: de block hash op de gegeven blockhoogte.</li>
-<li><code>/r/blockhash</code>: laatste block hash.</li>
-<li><code>/r/blockheight</code>: laatste blockhoogte.</li>
-<li><code>/r/blockinfo/&lt;QUERY&gt;</code>: blokinformatie. <code>&lt;QUERY&gt;</code> kan een blockhoogte of block hash zijn.</li>
-<li><code>/r/blocktime</code>: UNIX-tijdstempel van het laatste block.</li>
-<li><code>/r/children/&lt;INSCRIPTION_ID&gt;</code>: de eerste 100 kindinscriptie-ID's.</li>
-<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</code>: de set van 100 kindinscriptie-ID's op <code>&lt;PAGE&gt;</code>.</li>
-<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions</code>: details van de eerste 100 kindinscripties.</li>
-<li><code>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions/&lt;PAGE&gt;</code>: details van de set van 100 kindinscripties op <code>&lt;PAGE&gt;</code>.</li>
-<li><code>/r/inscription/&lt;INSCRIPTION_ID&gt;</code>: informatie over een inscriptie</li>
-<li><code>/r/metadata/&lt;INSCRIPTION_ID&gt;</code>: JSON-string met de hex-gecodeerde CBOR-metadata.</li>
-<li><code>/r/parents/&lt;INSCRIPTION_ID&gt;</code>: de eerste 100 ouderinscriptie-ID's.</li>
-<li><code>/r/parents/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</code>: de set van 100 ouderinscriptie-ID's op <code>&lt;PAGE&gt;</code>.</li>
-<li><code>/r/sat/&lt;SAT_NUMBER&gt;</code>: de eerste 100 inscriptie-ID's op een satoshi.</li>
-<li><code>/r/sat/&lt;SAT_NUMBER&gt;/&lt;PAGE&gt;</code>: de set van 100 inscriptie-ID's op <code>&lt;PAGE&gt;</code>.</li>
-<li><code>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;</code>: de inscriptie-ID op <code>&lt;INDEX&gt;</code> van alle inscripties op een satoshi. <code>&lt;INDEX&gt;</code> kan een negatief getal zijn om van achteren te indexeren. Bijvoorbeeld, <code>0</code> is de eerste en <code>-1</code> is de meest recente.</li>
-</ul>
-<p>Opmerking: <code>&lt;SAT_NUMBER&gt;</code> staat alleen het daadwerkelijke nummer van een satoshi toe, en geen andere sat-notaties zoals graad, percentiel of decimaal. We kunnen in de toekomst uitbreiden om die toe te staan.</p>
-<p>Antwoorden van de bovenstaande recursieve eindpunten zijn JSON. Voor achterwaartse compatibiliteit worden extra eindpunten ondersteund, waarvan sommige platte-tekst-antwoorden retourneren.</p>
-<ul>
-<li><code>/blockheight</code>: de laatste blockhoogte.</li>
-<li><code>/blockhash</code>: de laatste block hash.</li>
-<li><code>/blockhash/&lt;HEIGHT&gt;</code>: block hash op de opgegeven blockhoogte.</li>
-<li><code>/blocktime</code>: UNIX-tijdstempel van het laatste blok.</li>
-</ul>
-<h2 id="voorbeelden"><a class="header" href="#voorbeelden">Voorbeelden</a></h2>
-<ul>
-<li><code>/r/blockhash/0</code>:</li>
-</ul>
-<pre><code class="language-json">"000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+<h2 id="endpoints"><a class="header" href="#endpoints">Endpoints</a></h2>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/content/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description"><a class="header" href="#description">Description</a></h3>
+<p>The content of the inscription with <code>&lt;INSCRIPTION_ID&gt;</code>.</p>
+<h3 id="voorbeeld"><a class="header" href="#voorbeeld">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/content/6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0 &gt; skull.jpg
 </code></pre>
-<ul>
-<li><code>/r/blockheight</code>:</li>
-</ul>
-<pre><code class="language-json">777000
+<p><i>no terminal output, just file creation</i></p>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/block/&lt;QUERY&gt;</b></code>
+  </summary>
+<h3 id="description-1"><a class="header" href="#description-1">Description</a></h3>
+<p>Get hex-encoded block with height or block hash in <code>&lt;QUERY&gt;</code>. In the event of a future change to Litecoin that changes transaction serialization in a backwards-incompatible fashion, such as SegWit, this endpoint is guaranteed to remain backwards compatible.</p>
+<h3 id="voorbeeld-1"><a class="header" href="#voorbeeld-1">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s http://0.0.0.0:80/r/block/0
 </code></pre>
-<ul>
-<li><code>/r/blockinfo/0</code>:</li>
-</ul>
-<p>Opmerking: <code>feerate_percentiles</code> zijn feerates op het 10e, 25e, 50e, 75e en 90e percentiel in sats/vB.</p>
+<pre><code class="language-json">"0100000000000000000000000000000000000000000000000000000000000000000000003ba3edfd7a7b12b27ac72c3e67768f617fc81bc3888a51323a9fb8aa4b1e5e4a29ab5f49ffff001d1dac2b7c0101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff4d04ffff001d0104455468652054696d65732030332f4a616e2f32303039204368616e63656c6c6f72206f6e206272696e6b206f66207365636f6e64206261696c6f757420666f722062616e6b73ffffffff0100f2052a01000000434104678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5fac00000000"
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/blockhash</b></code>
+  </summary>
+<h3 id="description-2"><a class="header" href="#description-2">Description</a></h3>
+<p>Latest block hash.</p>
+<h3 id="voorbeeld-2"><a class="header" href="#voorbeeld-2">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s  \
+  http://0.0.0.0:80/r/blockhash
+</code></pre>
+<pre><code class="language-json">"00000000000000000002891b440944e0ce40b37b6ccaa138c280e9edfc319d5d"
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/blockhash/&lt;HEIGHT&gt;</b></code>
+  </summary>
+<h3 id="description-3"><a class="header" href="#description-3">Description</a></h3>
+<p>Block hash at given block height as JSON string.</p>
+<h3 id="voorbeeld-3"><a class="header" href="#voorbeeld-3">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s  \
+  http://0.0.0.0:80/r/blockhash/840000
+</code></pre>
+<pre><code class="language-json">"0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5"
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/blockheight</b></code>
+  </summary>
+<h3 id="description-4"><a class="header" href="#description-4">Description</a></h3>
+<p>Latest block height.</p>
+<h3 id="voorbeeld-4"><a class="header" href="#voorbeeld-4">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s  \
+  http://0.0.0.0:80/r/blockheight
+</code></pre>
+<pre><code class="language-json">866393
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/blockinfo/&lt;QUERY&gt;</b></code>
+  </summary>
+<h3 id="description-5"><a class="header" href="#description-5">Description</a></h3>
+<p>Block info. <code>&lt;QUERY&gt;</code> may be a block height or block hash.</p>
+<h3 id="example-blockheight"><a class="header" href="#example-blockheight">Example (blockheight)</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/blockinfo/0
+</code></pre>
 <pre><code class="language-json">{
   "average_fee": 0,
   "average_fee_rate": 0,
   "bits": 486604799,
   "chainwork": "0000000000000000000000000000000000000000000000000000000100010001",
-  "confirmations": 0,
-  "difficulty": 0.0,
+  "confirmations": 866396,
+  "difficulty": 1.0,
   "hash": "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f",
-  "feerate_percentiles": [0, 0, 0, 0, 0],
+  "feerate_percentiles": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
   "height": 0,
   "max_fee": 0,
   "max_fee_rate": 0,
   "max_tx_size": 0,
   "median_fee": 0,
   "median_time": 1231006505,
-  "merkle_root": "0000000000000000000000000000000000000000000000000000000000000000",
+  "merkle_root": "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b",
   "min_fee": 0,
   "min_fee_rate": 0,
-  "next_block": null,
-  "nonce": 0,
+  "next_block": "00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048",
+  "nonce": 2083236893,
   "previous_block": null,
   "subsidy": 5000000000,
   "target": "00000000ffff0000000000000000000000000000000000000000000000000000",
@@ -349,106 +373,727 @@
   "versie": 1
 }
 </code></pre>
-<ul>
-<li><code>/r/blocktime</code>:</li>
-</ul>
-<pre><code class="language-json">1700770905
+<h3 id="example-blockhash"><a class="header" href="#example-blockhash">Example (blockhash)</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/blockinfo/0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5
 </code></pre>
-<ul>
-<li><code>/r/children/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fai0/49</code>:</li>
-</ul>
 <pre><code class="language-json">{
-   "ids":[
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4900",
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4901",
-      ...
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4935",
-      "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4936"
-   ],
-   "more":false,
-   "page":49
+  "average_fee": 1234031,
+  "average_fee_rate": 3770,
+  "bits": 386089497,
+  "chainwork": "0000000000000000000000000000000000000000753bdab0e0d745453677442b",
+  "confirmations": 26397,
+  "difficulty": 86388558925171.02,
+  "hash": "0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5",
+  "feerate_percentiles": [
+    108,
+    134,
+    200,
+    350,
+    1063
+  ],
+  ],
+  "height": 840000,
+  "height": 840000,
+  "max_fee": 799987800,
+  "max_fee_rate": 3604819,
+  "max_tx_size": 166989,
+  "median_fee": 34800,
+  "median_fee": 34800,
+  "median_time": 1713570208,
+  "merkle_root": "031b417c3a1828ddf3d6527fc210daafcc9218e81f98257f88d4d43bd7a5894f",
+  "min_fee": 2060,
+  "min_fee_rate": 15,
+  "next_block": "00000000000000000001b48a75d5a3077913f3f441eb7e08c13c43f768db2463",
+  "nonce": 3932395645,
+  "previous_block": "0000000000000000000172014ba58d66455762add0512355ad651207918494ab",
+  "subsidy": 312500000,
+  "target": "0000000000000000000342190000000000000000000000000000000000000000",
+  "timestamp": 1713571767,
+  "total_fee": 3762561499,
+  "total_size": 2325218,
+  "total_weight": 3991793,
+  "transaction_count": 3050,
+  "versie": 710926336
 }
 </code></pre>
-<ul>
-<li><code>/r/children/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fai0/inscriptions/49</code>:</li>
-</ul>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/blocktime</b></code>
+  </summary>
+<h3 id="description-6"><a class="header" href="#description-6">Description</a></h3>
+<p>UNIX time stamp of latest block.</p>
+<h3 id="voorbeeld-5"><a class="header" href="#voorbeeld-5">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s  \
+  http://0.0.0.0:80/r/blocktime
+</code></pre>
+<pre><code class="language-json">1729362253
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/children/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-7"><a class="header" href="#description-7">Description</a></h3>
+<p>The first 100 child inscription ids.</p>
+<h3 id="voorbeeld-6"><a class="header" href="#voorbeeld-6">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0
+</code></pre>
+<pre><code class="language-json">{
+  "ids": [
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei0",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei1",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei2",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei3",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei4",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei5",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei6",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei7",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei8",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei9",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei10",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei11",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei12",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei13",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei14",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei15",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei16",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei17",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei18",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei19",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei20",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei21",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei22",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei23",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei24",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei25",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei26",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei27",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei28",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei29",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei30",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei31",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei32",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei33",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei34",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei35",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei36",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei37",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei38",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei39",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei40",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei41",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei42",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei43",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei44",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei45",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei46",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei47",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei48",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei49",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei50",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei51",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei52",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei53",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei54",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei55",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei56",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei57",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei58",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei59",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei60",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei61",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei62",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei63",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei64",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei65",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei66",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei67",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei68",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei69",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei70",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei71",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei72",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei73",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei74",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei75",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei76",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei77",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei78",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei79",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei80",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei81",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei82",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei83",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei84",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei85",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei86",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei87",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei88",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei89",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei90",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei91",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei92",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei93",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei94",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei95",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei96",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei97",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei98",
+    "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei99"
+  ],
+  "more": true,
+  "page": 0
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/children/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</b></code>
+  </summary>
+<h3 id="description-8"><a class="header" href="#description-8">Description</a></h3>
+<p>The set of 100 child inscription ids on <code>&lt;PAGE&gt;</code>.</p>
+<h3 id="voorbeeld-7"><a class="header" href="#voorbeeld-7">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/9
+</code></pre>
+<pre><code class="language-json">{
+  "ids": [
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci60",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci61",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci62",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci63",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci64",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci65",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci66",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci67",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci68",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci69",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci70",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci71",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci72",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci73",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci74",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci75",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci76",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci77",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci78",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci79",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci80",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci81",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci82",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci83",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci84",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci85",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci86",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci87",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci88",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci89",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci90",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci91",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci92",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci93",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci94",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci95",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci96",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci97",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci98",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci99",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci100",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci101",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci102",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci103",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci104",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci105",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci106",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci107",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci108",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci109",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci110",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci111",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci112",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci113",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci114",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci115",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci116",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci117",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci118",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci119",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci120",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci121",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci122",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci123",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci124",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci125",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci126",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci127",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci128",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci129",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci130",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci131",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci132",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci133",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci134",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci135",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci136",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci137",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci138",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci139",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci140",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci141",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci142",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci143",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci144",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci145",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci146",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci147",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci148",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci149",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci150",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci151",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci152",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci153",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci154",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci155",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci156",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci157",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci158",
+    "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci159"
+  ],
+  "more": true,
+  "page": 9
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions</b></code>
+  </summary>
+<h3 id="description-9"><a class="header" href="#description-9">Description</a></h3>
+<p>Details of first 100 child inscriptions of <code>INSCRIPTION_ID</code>.</p>
+<h3 id="voorbeeld-8"><a class="header" href="#voorbeeld-8">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/inscriptions
+</code></pre>
+<pre><code class="language-json">{
+  "children": [
+    {
+      "charms": [],
+      "fee": 417,
+      "height": 861224,
+      "id": "89e4fb2e5ea5c6301b9ac915d1d05619776f5ca41fc02fb6e5dced16f2cabfdei0",
+      "number": 75744297,
+      "output": "236ce10d9cd3f9f7f824a07686f7d7bce0d64a400f0328ce5bb2191a60d15262:0",
+      "sat": null,
+      "satpoint": "236ce10d9cd3f9f7f824a07686f7d7bce0d64a400f0328ce5bb2191a60d15262:0:0",
+      "timestamp": 1726282054
+    },
+    ...
+  ],
+  "more": true,
+  "page": 0
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/children/&lt;INSCRIPTION_ID&gt;/inscriptions/&lt;PAGE&gt;</b></code>
+  </summary>
+<h3 id="description-10"><a class="header" href="#description-10">Description</a></h3>
+<p>Details of 100 child inscriptions of <code>INSCRIPTION_ID</code> paginated by <code>PAGE</code>.</p>
+<h3 id="voorbeeld-9"><a class="header" href="#voorbeeld-9">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/children/e317a2a5d68bd1004ae15a06175a319272a10389ff125c98820389edef8b0a94i0/inscriptions/9
+</code></pre>
 <pre><code class="language-json">{
   "children": [
     {
       "charms": [
-        "cursed"
+        "vindicated"
       ],
-      "fee": 44,
-      "height": 813929,
-      "id": "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4900",
-      "number": -223695,
-      "output": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0",
-      "sat": 1897135510683785,
-      "satpoint": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0:74188588",
-      "timestamp": 1698326262
+      "fee": 418,
+      "height": 861239,
+      "id": "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci60",
+      "number": 75750346,
+      "output": "e8ebadbd9ce4e4372b1b9b30fd5cb831c1f48ff2d0f8f1d1de2e190a2f5bcbe8:1",
+      "sat": null,
+      "satpoint": "e8ebadbd9ce4e4372b1b9b30fd5cb831c1f48ff2d0f8f1d1de2e190a2f5bcbe8:1:0",
+      "timestamp": 1726292222
     },
-      ...
     {
       "charms": [
-        "cursed"
+        "vindicated"
       ],
-      "fee": 44,
-      "height": 813929,
-      "id": "7cd66b8e3a63dcd2fada917119830286bca0637267709d6df1ca78d98a1b4487i4936",
-      "number": -223731,
-      "output": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0",
-      "sat": 1897135510683821,
-      "satpoint": "dcaaeacf58faea0927468ea5a93f33b7d7447841e66f75db5a655d735510c518:0:74188624",
-      "timestamp": 1698326262
-    }
+      "fee": 418,
+      "height": 861239,
+      "id": "b205c9d1dc054f24c13aeb886fba42d9dd0aac3cd9bdc4f034affc90f3a0bf3ci61",
+      "number": 75750347,
+      "output": "aa46f14bec8842edd7b7c1b79224cd186dda6c5577cd65196da77d7e27b00b0c:0",
+      "sat": null,
+      "satpoint": "aa46f14bec8842edd7b7c1b79224cd186dda6c5577cd65196da77d7e27b00b0c:0:0",
+      "timestamp": 1726292222
+    },
+    ...
+  ],
+  "more": true,
+  "page": 9
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/undelegated-content/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-11"><a class="header" href="#description-11">Description</a></h3>
+<p>Undelegated content of an inscription.</p>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/inscription/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-12"><a class="header" href="#description-12">Description</a></h3>
+<p>Information about an inscription.</p>
+<h3 id="voorbeeld-10"><a class="header" href="#voorbeeld-10">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/inscriptions/13130e4b299ed361f2a734f6433844ef0f0211cd504e0ca8f4d4ab20f51b8127i0
+</code></pre>
+<pre><code class="language-json">{
+  "charms": [
+    "vindicated"
+  ],
+  "content_type": "model/gltf-binary",
+  "content_length": 3726620,
+  "delegate": null,
+  "fee": 7499396,
+  "height": 866266,
+  "id": "13130e4b299ed361f2a734f6433844ef0f0211cd504e0ca8f4d4ab20f51b8127i0",
+  "number": 76545890,
+  "output": "13130e4b299ed361f2a734f6433844ef0f0211cd504e0ca8f4d4ab20f51b8127:1",
+  "sat": null,
+  "satpoint": "13130e4b299ed361f2a734f6433844ef0f0211cd504e0ca8f4d4ab20f51b8127:1:0",
+  "timestamp": 1729297535,
+  "value": 1313,
+  "address": "ltc1phj8hgzeptthkur9se2jq5vex7vlyhc8ul689svxea0xsn6r43z7s6jv26j"
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/metadata/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-13"><a class="header" href="#description-13">Description</a></h3>
+<p>JSON string containing the hex-encoded CBOR metadata.</p>
+<h3 id="voorbeeld-11"><a class="header" href="#voorbeeld-11">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/metadata/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0
+</code></pre>
+<pre><code class="language-json">"ac6c50484f544f475241504845526a5041524b4552204441596643414d4552416c43414e4f4e20454f532d31566446494c4d6f4b4f44414b20454b54415220313030644c454e53781a5a4549535320504c414e415220542a2038354d4d20462f312e346d5348555454455220535045454465312f31323568415045525455524563462f38664d4f44454c5318646650484f544f531903e8684c4f434154494f4e774c4f5320414e47454c45532c2043414c49464f524e49416443524557a36a415353495354414e4345826e41524941532042555244454c4c49684e4153204e495858664d414b45555087754544454e2053594d4f4e45204c415454414e5a494f6a4d494d49204d455945526e53414d414e544841204c455052456f4c4953455454452053414e54414e416e4a45535349434120564552474f4e63504f4e724d415941204e414b415241205352554f4348644841495283694a414b4920494348556c4a4f43454c594e2056454741724a4546464552534f4e2054414e475241444966504154524f4e6e434153455920524f4441524d4f52674c4943454e534563434330"
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/parents/&lt;INSCRIPTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-14"><a class="header" href="#description-14">Description</a></h3>
+<p>The first 100 parent inscription ids.</p>
+<h3 id="voorbeeld-12"><a class="header" href="#voorbeeld-12">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/parents/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0
+</code></pre>
+<pre><code class="language-json">{
+  "ids": [
+    "6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0"
   ],
   "more": false,
-  "page": 49
+  "page_index": 0
 }
 </code></pre>
-<ul>
-<li><code>/r/inscription/3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36i0</code></li>
-</ul>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/parents/&lt;INSCRIPTION_ID&gt;/&lt;PAGE&gt;</b></code>
+  </summary>
+<h3 id="description-15"><a class="header" href="#description-15">Description</a></h3>
+<p>The set of 100 parent inscription ids on <code>&lt;PAGE&gt;</code>.</p>
+<h3 id="voorbeeld-13"><a class="header" href="#voorbeeld-13">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/parents/b1ef66c2d1a047cbaa6260b74daac43813924378fe08ef8545da4cb79e8fcf00i0/9
+</code></pre>
 <pre><code class="language-json">{
-  "charms": [],
-  "content_type": "image/png",
-  "content_length": 144037,
-  "delegate": null,
-  "fee": 36352,
-  "height": 209,
-  "id": "3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36i0",
-  "number": 2,
-  "output": "3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36:0",
-  "sat": null,
-  "satpoint": "3bd72a7ef68776c9429961e43043ff65efa7fb2d8bb407386a9e3b19f149bc36:0:0",
-  "timestamp": 1708312562,
-  "value": 10000,
-  "address": "bc1pz4kvfpurqc2hwgrq0nwtfve2lfxvdpfcdpzc6ujchyr3ztj6gd9sfr6ayf"
+  "ids": [],
+  "more": false,
+  "page_index": 9
 }
 </code></pre>
-<ul>
-<li><code>/r/metadata/35b66389b44535861c44b2b18ed602997ee11db9a30d384ae89630c9fc6f011fi3</code>:</li>
-</ul>
-<pre><code class="language-json">"a2657469746c65664d656d6f727966617574686f726e79656c6c6f775f6f72645f626f74"
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/parents/&lt;INSCRIPTION_ID&gt;/inscriptions</b></code>
+  </summary>
+<h3 id="description-16"><a class="header" href="#description-16">Description</a></h3>
+<p>Details of the first 100 parent inscriptions.</p>
+<h3 id="voorbeeld-14"><a class="header" href="#voorbeeld-14">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s -H "Accept: application/json" \
+  http://0.0.0.0:80/r/parents/4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019i0/inscriptions
 </code></pre>
-<ul>
-<li><code>/r/sat/1023795949035695</code>:</li>
-</ul>
 <pre><code class="language-json">{
-   "ids":[
-      "17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0"
-   ],
-   "more":false,
-   "page":0
+  "parents": [
+    {
+      "charms": [],
+      "fee": 21730,
+      "height": 775167,
+      "id": "92c409fb749b1005fe9a1482d3a74a8e73936a72644f4979df8184aba473841di0",
+      "number": 4573,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:13",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:13:0",
+      "timestamp": 1675607405
+    },
+    {
+      "charms": [],
+      "fee": 14977,
+      "height": 775167,
+      "id": "c689cbcb8e31858c5e1476d04af4e7e7cedd1fb4fb9cae5bb62036936a08282di0",
+      "number": 4576,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:14",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:14:0",
+      "timestamp": 1675607405
+    },
+    {
+      "charms": [],
+      "fee": 12533,
+      "height": 775167,
+      "id": "982d15f6b3510307ef845f1cb3352b27e2b048616b7c0642367ebc05bbd36d3ai0",
+      "number": 4578,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:12",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:12:0",
+      "timestamp": 1675607405
+    }
+    ...
+  ],
+  "more": true,
+  "page": 0
 }
 </code></pre>
-<ul>
-<li><code>/r/sat/1023795949035695/at/-1</code>:</li>
-</ul>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/parents/&lt;INSCRIPTION_ID&gt;/inscriptions/&lt;PAGE&gt;</b></code>
+  </summary>
+<h3 id="description-17"><a class="header" href="#description-17">Description</a></h3>
+<p>Details of the set of 100 parent inscriptions on &lt;PAGE&gt;.</p>
+<h3 id="voorbeeld-15"><a class="header" href="#voorbeeld-15">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s -H "Accept: application/json" \
+  http://0.0.0.0:80/r/parents/4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019i0/inscriptions/1
+</code></pre>
 <pre><code class="language-json">{
-   "id":"17541f6adf6eb160d52bc6eb0a3546c7c1d2adfe607b1a3cddc72cc0619526adi0"
+  "parents": [
+    {
+      "charms": [],
+      "fee": 65049,
+      "height": 775443,
+      "id": "972994a55c338e8458bfd156642f4aa56bdab54c68658d6b64d932fedef3c81fi0",
+      "number": 10804,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:102",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:102:0",
+      "timestamp": 1675780989
+    },
+    {
+      "charms": [],
+      "fee": 60111,
+      "height": 775443,
+      "id": "dbc21f2d3323df24a378fef3bdbe4e79c4947ce7da54968affcdefa7eda80d21i0",
+      "number": 10805,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:110",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:110:0",
+      "timestamp": 1675780989
+    },
+    {
+      "charms": [],
+      "fee": 49881,
+      "height": 775443,
+      "id": "97870f7cf65992a66d0413a7e6773190e686f185500f78c30f989f2d1f1ba922i0",
+      "number": 10806,
+      "output": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:101",
+      "sat": null,
+      "satpoint": "4a86d375a70a4ecc7ffcd910e05f5e0771ae6a50133543f1bf6b5651adbf0019:101:0",
+      "timestamp": 1675780989
+    }
+    ...
+  ],
+  "more": false,
+  "page": 1
 }
 </code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/sat/&lt;SAT_NUMBER&gt;</b></code>
+  </summary>
+<h3 id="description-18"><a class="header" href="#description-18">Description</a></h3>
+<p>The first 100 inscription ids on a sat. Requires index with <code>--index-sats</code> flag.</p>
+<h3 id="voorbeeld-16"><a class="header" href="#voorbeeld-16">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/sat/153899938226999
+</code></pre>
+<pre><code class="language-json">{
+  "ids": [
+    "f4ad941ee3892598f34777c4b7b3e2ccccece58ab21aa4364d0d2066daf5b427i3",
+    "a4bca99fba23122e113bfb9a8010095b2005c4d73fa5b5532de60752b768a3e5i0",
+    "11b4097bc9ff238c930ed4df44a6a5943ac1b570d424d7e13425244e3f345db7i0",
+    "488c32e4dfcdc0fa376c2c2af2d572a12f4d33d3245689d1a9f74167f1e14678i0"
+  ],
+  "more": false,
+  "page": 0
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/sat/&lt;SAT_NUMBER&gt;/&lt;PAGE&gt;</b></code>
+  </summary>
+<h3 id="description-19"><a class="header" href="#description-19">Description</a></h3>
+<p>The set of 100 inscription ids on <code>&lt;PAGE&gt;</code>. Requires index with <code>--index-sats</code> flag.</p>
+<h3 id="voorbeeld-17"><a class="header" href="#voorbeeld-17">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/sat/1499676120331756/1
+</code></pre>
+<pre><code class="language-json">{
+  "ids": [
+    "c18b2db646cd23b9745bd40a249fc84975b1105a637f3784aa4dbd46a839750fi0",
+    "7d7c2db251779ea4147ed881daac210bfa416f39846b60e3e6813b713a393d9ai0",
+    "f42913d8c95f055b586fa9a6c71d2432c7ac860a9a4524c0abf83b1dbe175383i0",
+    "52fd615dc56a8efb241e4de141692cfa57b1af0ac5d65da7e9d5f12841c2c56ci0",
+    "cd65b92b9d4080a850eaf2c67c8e0c40c61ecdebeea9ae03936947f981a7b54ai0",
+    "708ac95fe35bcfef5403f13e5e32c927adb413ce39597abc20f8e8fa4fa1d005i0",
+    "2399e57a8f598b4487dda149942404e5002321139997280c736dcd0c3a806672i0",
+    "4a2b37c1e017646a9ba2aa13487ae55b8621972aac349426df680eaf66b90571i0",
+    "2a7b8b23f2a36bcff7ab23013cd13b303b8797cfac75e88d4daf1a9ddcdbdc6ai0",
+    "b4cac4e0c9a9ccf6428c1e3869bbbcc0e094d39d972094af21a3ca342a9afedbi0",
+    "c5f4bb989cc8bca10079287272d07b77b562938eaad35b3dface018cb6ac1c38i0"
+  ],
+  "more": false,
+  "page": 1
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;</b></code>
+  </summary>
+<h3 id="description-20"><a class="header" href="#description-20">Description</a></h3>
+<p>The inscription id at <code>&lt;INDEX&gt;</code> of all inscriptions on a sat. <code>&lt;INDEX&gt;</code> may be a negative number to index from the back. <code>0</code> being the first and <code>-1</code> being the most recent for example. Requires index with <code>--index-sats</code> flag.</p>
+<h3 id="voorbeeld-18"><a class="header" href="#voorbeeld-18">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/sat/153899938226999/at/-1
+</code></pre>
+<pre><code class="language-json">{
+  "id": "488c32e4dfcdc0fa376c2c2af2d572a12f4d33d3245689d1a9f74167f1e14678i0"
+}
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/sat/&lt;SAT_NUMBER&gt;/at/&lt;INDEX&gt;/content</b></code>
+  </summary>
+<h3 id="description-21"><a class="header" href="#description-21">Description</a></h3>
+<p>The content of the inscription at <code>&lt;INDEX&gt;</code> on a sat. <code>&lt;INDEX&gt;</code> may be a negative number to index from the back. <code>0</code> being the first and <code>-1</code> being the most recent. Requires index with <code>--index-sats</code> flag.</p>
+<h3 id="voorbeeld-19"><a class="header" href="#voorbeeld-19">Voorbeeld</a></h3>
+<p>Fetch the content of the most recently created inscription on sat 289488340427831.</p>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/sat/289488340427831/at/-1/content
+</code></pre>
+<pre><code>Hello, world!
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/tx/&lt;TRANSACTION_ID&gt;</b></code>
+  </summary>
+<h3 id="description-22"><a class="header" href="#description-22">Description</a></h3>
+<p>Get hex-encoded transaction with <code>&lt;TRANSACTION_ID&gt;</code>. In the event of a future change to Litecoin that changes transaction serialization in a backwards-incompatible fashion, such as SegWit, this endpoint is guaranteed to remain backwards compatible.</p>
+<h3 id="voorbeeld-20"><a class="header" href="#voorbeeld-20">Voorbeeld</a></h3>
+<pre><code class="language-bash">curl -s http://0.0.0.0:80/r/tx/60bcf821240064a9c55225c4f01711b0ebbcab39aa3fafeefe4299ab158536fa
+</code></pre>
+<pre><code class="language-json">"0100000000010183572872dcb32bee57003d53c2b8dbb5bc5819ff6478052599911f7778d1c7bd0000000000fdffffff011027000000000000225120e41e0cba05c6ac797cf543ff9a6c619a91a53813e59146d1e32ea89747b111a603407aa50d93d6fc01265fd52d3edc93af4e009ccc1a704ce1b5cb8ede1412a5df31eba587d080b3dc903ceb9002ed9d921aad323fd44d7b4dc2a1ad2ea12d4360424d20c7a3a38df198a4fcde7d5dac5819ed19ff4d25bb893c9511f8e1f51d59326effac0063036f7264010118746578742f706c61696e3b636861727365743d7574662d3800077072696d65730a6821c1c7a3a38df198a4fcde7d5dac5819ed19ff4d25bb893c9511f8e1f51d59326eff00000000"
+</code></pre>
+</details>
+<details>
+  <summary>
+    <code>GET</code>
+    <code><b>/r/utxo/&lt;OUTPOINT&gt;</b></code>
+  </summary>
+<h3 id="description-23"><a class="header" href="#description-23">Description</a></h3>
+<p>Get assets held by an unspent transaction output.</p>
+<h3 id="voorbeelden"><a class="header" href="#voorbeelden">Voorbeelden</a></h3>
+<p>Unspent transaction output with server without any indices:</p>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/utxo/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b:0
+</code></pre>
+<pre><code class="language-json">{
+  "inscriptions": null,
+  "runes": null,
+  "sat_ranges": null,
+  "value": 5000000000
+}
+</code></pre>
+<p>With rune, inscription, and sat index:</p>
+<pre><code class="language-bash">curl -s \
+  http://0.0.0.0:80/r/utxo/626860df36c1047194866c6812f04c15ab84f3690e7cc06fd600c841f1943e05:0
+</code></pre>
+<pre><code class="language-json">{
+  "inscriptions": [
+    "6fb976ab49dcec017f1e201e84395983204ae1a7c2abf7ced0a85d692e442799i0"
+  ],
+  "runes": {
+    "UNCOMMON•GOODS": {
+      "amount": 6845,
+      "divisibility": 0,
+      "symbol": "⧉"
+    }
+  },
+  "sat_ranges": [
+    [
+      1905800627509113,
+      1905800627509443
+    ]
+  ],
+  "value": 330
+}
+</code></pre>
+</details>
+<p>   </p>
+<p>Note: <code>&lt;SAT_NUMBER&gt;</code> only allows the actual number of a sat, not other sat notations like degree, percentile or decimal. We may expand to allow those in the future.</p>
+<p>Responses from most of the above recursive endpoints are JSON. For backwards compatibility, some endpoints are supported which only return plain-text responses.</p>
+<ul>
+<li><code>/blockheight</code>: de laatste blockhoogte.</li>
+<li><code>/blockhash</code>: de laatste block hash.</li>
+<li><code>/blockhash/&lt;HEIGHT&gt;</code>: block hash op de opgegeven blockhoogte.</li>
+<li><code>/blocktime</code>: UNIX-tijdstempel van het laatste blok.</li>
+</ul>
 <p>See <a href="examples.html#recursion">examples</a> for on-chain examples of inscriptions that feature this functionality.</p>
 
                     </main>

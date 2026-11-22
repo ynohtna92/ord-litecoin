@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ar" class="coal" dir="rtl">
+<html lang="ar" class="coal sidebar-visible" dir="rtl">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../language-picker.css">
+        <link rel="stylesheet" href="../index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../introduction.html">المقدمة</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> نظرة عامة</a></li><li class="chapter-item expanded "><a href="../digital-artifacts.html"><strong aria-hidden="true">2.</strong> التحف الرقمية</a></li><li class="chapter-item expanded "><a href="../inscriptions.html"><strong aria-hidden="true">3.</strong> إنسكريبشين</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="../inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="../inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="../inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="../inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> التكرار</a></li><li class="chapter-item expanded "><a href="../inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="../inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="../runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../runes/specification.html"><strong aria-hidden="true">4.1.</strong> Specification</a></li></ol></li><li class="chapter-item expanded "><a href="../faq.html"><strong aria-hidden="true">5.</strong> الأسئلة الشائعة</a></li><li class="chapter-item expanded "><a href="../contributing.html"><strong aria-hidden="true">6.</strong> المساهمة</a></li><li class="chapter-item expanded "><a href="../donate.html"><strong aria-hidden="true">7.</strong> التبرع</a></li><li class="chapter-item expanded "><a href="../guides.html"><strong aria-hidden="true">8.</strong> إرشادات</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/explorer.html"><strong aria-hidden="true">8.1.</strong> المتصفح</a></li><li class="chapter-item expanded "><a href="../guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="../guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="../guides/collecting.html"><strong aria-hidden="true">8.4.</strong> التجميع</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> محفظة سباروو</a></li></ol></li><li class="chapter-item expanded "><a href="../guides/moderation.html"><strong aria-hidden="true">8.5.</strong> الإشراف</a></li><li class="chapter-item expanded "><a href="../guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> إعادة الفهرسة</a></li><li class="chapter-item expanded "><a href="../guides/sat-hunting.html" class="active"><strong aria-hidden="true">8.7.</strong> جمع الساتوشي</a></li><li class="chapter-item expanded "><a href="../guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="../guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="../guides/testing.html"><strong aria-hidden="true">8.10.</strong> التجارب</a></li></ol></li><li class="chapter-item expanded "><a href="../bounties.html"><strong aria-hidden="true">9.</strong> المكافآت</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../bounty/0.html"><strong aria-hidden="true">9.1.</strong> جائزة 0: 100,000 ساتوشي مكتملة!</a></li><li class="chapter-item expanded "><a href="../bounty/1.html"><strong aria-hidden="true">9.2.</strong> جائزة 1: 200,000 ساتوشي مكتملة!</a></li><li class="chapter-item expanded "><a href="../bounty/2.html"><strong aria-hidden="true">9.3.</strong> جائزة 2: 300,000 ساتوشي مكتملة!</a></li><li class="chapter-item expanded "><a href="../bounty/3.html"><strong aria-hidden="true">9.4.</strong> جائزة 3: 400,000 ساتوشي</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -260,23 +241,23 @@
 <ol>
 <li>
 <p>أولا, ستحتاج الى بيتكوين نود مزامن بالكامل. لبدأ تحميل المعاملات اعطي الأمر <code>txindex-</code>على سطر الأوامر:</p>
-<pre><code class="language-sh">bitcoind -txindex
+<pre><code class="language-sh">litecoind -txindex
 </code></pre>
-<p>أو استخدم [Bitcoin configuration file] و (https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):</p>
+<p>أو استخدم [Litecoin configuration file] و (https://github.com/litecoin-project/litecoin/blob/master/doc/bitcoin-conf.md#configuration-file-path):</p>
 <pre><code>txindex=1
 </code></pre>
 <p>قم بتشغيله وانتظر حتى يلحق بنهاية السلسلة (chain tip)، في هذا الوقت يجب أن يتم طباعة ارتفاع الكتلة الحالي باستخدام الأمر التالي:</p>
-<pre><code class="language-sh">bitcoin-cli getblockcount
+<pre><code class="language-sh">litecoin-cli getblockcount
 </code></pre>
 </li>
 <li>
 <p>ثانيا, ستحتاج لفهرسة <code>ord</code>.</p>
 <ul>
 <li>
-<p>إحصل على نسخه من <code>ord</code> من خلال <a href="https://github.com/ordinals/ord/">the repo</a>.</p>
+<p>إحصل على نسخه من <code>ord</code> من خلال <a href="https://github.com/ynohtna92/ord-litecoin/">the repo</a>.</p>
 </li>
 <li>
-<p>Run <code>ord --index-sats server</code>. It should connect to your bitcoin core node and start indexing.</p>
+<p>Run <code>ord --index-sats server</code>. It should connect to your litecoin core node and start indexing.</p>
 </li>
 <li>
 <p>Once it has finished indexing, leave the server running and submit new <code>ord</code> commands in a separate terminal session.</p>
@@ -288,12 +269,12 @@
 </li>
 </ol>
 <h2 id="البحث-عن-أوردينالس-نادرة"><a class="header" href="#البحث-عن-أوردينالس-نادرة">البحث عن أوردينالس نادرة</a></h2>
-<h3 id="البحث-عن-أوردينال-النادرة-في-محفظة-bitcoin-core"><a class="header" href="#البحث-عن-أوردينال-النادرة-في-محفظة-bitcoin-core">البحث عن أوردينال النادرة في محفظة Bitcoin Core</a></h3>
-<p>أمر <code>ord wallet</code> هو مجرد ملف تغليفي حول واجهة برمجة تطبيقات Bitcoin Core's RPC API، لذا البحث عن الإنسكريبشين النادرة في محفظة Bitcoin Core يعتبر سهلاً. افترض أن اسم محفظتك هو <code>foo</code>:</p>
+<h3 id="البحث-عن-أوردينال-النادرة-في-محفظة-litecoin-core"><a class="header" href="#البحث-عن-أوردينال-النادرة-في-محفظة-litecoin-core">البحث عن أوردينال النادرة في محفظة Litecoin Core</a></h3>
+<p>أمر <code>ord wallet</code> هو مجرد ملف تغليفي حول واجهة برمجة تطبيقات Litecoin Core's RPC API، لذا البحث عن الإنسكريبشين النادرة في محفظة Litecoin Core يعتبر سهلاً. افترض أن اسم محفظتك هو <code>foo</code>:</p>
 <ol>
 <li>
 <p>قم بتحميل محفظتك:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo
+<pre><code class="language-sh">litecoin-cli loadwallet foo
 </code></pre>
 </li>
 <li>
@@ -304,7 +285,7 @@
 </ol>
 <h3 id="البحث-عن-العلامات-النادرة-في-محفظة-غير-تابعة-لبيتكوين-كور"><a class="header" href="#البحث-عن-العلامات-النادرة-في-محفظة-غير-تابعة-لبيتكوين-كور">البحث عن العلامات النادرة في محفظة غير تابعة لبيتكوين كور</a></h3>
 <p>أمر <code>ord wallet</code> هو مجرد غلاف حول واجهة برمجة التطبيقات (RPC) لبيتكوين كور. لذا، إذا كنت ترغب في البحث عن العلامات النادرة في محفظة غير تابعة لبيتكوين كور، ستحتاج إلى استيراد مسارات محفظتك إلى بيتكوين كور.</p>
-<p><a href="https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md">Descriptors</a> describe the ways that wallets generate private keys and public keys.</p>
+<p><a href="https://github.com/litecoin-project/litecoin/blob/master/doc/descriptors.md">Descriptors</a> describe the ways that wallets generate private keys and public keys.</p>
 <p>يجب عليك استيراد الوصفات فقط في بيتكوين كور للمفاتيح العامة لمحفظتك، وليس لمفاتيحها الخاصة.</p>
 <p>إذا تم التعرض للخطر واكتشاف وصف المفتاح العام الخاص بمحفظتك، فإن الهاجم سيكون قادرًا على رؤية عناوين محفظتك، ولكن أموالك ستكون آمنة.</p>
 <p>إذا تم التعرض للخطر واكتشاف وصف المفتاح الخاص بمحفظتك، فإن الهاجم قد يستولي على أموال محفظتك.</p>
@@ -316,25 +297,25 @@
 </li>
 <li>
 <p>أنشئ محفظة رصدية باسم <code>foo-watch-only</code>:</p>
-<pre><code class="language-sh">bitcoin-cli createwallet foo-watch-only true true
+<pre><code class="language-sh">litecoin-cli createwallet foo-watch-only true true
 </code></pre>
 <p>لا تتردد في إعطائه اسمًا أفضل من <code>foo-watch-only</code> إذا كنت ترغب!</p>
 </li>
 <li>
 <p>قم بتحميل محفظة "foo-watch-only" باستخدام الأمر التالي:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
 <p>قم بتحميل واجهات محفظتك إلى المحفظة "foo-watch-only" باستخدام الأمر التالي:</p>
-<pre><code class="language-sh">bitcoin-cli importdescriptors \
+<pre><code class="language-sh">litecoin-cli importdescriptors \
   '[{ "desc": "wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)#tpnxnxax", "timestamp":0 }]'
 </code></pre>
-<p>إذا كنت تعرف الطابع الزمني لنظام Unix عندما بدأت محفظتك في استقبال المعاملات لأول مرة، فيمكنك استخدامه كقيمة لـ "timestamp" بدلاً من 0. سيساعد ذلك في تقليل الوقت اللازم لبحث Bitcoin Core عن UTXOs في محفظتك.</p>
+<p>إذا كنت تعرف الطابع الزمني لنظام Unix عندما بدأت محفظتك في استقبال المعاملات لأول مرة، فيمكنك استخدامه كقيمة لـ "timestamp" بدلاً من 0. سيساعد ذلك في تقليل الوقت اللازم لبحث Litecoin Core عن UTXOs في محفظتك.</p>
 </li>
 <li>
 <p>تحقق مما إذا كان كل شيء عمل بشكل صحيح:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -344,7 +325,7 @@
 </li>
 </ol>
 <h3 id="البحث-عن-الأوردينال-النادرة-في-محفظة-تصدر-وصفوف-مسار-متعددة"><a class="header" href="#البحث-عن-الأوردينال-النادرة-في-محفظة-تصدر-وصفوف-مسار-متعددة">البحث عن الأوردينال النادرة في محفظة تصدر وصفوف مسار متعددة</a></h3>
-<p>بعض الوصوف تصف مسارات متعددة في وصف واحد باستخدام الزوايا الزوجية، مثل <code>&lt;0;1&gt;</code>. الوصوف متعددة المسارات لا تزال غير مدعومة بواسطة Bitcoin Core حتى الآن، لذا ستحتاج أولاً إلى تحويلها إلى وصوف متعددة، ثم استيراد تلك الوصوف المتعددة إلى Bitcoin Core.</p>
+<p>بعض الوصوف تصف مسارات متعددة في وصف واحد باستخدام الزوايا الزوجية، مثل <code>&lt;0;1&gt;</code>. الوصوف متعددة المسارات لا تزال غير مدعومة بواسطة Litecoin Core حتى الآن، لذا ستحتاج أولاً إلى تحويلها إلى وصوف متعددة، ثم استيراد تلك الوصوف المتعددة إلى Litecoin Core.</p>
 <ol>
 <li>
 <p>أولاً، قم بالحصول على الوصف المتعدد المسارات من محفظتك. سيبدو هذا على النحو التالي:</p>
@@ -361,7 +342,7 @@
 </li>
 <li>
 <p>احصل على وادرِ الفحص لوصف عنوان الاستلام وقم بتسجيله، في هذه الحالة هو <code>tpnxnxax</code>:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/0/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -373,7 +354,7 @@
 }
 </code></pre>
 <p>وكذلك لوصف عنوان التغيير، في هذه الحالة هو <code>64k8wnd7</code>:</p>
-<pre><code class="language-sh">bitcoin-cli getdescriptorinfo \
+<pre><code class="language-sh">litecoin-cli getdescriptorinfo \
   'wpkh([bf1dd55e/84h/0h/0h]xpub6CcJtWcvFQaMo39ANFi1MyXkEXM8T8ZhnxMtSjQAdPmVSTHYnc8Hwoc11VpuP8cb8JUTboZB5A7YYGDonYySij4XTawL6iNZvmZwdnSEEep/1/*)'
 </code></pre>
 <pre><code class="language-json">{
@@ -387,12 +368,12 @@
 </li>
 <li>
 <p>قم بتحميل المحفظة التي تريد استيراد الوصفات إليها:</p>
-<pre><code class="language-sh">bitcoin-cli loadwallet foo-watch-only
+<pre><code class="language-sh">litecoin-cli loadwallet foo-watch-only
 </code></pre>
 </li>
 <li>
-<p>الآن قم ب استيراد الوصفات، مع التحقق الصحيح، إلى Bitcoin Core.</p>
-<pre><code class="language-sh">bitcoin-cli \
+<p>الآن قم ب استيراد الوصفات، مع التحقق الصحيح، إلى Litecoin Core.</p>
+<pre><code class="language-sh">litecoin-cli \
  importdescriptors \
  '[
    {
@@ -405,11 +386,11 @@
    }
  ]'
 </code></pre>
-<p>إذا كنت تعرف الطابع الزمني (Unix timestamp) الذي بدأت فيه محفظتك استقبال المعاملات، يمكنك استخدامه كقيمة في حقول <code>"timestamp"</code> بدلاً من القيمة <code>0</code>. سيساعد ذلك في تقليل الوقت الذي يحتاجه Bitcoin Core للبحث عن UTXOs الخاصة بمحفظتك.</p>
+<p>إذا كنت تعرف الطابع الزمني (Unix timestamp) الذي بدأت فيه محفظتك استقبال المعاملات، يمكنك استخدامه كقيمة في حقول <code>"timestamp"</code> بدلاً من القيمة <code>0</code>. سيساعد ذلك في تقليل الوقت الذي يحتاجه Litecoin Core للبحث عن UTXOs الخاصة بمحفظتك.</p>
 </li>
 <li>
 <p>تحقق مما إذا كان كل شيء عمل بشكل صحيح:</p>
-<pre><code class="language-sh">bitcoin-cli getwalletinfo
+<pre><code class="language-sh">litecoin-cli getwalletinfo
 </code></pre>
 </li>
 <li>
@@ -425,7 +406,7 @@
 <p>The <code>ord</code> wallet supports transferring specific satoshis by using the name of the satoshi. To send the satoshi <code>zonefruits</code>, do:</p>
 <pre><code>ord wallet send &lt;RECEIVING_ADDRESS&gt; zonefruits --fee-rate 21
 </code></pre>
-<p>You can also use the <code>bitcoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
+<p>You can also use the <code>litecoin-cli</code> commands <code>createrawtransaction</code>, <code>signrawtransactionwithwallet</code>, and <code>sendrawtransaction</code>, but this method can be complex and is outside the scope of this guide.</p>
 
                     </main>
 
@@ -435,7 +416,7 @@
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../guides/settings.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../guides/satscards.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -449,7 +430,7 @@
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../guides/settings.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../guides/satscards.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

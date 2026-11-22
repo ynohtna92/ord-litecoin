@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="fil" class="coal" dir="ltr">
+<html lang="fil" class="coal sidebar-visible" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 
 
         <!-- Custom HTML head -->
-        
+
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="language-picker.css">
+        <link rel="stylesheet" href="index.css">
 
-    </head>
-    <body class="sidebar-visible no-js">
-    <div id="body-container">
+
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "coal" : "coal";
         </script>
-
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="body-container">
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
         <script>
             try {
@@ -61,19 +63,16 @@
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
-            var html = document.querySelector('html');
+            const html = document.documentElement;
             html.classList.remove('coal')
             html.classList.add(theme);
-            var body = document.querySelector('body');
-            body.classList.remove('no-js')
-            body.classList.add('js');
+            html.classList.add("js");
         </script>
 
         <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
 
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
-            var body = document.querySelector('body');
             var sidebar = null;
             var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
@@ -83,43 +82,25 @@
                 sidebar = 'hidden';
             }
             sidebar_toggle.checked = sidebar === 'visible';
-            body.classList.remove('sidebar-visible');
-            body.classList.add("sidebar-" + sidebar);
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Panimula</a></li><li class="chapter-item expanded "><a href="overview.html" class="active"><strong aria-hidden="true">1.</strong> Pangkalahatang-ideya</a></li><li class="chapter-item expanded "><a href="digital-artifacts.html"><strong aria-hidden="true">2.</strong> Digital Artifacts</a></li><li class="chapter-item expanded "><a href="inscriptions.html"><strong aria-hidden="true">3.</strong> Inscriptions</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="inscriptions/delegate.html"><strong aria-hidden="true">3.1.</strong> Delegate</a></li><li class="chapter-item expanded "><a href="inscriptions/metadata.html"><strong aria-hidden="true">3.2.</strong> Metadata</a></li><li class="chapter-item expanded "><a href="inscriptions/pointer.html"><strong aria-hidden="true">3.3.</strong> Pointer</a></li><li class="chapter-item expanded "><a href="inscriptions/provenance.html"><strong aria-hidden="true">3.4.</strong> Provenance</a></li><li class="chapter-item expanded "><a href="inscriptions/recursion.html"><strong aria-hidden="true">3.5.</strong> Recursion</a></li><li class="chapter-item expanded "><a href="inscriptions/rendering.html"><strong aria-hidden="true">3.6.</strong> Rendering</a></li><li class="chapter-item expanded "><a href="inscriptions/examples.html"><strong aria-hidden="true">3.7.</strong> Examples</a></li></ol></li><li class="chapter-item expanded "><a href="runes.html"><strong aria-hidden="true">4.</strong> Runes</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="runes/specification.html"><strong aria-hidden="true">4.1.</strong> Pagtutukoy</a></li></ol></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">5.</strong> Mga Madalas Itanong</a></li><li class="chapter-item expanded "><a href="contributing.html"><strong aria-hidden="true">6.</strong> Mag-ambag</a></li><li class="chapter-item expanded "><a href="donate.html"><strong aria-hidden="true">7.</strong> Donate</a></li><li class="chapter-item expanded "><a href="guides.html"><strong aria-hidden="true">8.</strong> Mga gabay</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/explorer.html"><strong aria-hidden="true">8.1.</strong> Explorer</a></li><li class="chapter-item expanded "><a href="guides/wallet.html"><strong aria-hidden="true">8.2.</strong> Wallet</a></li><li class="chapter-item expanded "><a href="guides/batch-inscribing.html"><strong aria-hidden="true">8.3.</strong> Batch Inscribing</a></li><li class="chapter-item expanded "><a href="guides/collecting.html"><strong aria-hidden="true">8.4.</strong> Pagkolekta</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="guides/collecting/sparrow-wallet.html"><strong aria-hidden="true">8.4.1.</strong> Sparrow Wallet</a></li></ol></li><li class="chapter-item expanded "><a href="guides/moderation.html"><strong aria-hidden="true">8.5.</strong> Moderation</a></li><li class="chapter-item expanded "><a href="guides/reindexing.html"><strong aria-hidden="true">8.6.</strong> Reindexing</a></li><li class="chapter-item expanded "><a href="guides/sat-hunting.html"><strong aria-hidden="true">8.7.</strong> Sat Hunting</a></li><li class="chapter-item expanded "><a href="guides/settings.html"><strong aria-hidden="true">8.8.</strong> Settings</a></li><li class="chapter-item expanded "><a href="guides/teleburning.html"><strong aria-hidden="true">8.9.</strong> Teleburning</a></li><li class="chapter-item expanded "><a href="guides/testing.html"><strong aria-hidden="true">8.10.</strong> Pagsuri</a></li></ol></li><li class="chapter-item expanded "><a href="bounties.html"><strong aria-hidden="true">9.</strong> Bounties</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="bounty/0.html"><strong aria-hidden="true">9.1.</strong> Bounty 0: 100,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/1.html"><strong aria-hidden="true">9.2.</strong> Bounty 1: 200,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/2.html"><strong aria-hidden="true">9.3.</strong> Bounty 2: 300,000 sats Claimed!</a></li><li class="chapter-item expanded "><a href="bounty/3.html"><strong aria-hidden="true">9.4.</strong> Bounty 3: 400,000 sats</a></li></ol></li></ol>
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
-
-        <!-- Track and set sidebar scroll position -->
-        <script>
-            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
-            sidebarScrollbox.addEventListener('click', function(e) {
-                if (e.target.tagName === 'A') {
-                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
-                }
-            }, { passive: true });
-            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
-            sessionStorage.removeItem('sidebar-scroll');
-            if (sidebarScrollTop) {
-                // preserve sidebar scroll position when navigating via links within sidebar
-                sidebarScrollbox.scrollTop = sidebarScrollTop;
-            } else {
-                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
-                var activeSection = document.querySelector('#sidebar .active');
-                if (activeSection) {
-                    activeSection.scrollIntoView({ block: 'center' });
-                }
-            }
-        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
-                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar-hover-placeholder"></div>
                 <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
                         <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
@@ -141,7 +122,6 @@
                     </div>
 
                     <h1 class="menu-title">Ordinal Theory Handbook</h1>
-
                     <div class="right-buttons">
                         <button id="language-toggle" class="icon-button" type="button"
                                 title="Change language" aria-label="Change language"
@@ -204,7 +184,6 @@
                           if (selectedLang) {
                               selectedLang.parentNode.classList.add("theme-selected");
                           }
-
                           // The path to the root, taking the current
                           // language into account.
                           let full_path_to_root = "../";
@@ -220,10 +199,12 @@
                           }
                         </script>
 
+
+
                         <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
-                        <a href="https://github.com/ordinals/ord" title="Git repository" aria-label="Git repository">
+                        <a href="https://github.com/ynohtna92/ord-litecoin" title="Git repository" aria-label="Git repository">
                             <i id="git-repository-button" class="fa fa-github"></i>
                         </a>
 
@@ -253,44 +234,44 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="pangkalahatang-ideya-ng-ordinal-theory"><a class="header" href="#pangkalahatang-ideya-ng-ordinal-theory">Pangkalahatang-ideya ng Ordinal Theory</a></h1>
-<p>Ang mga ordinal ay isang scheme ng pagnunumero sa satoshi na nagbibigay-daan sa pagsubaybay at paglilipat ng mga indibidwal na sat. Ang mga numerong ito ay tinatawag na <a href="https://ordinals.com">ordinal numbers</a>. Satoshis ay binibilang sa pagkakasunud-sunod kung kelan ito na-mina, at inilipat mula sa transaction input patungo sa transaction output na first-in-first-out (FIFO). Parehong umaasa ang numbering scheme at ang transfer scheme sa <em>order</em>, ang numbering scheme sa pagkakasunud-sunod kung saan na-mina ang satoshi, at ang transfer scheme ng sa pagkakasunud-sunod ng mga input at output ng transaksyon.Kaya naman pinangalanan itong “Ordinal”.</p>
+<p>Ang mga ordinal ay isang scheme ng pagnunumero sa satoshi na nagbibigay-daan sa pagsubaybay at paglilipat ng mga indibidwal na sat. Ang mga numerong ito ay tinatawag na <a href="https://ordinalslite.com">ordinal numbers</a>. Satoshis ay binibilang sa pagkakasunud-sunod kung kelan ito na-mina, at inilipat mula sa transaction input patungo sa transaction output na first-in-first-out (FIFO). Parehong umaasa ang numbering scheme at ang transfer scheme sa <em>order</em>, ang numbering scheme sa pagkakasunud-sunod kung saan na-mina ang satoshi, at ang transfer scheme ng sa pagkakasunud-sunod ng mga input at output ng transaksyon.Kaya naman pinangalanan itong “Ordinal”.</p>
 <p>Ang mga teknikal na detalye ay makikita sa <a href="https://github.com/ordinals/ord/blob/master/bip.mediawiki">BIP</a>.</p>
-<p>Ang Ordinal theory ay hindi nangangailangan ng isang hiwalay na token, isa pang blockchain, o anumang mga pagbabago sa Bitcoin.</p>
+<p>Ang Ordinal theory ay hindi nangangailangan ng isang hiwalay na token, isa pang blockchain, o anumang mga pagbabago sa Litecoin.</p>
 <p>Ang mga ordinal numbers ay may ilang magkakaibang representasyon:</p>
 <ul>
 <li>
-<p><em>Integer notation</em>: <a href="https://ordinals.com/sat/2099994106992659"><code>2099994106992659</code></a> Ang ordinal na numero, na itinalaga ayon sa pagkakasunud-sunod kung saan ang satoshi ay na-mina.</p>
+<p><em>Integer notation</em>: <a href="https://ordinalslite.com/sat/2099994106992659"><code>2099994106992659</code></a> Ang ordinal na numero, na itinalaga ayon sa pagkakasunud-sunod kung saan ang satoshi ay na-mina.</p>
 </li>
 <li>
-<p><em>Decimal notation</em>: <a href="https://ordinals.com/sat/3891094.16797"><code>3891094.16797</code></a> Ang unang numero ay ang taas ng block kung saan na-mina ang satoshi, ang pangalawa ay offset ng satoshi sa loob ng block.</p>
+<p><em>Decimal notation</em>: <a href="https://ordinalslite.com/sat/3891094.16797"><code>3891094.16797</code></a> Ang unang numero ay ang taas ng block kung saan na-mina ang satoshi, ang pangalawa ay offset ng satoshi sa loob ng block.</p>
 </li>
 <li>
-<p><em>Degree notation</em>: <a href="https://ordinals.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4"><code>3°111094′214″16797‴</code></a>. Ating tatalakayin sa ilang sandali.</p>
+<p><em>Degree notation</em>: <a href="https://ordinalslite.com/sat/3%C2%B0111094%E2%80%B2214%E2%80%B316797%E2%80%B4"><code>3°111094′214″16797‴</code></a>. Ating tatalakayin sa ilang sandali.</p>
 </li>
 <li>
-<p><em>Percentile notation</em>: <a href="https://ordinals.com/sat/99.99971949060254%25"><code>99.99971949060254%</code></a> . Ang posisyon ng satoshi sa supply ng Bitcoin, na bilang isang porsyento.</p>
+<p><em>Percentile notation</em>: <a href="https://ordinalslite.com/sat/99.99971949060254%25"><code>99.99971949060254%</code></a> . Ang posisyon ng satoshi sa supply ng Litecoin, na bilang isang porsyento.</p>
 </li>
 <li>
-<p><em>Name</em>: <a href="https://ordinals.com/sat/satoshi"><code>satoshi</code></a>. Isang encoding ng ordinal number gamit ang mga character <code>a</code> hanggang <code>z</code>.</p>
+<p><em>Name</em>: <a href="https://ordinalslite.com/sat/satoshi"><code>satoshi</code></a>. Isang encoding ng ordinal number gamit ang mga character <code>a</code> hanggang <code>z</code>.</p>
 </li>
 </ul>
 <p>Ang mga arbitrary na asset, gaya ng mga NFT, security token, account, o stablecoin ay maaaring i-attach sa satoshis gamit ang ordinal numbers bilang stable identifier.</p>
-<p>Ordinals is an open-source project, developed <a href="https://github.com/ordinals/ord">on GitHub</a>. The project consists of a BIP describing the ordinal scheme, an index that communicates with a Bitcoin Core node to track the location of all satoshis, a wallet that allows making ordinal-aware transactions, a block explorer for interactive exploration of the blockchain, functionality for inscribing satoshis with digital artifacts, and this manual.</p>
+<p>Ordinals is an open-source project, developed <a href="https://github.com/ynohtna92/ord-litecoin">on GitHub</a>. The project consists of a BIP describing the ordinal scheme, an index that communicates with a Litecoin Core node to track the location of all satoshis, a wallet that allows making ordinal-aware transactions, a block explorer for interactive exploration of the blockchain, functionality for inscribing satoshis with digital artifacts, and this manual.</p>
 <h2 id="rarity"><a class="header" href="#rarity">Rarity</a></h2>
 <p>Ang mga tao ay likas na kolektor, at dahil sa ang satoshi ay maaari na ngayong subaybayan at ilipat, ang mga tao ay natural na nais nang kolektahin ang mga ito. Ang mga Ordinal theorists ay maaaring magpasya para sa kanilang sarili kung aling mga sats ang rare at kanais-nais, ngunit may mga ilang pahiwatig...</p>
-<p>Ang Bitcoin ay may mga pana-panahong kaganapan, ang ilan ay madalas, ang ilan ay hindi karaniwan, at ang mga ito ay natural. Ang mga pana-panahong pangyayaring ito ay:</p>
+<p>Ang Litecoin ay may mga pana-panahong kaganapan, ang ilan ay madalas, ang ilan ay hindi karaniwan, at ang mga ito ay natural. Ang mga pana-panahong pangyayaring ito ay:</p>
 <ul>
 <li>
-<p><em>Blocks</em>: Ang isang bagong bloke ay na-mimina humigit-kumulang bawat 10 minuto, mula ngayon hanggang sa katapusan ng panahon.</p>
+<p><em>Blocks</em>: A new block is mined approximately every 2.5 minutes, from now until the end of time.</p>
 </li>
 <li>
-<p><em>Difficulty adjustments</em>: Bawat 2016 block, o humigit-kumulang bawat dalawang linggo, ang Bitcoin network ay tumutugon sa mga pagbabago sa hashrate sa pamamagitan ng pagsasaayos sa difficulty target kung aling mga bloke ang dapat matugunan upang matanggap.</p>
+<p><em>Difficulty adjustments</em>: Every 2016 blocks, or approximately every 3.5 days, the Litecoin network responds to changes in hashrate by adjusting the difficulty target which blocks must meet in order to be accepted.</p>
 </li>
 <li>
-<p><em>Halvings</em>: Bawat 210,000 block, o humigit-kumulang bawat apat na taon, ang dami ng mga bagong sats na nalikha sa bawat block ay hinahati sa kalahati.</p>
+<p><em>Halvings</em>: Every 840,000 blocks, or roughly every four years, the amount of new sats created in every block is cut in half.</p>
 </li>
 <li>
-<p><em>Cycles</em>: Bawat anim na paghahati, may mahiwagang nangyayari: ang paghahati at ang difficulty target ay nagsasabay. Ito ay tinatawag na conjunction, at ang yugto ng panahon sa pagitan ng mga conjunction ay isang cycle. Ang isang conjunction ay nangyayari halos bawat 24 na taon. Inaasahan na mangyayari ang unang conjunction sa 2023.</p>
+<p><em>Cycles</em>: Every three halvings, something magical happens: the halving and the difficulty adjustment coincide. This is called a conjunction, and the time period between conjunctions a cycle. A conjunction occurs roughly every 12 years. The first conjunction happened in 2023.</p>
 </li>
 </ul>
 <p>Nagbibigay ito sa atin ng mga sumusunod na antas ng rarity:</p>
@@ -311,39 +292,39 @@
 </code></pre>
 <p>Ang Ordinal theorists ay kadalasang gumagamit ng mga termino "hour", "minute", "second", at "third" for <em>A</em>, <em>B</em>, <em>C</em>, and <em>D</em>, ayon sa pagkakabanggit.</p>
 <p>Ngayon para sa ilang mga halimbawa. Ang satoshi na ito ay common:</p>
-<pre><code>1°1′1″1‴
+<pre><code>0°0′0″1‴
 │ │ │ ╰─ Not first sat in block
-│ │ ╰─── Not first block in difficulty adjustment period
-│ ╰───── Not first block in halving epoch
-╰─────── Second cycle
+│ │ ╰─── Any block in difficulty adjustment period
+│ ╰───── Any block in halving epoch
+╰─────── Any cycle
 </code></pre>
 <p>Ang satoshi na ito ay uncommon:</p>
-<pre><code>1°1′1″0‴
+<pre><code>0°1′1″0‴
 │ │ │ ╰─ First sat in block
 │ │ ╰─── Not first block in difficulty adjustment period
 │ ╰───── Not first block in halving epoch
-╰─────── Second cycle
+╰─────── Any cycle
 </code></pre>
 <p>Ang satoshi na ito ay rare:</p>
-<pre><code>1°1′0″0‴
-│ │ │ ╰─ First sat in block
-│ │ ╰─── First block in difficulty adjustment period
-│ ╰───── Not the first block in halving epoch
-╰─────── Second cycle
+<pre><code>0°2016′0″0‴
+│    │ │ ╰─ First sat in block
+│    │ ╰─── First block in difficulty adjustment period
+│    ╰───── Not the first block in halving epoch
+╰────────── Any cycle
 </code></pre>
 <p>Ang satoshi na ito ay epic:</p>
-<pre><code>1°0′1″0‴
-│ │ │ ╰─ First sat in block
-│ │ ╰─── Not first block in difficulty adjustment period
-│ ╰───── First block in halving epoch
-╰─────── Second cycle
+<pre><code>0°0′336″0‴
+│ │   │ ╰─ First sat in block
+│ │   ╰─── Not first block in difficulty adjustment period
+│ ╰─────── First block in halving epoch
+╰───────── Any cycle
 </code></pre>
 <p>Ang satoshi na ito ay legendary:</p>
 <pre><code>1°0′0″0‴
 │ │ │ ╰─ First sat in block
 │ │ ╰─── First block in difficulty adjustment period
 │ ╰───── First block in halving epoch
-╰─────── Second cycle
+╰─────── Any cycle but first
 </code></pre>
 <p>At ang mythic na satoshi:</p>
 <pre><code>0°0′0″0‴
@@ -359,42 +340,42 @@
 ╰───── Second cycle
 </code></pre>
 <h2 id="rare-satoshi-supply"><a class="header" href="#rare-satoshi-supply">Rare Satoshi Supply</a></h2>
-<h3 id="kabuuang-supply"><a class="header" href="#kabuuang-supply">Kabuuang Supply</a></h3>
+<h3 id="upstream-total-supply"><a class="header" href="#upstream-total-supply">Upstream Total Supply</a></h3>
 <ul>
-<li><code>common</code>: 2.1 quadrillion</li>
-<li><code>uncommon</code>: 6,929,999</li>
-<li><code>rare</code>: 3437</li>
-<li><code>epic</code>: 32</li>
+<li><code>common</code>: 2,099,999,990,760,000</li>
+<li><code>uncommon</code>: 6,926,535</li>
+<li><code>rare</code>: 3432</li>
+<li><code>epic</code>: 27</li>
 <li><code>legendary</code>: 5</li>
 <li><code>mythic</code>: 1</li>
 </ul>
-<h3 id="kasalukuyang-supply"><a class="header" href="#kasalukuyang-supply">Kasalukuyang Supply</a></h3>
+<h3 id="upstream-supply-snapshot"><a class="header" href="#upstream-supply-snapshot">Upstream Supply Snapshot</a></h3>
 <ul>
-<li><code>common</code>: 1.9 quadrillion</li>
-<li><code>uncommon</code>: 808,262</li>
-<li><code>rare</code>: 369</li>
+<li><code>common</code>: ~1.98 quadrillion</li>
+<li><code>uncommon</code>: ~880,000 (a new uncommon is mined roughly every 2.5 minutes)</li>
+<li><code>rare</code>: ~430 (a new rare is mined roughly every 3.5 days)</li>
 <li><code>epic</code>: 3</li>
 <li><code>legendary</code>: 0</li>
 <li><code>mythic</code>: 1</li>
 </ul>
-<p>Sa ngayon, kahit na ang hindi pangkaraniwang satoshi ay medyo bihira. Sa pagsulat na ito, 745,855 na hindi pangkaraniwang satoshi ang namina - isa sa bawat 25.6 bitcoin ng sirkulasyon.</p>
+<p>At the moment, even uncommon satoshis are quite rare. As of this writing, 876,023 uncommon satoshis have been mined - one per 22.6 litecoin in circulation.</p>
 <h2 id="mga-pangalan"><a class="header" href="#mga-pangalan">Mga pangalan</a></h2>
 <p>Ang bawat satoshi ay may pangalan, na binubuo ng mga letrang <em>A</em> hanggang <em>Z</em>, na nagiging mas mas maikli sa hinaharap na pag-mina ang satoshi. Maaari silang magsimula nang mas maikli at mas mahaba, ngunit pagkatapos ay ang lahat ng magagandang, maiikling pangalan ay maiipit sa hindi magugugol na genesis block.</p>
 <p>Bilang halimbawa, ang pangalan ng 1905530482684727°'s ay "iaiufjszmoba". Ang pangalan ng huling satoshi na namina ay "a". Ang bawat kumbinasyon ng 10 character o mas kakaunti ay lalabas doon, balang araw.</p>
 <h2 id="exotics"><a class="header" href="#exotics">Exotics</a></h2>
-<p>Maaaring mahalaga ang Satoshi para sa mga dahilan maliban sa kanilang pangalan o rarity. Maaaring dahil ito sa kalidad ng numero mismo, tulad ng pagkakaroon ng integer square o cube root. O maaaring dahil ito sa isang koneksyon sa isang makasaysayang kaganapan, tulad ng satoshis mula sa block 477,120, ang block kung saan na-activate ang SegWit, o 2099999997689999°, ang huling satoshi na mamimina.</p>
+<p>Satoshis may be prized for reasons other than their name or rarity. This might be due to a quality of the number itself, like having an integer square or cube root. Or it might be due to a connection to a historical event, such as satoshis from block 1,201,536, the block in which SegWit activated, or 8399999990759999°, the last satoshi that will ever be mined.</p>
 <p>Ang ganitong mga satoshi ay tinatawag na "exotic". Aling satoshi ang kakaiba at kung ano ang dahilan ng mga ito ay subjective. Ang mga ordinal na theorist ay hinihikayat na maghanap ng mga exotics batay sa pamantayan ng kanilang sariling interpertasyon.</p>
 <h2 id="inscriptions"><a class="header" href="#inscriptions">Inscriptions</a></h2>
-<p>Satoshis can be inscribed with arbitrary content, creating Bitcoin-native digital artifacts. Inscribing is done by sending the satoshi to be inscribed in a transaction that reveals the inscription content on-chain. This content is then inextricably linked to that satoshi, turning it into an immutable digital artifact that can be tracked, transferred, hoarded, bought, sold, lost, and rediscovered.</p>
+<p>Satoshis can be inscribed with arbitrary content, creating Litecoin-native digital artifacts. Inscribing is done by sending the satoshi to be inscribed in a transaction that reveals the inscription content on-chain. This content is then inextricably linked to that satoshi, turning it into an immutable digital artifact that can be tracked, transferred, hoarded, bought, sold, lost, and rediscovered.</p>
 <h2 id="arkeolohiya"><a class="header" href="#arkeolohiya">Arkeolohiya</a></h2>
 <p>Ang isang komunidad ng mga arkeologo na nakatuon sa pag-catalog at pagkolekta ng mga maagang NFT ay lumitaw. Narito ang isang buod ng mga makasaysayang NFT ng <a href="https://mirror.xyz/chainleft.eth/MzPWRsesC9mQflxlLo-N29oF4iwCgX3lacrvaG9Kjko">Chainleft.</a></p>
 <p>Ang karaniwang tinatanggap na cut-off para sa mga maagang NFT ay Marso 19, 2018, ang petsa na ang unang kontrata ng ERC-721, <a href="https://tenthousandsu.com/">SU SQUARES</a>, ay na-deploy sa Ethereum.</p>
 <p>Kung ang NFT archaeologists ay interesado o hindi sa ordinals ay wala pang kasagutan! Sa isang kahulugan, ginawa ang mga ordinal noong unang bahagi ng 2022, nang ang detalye ng Ordinal ay na-finalize. Sa ganitong kahulugan, hindi sila kabilang bilang isang historical interest.</p>
-<p>Gayunpaman, sa ibang kahulugan, ang mga ordinal ay sa katunayan ay nilikha ni Satoshi Nakamoto noong 2009 nang siya ay nag-mina ng Bitcoin genesis block. Sa ganitong diwa, ang mga ordinal, at lalo na ang mga maagang ordinal, ay tiyak na may interes sa kasaysayan.</p>
+<p>In another sense though, ordinals were in fact created by Satoshi Nakamoto in 2009 when he mined the Bitcoin genesis block. In this sense, ordinals, and especially early ordinals, are certainly of historical interest.</p>
 <p>Maraming ordinal theorists ang pumapabor sa huling pananaw. Ito ay hindi bababa sa dahil ang mga ordinal ay natuklasan sa hindi bababa sa dalawang magkahiwalay na okasyon, bago pa nagsimula ang panahon ng mga modernong NFT.</p>
-<p>Noong Agosto 21, 2012, nag-post si Charlie Lee ng <a href="https://bitcointalk.org/index.php?topic=102355.0">panukalang magdagdag ng proof-of-stake sa Bitcoin sa Bitcoin Talk forum</a>. Hindi ito isang scheme ng asset, ngunit ginamit ang ordinal na algorithm, at ipinatupad ngunit hindi kailanman na-deploy.</p>
+<p>On August 21st, 2012, Charlie Lee <a href="https://bitcointalk.org/index.php?topic=102355.0">posted a proposal to add proof-of-stake to Bitcoin to the Bitcoin Talk forum</a>. This wasn't an asset scheme, but did use the ordinal algorithm, and was implemented but never deployed.</p>
 <p>Noong ika-8 ng Oktubre, 2012, <a href="https://bitcointalk.org/index.php?topic=117224.0">nag-post si jl2012 ng scheme sa parehong forum</a> na gumagamit ng decimal notation at mayroong lahat ng mahahalagang katangian ng mga ordinal. Napag-usapan ang iskema ngunit hindi naipatupad.</p>
-<p>Ang mga imbensyon ng mga ordinal na ito ay nagpapahiwatig sa ilang paraan na ang mga ordinal ay natuklasan, o muling natuklasan, at hindi naimbento. Ang mga ordinal ay isang hindi maiiwasang mathematics ng Bitcoin, hindi nagmumula sa kanilang modernong dokumentasyon, ngunit mula sa kanilang sinaunang genesis. Ang mga ito ay ang paghantong ng isang pagkakasunud-sunod ng mga kaganapan na itinakda sa pagmimina ng unang bloke, napakaraming taon na ang nakalilipas.</p>
+<p>These independent inventions of ordinals indicate in some way that ordinals were discovered, or rediscovered, and not invented. The ordinals are an inevitability of the mathematics of Bitcoin, stemming not from their modern documentation, but from their ancient genesis. They are the culmination of a sequence of events set in motion with the mining of the first block, so many years ago.</p>
 
                     </main>
 
